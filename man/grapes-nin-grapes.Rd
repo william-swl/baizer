@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-basic.R
 \name{\%nin\%}
 \alias{\%nin\%}
-\title{\verb{\%nin\%}, a logical operator for not in calculation}
+\title{\verb{\%nin\%}, not in calculation operator}
 \usage{
 left \%nin\% right
 }
@@ -12,10 +12,10 @@ left \%nin\% right
 \item{right}{right element}
 }
 \value{
-logical value, if left is not in right
+logical value, TRUE if left is not in right
 }
 \description{
-\verb{\%nin\%}, a logical operator for not in calculation
+\verb{\%nin\%}, not in calculation operator
 }
 \examples{
 0 \%nin\% 1:4
