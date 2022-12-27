@@ -35,6 +35,18 @@
       2 Good      8 0.333 I1(0.161),IF(0.161),SI1(0.129),SI2(0.129),VS2(0.129),VVS1(0~
       3 Ideal     8 0.333 SI1(0.147),VS1(0.147),VVS1(0.147),VVS2(0.147),I1(0.118),IF(~
 
+# fancy_count, fine_fmt='clean'
+
+    Code
+      fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "clean")
+    Output
+      # A tibble: 3 x 4
+        cut       n     r clarity                        
+        <chr> <int> <dbl> <chr>                          
+      1 Fair      8 0.333 I1,SI1,VS2,VVS1,IF,SI2,VVS2,VS1
+      2 Good      8 0.333 I1,IF,SI1,SI2,VS2,VVS1,VVS2,VS1
+      3 Ideal     8 0.333 SI1,VS1,VVS1,VVS2,I1,IF,SI2,VS2
+
 # fancy_count, sort=TRUE
 
     Code

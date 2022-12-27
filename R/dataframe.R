@@ -30,7 +30,7 @@ r2c <- function(df, col = "") {
 #' @param df tibble
 #' @param main_group main column as main group
 #' @param fine_group fine column as subgroup
-#' @param fine_fmt output fine column format, `count|ratio`
+#' @param fine_fmt output fine column format, `count|ratio|clean`
 #' @param sort sort by frequency or not
 #'
 #' @return tibble
@@ -49,6 +49,8 @@ fancy_count <- function(df, main_group, fine_group, fine_fmt='count', sort=TRUE)
             dplyr::pull(x, n, .data[[fine_group]]) %>% vector_dump
           } else if (fine_fmt=='ratio') {
             round(dplyr::pull(x, n, .data[[fine_group]]) / sum(x$n), 3) %>% vector_dump
+          } else if (fine_fmt=='clean') {
+            dplyr::pull(x, .data[[fine_group]]) %>% str_c(collapse = ',')
           }
         )
         names(v) <- c(main_group, 'n', fine_group)
