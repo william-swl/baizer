@@ -1,8 +1,8 @@
 
-#' Title
+#' `%nin%`, a logical operator for not in calculation
 #'
-#' @param left
-#' @param right
+#' @param left left element
+#' @param right right element
 #'
 #' @return logical value, if left is not in right
 #' @export
