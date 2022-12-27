@@ -21,3 +21,11 @@ test_that("%!=na%", {
   expect_identical(NA %!=na% NULL, logical(0))
   expect_identical("" %!=na% " ", TRUE)
 })
+
+
+test_that("vector_dump", {
+  expect_identical(vector_dump(c(e=1:4), former_name = TRUE,  collapse=';'),
+                   "e1(1);e2(2);e3(3);e4(4)")
+  expect_identical(vector_dump(c(e=1:4), former_name = FALSE,  collapse=';'),
+                   "1(e1);2(e2);3(e3);4(e4)")
+})

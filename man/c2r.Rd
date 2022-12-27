@@ -18,5 +18,5 @@ data.frame
 wrapper of tibble::column_to_rownames
 }
 \examples{
-df \%>\% c2r('col')
+df \%>\% c2r("col")
 }
