@@ -1,0 +1,9 @@
+^baizer\.Rproj$
+^\.Rproj\.user$
+\.Rhistory
+\.RData
+\.Ruserdata
+\.Rprofile
+node_modules
+package-lock\.json
+package\.json
