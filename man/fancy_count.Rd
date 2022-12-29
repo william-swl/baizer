@@ -13,7 +13,7 @@ fancy_count(df, main_group, fine_group, fine_fmt = "count", sort = TRUE)
 
 \item{fine_group}{fine column as subgroup}
 
-\item{fine_fmt}{output fine column format, \code{count|ratio}}
+\item{fine_fmt}{output fine column format, \code{count|ratio|clean}}
 
 \item{sort}{sort by frequency or not}
 }

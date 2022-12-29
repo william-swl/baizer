@@ -12,7 +12,7 @@ float_to_percent(x, digits = 2)
 \item{digits}{hold n digits after the decimal point}
 }
 \value{
-percent value of x
+percent character of x
 }
 \description{
 from float number to percent number
