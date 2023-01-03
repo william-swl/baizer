@@ -5,6 +5,7 @@ test_that("round_string", {
   expect_identical(round_string(10, 2), "10.00")
   expect_identical(round_string(-9, 2), "-9.00")
   expect_identical(round_string(-9.213, 2), "-9.21")
+  expect_identical(round_string(0.0000002, 2), "0.00")
   expect_identical(round_string(-0.523, 0), "-1")
   expect_identical(round_string("-0.5237", 3), "-0.524")
 })
@@ -16,6 +17,7 @@ test_that("signif_string", {
   expect_identical(signif_string(10, 2), "10")
   expect_identical(signif_string(-9, 2), "-9.0")
   expect_identical(signif_string(-9.213, 2), "-9.2")
+  expect_identical(signif_string(0.0000002, 2), "0.00000020")
   expect_error(signif_string(-0.523, 0))
   expect_identical(signif_string("-0.5237", 3), "-0.524")
 })
@@ -33,4 +35,23 @@ test_that("percent_to_float", {
   expect_identical(percent_to_float('12%', 4), "0.1200")
   expect_identical(percent_to_float("-12.251%", 3), "-0.123")
   expect_error(percent_to_float(1.37))
+})
+
+
+test_that("signif_round_string", {
+  expect_identical(signif_round_string(0.03851), "0.04")
+  expect_identical(signif_round_string(0.000002, 3), "0.00000200")
+  expect_identical(signif_round_string(20.526, 2, 'short'), "21")
+  expect_identical( signif_round_string(20.526, 2, 'long'), "20.53")
+
+})
+
+
+test_that("is.all_zero", {
+  expect_identical(is.all_zero(0.0213), FALSE)
+  expect_identical(is.all_zero('0.000'), TRUE)
+  expect_identical(is.all_zero(NULL), NULL)
+  expect_identical(is.all_zero(NA), NA)
+  expect_error(is.all_zero('NASD'))
+  expect_error(is.all_zero('NULL'))
 })
