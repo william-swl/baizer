@@ -29,3 +29,13 @@ test_that("vector_dump", {
   expect_identical(vector_dump(c(e=1:4), former_name = FALSE,  collapse=';'),
                    "1(e1);2(e2);3(e3);4(e4)")
 })
+
+
+test_that("diff_index", {
+  expect_identical(diff_index('ATTC', 'ATAC'), as.integer(3))
+  expect_identical(diff_index('AATC', 'ATAC'), as.integer(c(2, 3)))
+  expect_identical(diff_index('AATC', 'ATAC', 2), as.integer(3))
+  expect_identical(diff_index('AATC', 'ATAC', 10), NA_integer_)
+  expect_error(diff_index('AATC', c('ATAC', 'AAGC')))
+  expect_error(diff_index('AATC', 'ACT'))
+})

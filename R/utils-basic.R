@@ -52,3 +52,30 @@ vector_dump <- function(named_vector, former_name=TRUE, collapse=','){
       str_c(collapse=collapse)
   }
 }
+
+
+#' the index of nth different character
+#'
+#' @param s1 string1
+#' @param s2 string2
+#' @param nth return the index of nth different character
+#'
+#' @return the index of differences
+#' @export
+#'
+#' @examples diff_index('ATTC', 'ATAC')
+diff_index <- function(s1, s2, nth=0) {
+  if (length(s1) != 1 | length(s2) != 1) {
+    stop('Need 1 length character!')
+  }
+  if (nchar(s1) != nchar(s2)) {
+    stop('Need strings of same nchar')
+  }
+  diff_index <- which(unlist(str_split(s1,''))  != unlist(str_split(s2,'')))
+  if (nth == 0){
+    return (diff_index)
+  } else if (nth > 0) {
+    return (diff_index[nth])
+  }
+}
+
