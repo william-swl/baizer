@@ -28,19 +28,20 @@ You can install the development version of `baizer` like so:
 devtools::install_github("william-swl/baizer")
 ```
 
-## basic utils
-```{r basic-utils}
+```{r library}
 library(baizer)
+```
 
-# use %nin% to get 'not in' logical value
-
+## basic utils
+- use `%nin%` to get 'not in' logical value
+```{r basic-utils-1}
 1 %nin% c(1,2,3)
 
 1 %nin% c(2,3)
+```
 
-
-# use %!=na% to get NA supported 'not equal' logical value
-
+- use `%!=na%` to get `NA` supported 'not equal' logical value
+```{r basic-utils-2}
 NA != 0
 
 NA != NA
@@ -48,17 +49,18 @@ NA != NA
 NA %!=na% 0
 
 NA %!=na% NA
+```
 
-
-# dump a vector into string
-
+- dump a vector into string
+```{r basic-utils-3}
 vector_dump(c('A'=2, 'B'=3, 'C'=4), former_name = TRUE,  collapse=';')
 
 vector_dump(c('A'=2, 'B'=3, 'C'=4), former_name = FALSE,  collapse=',')
+```
 
-
-# return the index of nth different character, return all the indices by default
-
+- return the index of nth different character
+```{r basic-utils-4}
+# return all the indices by default
 diff_index('ATTG', 'ATAC')
 
 diff_index('ATTG', 'ATAC', nth=1)
@@ -69,63 +71,65 @@ diff_index('ATTG', 'ATAC', nth=2)
 
 
 ## numbers
-```{r numbers}
-# better round string
 
+- better round/signif string
+```{r numbers-1}
 round(2.1951, 2)
 
 round_string(2.1951, 2)
 
-# better signif string
-
 signif(2.1951, 3)
 
 signif_string(2.1951, 3)
+```
 
-# signif or round string depend on the character length
-
+- signif or round string depend on the character length
+```{r numbers-2}
 signif_round_string(20.526, 2, 'short')
 signif_round_string(20.526, 2, 'long')
 
 # but will keep the raw value if necessary
-
 signif_round_string(0.000002, 3)
+```
 
-# whether the number string only have zero
-
+- whether the number string only has zero
+```{r numbers-3}
 is.all_zero('0.000')
 
 is.all_zero('0.0001')
+```
 
-# float number to percent
 
+- float and percent trans
+```{r numbers-4}
 float_to_percent(0.123, digits=1)
-
-# percent number to float
 
 percent_to_float('123%', digits=3)
 
 ```
 
 ## dataframe
-```{r dataframe}
-# dataset
-
+- a minimal dataset
+```{r dataframe-1}
 head(mini_diamond)
+```
 
-# shortcut of dplyr::column_to_rownames
+- shortcut of `dplyr::column_to_rownames` and `dplyr::rownames_to_column`
+```{r dataframe-2}
 
 head(mini_diamond) %>% c2r('id')
 
-# shortcut of dplyr::rownames_to_column
-
 head(mini_diamond) %>% c2r('id') %>% r2c('id')
+```
 
-# better count to show a main column and a fine column
+- better count to show a main column and a fine column
+```{r dataframe-3}
 
+# sort by n (default)
 fancy_count(mini_diamond, 'cut', 'clarity')
 
-fancy_count(mini_diamond, 'cut', 'clarity', sort=TRUE)
+# sort by character order
+fancy_count(mini_diamond, 'cut', 'clarity', sort=FALSE)
 
 fancy_count(mini_diamond, 'cut', 'clarity', fine_fmt='ratio')
 

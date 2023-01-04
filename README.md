@@ -16,22 +16,25 @@ You can install the development version of `baizer` like so:
 devtools::install_github("william-swl/baizer")
 ```
 
-## basic utils
-
 ``` r
 library(baizer)
+```
 
-# use %nin% to get 'not in' logical value
+## basic utils
 
+- use `%nin%` to get ‘not in’ logical value
+
+``` r
 1 %nin% c(1,2,3)
 #> [1] FALSE
 
 1 %nin% c(2,3)
 #> [1] TRUE
+```
 
+- use `%!=na%` to get `NA` supported ‘not equal’ logical value
 
-# use %!=na% to get NA supported 'not equal' logical value
-
+``` r
 NA != 0
 #> [1] NA
 
@@ -43,19 +46,22 @@ NA %!=na% 0
 
 NA %!=na% NA
 #> [1] FALSE
+```
 
+- dump a vector into string
 
-# dump a vector into string
-
+``` r
 vector_dump(c('A'=2, 'B'=3, 'C'=4), former_name = TRUE,  collapse=';')
 #> [1] "A(2);B(3);C(4)"
 
 vector_dump(c('A'=2, 'B'=3, 'C'=4), former_name = FALSE,  collapse=',')
 #> [1] "2(A),3(B),4(C)"
+```
 
+- return the index of nth different character
 
-# return the index of nth different character, return all the indices by default
-
+``` r
+# return all the indices by default
 diff_index('ATTG', 'ATAC')
 #> [1] 3 4
 
@@ -68,49 +74,50 @@ diff_index('ATTG', 'ATAC', nth=2)
 
 ## numbers
 
-``` r
-# better round string
+- better round/signif string
 
+``` r
 round(2.1951, 2)
 #> [1] 2.2
 
 round_string(2.1951, 2)
 #> [1] "2.20"
 
-# better signif string
-
 signif(2.1951, 3)
 #> [1] 2.2
 
 signif_string(2.1951, 3)
 #> [1] "2.20"
+```
 
-# signif or round string depend on the character length
+- signif or round string depend on the character length
 
+``` r
 signif_round_string(20.526, 2, 'short')
 #> [1] "21"
 signif_round_string(20.526, 2, 'long')
 #> [1] "20.53"
 
 # but will keep the raw value if necessary
-
 signif_round_string(0.000002, 3)
 #> [1] "0.00000200"
+```
 
-# whether the number string only have zero
+- whether the number string only has zero
 
+``` r
 is.all_zero('0.000')
 #> [1] TRUE
 
 is.all_zero('0.0001')
 #> [1] FALSE
+```
 
-# float number to percent
+- float and percent trans
 
+``` r
 float_to_percent(0.123, digits=1)
 #> [1] "12.3%"
-
-# percent number to float
 
 percent_to_float('123%', digits=3)
 #> [1] "1.230"
@@ -118,9 +125,9 @@ percent_to_float('123%', digits=3)
 
 ## dataframe
 
-``` r
-# dataset
+- a minimal dataset
 
+``` r
 head(mini_diamond)
 #>    id carat   cut clarity price    x    y
 #> 1 120  0.30 Ideal      IF   863 4.32 4.34
@@ -129,8 +136,12 @@ head(mini_diamond)
 #> 4  63  0.34  Good     VS1   596 4.40 4.44
 #> 5  10  2.00  Fair     SI2 15351 7.63 7.59
 #> 6  58  0.90  Good     VS2  3246 6.16 6.07
+```
 
-# shortcut of dplyr::column_to_rownames
+- shortcut of `dplyr::column_to_rownames` and
+  `dplyr::rownames_to_column`
+
+``` r
 
 head(mini_diamond) %>% c2r('id')
 #>     carat   cut clarity price    x    y
@@ -140,8 +151,6 @@ head(mini_diamond) %>% c2r('id')
 #> 63   0.34  Good     VS1   596 4.40 4.44
 #> 10   2.00  Fair     SI2 15351 7.63 7.59
 #> 58   0.90  Good     VS2  3246 6.16 6.07
-
-# shortcut of dplyr::rownames_to_column
 
 head(mini_diamond) %>% c2r('id') %>% r2c('id')
 #> # A tibble: 6 × 7
@@ -153,9 +162,13 @@ head(mini_diamond) %>% c2r('id') %>% r2c('id')
 #> 4 63     0.34 Good  VS1       596  4.4   4.44
 #> 5 10     2    Fair  SI2     15351  7.63  7.59
 #> 6 58     0.9  Good  VS2      3246  6.16  6.07
+```
 
-# better count to show a main column and a fine column
+- better count to show a main column and a fine column
 
+``` r
+
+# sort by n (default)
 fancy_count(mini_diamond, 'cut', 'clarity')
 #> # A tibble: 3 × 4
 #>   cut       n     r clarity                                                
@@ -164,13 +177,14 @@ fancy_count(mini_diamond, 'cut', 'clarity')
 #> 2 Good     31  0.31 I1(5),IF(5),SI1(4),SI2(4),VS2(4),VVS1(4),VVS2(3),VS1(2)
 #> 3 Ideal    34  0.34 SI1(5),VS1(5),VVS1(5),VVS2(5),I1(4),IF(4),SI2(4),VS2(2)
 
-fancy_count(mini_diamond, 'cut', 'clarity', sort=TRUE)
+# sort by character order
+fancy_count(mini_diamond, 'cut', 'clarity', sort=FALSE)
 #> # A tibble: 3 × 4
 #>   cut       n     r clarity                                                
 #>   <chr> <int> <dbl> <chr>                                                  
-#> 1 Fair     35  0.35 I1(5),SI1(5),VS2(5),VVS1(5),IF(4),SI2(4),VVS2(4),VS1(3)
-#> 2 Good     31  0.31 I1(5),IF(5),SI1(4),SI2(4),VS2(4),VVS1(4),VVS2(3),VS1(2)
-#> 3 Ideal    34  0.34 SI1(5),VS1(5),VVS1(5),VVS2(5),I1(4),IF(4),SI2(4),VS2(2)
+#> 1 Fair     35  0.35 I1(5),IF(4),SI1(5),SI2(4),VS1(3),VS2(5),VVS1(5),VVS2(4)
+#> 2 Good     31  0.31 I1(5),IF(5),SI1(4),SI2(4),VS1(2),VS2(4),VVS1(4),VVS2(3)
+#> 3 Ideal    34  0.34 I1(4),IF(4),SI1(5),SI2(4),VS1(5),VS2(2),VVS1(5),VVS2(5)
 
 fancy_count(mini_diamond, 'cut', 'clarity', fine_fmt='ratio')
 #> # A tibble: 3 × 4
