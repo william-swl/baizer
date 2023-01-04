@@ -18,5 +18,5 @@ logical value, TRUE if x and y are not equal
 \verb{\%!=na\%}, not equal calculation operator, support NA
 }
 \examples{
-NA \%!=\% NA
+NA \%!=na\% NA
 }
