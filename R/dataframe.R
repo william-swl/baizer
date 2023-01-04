@@ -50,7 +50,7 @@ fancy_count <- function(df, main_group, fine_group, fine_fmt='count', sort=TRUE)
           } else if (fine_fmt=='ratio') {
             round(dplyr::pull(x, n, .data[[fine_group]]) / sum(x$n), 3) %>% vector_dump
           } else if (fine_fmt=='clean') {
-            dplyr::pull(x, .data[[fine_group]]) %>% str_c(collapse = ',')
+            dplyr::pull(x, .data[[fine_group]]) %>% stringr::str_c(collapse = ',')
           }
         )
         names(v) <- c(main_group, 'n', fine_group)

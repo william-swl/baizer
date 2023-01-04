@@ -44,12 +44,12 @@ vector_dump <- function(named_vector, former_name=TRUE, collapse=','){
   }
   if (former_name==TRUE) {
     named_vector %>%
-      purrr::map2_chr(names(.), ., ~str_glue('{.x}({.y})')) %>%
-      str_c(collapse=collapse)
+      purrr::map2_chr(names(.), ., ~stringr::str_glue('{.x}({.y})')) %>%
+      stringr::str_c(collapse=collapse)
   } else if (former_name==FALSE) {
     named_vector %>%
-      purrr::map2_chr(names(.), ., ~str_glue('{.y}({.x})')) %>%
-      str_c(collapse=collapse)
+      purrr::map2_chr(names(.), ., ~stringr::str_glue('{.y}({.x})')) %>%
+      stringr::str_c(collapse=collapse)
   }
 }
 
@@ -71,7 +71,9 @@ diff_index <- function(s1, s2, nth=0) {
   if (nchar(s1) != nchar(s2)) {
     stop('Need strings of same nchar')
   }
-  diff_index <- which(unlist(str_split(s1,''))  != unlist(str_split(s2,'')))
+  diff_index <- which(
+      unlist(stringr::str_split(s1,''))  != unlist(stringr::str_split(s2,''))
+    )
   if (nth == 0){
     return (diff_index)
   } else if (nth > 0) {

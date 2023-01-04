@@ -1,6 +1,6 @@
 Package: baizer
 Title: Useful functions for data processing
-Version: 0.0.0.9007
+Version: 0.0.0.9008
 Authors@R: 
     person("William", "Song", , "william_swl@163.com", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
