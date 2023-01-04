@@ -21,7 +21,7 @@
 #' @return logical value, TRUE if x and y are not equal
 #' @export
 #'
-#' @examples NA %!=% NA
+#' @examples NA %!=na% NA
 `%!=na%` <- function(x, y) {
   (x != y | (is.na(x) & !is.na(y)) | (is.na(y) & !is.na(x))) & !(is.na(x) & is.na(y))
 }
@@ -58,7 +58,7 @@ vector_dump <- function(named_vector, former_name=TRUE, collapse=','){
 #'
 #' @param s1 string1
 #' @param s2 string2
-#' @param nth return the index of nth different character
+#' @param nth return the index of nth different character. if `0` return all the indices
 #'
 #' @return the index of differences
 #' @export

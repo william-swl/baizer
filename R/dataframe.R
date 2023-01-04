@@ -40,7 +40,7 @@ r2c <- function(df, col = "") {
 fancy_count <- function(df, main_group, fine_group, fine_fmt='count', sort=TRUE) {
   df %>% dplyr::count(.data[[main_group]], .data[[fine_group]], sort=sort) %>%
     dplyr::group_split(.data[[main_group]]) %>%
-    map_dfr(
+    purrr::map_dfr(
       function(x){
         v <- c(
           dplyr::pull(x, .data[[main_group]]) %>% unique,
@@ -56,5 +56,5 @@ fancy_count <- function(df, main_group, fine_group, fine_fmt='count', sort=TRUE)
         names(v) <- c(main_group, 'n', fine_group)
         return (v)
       }
-    ) %>% mutate(n=as.integer(n), r=round(n/sum(n), 3), .after=n)
+    ) %>% dplyr::mutate(n=as.integer(n), r=round(n/sum(n), 3), .after=n)
 }

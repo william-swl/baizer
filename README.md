@@ -6,48 +6,185 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of baizer is to …
+The goal of `baizer` is to …
 
-## Installation
+## installation
 
-You can install the development version of baizer like so:
-
-``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
-```
-
-## Example
-
-This is a basic example which shows you how to solve a common problem:
+You can install the development version of `baizer` like so:
 
 ``` r
-# library(baizer)
-## basic example code
+devtools::install_github("william-swl/baizer")
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+## basic utils
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+library(baizer)
+
+# use %nin% to get 'not in' logical value
+
+1 %nin% c(1,2,3)
+#> [1] FALSE
+
+1 %nin% c(2,3)
+#> [1] TRUE
+
+
+# use %!=na% to get NA supported 'not equal' logical value
+
+NA != 0
+#> [1] NA
+
+NA != NA
+#> [1] NA
+
+NA %!=na% 0
+#> [1] TRUE
+
+NA %!=na% NA
+#> [1] FALSE
+
+
+# dump a vector into string
+
+vector_dump(c('A'=2, 'B'=3, 'C'=4), former_name = TRUE,  collapse=';')
+#> [1] "A(2);B(3);C(4)"
+
+vector_dump(c('A'=2, 'B'=3, 'C'=4), former_name = FALSE,  collapse=',')
+#> [1] "2(A),3(B),4(C)"
+
+
+# return the index of nth different character, return all the indices by default
+
+diff_index('ATTG', 'ATAC')
+#> [1] 3 4
+
+diff_index('ATTG', 'ATAC', nth=1)
+#> [1] 3
+
+diff_index('ATTG', 'ATAC', nth=2)
+#> [1] 4
 ```
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also
-use GitHub Actions to re-render `README.Rmd` every time you push. An
-example workflow can be found here:
-<https://github.com/r-lib/actions/tree/v1/examples>.
+## numbers
 
-You can also embed plots, for example:
+``` r
+# better round string
 
-<img src="man/figures/README-pressure-1.png" width="100%" />
+round(2.1951, 2)
+#> [1] 2.2
 
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+round_string(2.1951, 2)
+#> [1] "2.20"
+
+# better signif string
+
+signif(2.1951, 3)
+#> [1] 2.2
+
+signif_string(2.1951, 3)
+#> [1] "2.20"
+
+# signif or round string depend on the character length
+
+signif_round_string(20.526, 2, 'short')
+#> [1] "21"
+signif_round_string(20.526, 2, 'long')
+#> [1] "20.53"
+
+# but will keep the raw value if necessary
+
+signif_round_string(0.000002, 3)
+#> [1] "0.00000200"
+
+# whether the number string only have zero
+
+is.all_zero('0.000')
+#> [1] TRUE
+
+is.all_zero('0.0001')
+#> [1] FALSE
+
+# float number to percent
+
+float_to_percent(0.123, digits=1)
+#> [1] "12.3%"
+
+# percent number to float
+
+percent_to_float('123%', digits=3)
+#> [1] "1.230"
+```
+
+## dataframe
+
+``` r
+# dataset
+
+head(mini_diamond)
+#>    id carat   cut clarity price    x    y
+#> 1 120  0.30 Ideal      IF   863 4.32 4.34
+#> 2  45  0.40  Good      I1   491 4.64 4.68
+#> 3  59  1.51  Good     VS2 11746 7.27 7.18
+#> 4  63  0.34  Good     VS1   596 4.40 4.44
+#> 5  10  2.00  Fair     SI2 15351 7.63 7.59
+#> 6  58  0.90  Good     VS2  3246 6.16 6.07
+
+# shortcut of dplyr::column_to_rownames
+
+head(mini_diamond) %>% c2r('id')
+#>     carat   cut clarity price    x    y
+#> 120  0.30 Ideal      IF   863 4.32 4.34
+#> 45   0.40  Good      I1   491 4.64 4.68
+#> 59   1.51  Good     VS2 11746 7.27 7.18
+#> 63   0.34  Good     VS1   596 4.40 4.44
+#> 10   2.00  Fair     SI2 15351 7.63 7.59
+#> 58   0.90  Good     VS2  3246 6.16 6.07
+
+# shortcut of dplyr::rownames_to_column
+
+head(mini_diamond) %>% c2r('id') %>% r2c('id')
+#> # A tibble: 6 × 7
+#>   id    carat cut   clarity price     x     y
+#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+#> 1 120    0.3  Ideal IF        863  4.32  4.34
+#> 2 45     0.4  Good  I1        491  4.64  4.68
+#> 3 59     1.51 Good  VS2     11746  7.27  7.18
+#> 4 63     0.34 Good  VS1       596  4.4   4.44
+#> 5 10     2    Fair  SI2     15351  7.63  7.59
+#> 6 58     0.9  Good  VS2      3246  6.16  6.07
+
+# better count to show a main column and a fine column
+
+fancy_count(mini_diamond, 'cut', 'clarity')
+#> # A tibble: 3 × 4
+#>   cut       n     r clarity                                                
+#>   <chr> <int> <dbl> <chr>                                                  
+#> 1 Fair      8 0.333 I1(5),SI1(5),VS2(5),VVS1(5),IF(4),SI2(4),VVS2(4),VS1(3)
+#> 2 Good      8 0.333 I1(5),IF(5),SI1(4),SI2(4),VS2(4),VVS1(4),VVS2(3),VS1(2)
+#> 3 Ideal     8 0.333 SI1(5),VS1(5),VVS1(5),VVS2(5),I1(4),IF(4),SI2(4),VS2(2)
+
+fancy_count(mini_diamond, 'cut', 'clarity', sort=TRUE)
+#> # A tibble: 3 × 4
+#>   cut       n     r clarity                                                
+#>   <chr> <int> <dbl> <chr>                                                  
+#> 1 Fair      8 0.333 I1(5),SI1(5),VS2(5),VVS1(5),IF(4),SI2(4),VVS2(4),VS1(3)
+#> 2 Good      8 0.333 I1(5),IF(5),SI1(4),SI2(4),VS2(4),VVS1(4),VVS2(3),VS1(2)
+#> 3 Ideal     8 0.333 SI1(5),VS1(5),VVS1(5),VVS2(5),I1(4),IF(4),SI2(4),VS2(2)
+
+fancy_count(mini_diamond, 'cut', 'clarity', fine_fmt='ratio')
+#> # A tibble: 3 × 4
+#>   cut       n     r clarity                                                     
+#>   <chr> <int> <dbl> <chr>                                                       
+#> 1 Fair      8 0.333 I1(0.143),SI1(0.143),VS2(0.143),VVS1(0.143),IF(0.114),SI2(0…
+#> 2 Good      8 0.333 I1(0.161),IF(0.161),SI1(0.129),SI2(0.129),VS2(0.129),VVS1(0…
+#> 3 Ideal     8 0.333 SI1(0.147),VS1(0.147),VVS1(0.147),VVS2(0.147),I1(0.118),IF(…
+
+fancy_count(mini_diamond, 'cut', 'clarity', fine_fmt='clean')
+#> # A tibble: 3 × 4
+#>   cut       n     r clarity                        
+#>   <chr> <int> <dbl> <chr>                          
+#> 1 Fair      8 0.333 I1,SI1,VS2,VVS1,IF,SI2,VVS2,VS1
+#> 2 Good      8 0.333 I1,IF,SI1,SI2,VS2,VVS1,VVS2,VS1
+#> 3 Ideal     8 0.333 SI1,VS1,VVS1,VVS2,I1,IF,SI2,VS2
+```

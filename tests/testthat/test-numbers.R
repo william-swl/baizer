@@ -42,7 +42,7 @@ test_that("signif_round_string", {
   expect_identical(signif_round_string(0.03851), "0.04")
   expect_identical(signif_round_string(0.000002, 3), "0.00000200")
   expect_identical(signif_round_string(20.526, 2, 'short'), "21")
-  expect_identical( signif_round_string(20.526, 2, 'long'), "20.53")
+  expect_identical(signif_round_string(20.526, 2, 'long'), "20.53")
 
 })
 

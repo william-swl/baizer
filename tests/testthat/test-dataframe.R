@@ -4,7 +4,7 @@ test_that("c2r", {
 
 test_that("r2c", {
   expect_identical(
-    all(head(mini_diamond) == head(mini_diamond) %>% c2r('id') %>% head %>% r2c('id')),
+    all(head(mini_diamond) == head(mini_diamond) %>% c2r('id') %>% r2c('id')),
     TRUE
   )
 })

@@ -113,7 +113,7 @@ float_to_percent <- function(x, digits = 2) {
 #'
 #' @examples percent_to_float('12%')
 percent_to_float <- function(x, digits = 2) {
-  if (str_detect(x, '^[-\\d\\.]+%$')) {
+  if (stringr::str_detect(x, '^[-\\d\\.]+%$')) {
     x <- stringr::str_replace(x, '%', '') %>% as.double
     round_string(x / 100, digits)
   } else {

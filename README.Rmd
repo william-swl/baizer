@@ -18,37 +18,117 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of baizer is to ...
+The goal of `baizer` is to ...
 
-## Installation
+## installation
 
-You can install the development version of baizer like so:
+You can install the development version of `baizer` like so:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+devtools::install_github("william-swl/baizer")
 ```
 
-## Example
+## basic utils
+```{r basic-utils}
+library(baizer)
 
-This is a basic example which shows you how to solve a common problem:
+# use %nin% to get 'not in' logical value
 
-```{r example}
-# library(baizer)
-## basic example code
+1 %nin% c(1,2,3)
+
+1 %nin% c(2,3)
+
+
+# use %!=na% to get NA supported 'not equal' logical value
+
+NA != 0
+
+NA != NA
+
+NA %!=na% 0
+
+NA %!=na% NA
+
+
+# dump a vector into string
+
+vector_dump(c('A'=2, 'B'=3, 'C'=4), former_name = TRUE,  collapse=';')
+
+vector_dump(c('A'=2, 'B'=3, 'C'=4), former_name = FALSE,  collapse=',')
+
+
+# return the index of nth different character, return all the indices by default
+
+diff_index('ATTG', 'ATAC')
+
+diff_index('ATTG', 'ATAC', nth=1)
+
+diff_index('ATTG', 'ATAC', nth=2)
+
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
 
-```{r cars}
-summary(cars)
+## numbers
+```{r numbers}
+# better round string
+
+round(2.1951, 2)
+
+round_string(2.1951, 2)
+
+# better signif string
+
+signif(2.1951, 3)
+
+signif_string(2.1951, 3)
+
+# signif or round string depend on the character length
+
+signif_round_string(20.526, 2, 'short')
+signif_round_string(20.526, 2, 'long')
+
+# but will keep the raw value if necessary
+
+signif_round_string(0.000002, 3)
+
+# whether the number string only have zero
+
+is.all_zero('0.000')
+
+is.all_zero('0.0001')
+
+# float number to percent
+
+float_to_percent(0.123, digits=1)
+
+# percent number to float
+
+percent_to_float('123%', digits=3)
+
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/v1/examples>.
+## dataframe
+```{r dataframe}
+# dataset
 
-You can also embed plots, for example:
+head(mini_diamond)
 
-```{r pressure, echo = FALSE}
-plot(pressure)
+# shortcut of dplyr::column_to_rownames
+
+head(mini_diamond) %>% c2r('id')
+
+# shortcut of dplyr::rownames_to_column
+
+head(mini_diamond) %>% c2r('id') %>% r2c('id')
+
+# better count to show a main column and a fine column
+
+fancy_count(mini_diamond, 'cut', 'clarity')
+
+fancy_count(mini_diamond, 'cut', 'clarity', sort=TRUE)
+
+fancy_count(mini_diamond, 'cut', 'clarity', fine_fmt='ratio')
+
+fancy_count(mini_diamond, 'cut', 'clarity', fine_fmt='clean')
+
 ```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
