@@ -38,18 +38,18 @@ r2c <- function(df, col = "") {
 #'
 #' @examples fancy_count(mini_diamond, 'cut', 'clarity')
 fancy_count <- function(df, main_group, fine_group, fine_fmt='count', sort=TRUE) {
-  main_group_count <- df %>% dplyr::count(.data[[main_group]]) %>% dplyr::pull('n', main_group)
-  fine_group_count <- df %>% dplyr::count(.data[[main_group]], .data[[fine_group]], sort=sort) %>%
+  fine_group_count <- df %>%
+    dplyr::count(.data[[main_group]], .data[[fine_group]], sort=sort) %>%
     dplyr::group_split(.data[[main_group]]) %>%
     purrr::map_dfr(
       function(x){
         v <- c(
           dplyr::pull(x, .data[[main_group]]) %>% unique,
-          nrow(x),
+          sum(x$n),
           if (fine_fmt=='count') {
             dplyr::pull(x, n, .data[[fine_group]]) %>% vector_dump
           } else if (fine_fmt=='ratio') {
-            round(dplyr::pull(x, n, .data[[fine_group]]) / sum(x$n), 3) %>% vector_dump
+            round(dplyr::pull(x, n, .data[[fine_group]]) / sum(x$n), 2) %>% vector_dump
           } else if (fine_fmt=='clean') {
             dplyr::pull(x, .data[[fine_group]]) %>% stringr::str_c(collapse = ',')
           }
@@ -58,6 +58,16 @@ fancy_count <- function(df, main_group, fine_group, fine_fmt='count', sort=TRUE)
         return (v)
       }
     )
-  fine_group_count$n <- main_group_count[dplyr::pull(fine_group_count, main_group)]
-  fine_group_count %>% dplyr::mutate(n=as.integer(n), r=round(n/sum(n), 3), .after=n)
+
+  # ratio
+  res <- fine_group_count %>%
+    dplyr::mutate(n=as.integer(n), r=round(n/sum(n), 2), .after=n)
+
+  # sort the main_group
+  if (sort==TRUE) {
+    res <- res %>% dplyr::arrange(desc(n))
+  }
+
+  return (res)
+
 }
