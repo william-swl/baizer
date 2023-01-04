@@ -6,10 +6,12 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-In ancient Chinese mythology, Bai Ze is a divine beast that understands
-the feelings of all creatures. The purpose of `baizer` is to provide a
-set of commonly used and useful functions in data processing. Hope this
-package knows what you want, and solves your problems more efficient!
+- In ancient Chinese mythology, Bai Ze is a divine beast that
+  understands the feelings of all creatures.
+- The purpose of `baizer` is to provide a set of commonly used and
+  useful functions in data processing.
+- Hope this package knows what you want, and solves your problems more
+  efficient!
 
 ## installation
 
