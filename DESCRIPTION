@@ -12,6 +12,7 @@ Imports:
     dplyr,
     magrittr,
     purrr,
+    rlang,
     stats,
     stringr,
     tibble

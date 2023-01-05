@@ -47,9 +47,9 @@ fancy_count <- function(df, main_group, fine_group, fine_fmt='count', sort=TRUE)
           dplyr::pull(x, .data[[main_group]]) %>% unique,
           sum(x$n),
           if (fine_fmt=='count') {
-            dplyr::pull(x, n, .data[[fine_group]]) %>% collapse_vector
+            dplyr::pull(x, .data$n, .data[[fine_group]]) %>% collapse_vector
           } else if (fine_fmt=='ratio') {
-            round(dplyr::pull(x, n, .data[[fine_group]]) / sum(x$n), 2) %>% collapse_vector
+            round(dplyr::pull(x, .data$n, .data[[fine_group]]) / sum(x$n), 2) %>% collapse_vector
           } else if (fine_fmt=='clean') {
             dplyr::pull(x, .data[[fine_group]]) %>% stringr::str_c(collapse = ',')
           }
@@ -61,11 +61,12 @@ fancy_count <- function(df, main_group, fine_group, fine_fmt='count', sort=TRUE)
 
   # ratio
   res <- fine_group_count %>%
-    dplyr::mutate(n=as.integer(n), r=round(n/sum(n), 2), .after=n)
+    dplyr::mutate(n=as.integer(.data$n),
+                  r=round(.data$n/sum(.data$n), 2), .after='n')
 
   # sort the main_group
   if (sort==TRUE) {
-    res <- res %>% dplyr::arrange(dplyr::desc(n))
+    res <- res %>% dplyr::arrange(dplyr::desc(.data$n))
   }
 
   return (res)

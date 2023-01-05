@@ -42,15 +42,15 @@ library(baizer)
 1 %nin% c(2,3)
 ```
 
-- use `%!=na%` to get `NA` supported 'not equal' logical value
+- use `%neq%` to get `NA` supported 'not equal' logical value
 ```{r basic-utils-2}
 NA != 0
 
 NA != NA
 
-NA %!=na% 0
+NA %neq% 0
 
-NA %!=na% NA
+NA %neq% NA
 ```
 
 - dump a vector into string

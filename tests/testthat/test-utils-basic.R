@@ -12,15 +12,16 @@ test_that("%nin%", {
 })
 
 
-test_that("%!=na%", {
-  expect_identical(0 %!=na% 0, FALSE)
-  expect_identical(0 %!=na% 1, TRUE)
-  expect_identical(0 %!=na% NA, TRUE)
-  expect_identical(NA %!=na% NA, FALSE)
-  expect_identical(NULL %!=na% NA, logical(0))
-  expect_identical(NA %!=na% NULL, logical(0))
-  expect_identical("" %!=na% " ", TRUE)
+test_that("%neq%", {
+  expect_identical(0 %neq% 0, FALSE)
+  expect_identical(0 %neq% 1, TRUE)
+  expect_identical(0 %neq% NA, TRUE)
+  expect_identical(NA %neq% NA, FALSE)
+  expect_identical(NULL %neq% NA, logical(0))
+  expect_identical(NA %neq% NULL, logical(0))
+  expect_identical("" %neq% " ", TRUE)
 })
+
 
 
 test_that("collapse_vector", {

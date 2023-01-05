@@ -21,8 +21,8 @@
 #' @return logical value, TRUE if x and y are not equal
 #' @export
 #'
-#' @examples NA %!=na% NA
-`%!=na%` <- function(x, y) {
+#' @examples 1 %neq% NA
+`%neq%` <- function(x, y) {
   (x != y | (is.na(x) & !is.na(y)) | (is.na(y) & !is.na(x))) & !(is.na(x) & is.na(y))
 }
 

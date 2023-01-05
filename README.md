@@ -37,7 +37,7 @@ library(baizer)
 #> [1] TRUE
 ```
 
-- use `%!=na%` to get `NA` supported ‘not equal’ logical value
+- use `%neq%` to get `NA` supported ‘not equal’ logical value
 
 ``` r
 NA != 0
@@ -46,10 +46,10 @@ NA != 0
 NA != NA
 #> [1] NA
 
-NA %!=na% 0
+NA %neq% 0
 #> [1] TRUE
 
-NA %!=na% NA
+NA %neq% NA
 #> [1] FALSE
 ```
 
