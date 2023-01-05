@@ -71,3 +71,46 @@ fancy_count <- function(df, main_group, fine_group, fine_fmt='count', sort=TRUE)
   return (res)
 
 }
+
+#' better slice by an ordered vector
+#'
+#' @param df tibble
+#' @param by slice by this column, this value must has no duplicated value
+#' @param ordered_vector ordered vector
+#' @param na.rm remove NA or unknown values from ordered vector
+#' @param dup.rm remove duplication values from ordered vector
+#'
+#' @return sliced tibble
+#' @export
+#'
+#' @examples ordered_slice(mini_diamond, 'id', c('id-3', 'id-2'))
+ordered_slice <- function(df, by, ordered_vector, na.rm=FALSE, dup.rm=FALSE) {
+
+  if (any(duplicated(df[[by]]))) {
+    stop('Column values not unique!')
+  }
+
+  index <- match(ordered_vector, df[[by]])
+  na_count <- sum(is.na(index))
+  dup_count <- sum(duplicated(index))
+
+  if (na_count > 0) {
+    warning(stringr::str_c(na_count, ' NA values!'), immediate.=TRUE)
+  }
+
+  if (dup_count > 0) {
+    warning(stringr::str_c(dup_count, ' duplicated values!'), immediate.=TRUE)
+  }
+
+  if (na.rm==TRUE) {
+    index <- na.omit(index)
+  }
+
+  if (dup.rm==TRUE) {
+    index <- unique(index)
+  }
+
+  return (df[index, ])
+
+}
+

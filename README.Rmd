@@ -152,3 +152,11 @@ fancy_count(mini_diamond, 'cut', 'clarity', fine_fmt='ratio')
 fancy_count(mini_diamond, 'cut', 'clarity', fine_fmt='clean')
 
 ```
+
+- better slice by an ordered vector
+```{r dataframe-4}
+ordered_slice(mini_diamond, 'id', c('id-3', 'id-2'))
+
+# support NA and known values in ordered vector
+ordered_slice(mini_diamond, 'id', c('id-3', 'id-2', 'unknown_id', 'id-3', NA))
+```

@@ -59,3 +59,44 @@
       2 Ideal    34  0.34 SI1(5),VS1(5),VVS1(5),VVS2(5),I1(4),IF(4),SI2(4),VS2(2)
       3 Good     31  0.31 I1(5),IF(5),SI1(4),SI2(4),VS2(4),VVS1(4),VVS2(3),VS1(2)
 
+# ordered_slice
+
+    Code
+      ordered_slice(mini_diamond, "id", c("id-3", "id-2"))
+    Output
+      # A tibble: 2 x 7
+        id    carat cut   clarity price     x     y
+        <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+      1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+      2 id-2   1.51 Good  VS2     11746  7.27  7.18
+
+# ordered_slice, with NA and dup
+
+    Code
+      ordered_slice(mini_diamond, "id", c("id-3", "id-2", "id-3", NA, NA))
+    Warning <simpleWarning>
+      2 NA values!
+      2 duplicated values!
+    Output
+      # A tibble: 5 x 7
+        id    carat cut   clarity price     x     y
+        <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+      1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+      2 id-2   1.51 Good  VS2     11746  7.27  7.18
+      3 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+      4 <NA>  NA    <NA>  <NA>       NA NA    NA   
+      5 <NA>  NA    <NA>  <NA>       NA NA    NA   
+
+# ordered_slice, with unknown id
+
+    Code
+      ordered_slice(mini_diamond, "id", c("id-3", "unknown-id"))
+    Warning <simpleWarning>
+      1 NA values!
+    Output
+      # A tibble: 2 x 7
+        id    carat cut   clarity price     x     y
+        <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+      1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+      2 <NA>  NA    <NA>  <NA>       NA NA    NA   
+

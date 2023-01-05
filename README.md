@@ -230,3 +230,29 @@ fancy_count(mini_diamond, 'cut', 'clarity', fine_fmt='clean')
 #> 2 Ideal    34  0.34 SI1,VS1,VVS1,VVS2,I1,IF,SI2,VS2
 #> 3 Good     31  0.31 I1,IF,SI1,SI2,VS2,VVS1,VVS2,VS1
 ```
+
+- better slice by an ordered vector
+
+``` r
+ordered_slice(mini_diamond, 'id', c('id-3', 'id-2'))
+#> # A tibble: 2 × 7
+#>   id    carat cut   clarity price     x     y
+#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+#> 1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+#> 2 id-2   1.51 Good  VS2     11746  7.27  7.18
+
+# support NA and known values in ordered vector
+ordered_slice(mini_diamond, 'id', c('id-3', 'id-2', 'unknown_id', 'id-3', NA))
+#> Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 2
+#> NA values!
+#> Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 2
+#> duplicated values!
+#> # A tibble: 5 × 7
+#>   id    carat cut   clarity price     x     y
+#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+#> 1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+#> 2 id-2   1.51 Good  VS2     11746  7.27  7.18
+#> 3 <NA>  NA    <NA>  <NA>       NA NA    NA   
+#> 4 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+#> 5 <NA>  NA    <NA>  <NA>       NA NA    NA
+```
