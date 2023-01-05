@@ -77,6 +77,13 @@ diff_index('ATTG', 'ATAC', nth=2)
 #> [1] 4
 ```
 
+- trans fixed string into regular expression string
+
+``` r
+fix_to_regex('ABC|?(*)')
+#> [1] "ABC\\|\\?\\(\\*\\)"
+```
+
 ## numbers
 
 - better round/signif string
@@ -126,6 +133,14 @@ float_to_percent(0.123, digits=1)
 
 percent_to_float('123%', digits=3)
 #> [1] "1.230"
+```
+
+- wrapper of the functions to process number string with prefix and
+  suffix
+
+``` r
+number_fun_wrapper('>=2.134%', function(x) round(x, 2))
+#> [1] ">=2.13%"
 ```
 
 ## dataframe

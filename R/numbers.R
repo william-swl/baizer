@@ -121,3 +121,42 @@ percent_to_float <- function(x, digits = 2) {
   }
 }
 
+
+
+#' wrapper of the functions to process number string with prefix and suffix
+#'
+#' @param x number string vector with prefix and suffix
+#' @param fun process function
+#' @param prefix_ext prefix extention
+#' @param suffix_ext suffix extention
+#'
+#' @return processed number with prefix and suffix
+#' @export
+#'
+#' @examples number_fun_wrapper('>=2.134%', function(x) round(x, 2))
+number_fun_wrapper <- function(x, fun=~.x, prefix_ext=NULL,
+                               suffix_ext=NULL, verbose=FALSE) {
+
+  prefix <- c(c('>=', '<=', '!=', '~=', '=', '>', '<', '~'),
+              fix_to_regex(prefix_ext))
+  suffix <- c(c('%%', '%'), fix_to_regex(suffix_ext))
+
+  pattern <- stringr::str_c('(^', stringr::str_c(prefix, collapse='|'), '{0,1})',
+                            '([\\d\\.]+)',
+                            '(', stringr::str_c(suffix, collapse='|'), '{0,1}$)')
+
+  match <- stringr::str_match(x, pattern)
+
+  if (verbose==TRUE) {
+    print(match)
+  }
+
+  modify_number <- as.double(match[,3]) %>%
+    purrr::map_chr(~fun(.x) %>% as.character)
+
+  res <- stringr::str_c(match[,2], modify_number, match[,4])
+
+  return (res)
+
+}
+

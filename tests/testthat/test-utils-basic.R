@@ -39,3 +39,8 @@ test_that("diff_index", {
   expect_error(diff_index('AATC', c('ATAC', 'AAGC')))
   expect_error(diff_index('AATC', 'ACT'))
 })
+
+
+test_that("fix_to_regex", {
+  expect_identical(fix_to_regex('ABC|?(*)'), 'ABC\\|\\?\\(\\*\\)')
+})

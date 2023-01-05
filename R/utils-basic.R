@@ -81,3 +81,19 @@ diff_index <- function(s1, s2, nth=0) {
   }
 }
 
+
+
+#' trans fixed string into regular expression string
+#'
+#' @param p raw fixed pattern
+#'
+#' @return regex pattern
+#' @export
+#'
+#' @examples fix_to_regex('ABC|?(*)')
+fix_to_regex <- function(p) {
+  special_char <- c('^$|()[]{}?*+.') %>% stringr::str_split('') %>% unlist
+  replace_dict <- special_char %>% stringr::str_c('\\', .)
+  names(replace_dict) <- special_char
+  stringr::str_replace_all(p, pattern=stringr::fixed(replace_dict))
+}

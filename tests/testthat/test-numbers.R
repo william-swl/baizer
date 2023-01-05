@@ -55,3 +55,15 @@ test_that("is.all_zero", {
   expect_error(is.all_zero('NASD'))
   expect_error(is.all_zero('NULL'))
 })
+
+
+test_that("number_fun_wrapper", {
+  expect_identical(
+    number_fun_wrapper('>=2.134%', function(x) round(x, 2)), '>=2.13%')
+  expect_identical(
+      number_fun_wrapper(c('>=2.134%', '~0.2451'), function(x) round(x, 2)),
+      c('>=2.13%', '~0.25'))
+  expect_identical(
+    number_fun_wrapper('>=2.134|', function(x) round(x, 2), suffix_ext='|'), '>=2.13|')
+
+})
