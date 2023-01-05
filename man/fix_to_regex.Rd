@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-basic.R
 \name{fix_to_regex}
 \alias{fix_to_regex}
-\title{trans fixed character into regex character}
+\title{trans fixed string into regular expression string}
 \usage{
 fix_to_regex(p)
 }
@@ -13,7 +13,7 @@ fix_to_regex(p)
 regex pattern
 }
 \description{
-trans fixed character into regex character
+trans fixed string into regular expression string
 }
 \examples{
 fix_to_regex('ABC|?(*)')

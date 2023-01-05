@@ -3,13 +3,13 @@
     Code
       head(mini_diamond) %>% c2r("id")
     Output
-          carat   cut clarity price    x    y
-      120  0.30 Ideal      IF   863 4.32 4.34
-      45   0.40  Good      I1   491 4.64 4.68
-      59   1.51  Good     VS2 11746 7.27 7.18
-      63   0.34  Good     VS1   596 4.40 4.44
-      10   2.00  Fair     SI2 15351 7.63 7.59
-      58   0.90  Good     VS2  3246 6.16 6.07
+           carat   cut clarity price    x    y
+      id-1  1.02  Fair     SI1  3027 6.25 6.18
+      id-2  1.51  Good     VS2 11746 7.27 7.18
+      id-3  0.52 Ideal    VVS1  2029 5.15 5.18
+      id-4  1.54 Ideal     SI2  9452 7.43 7.45
+      id-5  0.72 Ideal     VS1  2498 5.73 5.77
+      id-6  2.02  Fair     SI2 14080 8.33 8.37
 
 # fancy_count, fine_fmt='count'
 

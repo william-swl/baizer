@@ -84,6 +84,14 @@ fix_to_regex('ABC|?(*)')
 #> [1] "ABC\\|\\?\\(\\*\\)"
 ```
 
+- detect possible duplication in a vector, ignore case, blank and
+  special character
+
+``` r
+detect_dup(c('a', 'C_', 'c -', '#A'))
+#> [1] "a"   "#A"  "C_"  "c -"
+```
+
 ## numbers
 
 - better round/signif string
@@ -149,13 +157,13 @@ number_fun_wrapper('>=2.134%', function(x) round(x, 2))
 
 ``` r
 head(mini_diamond)
-#>    id carat   cut clarity price    x    y
-#> 1 120  0.30 Ideal      IF   863 4.32 4.34
-#> 2  45  0.40  Good      I1   491 4.64 4.68
-#> 3  59  1.51  Good     VS2 11746 7.27 7.18
-#> 4  63  0.34  Good     VS1   596 4.40 4.44
-#> 5  10  2.00  Fair     SI2 15351 7.63 7.59
-#> 6  58  0.90  Good     VS2  3246 6.16 6.07
+#>     id carat   cut clarity price    x    y
+#> 1 id-1  1.02  Fair     SI1  3027 6.25 6.18
+#> 2 id-2  1.51  Good     VS2 11746 7.27 7.18
+#> 3 id-3  0.52 Ideal    VVS1  2029 5.15 5.18
+#> 4 id-4  1.54 Ideal     SI2  9452 7.43 7.45
+#> 5 id-5  0.72 Ideal     VS1  2498 5.73 5.77
+#> 6 id-6  2.02  Fair     SI2 14080 8.33 8.37
 ```
 
 - shortcut of `dplyr::column_to_rownames` and
@@ -164,24 +172,24 @@ head(mini_diamond)
 ``` r
 
 head(mini_diamond) %>% c2r('id')
-#>     carat   cut clarity price    x    y
-#> 120  0.30 Ideal      IF   863 4.32 4.34
-#> 45   0.40  Good      I1   491 4.64 4.68
-#> 59   1.51  Good     VS2 11746 7.27 7.18
-#> 63   0.34  Good     VS1   596 4.40 4.44
-#> 10   2.00  Fair     SI2 15351 7.63 7.59
-#> 58   0.90  Good     VS2  3246 6.16 6.07
+#>      carat   cut clarity price    x    y
+#> id-1  1.02  Fair     SI1  3027 6.25 6.18
+#> id-2  1.51  Good     VS2 11746 7.27 7.18
+#> id-3  0.52 Ideal    VVS1  2029 5.15 5.18
+#> id-4  1.54 Ideal     SI2  9452 7.43 7.45
+#> id-5  0.72 Ideal     VS1  2498 5.73 5.77
+#> id-6  2.02  Fair     SI2 14080 8.33 8.37
 
 head(mini_diamond) %>% c2r('id') %>% r2c('id')
 #> # A tibble: 6 × 7
 #>   id    carat cut   clarity price     x     y
 #>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
-#> 1 120    0.3  Ideal IF        863  4.32  4.34
-#> 2 45     0.4  Good  I1        491  4.64  4.68
-#> 3 59     1.51 Good  VS2     11746  7.27  7.18
-#> 4 63     0.34 Good  VS1       596  4.4   4.44
-#> 5 10     2    Fair  SI2     15351  7.63  7.59
-#> 6 58     0.9  Good  VS2      3246  6.16  6.07
+#> 1 id-1   1.02 Fair  SI1      3027  6.25  6.18
+#> 2 id-2   1.51 Good  VS2     11746  7.27  7.18
+#> 3 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+#> 4 id-4   1.54 Ideal SI2      9452  7.43  7.45
+#> 5 id-5   0.72 Ideal VS1      2498  5.73  5.77
+#> 6 id-6   2.02 Fair  SI2     14080  8.33  8.37
 ```
 
 - better count to show a main column and a fine column

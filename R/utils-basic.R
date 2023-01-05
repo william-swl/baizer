@@ -97,3 +97,30 @@ fix_to_regex <- function(p) {
   names(replace_dict) <- special_char
   stringr::str_replace_all(p, pattern=stringr::fixed(replace_dict))
 }
+
+
+
+#' detect possible duplication in a vector, ignore case, blank and special character
+#'
+#' @param vector vector possiblely with duplication
+#' @param index return duplication index
+#'
+#' @return duplication sub-vector
+#' @export
+#'
+#' @examples detect_dup(c('a', 'C_', 'c -', '#A'))
+detect_dup <- function(vector, index=FALSE) {
+  modified_vector <- vector %>% stringr::str_to_lower() %>%
+    stringr::str_extract_all('[\\w]+') %>%
+    purrr::map_chr(~stringr::str_c(.x, collapse='')) %>%
+    stringr::str_replace_all('_', '')
+  dup_index <- duplicated(modified_vector) | duplicated(modified_vector, fromLast=TRUE)
+  dup_order <- order(modified_vector[dup_index])
+  res <- vector[dup_index][dup_order]
+
+  if (index==TRUE) {
+    return (dup_index)
+  } else {
+    return (res)
+  }
+}

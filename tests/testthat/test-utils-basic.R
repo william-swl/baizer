@@ -44,3 +44,10 @@ test_that("diff_index", {
 test_that("fix_to_regex", {
   expect_identical(fix_to_regex('ABC|?(*)'), 'ABC\\|\\?\\(\\*\\)')
 })
+
+
+
+test_that("detect_dup", {
+  expect_identical(detect_dup(c('a', 'C_', 'c -', '#A')),
+                   c('a', '#A', 'C_', 'c -'))
+})

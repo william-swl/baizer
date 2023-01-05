@@ -76,6 +76,11 @@ diff_index('ATTG', 'ATAC', nth=2)
 fix_to_regex('ABC|?(*)')
 ```
 
+- detect possible duplication in a vector, ignore case, blank and special character
+```{r basic-utils-6}
+detect_dup(c('a', 'C_', 'c -', '#A'))
+```
+
 ## numbers
 
 - better round/signif string
