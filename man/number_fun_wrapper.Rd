@@ -20,6 +20,8 @@ number_fun_wrapper(
 \item{prefix_ext}{prefix extention}
 
 \item{suffix_ext}{suffix extention}
+
+\item{verbose}{print more details}
 }
 \value{
 processed number with prefix and suffix

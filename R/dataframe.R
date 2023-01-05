@@ -65,7 +65,7 @@ fancy_count <- function(df, main_group, fine_group, fine_fmt='count', sort=TRUE)
 
   # sort the main_group
   if (sort==TRUE) {
-    res <- res %>% dplyr::arrange(desc(n))
+    res <- res %>% dplyr::arrange(dplyr::desc(n))
   }
 
   return (res)
@@ -103,7 +103,7 @@ ordered_slice <- function(df, by, ordered_vector, na.rm=FALSE, dup.rm=FALSE) {
   }
 
   if (na.rm==TRUE) {
-    index <- na.omit(index)
+    index <- stats::na.omit(index)
   }
 
   if (dup.rm==TRUE) {

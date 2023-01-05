@@ -1,5 +1,5 @@
 
-#' `%nin%`, not in calculation operator
+#' not in calculation operator
 #'
 #' @param left left element
 #' @param right right element
@@ -13,7 +13,7 @@
 }
 
 
-#' `%!=na%`, not equal calculation operator, support NA
+#' not equal calculation operator, support NA
 #'
 #' @param x value x
 #' @param y value y

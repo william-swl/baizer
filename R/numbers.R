@@ -129,6 +129,7 @@ percent_to_float <- function(x, digits = 2) {
 #' @param fun process function
 #' @param prefix_ext prefix extention
 #' @param suffix_ext suffix extention
+#' @param verbose print more details
 #'
 #' @return processed number with prefix and suffix
 #' @export

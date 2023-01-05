@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-basic.R
 \name{\%!=na\%}
 \alias{\%!=na\%}
-\title{\verb{\%!=na\%}, not equal calculation operator, support NA}
+\title{not equal calculation operator, support NA}
 \usage{
 x \%!=na\% y
 }
@@ -15,7 +15,7 @@ x \%!=na\% y
 logical value, TRUE if x and y are not equal
 }
 \description{
-\verb{\%!=na\%}, not equal calculation operator, support NA
+not equal calculation operator, support NA
 }
 \examples{
 NA \%!=na\% NA
