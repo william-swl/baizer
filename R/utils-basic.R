@@ -37,19 +37,19 @@
 #' @return character
 #' @export
 #'
-#' @examples collapse_vector(c(e=1:4), front_name = TRUE,  collapse=';')
-collapse_vector <- function(named_vector, front_name=TRUE, collapse=','){
+#' @examples collapse_vector(c(e = 1:4), front_name = TRUE, collapse = ";")
+collapse_vector <- function(named_vector, front_name = TRUE, collapse = ",") {
   if (is.null(names(named_vector))) {
-    stop('Not a named vector!')
+    stop("Not a named vector!")
   }
-  if (front_name==TRUE) {
+  if (front_name == TRUE) {
     named_vector %>%
-      purrr::map2_chr(names(.), ., ~stringr::str_glue('{.x}({.y})')) %>%
-      stringr::str_c(collapse=collapse)
-  } else if (front_name==FALSE) {
+      purrr::map2_chr(names(.), ., ~ stringr::str_glue("{.x}({.y})")) %>%
+      stringr::str_c(collapse = collapse)
+  } else if (front_name == FALSE) {
     named_vector %>%
-      purrr::map2_chr(names(.), ., ~stringr::str_glue('{.y}({.x})')) %>%
-      stringr::str_c(collapse=collapse)
+      purrr::map2_chr(names(.), ., ~ stringr::str_glue("{.y}({.x})")) %>%
+      stringr::str_c(collapse = collapse)
   }
 }
 
@@ -63,21 +63,21 @@ collapse_vector <- function(named_vector, front_name=TRUE, collapse=','){
 #' @return the index of differences
 #' @export
 #'
-#' @examples diff_index('ATTC', 'ATAC')
-diff_index <- function(s1, s2, nth=0) {
+#' @examples diff_index("ATTC", "ATAC")
+diff_index <- function(s1, s2, nth = 0) {
   if (length(s1) != 1 | length(s2) != 1) {
-    stop('Need 1 length character!')
+    stop("Need 1 length character!")
   }
   if (nchar(s1) != nchar(s2)) {
-    stop('Need strings of same nchar')
+    stop("Need strings of same nchar")
   }
   diff_index <- which(
-      unlist(stringr::str_split(s1,''))  != unlist(stringr::str_split(s2,''))
-    )
-  if (nth == 0){
-    return (diff_index)
+    unlist(stringr::str_split(s1, "")) != unlist(stringr::str_split(s2, ""))
+  )
+  if (nth == 0) {
+    return(diff_index)
   } else if (nth > 0) {
-    return (diff_index[nth])
+    return(diff_index[nth])
   }
 }
 
@@ -90,12 +90,14 @@ diff_index <- function(s1, s2, nth=0) {
 #' @return regex pattern
 #' @export
 #'
-#' @examples fix_to_regex('ABC|?(*)')
+#' @examples fix_to_regex("ABC|?(*)")
 fix_to_regex <- function(p) {
-  special_char <- c('^$|()[]{}?*+.') %>% stringr::str_split('') %>% unlist
-  replace_dict <- special_char %>% stringr::str_c('\\', .)
+  special_char <- c("^$|()[]{}?*+.") %>%
+    stringr::str_split("") %>%
+    unlist()
+  replace_dict <- special_char %>% stringr::str_c("\\", .)
   names(replace_dict) <- special_char
-  stringr::str_replace_all(p, pattern=stringr::fixed(replace_dict))
+  stringr::str_replace_all(p, pattern = stringr::fixed(replace_dict))
 }
 
 
@@ -108,19 +110,20 @@ fix_to_regex <- function(p) {
 #' @return duplication sub-vector
 #' @export
 #'
-#' @examples detect_dup(c('a', 'C_', 'c -', '#A'))
-detect_dup <- function(vector, index=FALSE) {
-  modified_vector <- vector %>% stringr::str_to_lower() %>%
-    stringr::str_extract_all('[\\w]+') %>%
-    purrr::map_chr(~stringr::str_c(.x, collapse='')) %>%
-    stringr::str_replace_all('_', '')
-  dup_index <- duplicated(modified_vector) | duplicated(modified_vector, fromLast=TRUE)
+#' @examples detect_dup(c("a", "C_", "c -", "#A"))
+detect_dup <- function(vector, index = FALSE) {
+  modified_vector <- vector %>%
+    stringr::str_to_lower() %>%
+    stringr::str_extract_all("[\\w]+") %>%
+    purrr::map_chr(~ stringr::str_c(.x, collapse = "")) %>%
+    stringr::str_replace_all("_", "")
+  dup_index <- duplicated(modified_vector) | duplicated(modified_vector, fromLast = TRUE)
   dup_order <- order(modified_vector[dup_index])
   res <- vector[dup_index][dup_order]
 
-  if (index==TRUE) {
-    return (dup_index)
+  if (index == TRUE) {
+    return(dup_index)
   } else {
-    return (res)
+    return(res)
   }
 }

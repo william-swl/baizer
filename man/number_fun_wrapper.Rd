@@ -30,5 +30,5 @@ processed number with prefix and suffix
 wrapper of the functions to process number string with prefix and suffix
 }
 \examples{
-number_fun_wrapper('>=2.134\%', function(x) round(x, 2))
+number_fun_wrapper(">=2.134\%", function(x) round(x, 2))
 }

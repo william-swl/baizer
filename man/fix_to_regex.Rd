@@ -16,5 +16,5 @@ regex pattern
 trans fixed string into regular expression string
 }
 \examples{
-fix_to_regex('ABC|?(*)')
+fix_to_regex("ABC|?(*)")
 }

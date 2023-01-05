@@ -18,5 +18,5 @@ duplication sub-vector
 detect possible duplication in a vector, ignore case, blank and special character
 }
 \examples{
-detect_dup(c('a', 'C_', 'c -', '#A'))
+detect_dup(c("a", "C_", "c -", "#A"))
 }

@@ -16,5 +16,5 @@ all zero or not
 if a number only have zeros
 }
 \examples{
-is.all_zero('0.00')
+is.all_zero("0.00")
 }

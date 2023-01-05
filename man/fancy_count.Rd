@@ -24,5 +24,5 @@ tibble
 better count to show a main column and a fine column
 }
 \examples{
-fancy_count(mini_diamond, 'cut', 'clarity')
+fancy_count(mini_diamond, "cut", "clarity")
 }

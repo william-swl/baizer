@@ -20,5 +20,5 @@ character
 dump a named vector into character
 }
 \examples{
-collapse_vector(c(e=1:4), front_name = TRUE,  collapse=';')
+collapse_vector(c(e = 1:4), front_name = TRUE, collapse = ";")
 }

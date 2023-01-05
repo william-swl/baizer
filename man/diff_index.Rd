@@ -20,5 +20,5 @@ the index of differences
 the index of nth different character
 }
 \examples{
-diff_index('ATTC', 'ATAC')
+diff_index("ATTC", "ATAC")
 }

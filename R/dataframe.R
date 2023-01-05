@@ -19,9 +19,13 @@ c2r <- function(df, col = "") {
 #' @return tibble
 #' @export
 #'
-#' @examples mini_diamond %>% c2r("id") %>% r2c("id")
+#' @examples mini_diamond %>%
+#'   c2r("id") %>%
+#'   r2c("id")
 r2c <- function(df, col = "") {
-  df %>% tibble::rownames_to_column(col) %>% tibble::as_tibble()
+  df %>%
+    tibble::rownames_to_column(col) %>%
+    tibble::as_tibble()
 }
 
 
@@ -36,41 +40,42 @@ r2c <- function(df, col = "") {
 #' @return tibble
 #' @export
 #'
-#' @examples fancy_count(mini_diamond, 'cut', 'clarity')
-fancy_count <- function(df, main_group, fine_group, fine_fmt='count', sort=TRUE) {
+#' @examples fancy_count(mini_diamond, "cut", "clarity")
+fancy_count <- function(df, main_group, fine_group, fine_fmt = "count", sort = TRUE) {
   fine_group_count <- df %>%
-    dplyr::count(.data[[main_group]], .data[[fine_group]], sort=sort) %>%
+    dplyr::count(.data[[main_group]], .data[[fine_group]], sort = sort) %>%
     dplyr::group_split(.data[[main_group]]) %>%
     purrr::map_dfr(
-      function(x){
+      function(x) {
         v <- c(
-          dplyr::pull(x, .data[[main_group]]) %>% unique,
+          dplyr::pull(x, .data[[main_group]]) %>% unique(),
           sum(x$n),
-          if (fine_fmt=='count') {
-            dplyr::pull(x, .data$n, .data[[fine_group]]) %>% collapse_vector
-          } else if (fine_fmt=='ratio') {
-            round(dplyr::pull(x, .data$n, .data[[fine_group]]) / sum(x$n), 2) %>% collapse_vector
-          } else if (fine_fmt=='clean') {
-            dplyr::pull(x, .data[[fine_group]]) %>% stringr::str_c(collapse = ',')
+          if (fine_fmt == "count") {
+            dplyr::pull(x, .data$n, .data[[fine_group]]) %>% collapse_vector()
+          } else if (fine_fmt == "ratio") {
+            round(dplyr::pull(x, .data$n, .data[[fine_group]]) / sum(x$n), 2) %>% collapse_vector()
+          } else if (fine_fmt == "clean") {
+            dplyr::pull(x, .data[[fine_group]]) %>% stringr::str_c(collapse = ",")
           }
         )
-        names(v) <- c(main_group, 'n', fine_group)
-        return (v)
+        names(v) <- c(main_group, "n", fine_group)
+        return(v)
       }
     )
 
   # ratio
   res <- fine_group_count %>%
-    dplyr::mutate(n=as.integer(.data$n),
-                  r=round(.data$n/sum(.data$n), 2), .after='n')
+    dplyr::mutate(
+      n = as.integer(.data$n),
+      r = round(.data$n / sum(.data$n), 2), .after = "n"
+    )
 
   # sort the main_group
-  if (sort==TRUE) {
+  if (sort == TRUE) {
     res <- res %>% dplyr::arrange(dplyr::desc(.data$n))
   }
 
-  return (res)
-
+  return(res)
 }
 
 #' better slice by an ordered vector
@@ -84,11 +89,10 @@ fancy_count <- function(df, main_group, fine_group, fine_fmt='count', sort=TRUE)
 #' @return sliced tibble
 #' @export
 #'
-#' @examples ordered_slice(mini_diamond, 'id', c('id-3', 'id-2'))
-ordered_slice <- function(df, by, ordered_vector, na.rm=FALSE, dup.rm=FALSE) {
-
+#' @examples ordered_slice(mini_diamond, "id", c("id-3", "id-2"))
+ordered_slice <- function(df, by, ordered_vector, na.rm = FALSE, dup.rm = FALSE) {
   if (any(duplicated(df[[by]]))) {
-    stop('Column values not unique!')
+    stop("Column values not unique!")
   }
 
   index <- match(ordered_vector, df[[by]])
@@ -96,22 +100,20 @@ ordered_slice <- function(df, by, ordered_vector, na.rm=FALSE, dup.rm=FALSE) {
   dup_count <- sum(duplicated(index))
 
   if (na_count > 0) {
-    warning(stringr::str_c(na_count, ' NA values!'), immediate.=TRUE)
+    warning(stringr::str_c(na_count, " NA values!"), immediate. = TRUE)
   }
 
   if (dup_count > 0) {
-    warning(stringr::str_c(dup_count, ' duplicated values!'), immediate.=TRUE)
+    warning(stringr::str_c(dup_count, " duplicated values!"), immediate. = TRUE)
   }
 
-  if (na.rm==TRUE) {
+  if (na.rm == TRUE) {
     index <- stats::na.omit(index)
   }
 
-  if (dup.rm==TRUE) {
+  if (dup.rm == TRUE) {
     index <- unique(index)
   }
 
-  return (df[index, ])
-
+  return(df[index, ])
 }
-

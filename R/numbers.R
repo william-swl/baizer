@@ -10,7 +10,7 @@
 #' @examples round_string(1.1, 2)
 round_string <- function(x, digits = 2) {
   x <- as.double(x)
-  formatC(x, digits=digits, format='f')
+  formatC(x, digits = digits, format = "f")
 }
 
 #' from float number to fixed significant digits character
@@ -24,12 +24,13 @@ round_string <- function(x, digits = 2) {
 #' @examples signif_string(1.1, 2)
 signif_string <- function(x, digits = 2) {
   if (digits <= 0) {
-    stop('Significant digits should be larger than 0!')
+    stop("Significant digits should be larger than 0!")
   }
   x <- as.double(x)
-  formatC(x, digits=digits, format='fg', flag='#') %>%
-    ifelse(stringr::str_detect(., '\\.$'),
-           stringr::str_replace(., '\\.', ''), .)
+  formatC(x, digits = digits, format = "fg", flag = "#") %>%
+    ifelse(stringr::str_detect(., "\\.$"),
+      stringr::str_replace(., "\\.", ""), .
+    )
 }
 
 #' if a number only have zeros
@@ -39,20 +40,24 @@ signif_string <- function(x, digits = 2) {
 #' @return all zero or not
 #' @export
 #'
-#' @examples is.all_zero('0.00')
+#' @examples is.all_zero("0.00")
 is.all_zero <- function(x) {
-  if (!is.null(x)){
+  if (!is.null(x)) {
     x <- as.character(x)
-    if (is.na(x)){
-      return (NA)
-    } else if (!stringr::str_detect(x, '^[\\d\\.]+$')) {
-      stop('No a number!')
+    if (is.na(x)) {
+      return(NA)
+    } else if (!stringr::str_detect(x, "^[\\d\\.]+$")) {
+      stop("No a number!")
     } else {
-      r <- stringr::str_match_all(x, '\\d') %>% unlist %>%
-        as.integer %>% sum == 0
-      return (r)
+      r <- stringr::str_match_all(x, "\\d") %>%
+        unlist() %>%
+        as.integer() %>%
+        sum() == 0
+      return(r)
     }
-  } else { return (NULL) }
+  } else {
+    return(NULL)
+  }
 }
 
 
@@ -68,21 +73,21 @@ is.all_zero <- function(x) {
 #' @export
 #'
 #' @examples signif_round_string(0.03851)
-signif_round_string <- function(x, digits=2, format='short') {
+signif_round_string <- function(x, digits = 2, format = "short") {
   if (digits <= 0) {
-    stop('Significant or round digits should be larger than 0!')
+    stop("Significant or round digits should be larger than 0!")
   }
   x <- as.double(x)
   round_x <- round_string(x, digits)
   signif_x <- signif_string(x, digits)
 
-  if (format=='short') {
-    return (ifelse(nchar(round_x) < nchar(signif_x) & (!is.all_zero(round_x)),
-                   round_x, signif_x))
-  } else if (format=='long') {
-    return (ifelse(nchar(round_x) < nchar(signif_x), signif_x, round_x))
+  if (format == "short") {
+    return(ifelse(nchar(round_x) < nchar(signif_x) & (!is.all_zero(round_x)),
+      round_x, signif_x
+    ))
+  } else if (format == "long") {
+    return(ifelse(nchar(round_x) < nchar(signif_x), signif_x, round_x))
   }
-
 }
 
 
@@ -111,13 +116,13 @@ float_to_percent <- function(x, digits = 2) {
 #' @return float character of x
 #' @export
 #'
-#' @examples percent_to_float('12%')
+#' @examples percent_to_float("12%")
 percent_to_float <- function(x, digits = 2) {
-  if (stringr::str_detect(x, '^[-\\d\\.]+%$')) {
-    x <- stringr::str_replace(x, '%', '') %>% as.double
+  if (stringr::str_detect(x, "^[-\\d\\.]+%$")) {
+    x <- stringr::str_replace(x, "%", "") %>% as.double()
     round_string(x / 100, digits)
   } else {
-    stop('Not a percent number character!')
+    stop("Not a percent number character!")
   }
 }
 
@@ -134,30 +139,31 @@ percent_to_float <- function(x, digits = 2) {
 #' @return processed number with prefix and suffix
 #' @export
 #'
-#' @examples number_fun_wrapper('>=2.134%', function(x) round(x, 2))
-number_fun_wrapper <- function(x, fun=~.x, prefix_ext=NULL,
-                               suffix_ext=NULL, verbose=FALSE) {
+#' @examples number_fun_wrapper(">=2.134%", function(x) round(x, 2))
+number_fun_wrapper <- function(x, fun = ~.x, prefix_ext = NULL,
+                               suffix_ext = NULL, verbose = FALSE) {
+  prefix <- c(
+    c(">=", "<=", "!=", "~=", "=", ">", "<", "~"),
+    fix_to_regex(prefix_ext)
+  )
+  suffix <- c(c("%%", "%"), fix_to_regex(suffix_ext))
 
-  prefix <- c(c('>=', '<=', '!=', '~=', '=', '>', '<', '~'),
-              fix_to_regex(prefix_ext))
-  suffix <- c(c('%%', '%'), fix_to_regex(suffix_ext))
-
-  pattern <- stringr::str_c('(^', stringr::str_c(prefix, collapse='|'), '{0,1})',
-                            '([\\d\\.]+)',
-                            '(', stringr::str_c(suffix, collapse='|'), '{0,1}$)')
+  pattern <- stringr::str_c(
+    "(^", stringr::str_c(prefix, collapse = "|"), "{0,1})",
+    "([\\d\\.]+)",
+    "(", stringr::str_c(suffix, collapse = "|"), "{0,1}$)"
+  )
 
   match <- stringr::str_match(x, pattern)
 
-  if (verbose==TRUE) {
+  if (verbose == TRUE) {
     print(match)
   }
 
-  modify_number <- as.double(match[,3]) %>%
-    purrr::map_chr(~fun(.x) %>% as.character)
+  modify_number <- as.double(match[, 3]) %>%
+    purrr::map_chr(~ fun(.x) %>% as.character())
 
-  res <- stringr::str_c(match[,2], modify_number, match[,4])
+  res <- stringr::str_c(match[, 2], modify_number, match[, 4])
 
-  return (res)
-
+  return(res)
 }
-

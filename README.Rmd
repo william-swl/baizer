@@ -37,9 +37,9 @@ library(baizer)
 ## basic utils
 - use `%nin%` to get 'not in' logical value
 ```{r basic-utils-1}
-1 %nin% c(1,2,3)
+1 %nin% c(1, 2, 3)
 
-1 %nin% c(2,3)
+1 %nin% c(2, 3)
 ```
 
 - use `%neq%` to get `NA` supported 'not equal' logical value
@@ -55,30 +55,29 @@ NA %neq% NA
 
 - dump a vector into string
 ```{r basic-utils-3}
-collapse_vector(c('A'=2, 'B'=3, 'C'=4), front_name = TRUE,  collapse=';')
+collapse_vector(c("A" = 2, "B" = 3, "C" = 4), front_name = TRUE, collapse = ";")
 
-collapse_vector(c('A'=2, 'B'=3, 'C'=4), front_name = FALSE,  collapse=',')
+collapse_vector(c("A" = 2, "B" = 3, "C" = 4), front_name = FALSE, collapse = ",")
 ```
 
 - return the index of nth different character
 ```{r basic-utils-4}
 # return all the indices by default
-diff_index('ATTG', 'ATAC')
+diff_index("ATTG", "ATAC")
 
-diff_index('ATTG', 'ATAC', nth=1)
+diff_index("ATTG", "ATAC", nth = 1)
 
-diff_index('ATTG', 'ATAC', nth=2)
-
+diff_index("ATTG", "ATAC", nth = 2)
 ```
 
 - trans fixed string into regular expression string
 ```{r basic-utils-5}
-fix_to_regex('ABC|?(*)')
+fix_to_regex("ABC|?(*)")
 ```
 
 - detect possible duplication in a vector, ignore case, blank and special character
 ```{r basic-utils-6}
-detect_dup(c('a', 'C_', 'c -', '#A'))
+detect_dup(c("a", "C_", "c -", "#A"))
 ```
 
 ## numbers
@@ -96,8 +95,8 @@ signif_string(2.1951, 3)
 
 - signif or round string depend on the character length
 ```{r numbers-2}
-signif_round_string(20.526, 2, 'short')
-signif_round_string(20.526, 2, 'long')
+signif_round_string(20.526, 2, "short")
+signif_round_string(20.526, 2, "long")
 
 # but will keep the raw value if necessary
 signif_round_string(0.000002, 3)
@@ -105,23 +104,22 @@ signif_round_string(0.000002, 3)
 
 - whether the number string only has zero
 ```{r numbers-3}
-is.all_zero('0.000')
+is.all_zero("0.000")
 
-is.all_zero('0.0001')
+is.all_zero("0.0001")
 ```
 
 
 - float and percent trans
 ```{r numbers-4}
-float_to_percent(0.123, digits=1)
+float_to_percent(0.123, digits = 1)
 
-percent_to_float('123%', digits=3)
-
+percent_to_float("123%", digits = 3)
 ```
 
 - wrapper of the functions to process number string with prefix and suffix
 ```{r numbers-5}
-number_fun_wrapper('>=2.134%', function(x) round(x, 2))
+number_fun_wrapper(">=2.134%", function(x) round(x, 2))
 ```
 
 ## dataframe
@@ -133,39 +131,41 @@ head(mini_diamond)
 - shortcut of `dplyr::column_to_rownames` and `dplyr::rownames_to_column`
 ```{r dataframe-2}
 
-head(mini_diamond) %>% c2r('id')
+head(mini_diamond) %>% c2r("id")
 
-head(mini_diamond) %>% c2r('id') %>% r2c('id')
+head(mini_diamond) %>%
+  c2r("id") %>%
+  r2c("id")
 ```
 
 - better count to show a main column and a fine column
 ```{r dataframe-3}
 
 # sort by n (default)
-fancy_count(mini_diamond, 'cut', 'clarity')
+fancy_count(mini_diamond, "cut", "clarity")
 
 # sort by character order
-fancy_count(mini_diamond, 'cut', 'clarity', sort=FALSE)
+fancy_count(mini_diamond, "cut", "clarity", sort = FALSE)
 
-fancy_count(mini_diamond, 'cut', 'clarity', fine_fmt='ratio')
+fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "ratio")
 
-fancy_count(mini_diamond, 'cut', 'clarity', fine_fmt='clean')
-
+fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "clean")
 ```
 
 - better slice by an ordered vector
 ```{r dataframe-4}
-ordered_slice(mini_diamond, 'id', c('id-3', 'id-2'))
+ordered_slice(mini_diamond, "id", c("id-3", "id-2"))
 
 # support NA and known values in ordered vector
-ordered_slice(mini_diamond, 'id', c('id-3', 'id-2', 'unknown_id', 'id-3', NA))
+ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", "id-3", NA))
 
 # remove NA
-ordered_slice(mini_diamond, 'id', c('id-3', 'id-2', 'unknown_id', 'id-3', NA),
-              na.rm=TRUE)
+ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", "id-3", NA),
+  na.rm = TRUE
+)
 
 # remove duplication
-ordered_slice(mini_diamond, 'id', c('id-3', 'id-2', 'unknown_id', 'id-3', NA),
-              dup.rm=TRUE)
-
+ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", "id-3", NA),
+  dup.rm = TRUE
+)
 ```

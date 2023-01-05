@@ -18,5 +18,5 @@ float character of x
 from percent number to float number
 }
 \examples{
-percent_to_float('12\%')
+percent_to_float("12\%")
 }

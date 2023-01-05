@@ -18,5 +18,7 @@ tibble
 wrapper of tibble::rownames_to_column
 }
 \examples{
-mini_diamond \%>\% c2r("id") \%>\% r2c("id")
+mini_diamond \%>\%
+  c2r("id") \%>\%
+  r2c("id")
 }

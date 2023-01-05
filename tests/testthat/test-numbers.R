@@ -31,8 +31,8 @@ test_that("float_to_percent", {
 })
 
 test_that("percent_to_float", {
-  expect_identical(percent_to_float('12%'), "0.12")
-  expect_identical(percent_to_float('12%', 4), "0.1200")
+  expect_identical(percent_to_float("12%"), "0.12")
+  expect_identical(percent_to_float("12%", 4), "0.1200")
   expect_identical(percent_to_float("-12.251%", 3), "-0.123")
   expect_error(percent_to_float(1.37))
 })
@@ -41,29 +41,30 @@ test_that("percent_to_float", {
 test_that("signif_round_string", {
   expect_identical(signif_round_string(0.03851), "0.04")
   expect_identical(signif_round_string(0.000002, 3), "0.00000200")
-  expect_identical(signif_round_string(20.526, 2, 'short'), "21")
-  expect_identical(signif_round_string(20.526, 2, 'long'), "20.53")
-
+  expect_identical(signif_round_string(20.526, 2, "short"), "21")
+  expect_identical(signif_round_string(20.526, 2, "long"), "20.53")
 })
 
 
 test_that("is.all_zero", {
   expect_identical(is.all_zero(0.0213), FALSE)
-  expect_identical(is.all_zero('0.000'), TRUE)
+  expect_identical(is.all_zero("0.000"), TRUE)
   expect_identical(is.all_zero(NULL), NULL)
   expect_identical(is.all_zero(NA), NA)
-  expect_error(is.all_zero('NASD'))
-  expect_error(is.all_zero('NULL'))
+  expect_error(is.all_zero("NASD"))
+  expect_error(is.all_zero("NULL"))
 })
 
 
 test_that("number_fun_wrapper", {
   expect_identical(
-    number_fun_wrapper('>=2.134%', function(x) round(x, 2)), '>=2.13%')
+    number_fun_wrapper(">=2.134%", function(x) round(x, 2)), ">=2.13%"
+  )
   expect_identical(
-      number_fun_wrapper(c('>=2.134%', '~0.2451'), function(x) round(x, 2)),
-      c('>=2.13%', '~0.25'))
+    number_fun_wrapper(c(">=2.134%", "~0.2451"), function(x) round(x, 2)),
+    c(">=2.13%", "~0.25")
+  )
   expect_identical(
-    number_fun_wrapper('>=2.134|', function(x) round(x, 2), suffix_ext='|'), '>=2.13|')
-
+    number_fun_wrapper(">=2.134|", function(x) round(x, 2), suffix_ext = "|"), ">=2.13|"
+  )
 })
