@@ -159,4 +159,13 @@ ordered_slice(mini_diamond, 'id', c('id-3', 'id-2'))
 
 # support NA and known values in ordered vector
 ordered_slice(mini_diamond, 'id', c('id-3', 'id-2', 'unknown_id', 'id-3', NA))
+
+# remove NA
+ordered_slice(mini_diamond, 'id', c('id-3', 'id-2', 'unknown_id', 'id-3', NA),
+              na.rm=TRUE)
+
+# remove duplication
+ordered_slice(mini_diamond, 'id', c('id-3', 'id-2', 'unknown_id', 'id-3', NA),
+              dup.rm=TRUE)
+
 ```
