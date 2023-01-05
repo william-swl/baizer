@@ -6,7 +6,7 @@
 #' @return data.frame
 #' @export
 #'
-#' @examples df %>% c2r("col")
+#' @examples mini_diamond %>% c2r("id")
 c2r <- function(df, col = "") {
   df %>% tibble::column_to_rownames(col)
 }
@@ -19,7 +19,7 @@ c2r <- function(df, col = "") {
 #' @return tibble
 #' @export
 #'
-#' @examples df %>% r2c("col")
+#' @examples mini_diamond %>% c2r("id") %>% r2c("id")
 r2c <- function(df, col = "") {
   df %>% tibble::rownames_to_column(col) %>% tibble::as_tibble()
 }
