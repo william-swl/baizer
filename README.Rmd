@@ -55,9 +55,9 @@ NA %!=na% NA
 
 - dump a vector into string
 ```{r basic-utils-3}
-vector_dump(c('A'=2, 'B'=3, 'C'=4), former_name = TRUE,  collapse=';')
+collapse_vector(c('A'=2, 'B'=3, 'C'=4), front_name = TRUE,  collapse=';')
 
-vector_dump(c('A'=2, 'B'=3, 'C'=4), former_name = FALSE,  collapse=',')
+collapse_vector(c('A'=2, 'B'=3, 'C'=4), front_name = FALSE,  collapse=',')
 ```
 
 - return the index of nth different character

@@ -23,10 +23,10 @@ test_that("%!=na%", {
 })
 
 
-test_that("vector_dump", {
-  expect_identical(vector_dump(c(e=1:4), former_name = TRUE,  collapse=';'),
+test_that("collapse_vector", {
+  expect_identical(collapse_vector(c(e=1:4), front_name = TRUE,  collapse=';'),
                    "e1(1);e2(2);e3(3);e4(4)")
-  expect_identical(vector_dump(c(e=1:4), former_name = FALSE,  collapse=';'),
+  expect_identical(collapse_vector(c(e=1:4), front_name = FALSE,  collapse=';'),
                    "1(e1);2(e2);3(e3);4(e4)")
 })
 

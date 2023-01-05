@@ -56,10 +56,10 @@ NA %!=na% NA
 - dump a vector into string
 
 ``` r
-vector_dump(c('A'=2, 'B'=3, 'C'=4), former_name = TRUE,  collapse=';')
+collapse_vector(c('A'=2, 'B'=3, 'C'=4), front_name = TRUE,  collapse=';')
 #> [1] "A(2);B(3);C(4)"
 
-vector_dump(c('A'=2, 'B'=3, 'C'=4), former_name = FALSE,  collapse=',')
+collapse_vector(c('A'=2, 'B'=3, 'C'=4), front_name = FALSE,  collapse=',')
 #> [1] "2(A),3(B),4(C)"
 ```
 

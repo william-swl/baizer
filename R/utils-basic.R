@@ -31,22 +31,22 @@
 #' dump a named vector into character
 #'
 #' @param named_vector a named vector
-#' @param former_name if TRUE, put names to former
+#' @param front_name if TRUE, put names to former
 #' @param collapse collapse separator
 #'
 #' @return character
 #' @export
 #'
-#' @examples vector_dump(c(e=1:4), former_name = TRUE,  collapse=';')
-vector_dump <- function(named_vector, former_name=TRUE, collapse=','){
+#' @examples collapse_vector(c(e=1:4), front_name = TRUE,  collapse=';')
+collapse_vector <- function(named_vector, front_name=TRUE, collapse=','){
   if (is.null(names(named_vector))) {
     stop('Not a named vector!')
   }
-  if (former_name==TRUE) {
+  if (front_name==TRUE) {
     named_vector %>%
       purrr::map2_chr(names(.), ., ~stringr::str_glue('{.x}({.y})')) %>%
       stringr::str_c(collapse=collapse)
-  } else if (former_name==FALSE) {
+  } else if (front_name==FALSE) {
     named_vector %>%
       purrr::map2_chr(names(.), ., ~stringr::str_glue('{.y}({.x})')) %>%
       stringr::str_c(collapse=collapse)
