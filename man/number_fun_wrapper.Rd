@@ -17,9 +17,9 @@ number_fun_wrapper(
 
 \item{fun}{process function}
 
-\item{prefix_ext}{prefix extention}
+\item{prefix_ext}{prefix extension}
 
-\item{suffix_ext}{suffix extention}
+\item{suffix_ext}{suffix extension}
 
 \item{verbose}{print more details}
 }

@@ -4,9 +4,9 @@
 \name{baizer-package}
 \alias{baizer}
 \alias{baizer-package}
-\title{baizer: Useful functions for data processing}
+\title{baizer: Useful Functions for Data Processing}
 \description{
-What the package does (one paragraph).
+In ancient Chinese mythology, Bai Ze is a divine creature that understands everything. `baizer` provides data processing functions frequently used by the author. Hope this package also knows what you want!
 }
 \seealso{
 Useful links:

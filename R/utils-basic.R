@@ -107,7 +107,7 @@ fix_to_regex <- function(p) {
 #' detect possible duplication in a vector, ignore case,
 #' blank and special character
 #'
-#' @param vector vector possiblely with duplication
+#' @param vector vector possibly with duplication
 #' @param index return duplication index
 #'
 #' @return duplication sub-vector

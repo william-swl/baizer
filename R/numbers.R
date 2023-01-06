@@ -134,8 +134,8 @@ percent_to_float <- function(x, digits = 2) {
 #'
 #' @param x number string vector with prefix and suffix
 #' @param fun process function
-#' @param prefix_ext prefix extention
-#' @param suffix_ext suffix extention
+#' @param prefix_ext prefix extension
+#' @param suffix_ext suffix extension
 #' @param verbose print more details
 #'
 #' @return processed number with prefix and suffix

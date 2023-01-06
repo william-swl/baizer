@@ -8,7 +8,7 @@ blank and special character}
 detect_dup(vector, index = FALSE)
 }
 \arguments{
-\item{vector}{vector possiblely with duplication}
+\item{vector}{vector possibly with duplication}
 
 \item{index}{return duplication index}
 }
