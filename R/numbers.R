@@ -10,7 +10,8 @@
 #' @examples round_string(1.1, 2)
 round_string <- function(x, digits = 2) {
   x <- as.double(x)
-  formatC(x, digits = digits, format = "f")
+  formatC(x, digits = digits, format = "f") %>%
+    stringr::str_trim()
 }
 
 #' from float number to fixed significant digits character
@@ -28,6 +29,7 @@ signif_string <- function(x, digits = 2) {
   }
   x <- as.double(x)
   formatC(x, digits = digits, format = "fg", flag = "#") %>%
+    stringr::str_trim() %>%
     ifelse(stringr::str_detect(., "\\.$"),
       stringr::str_replace(., "\\.", ""), .
     )
