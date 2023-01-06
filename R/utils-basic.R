@@ -23,7 +23,8 @@
 #'
 #' @examples 1 %neq% NA
 `%neq%` <- function(x, y) {
-  (x != y | (is.na(x) & !is.na(y)) | (is.na(y) & !is.na(x))) & !(is.na(x) & is.na(y))
+  (x != y | (is.na(x) & !is.na(y)) | (is.na(y) & !is.na(x))) &
+    !(is.na(x) & is.na(y))
 }
 
 
@@ -58,14 +59,15 @@ collapse_vector <- function(named_vector, front_name = TRUE, collapse = ",") {
 #'
 #' @param s1 string1
 #' @param s2 string2
-#' @param nth return the index of nth different character. if `0` return all the indices
+#' @param nth return the index of nth different character.
+#' if `0` return all the indices
 #'
 #' @return the index of differences
 #' @export
 #'
 #' @examples diff_index("ATTC", "ATAC")
 diff_index <- function(s1, s2, nth = 0) {
-  if (length(s1) != 1 | length(s2) != 1) {
+  if (length(s1) != 1 || length(s2) != 1) {
     stop("Need 1 length character!")
   }
   if (nchar(s1) != nchar(s2)) {
@@ -102,7 +104,8 @@ fix_to_regex <- function(p) {
 
 
 
-#' detect possible duplication in a vector, ignore case, blank and special character
+#' detect possible duplication in a vector, ignore case,
+#' blank and special character
 #'
 #' @param vector vector possiblely with duplication
 #' @param index return duplication index
@@ -117,7 +120,8 @@ detect_dup <- function(vector, index = FALSE) {
     stringr::str_extract_all("[\\w]+") %>%
     purrr::map_chr(~ stringr::str_c(.x, collapse = "")) %>%
     stringr::str_replace_all("_", "")
-  dup_index <- duplicated(modified_vector) | duplicated(modified_vector, fromLast = TRUE)
+  dup_index <- duplicated(modified_vector) |
+    duplicated(modified_vector, fromLast = TRUE)
   dup_order <- order(modified_vector[dup_index])
   res <- vector[dup_index][dup_order]
 

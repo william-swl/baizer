@@ -14,15 +14,21 @@ test_that("r2c", {
 
 
 test_that("fancy_count, fine_fmt='count'", {
-  expect_snapshot(fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "count"))
+  expect_snapshot(
+    fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "count")
+  )
 })
 
 test_that("fancy_count, fine_fmt='ratio'", {
-  expect_snapshot(fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "ratio"))
+  expect_snapshot(
+    fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "ratio")
+  )
 })
 
 test_that("fancy_count, fine_fmt='clean'", {
-  expect_snapshot(fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "clean"))
+  expect_snapshot(
+    fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "clean")
+  )
 })
 
 test_that("fancy_count, sort=TRUE", {
@@ -35,7 +41,9 @@ test_that("ordered_slice", {
 })
 
 test_that("ordered_slice, with NA and dup", {
-  expect_snapshot(ordered_slice(mini_diamond, "id", c("id-3", "id-2", "id-3", NA, NA)))
+  expect_snapshot(
+    ordered_slice(mini_diamond, "id", c("id-3", "id-2", "id-3", NA, NA))
+  )
 })
 
 test_that("ordered_slice, with unknown id", {

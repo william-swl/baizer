@@ -11,7 +11,8 @@ diff_index(s1, s2, nth = 0)
 
 \item{s2}{string2}
 
-\item{nth}{return the index of nth different character. if \code{0} return all the indices}
+\item{nth}{return the index of nth different character.
+if \code{0} return all the indices}
 }
 \value{
 the index of differences

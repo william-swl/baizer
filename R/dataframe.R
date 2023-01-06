@@ -41,7 +41,8 @@ r2c <- function(df, col = "") {
 #' @export
 #'
 #' @examples fancy_count(mini_diamond, "cut", "clarity")
-fancy_count <- function(df, main_group, fine_group, fine_fmt = "count", sort = TRUE) {
+fancy_count <- function(df, main_group, fine_group,
+                        fine_fmt = "count", sort = TRUE) {
   fine_group_count <- df %>%
     dplyr::count(.data[[main_group]], .data[[fine_group]], sort = sort) %>%
     dplyr::group_split(.data[[main_group]]) %>%
@@ -53,9 +54,11 @@ fancy_count <- function(df, main_group, fine_group, fine_fmt = "count", sort = T
           if (fine_fmt == "count") {
             dplyr::pull(x, .data$n, .data[[fine_group]]) %>% collapse_vector()
           } else if (fine_fmt == "ratio") {
-            round(dplyr::pull(x, .data$n, .data[[fine_group]]) / sum(x$n), 2) %>% collapse_vector()
+            round(dplyr::pull(x, .data$n, .data[[fine_group]]) / sum(x$n),
+                  2) %>% collapse_vector()
           } else if (fine_fmt == "clean") {
-            dplyr::pull(x, .data[[fine_group]]) %>% stringr::str_c(collapse = ",")
+            dplyr::pull(x, .data[[fine_group]]) %>%
+              stringr::str_c(collapse = ",")
           }
         )
         names(v) <- c(main_group, "n", fine_group)
@@ -90,7 +93,8 @@ fancy_count <- function(df, main_group, fine_group, fine_fmt = "count", sort = T
 #' @export
 #'
 #' @examples ordered_slice(mini_diamond, "id", c("id-3", "id-2"))
-ordered_slice <- function(df, by, ordered_vector, na.rm = FALSE, dup.rm = FALSE) {
+ordered_slice <- function(df, by, ordered_vector,
+                          na.rm = FALSE, dup.rm = FALSE) {
   if (any(duplicated(df[[by]]))) {
     stop("Column values not unique!")
   }

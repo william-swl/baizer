@@ -65,6 +65,7 @@ test_that("number_fun_wrapper", {
     c(">=2.13%", "~0.25")
   )
   expect_identical(
-    number_fun_wrapper(">=2.134|", function(x) round(x, 2), suffix_ext = "|"), ">=2.13|"
-  )
+    number_fun_wrapper(">=2.134|",
+                       function(x) round(x, 2), suffix_ext = "|"),
+    ">=2.13|")
 })

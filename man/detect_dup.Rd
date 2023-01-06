@@ -2,7 +2,8 @@
 % Please edit documentation in R/utils-basic.R
 \name{detect_dup}
 \alias{detect_dup}
-\title{detect possible duplication in a vector, ignore case, blank and special character}
+\title{detect possible duplication in a vector, ignore case,
+blank and special character}
 \usage{
 detect_dup(vector, index = FALSE)
 }
@@ -15,7 +16,8 @@ detect_dup(vector, index = FALSE)
 duplication sub-vector
 }
 \description{
-detect possible duplication in a vector, ignore case, blank and special character
+detect possible duplication in a vector, ignore case,
+blank and special character
 }
 \examples{
 detect_dup(c("a", "C_", "c -", "#A"))

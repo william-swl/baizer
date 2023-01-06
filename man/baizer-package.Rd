@@ -8,6 +8,14 @@
 \description{
 What the package does (one paragraph).
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/william-swl/baizer}
+  \item Report bugs at \url{https://github.com/william-swl/baizer/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: William Song \email{william_swl@163.com}
 
