@@ -16,6 +16,8 @@ knitr::opts_chunk$set(
 # baizer
 
 <!-- badges: start -->
+[![Codecov test coverage](https://codecov.io/gh/william-swl/baizer/branch/master/graph/badge.svg)](https://app.codecov.io/gh/william-swl/baizer?branch=master)
+[![R-CMD-check](https://github.com/william-swl/baizer/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/william-swl/baizer/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 - In ancient Chinese mythology, Bai Ze is a divine beast that understands the feelings of all creatures.
