@@ -40,8 +40,8 @@ signif_string <- function(x, digits = 2) {
 #' @return all zero or not
 #' @export
 #'
-#' @examples is.all_zero("0.00")
-is.all_zero <- function(x) {
+#' @examples is.zero("0.00")
+is.zero <- function(x) {
   if (!is.null(x)) {
     x <- as.character(x)
     if (is.na(x)) {
@@ -82,7 +82,7 @@ signif_round_string <- function(x, digits = 2, format = "short") {
   signif_x <- signif_string(x, digits)
 
   if (format == "short") {
-    return(ifelse(nchar(round_x) < nchar(signif_x) & (!is.all_zero(round_x)),
+    return(ifelse(nchar(round_x) < nchar(signif_x) & (!is.zero(round_x)),
       round_x, signif_x
     ))
   } else if (format == "long") {

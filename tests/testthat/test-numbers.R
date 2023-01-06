@@ -46,13 +46,13 @@ test_that("signif_round_string", {
 })
 
 
-test_that("is.all_zero", {
-  expect_identical(is.all_zero(0.0213), FALSE)
-  expect_identical(is.all_zero("0.000"), TRUE)
-  expect_identical(is.all_zero(NULL), NULL)
-  expect_identical(is.all_zero(NA), NA)
-  expect_error(is.all_zero("NASD"))
-  expect_error(is.all_zero("NULL"))
+test_that("is.zero", {
+  expect_identical(is.zero(0.0213), FALSE)
+  expect_identical(is.zero("0.000"), TRUE)
+  expect_identical(is.zero(NULL), NULL)
+  expect_identical(is.zero(NA), NA)
+  expect_error(is.zero("NASD"))
+  expect_error(is.zero("NULL"))
 })
 
 
@@ -66,6 +66,9 @@ test_that("number_fun_wrapper", {
   )
   expect_identical(
     number_fun_wrapper(">=2.134|",
-                       function(x) round(x, 2), suffix_ext = "|"),
-    ">=2.13|")
+      function(x) round(x, 2),
+      suffix_ext = "|"
+    ),
+    ">=2.13|"
+  )
 })

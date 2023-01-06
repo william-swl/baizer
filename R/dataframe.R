@@ -54,8 +54,10 @@ fancy_count <- function(df, main_group, fine_group,
           if (fine_fmt == "count") {
             dplyr::pull(x, .data$n, .data[[fine_group]]) %>% collapse_vector()
           } else if (fine_fmt == "ratio") {
-            round(dplyr::pull(x, .data$n, .data[[fine_group]]) / sum(x$n),
-                  2) %>% collapse_vector()
+            round(
+              dplyr::pull(x, .data$n, .data[[fine_group]]) / sum(x$n),
+              2
+            ) %>% collapse_vector()
           } else if (fine_fmt == "clean") {
             dplyr::pull(x, .data[[fine_group]]) %>%
               stringr::str_c(collapse = ",")

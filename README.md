@@ -126,10 +126,10 @@ signif_round_string(0.000002, 3)
 - whether the number string only has zero
 
 ``` r
-is.all_zero("0.000")
+is.zero("0.000")
 #> [1] TRUE
 
-is.all_zero("0.0001")
+is.zero("0.0001")
 #> [1] FALSE
 ```
 
