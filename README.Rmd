@@ -171,3 +171,7 @@ ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", "id-3", NA),
   dup.rm = TRUE
 )
 ```
+
+## Code of Conduct
+- Please note that the baizer project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html)
+- By contributing to this project, you agree to abide by its terms.

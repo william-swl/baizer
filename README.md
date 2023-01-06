@@ -292,3 +292,10 @@ ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", "id-3", NA),
 #> 2 id-2   1.51 Good  VS2     11746  7.27  7.18
 #> 3 <NA>  NA    <NA>  <NA>       NA NA    NA
 ```
+
+## Code of Conduct
+
+- Please note that the baizer project is released with a [Contributor
+  Code of
+  Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html)
+- By contributing to this project, you agree to abide by its terms.
