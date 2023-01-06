@@ -1,81 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://william-swl.github.io/baizer/404.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
+    <loc>https://william-swl.github.io/baizer/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
+    <loc>https://william-swl.github.io/baizer/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://william-swl.github.io/baizer/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://william-swl.github.io/baizer/authors.html</loc>
   </url>
   <url>
-    <loc>/reference/baizer-package.html</loc>
+    <loc>https://william-swl.github.io/baizer/index.html</loc>
   </url>
   <url>
-    <loc>/reference/c2r.html</loc>
+    <loc>https://william-swl.github.io/baizer/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/collapse_vector.html</loc>
+    <loc>https://william-swl.github.io/baizer/reference/baizer-package.html</loc>
   </url>
   <url>
-    <loc>/reference/detect_dup.html</loc>
+    <loc>https://william-swl.github.io/baizer/reference/c2r.html</loc>
   </url>
   <url>
-    <loc>/reference/diff_index.html</loc>
+    <loc>https://william-swl.github.io/baizer/reference/collapse_vector.html</loc>
   </url>
   <url>
-    <loc>/reference/fancy_count.html</loc>
+    <loc>https://william-swl.github.io/baizer/reference/detect_dup.html</loc>
   </url>
   <url>
-    <loc>/reference/fix_to_regex.html</loc>
+    <loc>https://william-swl.github.io/baizer/reference/diff_index.html</loc>
   </url>
   <url>
-    <loc>/reference/float_to_percent.html</loc>
+    <loc>https://william-swl.github.io/baizer/reference/fancy_count.html</loc>
   </url>
   <url>
-    <loc>/reference/grapes-neq-grapes.html</loc>
+    <loc>https://william-swl.github.io/baizer/reference/fix_to_regex.html</loc>
   </url>
   <url>
-    <loc>/reference/grapes-nin-grapes.html</loc>
+    <loc>https://william-swl.github.io/baizer/reference/float_to_percent.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://william-swl.github.io/baizer/reference/grapes-neq-grapes.html</loc>
   </url>
   <url>
-    <loc>/reference/is.zero.html</loc>
+    <loc>https://william-swl.github.io/baizer/reference/grapes-nin-grapes.html</loc>
   </url>
   <url>
-    <loc>/reference/mini_diamond.html</loc>
+    <loc>https://william-swl.github.io/baizer/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/number_fun_wrapper.html</loc>
+    <loc>https://william-swl.github.io/baizer/reference/is.zero.html</loc>
   </url>
   <url>
-    <loc>/reference/ordered_slice.html</loc>
+    <loc>https://william-swl.github.io/baizer/reference/mini_diamond.html</loc>
   </url>
   <url>
-    <loc>/reference/percent_to_float.html</loc>
+    <loc>https://william-swl.github.io/baizer/reference/number_fun_wrapper.html</loc>
   </url>
   <url>
-    <loc>/reference/pipe.html</loc>
+    <loc>https://william-swl.github.io/baizer/reference/ordered_slice.html</loc>
   </url>
   <url>
-    <loc>/reference/r2c.html</loc>
+    <loc>https://william-swl.github.io/baizer/reference/percent_to_float.html</loc>
   </url>
   <url>
-    <loc>/reference/round_string.html</loc>
+    <loc>https://william-swl.github.io/baizer/reference/pipe.html</loc>
   </url>
   <url>
-    <loc>/reference/signif_round_string.html</loc>
+    <loc>https://william-swl.github.io/baizer/reference/r2c.html</loc>
   </url>
   <url>
-    <loc>/reference/signif_string.html</loc>
+    <loc>https://william-swl.github.io/baizer/reference/round_string.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/signif_round_string.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/signif_string.html</loc>
   </url>
 </urlset>
