@@ -10,8 +10,8 @@ coverage](https://codecov.io/gh/william-swl/baizer/branch/master/graph/badge.svg
 [![R-CMD-check](https://github.com/william-swl/baizer/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/william-swl/baizer/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-- In ancient Chinese mythology, Bai Ze is a divine creature that
-  understands everything.
+- In ancient Chinese mythology, Bai Ze is a divine creature that knows
+  the needs of everything.
 - `baizer` provides data processing functions frequently used by the
   author.
 - Hope this package also knows what you want!
@@ -23,6 +23,8 @@ You can install the development version of `baizer` like so:
 ``` r
 devtools::install_github("william-swl/baizer")
 ```
+
+And load the package:
 
 ``` r
 library(baizer)

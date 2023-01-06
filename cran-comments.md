@@ -1,4 +1,4 @@
-- This is the first release of `barzer` package.
+- This is the first release of `baizer` package.
 - The notes are about the name of package. Please ignore them.
 
 ## R CMD check results
