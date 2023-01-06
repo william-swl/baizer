@@ -3,9 +3,9 @@ Title: Useful Functions for Data Processing
 Version: 0.1.0
 Authors@R: 
     person("William", "Song", , "william_swl@163.com", role = c("aut", "cre"))
-Description: In ancient Chinese mythology, Bai Ze is a divine creature that 
-    understands everything. `baizer` provides data processing functions 
-    frequently used by the author. Hope this package also knows what you want!
+Description: In ancient Chinese mythology, Bai Ze is a divine creature that knows the needs of everything.
+    `baizer` provides data processing functions frequently used by the author.
+    Hope this package also knows what you want!
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
