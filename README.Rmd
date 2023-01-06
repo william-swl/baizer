@@ -20,9 +20,9 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/william-swl/baizer/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/william-swl/baizer/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-- In ancient Chinese mythology, Bai Ze is a divine beast that understands the feelings of all creatures.
-- The purpose of `baizer` is to provide a set of commonly used and useful functions in data processing.
-- Hope this package knows what you want, and solves your problems more efficient!
+- In ancient Chinese mythology, Bai Ze is a divine creature that understands everything.
+- `baizer` provides data processing functions frequently used by the author.
+- Hope this package also knows what you want!
 
 ## installation
 
@@ -173,5 +173,5 @@ ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", "id-3", NA),
 ```
 
 ## Code of Conduct
-- Please note that the baizer project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html)
-- By contributing to this project, you agree to abide by its terms.
+Please note that the baizer project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html). 
+By contributing to this project, you agree to abide by its terms.

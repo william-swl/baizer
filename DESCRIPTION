@@ -1,9 +1,11 @@
 Package: baizer
-Title: Useful functions for data processing
+Title: Useful Functions for Data Processing
 Version: 0.0.0.9017
 Authors@R: 
     person("William", "Song", , "william_swl@163.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: In ancient Chinese mythology, Bai Ze is a divine creature that 
+    understands everything. `baizer` provides data processing functions 
+    frequently used by the author. Hope this package also knows what you want!
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
