@@ -83,6 +83,33 @@ fancy_count <- function(df, main_group, fine_group,
   return(res)
 }
 
+
+
+#' expand a dataframe by a value column
+#'
+#' @param df tibble
+#' @param name_col repeat this as name column
+#' @param value_col expand by this value column
+#' @param sep separator in the string
+#'
+#' @return expanded tibble
+#' @export
+#'
+#' @examples fancy_count(mini_diamond, "cut", "clarity") %>%
+#'   expand_df(name_col = "cut", value_col = "clarity")
+expand_df <- function(df, name_col, value_col, sep = ",") {
+  v <- df %>% dplyr::pull(value_col, name_col)
+  l <- v %>% stringr::str_split(sep)
+  res <- purrr::map2_dfr(
+    names(v), l,
+    ~ tibble::tibble(!!name_col := .x, !!value_col := .y)
+  )
+
+  return(res)
+}
+
+
+
 #' better slice by an ordered vector
 #'
 #' @param df tibble

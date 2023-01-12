@@ -93,7 +93,7 @@ fix_to_regex("ABC|?(*)")
   special character
 
 ``` r
-detect_dup(c("a", "C_", "c -", "#A"))
+detect_dup(c("a", "B", "C_", "c -", "#A"))
 #> [1] "a"   "#A"  "C_"  "c -"
 ```
 
@@ -236,6 +236,27 @@ fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "clean")
 #> 1 Fair     35  0.35 I1,SI1,VS2,VVS1,IF,SI2,VVS2,VS1
 #> 2 Ideal    34  0.34 SI1,VS1,VVS1,VVS2,I1,IF,SI2,VS2
 #> 3 Good     31  0.31 I1,IF,SI1,SI2,VS2,VVS1,VVS2,VS1
+```
+
+- expand a dataframe by a value column
+
+``` r
+fancy_count(mini_diamond, "cut", "clarity") %>%
+  expand_df(name_col = "cut", value_col = "clarity")
+#> # A tibble: 24 × 2
+#>    cut   clarity
+#>    <chr> <chr>  
+#>  1 Fair  I1(5)  
+#>  2 Fair  SI1(5) 
+#>  3 Fair  VS2(5) 
+#>  4 Fair  VVS1(5)
+#>  5 Fair  IF(4)  
+#>  6 Fair  SI2(4) 
+#>  7 Fair  VVS2(4)
+#>  8 Fair  VS1(3) 
+#>  9 Ideal SI1(5) 
+#> 10 Ideal VS1(5) 
+#> # … with 14 more rows
 ```
 
 - better slice by an ordered vector

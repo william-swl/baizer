@@ -59,6 +59,26 @@
       2 Ideal    34  0.34 SI1(5),VS1(5),VVS1(5),VVS2(5),I1(4),IF(4),SI2(4),VS2(2)
       3 Good     31  0.31 I1(5),IF(5),SI1(4),SI2(4),VS2(4),VVS1(4),VVS2(3),VS1(2)
 
+# expand_df
+
+    Code
+      fancy_count(mini_diamond, "cut", "clarity") %>% expand_df("cut", "clarity")
+    Output
+      # A tibble: 24 x 2
+         cut   clarity
+         <chr> <chr>  
+       1 Fair  I1(5)  
+       2 Fair  SI1(5) 
+       3 Fair  VS2(5) 
+       4 Fair  VVS1(5)
+       5 Fair  IF(4)  
+       6 Fair  SI2(4) 
+       7 Fair  VVS2(4)
+       8 Fair  VS1(3) 
+       9 Ideal SI1(5) 
+      10 Ideal VS1(5) 
+      # ... with 14 more rows
+
 # ordered_slice
 
     Code

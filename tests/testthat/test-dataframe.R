@@ -36,6 +36,13 @@ test_that("fancy_count, sort=TRUE", {
 })
 
 
+test_that("expand_df", {
+  expect_snapshot(fancy_count(mini_diamond, "cut", "clarity") %>%
+    expand_df(name_col = "cut", value_col = "clarity"))
+})
+
+
+
 test_that("ordered_slice", {
   expect_snapshot(ordered_slice(mini_diamond, "id", c("id-3", "id-2")))
 })

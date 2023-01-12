@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-In ancient Chinese mythology, Bai Ze is a divine creature that understands everything. `baizer` provides data processing functions frequently used by the author. Hope this package also knows what you want!
+In ancient Chinese mythology, Bai Ze is a divine creature that knows the needs of everything. 'baizer' provides data processing functions frequently used by the author. Hope this package also knows what you want!
 }
 \seealso{
 Useful links:

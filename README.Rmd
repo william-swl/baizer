@@ -79,7 +79,7 @@ fix_to_regex("ABC|?(*)")
 
 - detect possible duplication in a vector, ignore case, blank and special character
 ```{r basic-utils-6}
-detect_dup(c("a", "C_", "c -", "#A"))
+detect_dup(c("a", "B", "C_", "c -", "#A"))
 ```
 
 ## numbers
@@ -154,8 +154,15 @@ fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "ratio")
 fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "clean")
 ```
 
-- better slice by an ordered vector
+- expand a dataframe by a value column
 ```{r dataframe-4}
+fancy_count(mini_diamond, "cut", "clarity") %>%
+  expand_df(name_col = "cut", value_col = "clarity")
+```
+
+
+- better slice by an ordered vector
+```{r dataframe-5}
 ordered_slice(mini_diamond, "id", c("id-3", "id-2"))
 
 # support NA and known values in ordered vector
