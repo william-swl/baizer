@@ -37,9 +37,6 @@
     <loc>https://william-swl.github.io/baizer/reference/diff_index.html</loc>
   </url>
   <url>
-    <loc>https://william-swl.github.io/baizer/reference/expand_df.html</loc>
-  </url>
-  <url>
     <loc>https://william-swl.github.io/baizer/reference/fancy_count.html</loc>
   </url>
   <url>
@@ -86,5 +83,8 @@
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/signif_string.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/split_column.html</loc>
   </url>
 </urlset>
