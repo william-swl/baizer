@@ -85,7 +85,7 @@ fancy_count <- function(df, main_group, fine_group,
 
 
 
-#' expand a dataframe by a value column
+#' split a column and return a longer dataframe
 #'
 #' @param df tibble
 #' @param name_col repeat this as name column
@@ -96,8 +96,8 @@ fancy_count <- function(df, main_group, fine_group,
 #' @export
 #'
 #' @examples fancy_count(mini_diamond, "cut", "clarity") %>%
-#'   expand_df(name_col = "cut", value_col = "clarity")
-expand_df <- function(df, name_col, value_col, sep = ",") {
+#'   split_column(name_col = "cut", value_col = "clarity")
+split_column <- function(df, name_col, value_col, sep = ",") {
   v <- df %>% dplyr::pull(value_col, name_col)
   l <- v %>% stringr::str_split(sep)
   res <- purrr::map2_dfr(

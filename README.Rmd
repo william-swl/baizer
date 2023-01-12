@@ -154,10 +154,10 @@ fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "ratio")
 fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "clean")
 ```
 
-- expand a dataframe by a value column
+- split a column and return a longer dataframe
 ```{r dataframe-4}
 fancy_count(mini_diamond, "cut", "clarity") %>%
-  expand_df(name_col = "cut", value_col = "clarity")
+  split_column(name_col = "cut", value_col = "clarity")
 ```
 
 

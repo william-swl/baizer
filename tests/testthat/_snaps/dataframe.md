@@ -62,7 +62,8 @@
 # expand_df
 
     Code
-      fancy_count(mini_diamond, "cut", "clarity") %>% expand_df("cut", "clarity")
+      fancy_count(mini_diamond, "cut", "clarity") %>% split_column(name_col = "cut",
+        value_col = "clarity")
     Output
       # A tibble: 24 x 2
          cut   clarity

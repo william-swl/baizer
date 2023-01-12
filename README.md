@@ -238,11 +238,11 @@ fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "clean")
 #> 3 Good     31  0.31 I1,IF,SI1,SI2,VS2,VVS1,VVS2,VS1
 ```
 
-- expand a dataframe by a value column
+- split a column and return a longer dataframe
 
 ``` r
 fancy_count(mini_diamond, "cut", "clarity") %>%
-  expand_df(name_col = "cut", value_col = "clarity")
+  split_column(name_col = "cut", value_col = "clarity")
 #> # A tibble: 24 × 2
 #>    cut   clarity
 #>    <chr> <chr>  
