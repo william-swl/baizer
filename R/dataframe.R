@@ -110,7 +110,7 @@ split_column <- function(df, name_col, value_col, sep = ",") {
 
 
 
-#' better slice by an ordered vector
+#' slice a tibble by an ordered vector
 #'
 #' @param df tibble
 #' @param by slice by this column, this value must has no duplicated value

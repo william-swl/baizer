@@ -2,7 +2,7 @@
 % Please edit documentation in R/dataframe.R
 \name{ordered_slice}
 \alias{ordered_slice}
-\title{better slice by an ordered vector}
+\title{slice a tibble by an ordered vector}
 \usage{
 ordered_slice(df, by, ordered_vector, na.rm = FALSE, dup.rm = FALSE)
 }
@@ -21,7 +21,7 @@ ordered_slice(df, by, ordered_vector, na.rm = FALSE, dup.rm = FALSE)
 sliced tibble
 }
 \description{
-better slice by an ordered vector
+slice a tibble by an ordered vector
 }
 \examples{
 ordered_slice(mini_diamond, "id", c("id-3", "id-2"))

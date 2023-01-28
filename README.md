@@ -175,7 +175,6 @@ head(mini_diamond)
   `dplyr::rownames_to_column`
 
 ``` r
-
 head(mini_diamond) %>% c2r("id")
 #>      carat   cut clarity price    x    y
 #> id-1  1.02  Fair     SI1  3027 6.25 6.18
@@ -259,7 +258,7 @@ fancy_count(mini_diamond, "cut", "clarity") %>%
 #> # … with 14 more rows
 ```
 
-- better slice by an ordered vector
+- slice a tibble by an ordered vector
 
 ``` r
 ordered_slice(mini_diamond, "id", c("id-3", "id-2"))
@@ -313,6 +312,14 @@ ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", "id-3", NA),
 #> 1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
 #> 2 id-2   1.51 Good  VS2     11746  7.27  7.18
 #> 3 <NA>  NA    <NA>  <NA>       NA NA    NA
+```
+
+## IO
+
+- write a tibble into an excel file
+
+``` r
+# write_excel(mini_diamond, "mini_diamond.xlsx")
 ```
 
 ## Code of Conduct
