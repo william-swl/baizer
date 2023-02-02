@@ -134,23 +134,29 @@ head(mini_diamond)
 ```{r dataframe-cr}
 head(mini_diamond) %>% c2r("id")
 
+# use column index
+head(mini_diamond) %>% c2r(1)
+
 head(mini_diamond) %>%
   c2r("id") %>%
   r2c("id")
 ```
 
-- better count to show a main column and a fine column
+- fancy count to show up to two columns and their summary
 ```{r dataframe-fancy_count}
 
-# sort by n (default)
-fancy_count(mini_diamond, "cut", "clarity")
+# count one column
+fancy_count(mini_diamond, "cut")
 
-# sort by character order
-fancy_count(mini_diamond, "cut", "clarity", sort = FALSE)
+# count two columns and sort by n (default)
+fancy_count(mini_diamond, "cut", "clarity")
 
 fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "ratio")
 
 fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "clean")
+
+# count two columns and sort by character order
+fancy_count(mini_diamond, "cut", "clarity", sort = FALSE)
 ```
 
 - split a column and return a longer dataframe

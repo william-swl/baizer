@@ -2,16 +2,20 @@ test_that("c2r", {
   expect_snapshot(head(mini_diamond) %>% c2r("id"))
 })
 
+
+test_that("c2r, column index", {
+  expect_identical(
+    all(head(mini_diamond) %>% c2r("id") == head(mini_diamond) %>% c2r(1)),
+    TRUE
+  )
+})
+
+
+
 test_that("r2c", {
   expect_identical(
     all(head(mini_diamond) == head(mini_diamond) %>%
       c2r("id") %>%
-      r2c("id")),
-    TRUE
-  )
-  expect_identical(
-    all(head(mini_diamond) == head(mini_diamond) %>%
-      c2r(1) %>%
       r2c("id")),
     TRUE
   )
