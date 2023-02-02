@@ -2,16 +2,16 @@
 % Please edit documentation in R/dataframe.R
 \name{fancy_count}
 \alias{fancy_count}
-\title{better count to show a main column and a fine column}
+\title{fancy count to show up to two columns and their summary}
 \usage{
-fancy_count(df, main_group, fine_group, fine_fmt = "count", sort = TRUE)
+fancy_count(df, main_group, fine_group = NULL, fine_fmt = "count", sort = TRUE)
 }
 \arguments{
 \item{df}{tibble}
 
-\item{main_group}{main column as main group}
+\item{main_group}{first column as main group}
 
-\item{fine_group}{fine column as subgroup}
+\item{fine_group}{second column as subgroup, can be ignore}
 
 \item{fine_fmt}{output fine column format, \code{count|ratio|clean}}
 
@@ -21,7 +21,7 @@ fancy_count(df, main_group, fine_group, fine_fmt = "count", sort = TRUE)
 tibble
 }
 \description{
-better count to show a main column and a fine column
+fancy count to show up to two columns and their summary
 }
 \examples{
 fancy_count(mini_diamond, "cut", "clarity")

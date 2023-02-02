@@ -159,6 +159,18 @@ fancy_count(mini_diamond, "cut", "clarity") %>%
   split_column(name_col = "cut", value_col = "clarity")
 ```
 
+- move selected rows to target location
+```{r dataframe-rearrange_row}
+# move row 3-5 after row 8
+move_row(mini_diamond, 3:5, .after = 8)
+
+# move row 3-5 before the first row
+move_row(mini_diamond, 3:5, .before = TRUE)
+
+# move row 3-5 after the last row
+move_row(mini_diamond, 3:5, .after = TRUE)
+```
+
 
 - slice a tibble by an ordered vector
 ```{r dataframe-ordered_slice}

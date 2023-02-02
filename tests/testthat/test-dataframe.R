@@ -9,8 +9,19 @@ test_that("r2c", {
       r2c("id")),
     TRUE
   )
+  expect_identical(
+    all(head(mini_diamond) == head(mini_diamond) %>%
+      c2r(1) %>%
+      r2c("id")),
+    TRUE
+  )
 })
 
+test_that("fancy_count, one group", {
+  expect_snapshot(
+    fancy_count(mini_diamond, "cut")
+  )
+})
 
 
 test_that("fancy_count, fine_fmt='count'", {
@@ -41,6 +52,35 @@ test_that("expand_df", {
     split_column(name_col = "cut", value_col = "clarity"))
 })
 
+
+
+test_that("move_row, .after=TRUE", {
+  expect_snapshot(move_row(mini_diamond, 3:5, .after = TRUE))
+})
+
+test_that("move_row, after last row", {
+  expect_snapshot(move_row(mini_diamond, 3:5, .after = nrow(mini_diamond)))
+})
+
+test_that("move_row, after first row", {
+  expect_snapshot(move_row(mini_diamond, 3:5, .after = 1))
+})
+
+test_that("move_row, .before=TRUE", {
+  expect_snapshot(move_row(mini_diamond, 3:5, .before = TRUE))
+})
+
+test_that("move_row, beofre first row", {
+  expect_snapshot(move_row(mini_diamond, 3:5, .before = 1))
+})
+
+test_that("move_row, beofre last row", {
+  expect_snapshot(move_row(mini_diamond, 3:5, .before = nrow(mini_diamond)))
+})
+
+test_that("move_row", {
+  expect_snapshot(move_row(mini_diamond, 3:5, .after = 8))
+})
 
 
 test_that("ordered_slice", {

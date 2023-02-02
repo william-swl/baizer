@@ -11,6 +11,18 @@
       id-5  0.72 Ideal     VS1  2498 5.73 5.77
       id-6  2.02  Fair     SI2 14080 8.33 8.37
 
+# fancy_count, one group
+
+    Code
+      fancy_count(mini_diamond, "cut")
+    Output
+      # A tibble: 3 x 3
+        cut       n     r
+        <chr> <int> <dbl>
+      1 Fair     35  0.35
+      2 Ideal    34  0.34
+      3 Good     31  0.31
+
 # fancy_count, fine_fmt='count'
 
     Code
@@ -79,6 +91,146 @@
        9 Ideal SI1(5) 
       10 Ideal VS1(5) 
       # ... with 14 more rows
+
+# move_row, .after=TRUE
+
+    Code
+      move_row(mini_diamond, 3:5, .after = TRUE)
+    Output
+      # A tibble: 100 x 7
+         id    carat cut   clarity price     x     y
+         <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+       1 id-1   1.02 Fair  SI1      3027  6.25  6.18
+       2 id-2   1.51 Good  VS2     11746  7.27  7.18
+       3 id-6   2.02 Fair  SI2     14080  8.33  8.37
+       4 id-7   0.27 Good  VVS1      752  4.1   4.07
+       5 id-8   0.51 Good  SI2      1029  5.05  5.08
+       6 id-9   1.01 Ideal SI1      5590  6.43  6.4 
+       7 id-10  0.7  Fair  VVS1     1691  5.56  5.41
+       8 id-11  1.02 Good  VVS1     7861  6.37  6.4 
+       9 id-12  0.71 Fair  IF       3205  5.87  5.81
+      10 id-13  0.56 Ideal SI1      1633  5.31  5.32
+      # ... with 90 more rows
+
+# move_row, after last row
+
+    Code
+      move_row(mini_diamond, 3:5, .after = nrow(mini_diamond))
+    Output
+      # A tibble: 100 x 7
+         id    carat cut   clarity price     x     y
+         <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+       1 id-1   1.02 Fair  SI1      3027  6.25  6.18
+       2 id-2   1.51 Good  VS2     11746  7.27  7.18
+       3 id-6   2.02 Fair  SI2     14080  8.33  8.37
+       4 id-7   0.27 Good  VVS1      752  4.1   4.07
+       5 id-8   0.51 Good  SI2      1029  5.05  5.08
+       6 id-9   1.01 Ideal SI1      5590  6.43  6.4 
+       7 id-10  0.7  Fair  VVS1     1691  5.56  5.41
+       8 id-11  1.02 Good  VVS1     7861  6.37  6.4 
+       9 id-12  0.71 Fair  IF       3205  5.87  5.81
+      10 id-13  0.56 Ideal SI1      1633  5.31  5.32
+      # ... with 90 more rows
+
+# move_row, after first row
+
+    Code
+      move_row(mini_diamond, 3:5, .after = 1)
+    Output
+      # A tibble: 100 x 7
+         id    carat cut   clarity price     x     y
+         <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+       1 id-1   1.02 Fair  SI1      3027  6.25  6.18
+       2 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+       3 id-4   1.54 Ideal SI2      9452  7.43  7.45
+       4 id-5   0.72 Ideal VS1      2498  5.73  5.77
+       5 id-2   1.51 Good  VS2     11746  7.27  7.18
+       6 id-6   2.02 Fair  SI2     14080  8.33  8.37
+       7 id-7   0.27 Good  VVS1      752  4.1   4.07
+       8 id-8   0.51 Good  SI2      1029  5.05  5.08
+       9 id-9   1.01 Ideal SI1      5590  6.43  6.4 
+      10 id-10  0.7  Fair  VVS1     1691  5.56  5.41
+      # ... with 90 more rows
+
+# move_row, .before=TRUE
+
+    Code
+      move_row(mini_diamond, 3:5, .before = TRUE)
+    Output
+      # A tibble: 100 x 7
+         id    carat cut   clarity price     x     y
+         <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+       1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+       2 id-4   1.54 Ideal SI2      9452  7.43  7.45
+       3 id-5   0.72 Ideal VS1      2498  5.73  5.77
+       4 id-1   1.02 Fair  SI1      3027  6.25  6.18
+       5 id-2   1.51 Good  VS2     11746  7.27  7.18
+       6 id-6   2.02 Fair  SI2     14080  8.33  8.37
+       7 id-7   0.27 Good  VVS1      752  4.1   4.07
+       8 id-8   0.51 Good  SI2      1029  5.05  5.08
+       9 id-9   1.01 Ideal SI1      5590  6.43  6.4 
+      10 id-10  0.7  Fair  VVS1     1691  5.56  5.41
+      # ... with 90 more rows
+
+# move_row, beofre first row
+
+    Code
+      move_row(mini_diamond, 3:5, .before = 1)
+    Output
+      # A tibble: 100 x 7
+         id    carat cut   clarity price     x     y
+         <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+       1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+       2 id-4   1.54 Ideal SI2      9452  7.43  7.45
+       3 id-5   0.72 Ideal VS1      2498  5.73  5.77
+       4 id-1   1.02 Fair  SI1      3027  6.25  6.18
+       5 id-2   1.51 Good  VS2     11746  7.27  7.18
+       6 id-6   2.02 Fair  SI2     14080  8.33  8.37
+       7 id-7   0.27 Good  VVS1      752  4.1   4.07
+       8 id-8   0.51 Good  SI2      1029  5.05  5.08
+       9 id-9   1.01 Ideal SI1      5590  6.43  6.4 
+      10 id-10  0.7  Fair  VVS1     1691  5.56  5.41
+      # ... with 90 more rows
+
+# move_row, beofre last row
+
+    Code
+      move_row(mini_diamond, 3:5, .before = nrow(mini_diamond))
+    Output
+      # A tibble: 100 x 7
+         id    carat cut   clarity price     x     y
+         <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+       1 id-1   1.02 Fair  SI1      3027  6.25  6.18
+       2 id-2   1.51 Good  VS2     11746  7.27  7.18
+       3 id-6   2.02 Fair  SI2     14080  8.33  8.37
+       4 id-7   0.27 Good  VVS1      752  4.1   4.07
+       5 id-8   0.51 Good  SI2      1029  5.05  5.08
+       6 id-9   1.01 Ideal SI1      5590  6.43  6.4 
+       7 id-10  0.7  Fair  VVS1     1691  5.56  5.41
+       8 id-11  1.02 Good  VVS1     7861  6.37  6.4 
+       9 id-12  0.71 Fair  IF       3205  5.87  5.81
+      10 id-13  0.56 Ideal SI1      1633  5.31  5.32
+      # ... with 90 more rows
+
+# move_row
+
+    Code
+      move_row(mini_diamond, 3:5, .after = 8)
+    Output
+      # A tibble: 100 x 7
+         id    carat cut   clarity price     x     y
+         <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+       1 id-1   1.02 Fair  SI1      3027  6.25  6.18
+       2 id-2   1.51 Good  VS2     11746  7.27  7.18
+       3 id-6   2.02 Fair  SI2     14080  8.33  8.37
+       4 id-7   0.27 Good  VVS1      752  4.1   4.07
+       5 id-8   0.51 Good  SI2      1029  5.05  5.08
+       6 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+       7 id-4   1.54 Ideal SI2      9452  7.43  7.45
+       8 id-5   0.72 Ideal VS1      2498  5.73  5.77
+       9 id-9   1.01 Ideal SI1      5590  6.43  6.4 
+      10 id-10  0.7  Fair  VVS1     1691  5.56  5.41
+      # ... with 90 more rows
 
 # ordered_slice
 
