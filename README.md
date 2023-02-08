@@ -156,6 +156,19 @@ number_fun_wrapper(">=2.134%", function(x) round(x, 2))
 #> [1] ">=2.13%"
 ```
 
+- expand a number vector according to the adjacent two numbers
+
+``` r
+adjacent_div(10^c(1:3), n_div = 10)
+#>  [1]   10   20   30   40   50   60   70   80   90  100  100  200  300  400  500
+#> [16]  600  700  800  900 1000
+
+# only keep the unique numbers
+adjacent_div(10^c(1:3), n_div = 10, .unique = TRUE)
+#>  [1]   10   20   30   40   50   60   70   80   90  100  200  300  400  500  600
+#> [16]  700  800  900 1000
+```
+
 ## dataframe
 
 - a minimal dataset

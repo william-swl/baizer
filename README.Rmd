@@ -124,6 +124,14 @@ percent_to_float("123%", digits = 3)
 number_fun_wrapper(">=2.134%", function(x) round(x, 2))
 ```
 
+- expand a number vector according to the adjacent two numbers
+```{r numbers-adjacent_div}
+adjacent_div(10^c(1:3), n_div = 10)
+
+# only keep the unique numbers
+adjacent_div(10^c(1:3), n_div = 10, .unique = TRUE)
+```
+
 ## dataframe
 - a minimal dataset
 ```{r dataframe-mini_diamond}

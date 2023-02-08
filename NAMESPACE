@@ -3,6 +3,7 @@
 export("%>%")
 export("%neq%")
 export("%nin%")
+export(adjacent_div)
 export(c2r)
 export(collapse_vector)
 export(detect_dup)

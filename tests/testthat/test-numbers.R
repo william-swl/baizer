@@ -72,3 +72,21 @@ test_that("number_fun_wrapper", {
     ">=2.13|"
   )
 })
+
+
+test_that("adjacent_div", {
+  expect_identical(
+    adjacent_div(10^c(1:3), n_div = 10),
+    c(
+      10, 20, 30, 40, 50, 60, 70, 80, 90, 100,
+      100, 200, 300, 400, 500, 600, 700, 800, 900, 1000
+    )
+  )
+  expect_identical(
+    adjacent_div(10^c(1:3), n_div = 10, .unique = TRUE),
+    c(
+      10, 20, 30, 40, 50, 60, 70, 80, 90, 100,
+      200, 300, 400, 500, 600, 700, 800, 900, 1000
+    )
+  )
+})
