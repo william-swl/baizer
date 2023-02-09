@@ -54,7 +54,7 @@
     
     <a class="navbar-brand me-2" href="index.html">baizer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -176,6 +176,13 @@
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/detect_dup.html">detect_dup</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"B"</span>, <span class="st">"C_"</span>, <span class="st">"c -"</span>, <span class="st">"#A"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "a"   "#A"  "C_"  "c -"</span></span></code></pre></div>
+<ul>
+<li>extract key and values for a character vector</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/extract_kv.html">extract_kv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x: 1"</span>, <span class="st">"y: 2"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   x   y </span></span>
+<span><span class="co">#&gt; "1" "2"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="numbers">numbers<a class="anchor" aria-label="anchor" href="#numbers"></a>
@@ -183,7 +190,7 @@
 <ul>
 <li>better round/signif string</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2.1951</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2.2</span></span>
 <span></span>
@@ -198,7 +205,7 @@
 <ul>
 <li>signif or round string depend on the character length</li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/signif_round_string.html">signif_round_string</a></span><span class="op">(</span><span class="fl">20.526</span>, <span class="fl">2</span>, <span class="st">"short"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "21"</span></span>
 <span><span class="fu"><a href="reference/signif_round_string.html">signif_round_string</a></span><span class="op">(</span><span class="fl">20.526</span>, <span class="fl">2</span>, <span class="st">"long"</span><span class="op">)</span></span>
@@ -210,7 +217,7 @@
 <ul>
 <li>whether the number string only has zero</li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/is.zero.html">is.zero</a></span><span class="op">(</span><span class="st">"0.000"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span>
 <span></span>
@@ -219,7 +226,7 @@
 <ul>
 <li>float and percent trans</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/float_to_percent.html">float_to_percent</a></span><span class="op">(</span><span class="fl">0.123</span>, digits <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "12.3%"</span></span>
 <span></span>
@@ -228,13 +235,13 @@
 <ul>
 <li>wrapper of the functions to process number string with prefix and suffix</li>
 </ul>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/number_fun_wrapper.html">number_fun_wrapper</a></span><span class="op">(</span><span class="st">"&gt;=2.134%"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "&gt;=2.13%"</span></span></code></pre></div>
 <ul>
 <li>expand a number vector according to the adjacent two numbers</li>
 </ul>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/adjacent_div.html">adjacent_div</a></span><span class="op">(</span><span class="fl">10</span><span class="op">^</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, n_div <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1]   10   20   30   40   50   60   70   80   90  100  100  200  300  400  500</span></span>
 <span><span class="co">#&gt; [16]  600  700  800  900 1000</span></span>
@@ -250,7 +257,7 @@
 <ul>
 <li>a minimal dataset</li>
 </ul>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mini_diamond</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     id carat   cut clarity price    x    y</span></span>
 <span><span class="co">#&gt; 1 id-1  1.02  Fair     SI1  3027 6.25 6.18</span></span>
@@ -263,7 +270,7 @@
 <li>shortcut of <code>dplyr::column_to_rownames</code> and <code>dplyr::rownames_to_column</code>
 </li>
 </ul>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mini_diamond</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/c2r.html">c2r</a></span><span class="op">(</span><span class="st">"id"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      carat   cut clarity price    x    y</span></span>
 <span><span class="co">#&gt; id-1  1.02  Fair     SI1  3027 6.25 6.18</span></span>
@@ -298,7 +305,7 @@
 <ul>
 <li>fancy count to show up to two columns and their summary</li>
 </ul>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># count one column</span></span>
 <span><span class="fu"><a href="reference/fancy_count.html">fancy_count</a></span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="st">"cut"</span><span class="op">)</span></span>
@@ -345,7 +352,7 @@
 <ul>
 <li>split a column and return a longer dataframe</li>
 </ul>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/fancy_count.html">fancy_count</a></span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="st">"cut"</span>, <span class="st">"clarity"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/split_column.html">split_column</a></span><span class="op">(</span>name_col <span class="op">=</span> <span class="st">"cut"</span>, value_col <span class="op">=</span> <span class="st">"clarity"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 24 × 2</span></span>
@@ -365,7 +372,7 @@
 <ul>
 <li>move selected rows to target location</li>
 </ul>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># move row 3-5 after row 8</span></span>
 <span><span class="fu"><a href="reference/move_row.html">move_row</a></span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">5</span>, .after <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 100 × 7</span></span>
@@ -419,7 +426,7 @@
 <ul>
 <li>slice a tibble by an ordered vector</li>
 </ul>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/ordered_slice.html">ordered_slice</a></span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="st">"id"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id-3"</span>, <span class="st">"id-2"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 2 × 7</span></span>
 <span><span class="co">#&gt;   id    carat cut   clarity price     x     y</span></span>
@@ -478,7 +485,7 @@
 <ul>
 <li>write a tibble into an excel file</li>
 </ul>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># write_excel(mini_diamond, "mini_diamond.xlsx")</span></span></code></pre></div>
 </div>
 <div class="section level2">
