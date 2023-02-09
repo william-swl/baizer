@@ -82,6 +82,12 @@ fix_to_regex("ABC|?(*)")
 detect_dup(c("a", "B", "C_", "c -", "#A"))
 ```
 
+- extract key and values for a character vector
+```{r basic-utils-extract_kv}
+extract_kv(c("x: 1", "y: 2"))
+```
+
+
 ## numbers
 
 - better round/signif string

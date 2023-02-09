@@ -58,3 +58,10 @@ test_that("detect_dup", {
     c("a", "#A", "C_", "c -")
   )
 })
+
+
+test_that("extract_kv", {
+  expect_identical(
+    extract_kv(c("x: 1", "y: 2")), c("x" = "1", "y" = "2")
+  )
+})

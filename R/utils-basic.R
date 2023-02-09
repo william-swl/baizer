@@ -131,3 +131,26 @@ detect_dup <- function(vector, index = FALSE) {
     return(res)
   }
 }
+
+
+#' extract key and values for a character vector
+#'
+#' @param v character vector
+#' @param sep separator between key and value
+#' @param key_loc key location
+#' @param value_loc value location
+#'
+#' @return a named character vector
+#' @export
+#'
+#' @examples extract_kv(c("x: 1", "y: 2"))
+extract_kv <- function(v, sep = ": ", key_loc = 1, value_loc = 2) {
+  df <- v %>%
+    stringr::str_split(sep) %>%
+    data.frame()
+  key <- unname(unlist(df[key_loc, ]))
+  value <- unname(unlist(df[value_loc, ]))
+  names(value) <- key
+
+  return(value)
+}

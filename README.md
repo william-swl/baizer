@@ -97,6 +97,14 @@ detect_dup(c("a", "B", "C_", "c -", "#A"))
 #> [1] "a"   "#A"  "C_"  "c -"
 ```
 
+- extract key and values for a character vector
+
+``` r
+extract_kv(c("x: 1", "y: 2"))
+#>   x   y 
+#> "1" "2"
+```
+
 ## numbers
 
 - better round/signif string
