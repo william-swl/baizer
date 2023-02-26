@@ -27,18 +27,24 @@
     !(is.na(x) & is.na(y))
 }
 
-#' variable not in session calculation operator
+#' if variable exsits
 #'
 #' @param x variable
+#' @param ls variable list
+#' @param envir environment
 #'
-#' @return logical value, TRUE if x not in session
+#' @return logical value, TRUE if x exsits
 #' @export
 #'
-#' @examples is.blank(var_no_in_session)
-is.blank <- function(x, envir=environment()) {
-  vars <- ls(all.names=TRUE, envir=envir)
-  res <- deparse(substitute(x)) %nin% vars
-  return (res)
+#' @examples is.exsit(var_not_in_session)
+is.exsit <- function(x, ls = NULL, envir = environment()) {
+  if (!is.null(ls)) {
+    vars <- ls
+  } else {
+    vars <- ls(all.names = TRUE, envir = envir)
+  }
+  res <- deparse(substitute(x)) %in% vars
+  return(res)
 }
 
 
