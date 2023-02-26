@@ -105,6 +105,22 @@ extract_kv(c("x: 1", "y: 2"))
 #> "1" "2"
 ```
 
+- farthest point sampling (FPS) for a vector
+
+``` r
+fps_vector(1:10, 2)
+#> [1]  1 10
+
+fps_vector(1:10, 4)
+#> [1]  1  4  7 10
+
+fps_vector(c(1, 2, NULL), 2)
+#> [1] 1 2
+
+fps_vector(c(1, 2, NA), 2)
+#> [1]  1 NA
+```
+
 ## numbers
 
 - better round/signif string

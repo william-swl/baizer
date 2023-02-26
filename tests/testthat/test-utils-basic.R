@@ -65,3 +65,13 @@ test_that("extract_kv", {
     extract_kv(c("x: 1", "y: 2")), c("x" = "1", "y" = "2")
   )
 })
+
+test_that("fps_vector", {
+  expect_equal(fps_vector(1:10, 1), c(1))
+  expect_equal(fps_vector(1:10, 2), c(1, 10))
+  expect_equal(fps_vector(1:10, 4), c(1, 4, 7, 10))
+  expect_equal(fps_vector(c(1, 2, NA), 2), c(1, NA))
+  expect_equal(fps_vector(c(1, 2, NULL), 2), c(1, 2))
+  expect_error(fps_vector(1:10, 12))
+  expect_error(fps_vector(1, 2, NULL, 3))
+})

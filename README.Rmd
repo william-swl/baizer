@@ -87,6 +87,17 @@ detect_dup(c("a", "B", "C_", "c -", "#A"))
 extract_kv(c("x: 1", "y: 2"))
 ```
 
+- farthest point sampling (FPS) for a vector
+```{r basic-utils-fps_vector}
+fps_vector(1:10, 2)
+
+fps_vector(1:10, 4)
+
+fps_vector(c(1, 2, NULL), 2)
+
+fps_vector(c(1, 2, NA), 2)
+```
+
 
 ## numbers
 
