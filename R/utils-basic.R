@@ -149,7 +149,7 @@ extract_kv <- function(v, sep = ": ", key_loc = 1, value_loc = 2) {
     stringr::str_split(sep) %>%
     data.frame()
   key <- unname(unlist(df[key_loc, ]))
-  value <- unname(unlist(df[value_loc, ]))
+  value <- unname(unlist(df[value_loc, ]) %>% as.character())
   names(value) <- key
 
   return(value)
