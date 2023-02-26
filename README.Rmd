@@ -221,6 +221,13 @@ ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", "id-3", NA),
 )
 ```
 
+## stat
+- statistical test which returns a extensible tibble
+```{r stat-stat_test}
+stat_test(mini_diamond, y = price, x = cut, .by = clarity)
+```
+
+
 
 ## IO
 - write a tibble, or a list of tibbles into an excel file
