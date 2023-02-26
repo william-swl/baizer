@@ -36,7 +36,9 @@
 #'
 #' @examples is.blank(var_no_in_session)
 is.blank <- function(x) {
-  deparse(substitute(x)) %nin% ls(envir = .GlobalEnv)
+  global_vars <- ls(envir = parent.frame(sys.nframe()))
+  res <- deparse(substitute(x)) %nin% global_vars
+  return (res)
 }
 
 
