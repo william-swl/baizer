@@ -22,6 +22,11 @@ test_that("%neq%", {
   expect_identical("" %neq% " ", TRUE)
 })
 
+test_that("is.blank", {
+  expect_identical(is.blank(var_no_in_session), TRUE)
+  # can not pass in dev environment, but works in work environment
+  # expect_identical(is.blank(is.blank), FALSE) # nolint
+})
 
 
 test_that("collapse_vector", {

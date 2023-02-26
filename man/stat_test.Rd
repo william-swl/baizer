@@ -40,5 +40,5 @@ test result tibble
 statistical test which returns a extensible tibble
 }
 \examples{
-stat_test(mini_diamond, y=price, x=cut, .by=clarity)
+stat_test(mini_diamond, y = price, x = cut, .by = clarity)
 }

@@ -27,6 +27,17 @@
     !(is.na(x) & is.na(y))
 }
 
+#' variable not in session calculation operator
+#'
+#' @param x variable
+#'
+#' @return logical value, TRUE if x not in session
+#' @export
+#'
+#' @examples is.blank(var_no_in_session)
+is.blank <- function(x) {
+  deparse(substitute(x)) %nin% ls(envir = .GlobalEnv)
+}
 
 
 #' dump a named vector into character
