@@ -212,9 +212,12 @@ ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", "id-3", NA),
 
 
 ## IO
-- write a tibble into an excel file
+- write a tibble, or a list of tibbles into an excel file
 ```{r IO-write_excel}
 # write_excel(mini_diamond, "mini_diamond.xlsx")
+
+# Ldf <- list(mini_diamond[1:3, ], mini_diamond[4:6, ])
+# write_excel_path(Ldf, '2sheets.xlsx')
 ```
 
 ## Code of Conduct

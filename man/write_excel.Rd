@@ -7,11 +7,11 @@
 write_excel(df, filename, sheetname = "sheet1", creator = "")
 }
 \arguments{
-\item{df}{tibble}
+\item{df}{tibble or a list of tibbles}
 
 \item{filename}{the output filename}
 
-\item{sheetname}{the sheet name, \code{sheet1} as default}
+\item{sheetname}{the name of sheets, \code{sheet1} as default}
 
 \item{creator}{creator}
 }

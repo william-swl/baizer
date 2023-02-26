@@ -22,5 +22,5 @@ a named character vector
 extract key and values for a character vector
 }
 \examples{
-extract_kv(c('x: 1', 'y: 2'))
+extract_kv(c("x: 1", "y: 2"))
 }
