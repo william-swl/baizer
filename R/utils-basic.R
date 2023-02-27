@@ -27,17 +27,17 @@
     !(is.na(x) & is.na(y))
 }
 
-#' if variable exsits
+#' if variable exists
 #'
 #' @param x variable
 #' @param ls variable list
 #' @param envir environment
 #'
-#' @return logical value, TRUE if x exsits
+#' @return logical value, TRUE if x exists
 #' @export
 #'
-#' @examples is.exsit(var_not_in_session)
-is.exsit <- function(x, ls = NULL, envir = environment()) {
+#' @examples is.exist(var_not_in_session)
+is.exist <- function(x, ls = NULL, envir = environment()) {
   if (!is.null(ls)) {
     vars <- ls
   } else {

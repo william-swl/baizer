@@ -22,10 +22,10 @@ test_that("%neq%", {
   expect_identical("" %neq% " ", TRUE)
 })
 
-test_that("is.exsit", {
-  expect_identical(is.exsit(var_no_in_session), FALSE)
+test_that("is.exist", {
+  expect_identical(is.exist(var_no_in_session), FALSE)
   # can not pass in dev environment, but works in work environment
-  # expect_identical( {x <- 1; is.exsit(x)}, TRUE) # nolint
+  # expect_identical( {x <- 1; is.exist(x)}, TRUE) # nolint
 })
 
 
