@@ -4,14 +4,10 @@
 \alias{is.exist}
 \title{if variable exists}
 \usage{
-is.exist(x, ls = NULL, envir = environment())
+is.exist(x)
 }
 \arguments{
 \item{x}{variable}
-
-\item{ls}{variable list}
-
-\item{envir}{environment}
 }
 \value{
 logical value, TRUE if x exists
@@ -20,5 +16,5 @@ logical value, TRUE if x exists
 if variable exists
 }
 \examples{
-is.exist(var_not_in_session)
+is.exist(var)
 }

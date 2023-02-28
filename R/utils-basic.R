@@ -30,21 +30,13 @@
 #' if variable exists
 #'
 #' @param x variable
-#' @param ls variable list
-#' @param envir environment
 #'
 #' @return logical value, TRUE if x exists
 #' @export
 #'
-#' @examples is.exist(var_not_in_session)
-is.exist <- function(x, ls = NULL, envir = environment()) {
-  if (!is.null(ls)) {
-    vars <- ls
-  } else {
-    vars <- ls(all.names = TRUE, envir = envir)
-  }
-  res <- deparse(substitute(x)) %in% vars
-  return(res)
+#' @examples is.exist(var)
+is.exist <- function(x) {
+  (exists(deparse(substitute(x)))) && (!is.function(x))
 }
 
 

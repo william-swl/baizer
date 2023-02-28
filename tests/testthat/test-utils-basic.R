@@ -25,7 +25,8 @@ test_that("%neq%", {
 test_that("is.exist", {
   expect_identical(is.exist(var_no_in_session), FALSE)
   # can not pass in dev environment, but works in work environment
-  # expect_identical( {x <- 1; is.exist(x)}, TRUE) # nolint
+  # expect_identical( {var_in_session <- 1; # nolint
+  #  is.exist(var_in_session)}, TRUE) # nolint
 })
 
 
