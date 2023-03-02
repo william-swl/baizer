@@ -22,5 +22,5 @@ return status
 write a tibble into an excel file
 }
 \examples{
-write_excel(mini_diamond, "mini_diamond.xlsx")
+# write_excel(mini_diamond, "mini_diamond.xlsx")
 }

@@ -19,13 +19,14 @@ Imports:
     rstatix,
     stats,
     stringr,
-    tibble
+    tibble,
+    tidyselect
 Suggests: 
     covr,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Depends: 
-    R (>= 3.5.0)
+    R (>= 4.1.0)
 LazyData: true
 URL: https://github.com/william-swl/baizer
 BugReports: https://github.com/william-swl/baizer/issues

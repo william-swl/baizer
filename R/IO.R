@@ -8,7 +8,7 @@
 #' @return return status
 #' @export
 #'
-#' @examples write_excel(mini_diamond, "mini_diamond.xlsx")
+#' @examples # write_excel(mini_diamond, "mini_diamond.xlsx")
 write_excel <- function(df, filename, sheetname = "sheet1", creator = "") {
   if (!stringr::str_detect(filename, "\\.xlsx*$")) {
     stop("File name should have xlsx/xls suffix!")
