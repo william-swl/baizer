@@ -22,11 +22,12 @@ Imports:
     tibble,
     tidyselect
 Suggests: 
+    car (>= 0.5.1),
     covr,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Depends: 
-    R (>= 4.1.0)
+    R (>= 3.5.0)
 LazyData: true
 URL: https://github.com/william-swl/baizer
 BugReports: https://github.com/william-swl/baizer/issues
