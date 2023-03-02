@@ -16,5 +16,5 @@ all zero or not
 if a number only have zeros
 }
 \examples{
-is.zero("0.000", "0.102", NA)
+is.zero(c("0.000", "0.102", NA))
 }
