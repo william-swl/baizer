@@ -42,7 +42,7 @@ signif_string <- function(x, digits = 2) {
 #' @return all zero or not
 #' @export
 #'
-#' @examples is.zero("0.000", "0.102", NA)
+#' @examples is.zero(c("0.000", "0.102", NA))
 is.zero <- function(x) {
   ifelse(
     is.null(x),
