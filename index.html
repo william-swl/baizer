@@ -54,7 +54,7 @@
     
     <a class="navbar-brand me-2" href="index.html">baizer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.10</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -516,6 +516,25 @@
 <span><span class="co">#&gt;  9 SI1     price Good   Ideal      4     5         6 0.413 1     ns      NS     </span></span>
 <span><span class="co">#&gt; 10 SI2     price Fair   Good       4     4        15 0.057 0.171 ns      NS     </span></span>
 <span><span class="co">#&gt; # … with 14 more rows, and abbreviated variable names ¹​p.adj.signif, ²​p.signif</span></span></code></pre></div>
+<ul>
+<li>fold change calculation which returns a extensible tibble</li>
+</ul>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/stat_fc.html">stat_fc</a></span><span class="op">(</span><span class="va">mini_diamond</span>, y <span class="op">=</span> <span class="va">price</span>, x <span class="op">=</span> <span class="va">cut</span>, .by <span class="op">=</span> <span class="va">clarity</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1,266 × 7</span></span>
+<span><span class="co">#&gt;    clarity cut_1 cut_2 price_1 price_2 fc_price fc_price_fmt</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;int&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;chr&gt;       </span></span>
+<span><span class="co">#&gt;  1 SI1     Fair  Fair     3027    3027    1     1.0x        </span></span>
+<span><span class="co">#&gt;  2 SI1     Fair  Ideal    3027    5590    0.542 0.54x       </span></span>
+<span><span class="co">#&gt;  3 SI1     Fair  Ideal    3027    1633    1.85  1.9x        </span></span>
+<span><span class="co">#&gt;  4 SI1     Fair  Good     3027    5252    0.576 0.58x       </span></span>
+<span><span class="co">#&gt;  5 SI1     Fair  Good     3027     589    5.14  5.1x        </span></span>
+<span><span class="co">#&gt;  6 SI1     Fair  Ideal    3027    5370    0.564 0.56x       </span></span>
+<span><span class="co">#&gt;  7 SI1     Fair  Good     3027    4851    0.624 0.62x       </span></span>
+<span><span class="co">#&gt;  8 SI1     Fair  Fair     3027    4480    0.676 0.68x       </span></span>
+<span><span class="co">#&gt;  9 SI1     Fair  Fair     3027    1952    1.55  1.6x        </span></span>
+<span><span class="co">#&gt; 10 SI1     Fair  Fair     3027   18026    0.168 0.17x       </span></span>
+<span><span class="co">#&gt; # … with 1,256 more rows</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="io">IO<a class="anchor" aria-label="anchor" href="#io"></a>
@@ -523,7 +542,7 @@
 <ul>
 <li>write a tibble, or a list of tibbles into an excel file</li>
 </ul>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># write_excel(mini_diamond, "mini_diamond.xlsx")</span></span>
 <span></span>
 <span><span class="co"># Ldf &lt;- list(mini_diamond[1:3, ], mini_diamond[4:6, ])</span></span>

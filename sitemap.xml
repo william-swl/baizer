@@ -64,9 +64,6 @@
     <loc>https://william-swl.github.io/baizer/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://william-swl.github.io/baizer/reference/is.exist.html</loc>
-  </url>
-  <url>
     <loc>https://william-swl.github.io/baizer/reference/is.zero.html</loc>
   </url>
   <url>
@@ -101,6 +98,9 @@
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/split_column.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/stat_fc.html</loc>
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/stat_test.html</loc>
