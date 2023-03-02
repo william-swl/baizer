@@ -42,25 +42,26 @@ signif_string <- function(x, digits = 2) {
 #' @return all zero or not
 #' @export
 #'
-#' @examples is.zero("0.00")
+#' @examples is.zero("0.000", "0.102", NA)
 is.zero <- function(x) {
-  if (!is.null(x)) {
-    x <- as.character(x)
-    if (is.na(x)) {
-      return(NA)
-    } else if (!stringr::str_detect(x, "^[\\d\\.]+$")) {
-      stop("No a number!")
-    } else {
-      r <- stringr::str_match_all(x, "\\d") %>%
-        unlist() %>%
-        as.integer() %>%
-        sum() == 0
-      return(r)
+  ifelse(
+    is.null(x),
+    return(x),
+    {
+      x <- as.character(x)
+      ifelse(!stringr::str_detect(x, "^[\\d\\.]+$"),
+        stop("No a number!"),
+        {
+          res <- ifelse(is.na(x), NA,
+            stringr::str_detect(x, "^[0\\.]+$")
+          )
+          return(res)
+        }
+      )
     }
-  } else {
-    return(NULL)
-  }
+  )
 }
+
 
 
 

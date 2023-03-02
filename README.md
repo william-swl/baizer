@@ -447,6 +447,26 @@ stat_test(mini_diamond, y = price, x = cut, .by = clarity)
 #> # … with 14 more rows, and abbreviated variable names ¹​p.adj.signif, ²​p.signif
 ```
 
+- fold change calculation which returns a extensible tibble
+
+``` r
+stat_fc(mini_diamond, y = price, x = cut, .by = clarity)
+#> # A tibble: 1,266 × 7
+#>    clarity cut_1 cut_2 price_1 price_2 fc_price fc_price_fmt
+#>    <chr>   <chr> <chr>   <int>   <int>    <dbl> <chr>       
+#>  1 SI1     Fair  Fair     3027    3027    1     1.0x        
+#>  2 SI1     Fair  Ideal    3027    5590    0.542 0.54x       
+#>  3 SI1     Fair  Ideal    3027    1633    1.85  1.9x        
+#>  4 SI1     Fair  Good     3027    5252    0.576 0.58x       
+#>  5 SI1     Fair  Good     3027     589    5.14  5.1x        
+#>  6 SI1     Fair  Ideal    3027    5370    0.564 0.56x       
+#>  7 SI1     Fair  Good     3027    4851    0.624 0.62x       
+#>  8 SI1     Fair  Fair     3027    4480    0.676 0.68x       
+#>  9 SI1     Fair  Fair     3027    1952    1.55  1.6x        
+#> 10 SI1     Fair  Fair     3027   18026    0.168 0.17x       
+#> # … with 1,256 more rows
+```
+
 ## IO
 
 - write a tibble, or a list of tibbles into an excel file

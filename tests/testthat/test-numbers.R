@@ -1,33 +1,32 @@
 test_that("round_string", {
-  expect_identical(round_string(1.1, 2), "1.10")
-  expect_identical(round_string(1.1041, 2), "1.10")
-  expect_identical(round_string(1.1051, 2), "1.11")
-  expect_identical(round_string(10, 2), "10.00")
-  expect_identical(round_string(-9, 2), "-9.00")
-  expect_identical(round_string(-9.213, 2), "-9.21")
-  expect_identical(round_string(0.0000002, 2), "0.00")
+  expect_identical(
+    round_string(c(1.1, 1.1041, 1.1051, 10, -9, -9.213, 0.0000002), 2),
+    c("1.10", "1.10", "1.11", "10.00", "-9.00", "-9.21", "0.00")
+  )
   expect_identical(round_string(-0.523, 0), "-1")
   expect_identical(round_string("-0.5237", 3), "-0.524")
 })
 
+
 test_that("signif_string", {
-  expect_identical(signif_string(1.1, 2), "1.1")
-  expect_identical(signif_string(1.14, 2), "1.1")
-  expect_identical(signif_string(1.151, 2), "1.2")
-  expect_identical(signif_string(10, 2), "10")
-  expect_identical(signif_string(-9, 2), "-9.0")
-  expect_identical(signif_string(-9.213, 2), "-9.2")
-  expect_identical(signif_string(0.0000002, 2), "0.00000020")
+  expect_identical(
+    signif_string(c(1.1, 1.14, 1.151, 10, -9, -9.213, 0.0000002), 2),
+    c("1.1", "1.1", "1.2", "10", "-9.0", "-9.2", "0.00000020")
+  )
   expect_error(signif_string(-0.523, 0))
   expect_identical(signif_string("-0.5237", 3), "-0.524")
 })
 
 
 test_that("float_to_percent", {
-  expect_identical(float_to_percent(0.12, 0), "12%")
-  expect_identical(float_to_percent(0, 2), "0.00%")
-  expect_identical(float_to_percent(1.37, 2), "137.00%")
-  expect_identical(float_to_percent("-12.215", 0), "-1222%")
+  expect_identical(
+    float_to_percent(c(0.12, -12.215), 0),
+    c("12%", "-1222%")
+  )
+  expect_identical(
+    float_to_percent(c(0, 1.37), 2),
+    c("0.00%", "137.00%")
+  )
 })
 
 test_that("percent_to_float", {

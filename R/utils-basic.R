@@ -27,17 +27,6 @@
     !(is.na(x) & is.na(y))
 }
 
-#' if variable exists
-#'
-#' @param x variable
-#'
-#' @return logical value, TRUE if x exists
-#' @export
-#'
-#' @examples is.exist(var)
-is.exist <- function(x) {
-  (exists(deparse(substitute(x)))) && (!is.function(x))
-}
 
 
 #' dump a named vector into character
