@@ -29,7 +29,7 @@ stat_test <- function(df, y, x, paired = FALSE, alternative = "two.sided",
 
   # test
   if (method == "wilcoxon") {
-    res <- res %>% rstatix::wilcox_test(as.formula(fomular_str),
+    res <- res %>% rstatix::wilcox_test(stats::as.formula(fomular_str),
       paired = paired,
       alternative = alternative, ...
     )
