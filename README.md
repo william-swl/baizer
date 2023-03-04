@@ -68,18 +68,51 @@ collapse_vector(c("A" = 2, "B" = 3, "C" = 4), front_name = FALSE, collapse = ","
 #> [1] "2(A),3(B),4(C)"
 ```
 
-- return the index of nth different character
+- the index of different character
 
 ``` r
-# return all the indices by default
-diff_index("ATTG", "ATAC")
-#> [1] 3 4
+diff_index("AAAA", "ABBA")
+#> [[1]]
+#> [1] 2 3
 
-diff_index("ATTG", "ATAC", nth = 1)
+# ignore case
+diff_index("AAAA", "abba", ignore_case = TRUE)
+#> [[1]]
+#> [1] 2 3
+
+# only the index of second different character, NA if unaccessible
+diff_index("AAAA", "ABBA", nth = 2)
+#> [[1]]
 #> [1] 3
 
-diff_index("ATTG", "ATAC", nth = 2)
-#> [1] 4
+diff_index("AAAA", "ABBA", 10)
+#> [[1]]
+#> [1] NA
+
+# second and third indices
+diff_index("AAAA", "ABBB", nth = 2:3)
+#> [[1]]
+#> [1] 3 4
+
+# support vectorized operations
+diff_index(c("ABBA", "AABB"), "AAAA")
+#> [[1]]
+#> [1] 2 3
+#> 
+#> [[2]]
+#> [1] 3 4
+```
+
+- the index of same character
+
+``` r
+# just like diff_index
+same_index(c("ABBA", "AABB"), "AAAA")
+#> [[1]]
+#> [1] 1 4
+#> 
+#> [[2]]
+#> [1] 1 2
 ```
 
 - trans fixed string into regular expression string

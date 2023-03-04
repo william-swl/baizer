@@ -36,12 +36,43 @@ test_that("collapse_vector", {
 
 
 test_that("diff_index", {
-  expect_identical(diff_index("ATTC", "ATAC"), as.integer(3))
-  expect_identical(diff_index("AATC", "ATAC"), as.integer(c(2, 3)))
-  expect_identical(diff_index("AATC", "ATAC", 2), as.integer(3))
-  expect_identical(diff_index("AATC", "ATAC", 10), NA_integer_)
-  expect_error(diff_index("AATC", c("ATAC", "AAGC")))
-  expect_error(diff_index("AATC", "ACT"))
+  expect_identical(diff_index("AAAA", "ABBA"), list(as.integer(c(2, 3))))
+  expect_identical(
+    diff_index("AAAA", "abba", ignore_case = TRUE),
+    list(as.integer(c(2, 3)))
+  )
+  expect_identical(diff_index("AAAA", "ABBA", 2), list(as.integer(3)))
+  expect_identical(diff_index("AAAA", "ABBB", 2:3), list(as.integer(c(3, 4))))
+  expect_identical(diff_index("AAAA", "ABBA", 10), list(NA_integer_))
+  expect_identical(
+    diff_index(c("ABBA", "AABB"), "AAAA"),
+    list(as.integer(c(2, 3)), as.integer(c(3, 4)))
+  )
+  expect_identical(
+    diff_index(c("ABBB", "BBBA"), "AAAA", nth = c(1, 3)),
+    list(as.integer(c(2, 4)), as.integer(c(1, 3)))
+  )
+  expect_error(diff_index("AAAA", "AAB"))
+})
+
+test_that("same_index", {
+  expect_identical(same_index("AAAA", "ABBA"), list(as.integer(c(1, 4))))
+  expect_identical(
+    same_index("AAAA", "abba", ignore_case = TRUE),
+    list(as.integer(c(1, 4)))
+  )
+  expect_identical(same_index("AAAA", "ABBA", 2), list(as.integer(4)))
+  expect_identical(same_index("AAAA", "ABAA", 2:3), list(as.integer(c(3, 4))))
+  expect_identical(same_index("AAAA", "ABBA", 10), list(NA_integer_))
+  expect_identical(
+    same_index(c("ABBA", "AABB"), "AAAA"),
+    list(as.integer(c(1, 4)), as.integer(c(1, 2)))
+  )
+  expect_identical(
+    same_index(c("BAAA", "AAAB"), "AAAA", nth = c(1, 3)),
+    list(as.integer(c(2, 4)), as.integer(c(1, 3)))
+  )
+  expect_error(same_index("AAAA", "AAB"))
 })
 
 
