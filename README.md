@@ -115,6 +115,54 @@ same_index(c("ABBA", "AABB"), "AAAA")
 #> [1] 1 2
 ```
 
+- fetch character from strings
+
+``` r
+fetch_char(rep("ABC", 3), list(1, 2, 3))
+#> [[1]]
+#> [1] "A"
+#> 
+#> [[2]]
+#> [1] "B"
+#> 
+#> [[3]]
+#> [1] "C"
+
+# accept the output of `diff_index` or `same_index`
+str1 <- c("ABCD", "AAEF")
+str2 <- c("AAAA", "AAAA")
+fetch_char(str1, diff_index(str1, str2))
+#> [[1]]
+#> [1] "B" "C" "D"
+#> 
+#> [[2]]
+#> [1] "E" "F"
+
+# if the output of `diff_index` have NA, also return NA
+fetch_char(str1, diff_index(str1, str2, nth = 1:3), na.rm = FALSE)
+#> [[1]]
+#> [1] "B" "C" "D"
+#> 
+#> [[2]]
+#> [1] "E" "F" NA
+
+# remove NA
+fetch_char(str1, diff_index(str1, str2, nth = 1:5), na.rm = TRUE)
+#> [[1]]
+#> [1] "B" "C" "D"
+#> 
+#> [[2]]
+#> [1] "E" "F"
+
+# collapse the characters from a same string
+fetch_char(str1, diff_index(str1, str2, nth = 1:5), na.rm = TRUE, collapse = ",")
+#> [[1]]
+#> [1] "B,C,D"
+#> 
+#> [[2]]
+#> [1] "E,F"
+```
+
 - trans fixed string into regular expression string
 
 ``` r
@@ -501,6 +549,33 @@ stat_fc(mini_diamond, y = price, x = cut, .by = clarity)
 ```
 
 ## IO
+
+- get the command line arguments
+
+``` r
+cmdargs()
+#> $wd
+#> [1] "/home/william/rpkg/baizer"
+#> 
+#> $R_env
+#> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"
+#> 
+#> $script_path
+#> character(0)
+#> 
+#> $script_dir
+#> character(0)
+#> 
+#> $env_configs
+#> [1] "--slave"                               
+#> [2] "--no-save"                             
+#> [3] "--no-restore"                          
+#> [4] "-f"                                    
+#> [5] "/tmp/Rtmp4eMqp4/callr-scr-586f6778ead8"
+
+cmdargs("R_env")
+#> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"
+```
 
 - write a tibble, or a list of tibbles into an excel file
 

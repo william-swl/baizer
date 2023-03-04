@@ -134,6 +134,38 @@ same_index <- function(s1, s2, nth = NULL, ignore_case = FALSE) {
 }
 
 
+#' fetch character from strings
+#'
+#' @param s strings
+#' @param index_list index of nth character,
+#' can be output of `diff_index` or `same_index`
+#' @param na.rm remove NA values from results or not
+#' @param collapse optional string used to combine
+#' the characters from a same string
+#'
+#' @return list of characters
+#' @export
+#'
+#' @examples fetch_char(rep("ABC", 3), list(1, 2, 3))
+fetch_char <- function(s, index_list, na.rm = FALSE, collapse = FALSE) {
+  res <- purrr::map2(
+    s, index_list,
+    ~ {
+      stringr::str_sub(.x, .y, .y)
+    }
+  )
+
+  if (na.rm == TRUE) {
+    res <- res %>% purrr::map(~ .x[!is.na(.x)])
+  }
+
+  if (collapse != FALSE) {
+    res <- res %>% purrr::map(~ stringr::str_c(.x, collapse = collapse))
+  }
+
+  return(res)
+}
+
 
 #' trans fixed string into regular expression string
 #'
