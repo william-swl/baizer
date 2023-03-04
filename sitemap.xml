@@ -31,6 +31,9 @@
     <loc>https://william-swl.github.io/baizer/reference/c2r.html</loc>
   </url>
   <url>
+    <loc>https://william-swl.github.io/baizer/reference/cmdargs.html</loc>
+  </url>
+  <url>
     <loc>https://william-swl.github.io/baizer/reference/collapse_vector.html</loc>
   </url>
   <url>
@@ -44,6 +47,9 @@
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/fancy_count.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/fetch_char.html</loc>
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/fix_to_regex.html</loc>
