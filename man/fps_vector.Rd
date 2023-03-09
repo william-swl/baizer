@@ -4,12 +4,14 @@
 \alias{fps_vector}
 \title{farthest point sampling (FPS) for a vector}
 \usage{
-fps_vector(v, n)
+fps_vector(v, n, method = "round")
 }
 \arguments{
 \item{v}{vector}
 
 \item{n}{sample size}
+
+\item{method}{\code{round|floor|ceiling}, the method used when trans to integer}
 }
 \value{
 sampled vector

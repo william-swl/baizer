@@ -12,6 +12,8 @@ diff_index(s1, s2, nth = NULL, ignore_case = FALSE)
 \item{s2}{string2}
 
 \item{nth}{just return nth index}
+
+\item{ignore_case}{ignore upper or lower cases}
 }
 \value{
 list of different character indices

@@ -60,7 +60,7 @@ collapse_vector <- function(named_vector, front_name = TRUE, collapse = ",") {
 #' @param s1 string1
 #' @param s2 string2
 #' @param nth just return nth index
-#'
+#' @param ignore_case ignore upper or lower cases
 #' @return list of different character indices
 #' @export
 #'
@@ -100,7 +100,7 @@ diff_index <- function(s1, s2, nth = NULL, ignore_case = FALSE) {
 #' @param s1 string1
 #' @param s2 string2
 #' @param nth just return nth index
-#'
+#' @param ignore_case ignore upper or lower cases
 #' @return list of identical character indices
 #' @export
 #'
@@ -242,28 +242,23 @@ extract_kv <- function(v, sep = ": ", key_loc = 1, value_loc = 2) {
 #'
 #' @param v vector
 #' @param n sample size
+#' @param method `round|floor|ceiling`, the method used when trans to integer
 #'
 #' @return sampled vector
 #' @export
 #'
 #' @examples fps_vector(1:10, 4)
-fps_vector <- function(v, n) {
+fps_vector <- function(v, n, method = "round") {
   len <- length(v)
-
-  if (n == 1) {
-    return(v[1])
-  } else if (n > len) {
-    stop("Sample size over length!")
+  stopifnot(n <= len)
+  idx <- seq(1, len, length.out = n)
+  if (method == "round") {
+    idx <- round(idx)
+  } else if (method == "floor") {
+    idx <- floor(idx)
+  } else if (method == "ceiling") {
+    idx <- ceiling(idx)
   }
 
-  # compute intervals
-  all_intervals <- len - n
-  assign_interval <- rep(floor(all_intervals / (n - 1)), n - 1)
-  add_assign <- all_intervals - sum(assign_interval)
-  if (add_assign > 0) {
-    assign_interval[1:add_assign] <- assign_interval[1:add_assign] + 1
-  }
-  # return
-  indices <- purrr::accumulate(c(1, assign_interval + 1), sum)
-  return(v[indices])
+  return(v[idx])
 }

@@ -11,6 +11,7 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+library(baizer)
 ```
 
 # baizer <img src="man/figures/logo.png" align="right" />
@@ -26,15 +27,41 @@ knitr::opts_chunk$set(
 
 ## installation
 
-You can install the development version of `baizer` like so:
+You can install the stable version of `baizer` like so:
+
+``` r
+install.packages("baizer")
+```
+
+Or install the development version of `baizer` like so:
 
 ``` r
 devtools::install_github("william-swl/baizer")
 ```
-And load the package:
-```{r library}
-library(baizer)
+
+## S3 classes in `baizer`
+### tbflt
+- save a series of filter conditions, and support 
+logical operating among conditions
+- use `filterC` apply `tbflt` on dplyr filter
+
+``` {r tbflt}
+c1 <- tbflt(cut == "Fair")
+
+c2 <- tbflt(x > 8)
+
+mini_diamond %>%
+  filterC(c1) %>%
+  head(5)
+
+mini_diamond %>%
+  filterC(!c1) %>%
+  head(5)
+
+mini_diamond %>% filterC(c1 & c2)
 ```
+
+
 
 ## basic utils
 - use `%nin%` to get 'not in' logical value
@@ -281,7 +308,7 @@ cmdargs("R_env")
 # write_excel(mini_diamond, "mini_diamond.xlsx")
 
 # Ldf <- list(mini_diamond[1:3, ], mini_diamond[4:6, ])
-# write_excel_path(Ldf, '2sheets.xlsx')
+# write_excel(Ldf, '2sheets.xlsx')
 ```
 
 ## Code of Conduct

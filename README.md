@@ -18,16 +18,62 @@ coverage](https://codecov.io/gh/william-swl/baizer/branch/master/graph/badge.svg
 
 ## installation
 
-You can install the development version of `baizer` like so:
+You can install the stable version of `baizer` like so:
+
+``` r
+install.packages("baizer")
+```
+
+Or install the development version of `baizer` like so:
 
 ``` r
 devtools::install_github("william-swl/baizer")
 ```
 
-And load the package:
+## S3 classes in `baizer`
+
+### tbflt
+
+- save a series of filter conditions, and support logical operating
+  among conditions
+- use `filterC` apply `tbflt` on dplyr filter
 
 ``` r
-library(baizer)
+c1 <- tbflt(cut == "Fair")
+
+c2 <- tbflt(x > 8)
+
+mini_diamond %>%
+  filterC(c1) %>%
+  head(5)
+#> # A tibble: 5 × 7
+#>   id    carat cut   clarity price     x     y
+#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+#> 1 id-1   1.02 Fair  SI1      3027  6.25  6.18
+#> 2 id-6   2.02 Fair  SI2     14080  8.33  8.37
+#> 3 id-10  0.7  Fair  VVS1     1691  5.56  5.41
+#> 4 id-12  0.71 Fair  IF       3205  5.87  5.81
+#> 5 id-18  0.34 Fair  VVS1     1012  4.8   4.76
+
+mini_diamond %>%
+  filterC(!c1) %>%
+  head(5)
+#> # A tibble: 5 × 7
+#>   id    carat cut   clarity price     x     y
+#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+#> 1 id-2   1.51 Good  VS2     11746  7.27  7.18
+#> 2 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+#> 3 id-4   1.54 Ideal SI2      9452  7.43  7.45
+#> 4 id-5   0.72 Ideal VS1      2498  5.73  5.77
+#> 5 id-7   0.27 Good  VVS1      752  4.1   4.07
+
+mini_diamond %>% filterC(c1 & c2)
+#> # A tibble: 3 × 7
+#>   id    carat cut   clarity price     x     y
+#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+#> 1 id-6   2.02 Fair  SI2     14080  8.33  8.37
+#> 2 id-48  2.01 Fair  I1       7294  8.3   8.19
+#> 3 id-68  2.32 Fair  SI1     18026  8.47  8.31
 ```
 
 ## basic utils
@@ -280,13 +326,15 @@ adjacent_div(10^c(1:3), n_div = 10, .unique = TRUE)
 
 ``` r
 head(mini_diamond)
-#>     id carat   cut clarity price    x    y
-#> 1 id-1  1.02  Fair     SI1  3027 6.25 6.18
-#> 2 id-2  1.51  Good     VS2 11746 7.27 7.18
-#> 3 id-3  0.52 Ideal    VVS1  2029 5.15 5.18
-#> 4 id-4  1.54 Ideal     SI2  9452 7.43 7.45
-#> 5 id-5  0.72 Ideal     VS1  2498 5.73 5.77
-#> 6 id-6  2.02  Fair     SI2 14080 8.33 8.37
+#> # A tibble: 6 × 7
+#>   id    carat cut   clarity price     x     y
+#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+#> 1 id-1   1.02 Fair  SI1      3027  6.25  6.18
+#> 2 id-2   1.51 Good  VS2     11746  7.27  7.18
+#> 3 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+#> 4 id-4   1.54 Ideal SI2      9452  7.43  7.45
+#> 5 id-5   0.72 Ideal VS1      2498  5.73  5.77
+#> 6 id-6   2.02 Fair  SI2     14080  8.33  8.37
 ```
 
 - shortcut of `dplyr::column_to_rownames` and
@@ -567,11 +615,11 @@ cmdargs()
 #> character(0)
 #> 
 #> $env_configs
-#> [1] "--slave"                               
-#> [2] "--no-save"                             
-#> [3] "--no-restore"                          
-#> [4] "-f"                                    
-#> [5] "/tmp/Rtmp4eMqp4/callr-scr-586f6778ead8"
+#> [1] "--slave"                              
+#> [2] "--no-save"                            
+#> [3] "--no-restore"                         
+#> [4] "-f"                                   
+#> [5] "/tmp/Rtmp4Mwpmt/callr-scr-bbe193c7418"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"
@@ -583,7 +631,7 @@ cmdargs("R_env")
 # write_excel(mini_diamond, "mini_diamond.xlsx")
 
 # Ldf <- list(mini_diamond[1:3, ], mini_diamond[4:6, ])
-# write_excel_path(Ldf, '2sheets.xlsx')
+# write_excel(Ldf, '2sheets.xlsx')
 ```
 
 ## Code of Conduct

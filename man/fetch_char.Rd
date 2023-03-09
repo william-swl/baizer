@@ -9,11 +9,13 @@ fetch_char(s, index_list, na.rm = FALSE, collapse = FALSE)
 \arguments{
 \item{s}{strings}
 
-\item{index_list}{index of nth character, can be output of \code{diff_index} or \code{same_index}}
+\item{index_list}{index of nth character,
+can be output of \code{diff_index} or \code{same_index}}
 
 \item{na.rm}{remove NA values from results or not}
 
-\item{collapse}{optional string used to combine the characters from a same string}
+\item{collapse}{optional string used to combine
+the characters from a same string}
 }
 \value{
 list of characters
@@ -22,5 +24,5 @@ list of characters
 fetch character from strings
 }
 \examples{
-fetch_char(rep('ABC', 3), list(1, 2, 3))
+fetch_char(rep("ABC", 3), list(1, 2, 3))
 }
