@@ -64,7 +64,7 @@ fancy_count <- function(df, ..., ext = NULL,
     dplyr::mutate(r = round(.data$n / sum(.data$n), digits = digits))
 
   ext <- enquo(ext)
-  ext_chr <- deparse(ext[[2]])
+  ext_chr <- deparse(quo_get_expr(ext))
   # if have extended column
   if (!quo_is_null(ext)) {
     count_list <- df %>%
@@ -122,10 +122,13 @@ fancy_count <- function(df, ..., ext = NULL,
 #' @return expanded tibble
 #' @export
 #'
-#' @examples fancy_count(mini_diamond, "cut", "clarity") %>%
-#'   split_column(name_col = "cut", value_col = "clarity")
+#' @examples fancy_count(mini_diamond, cut, ext = clarity) %>%
+#'   split_column(name_col = cut, value_col = clarity)
 split_column <- function(df, name_col, value_col, sep = ",") {
-  v <- df %>% dplyr::pull(value_col, name_col)
+  value_col <- enquo(value_col)
+  name_col <- enquo(name_col)
+
+  v <- df %>% dplyr::pull({{ value_col }}, {{ name_col }})
   l <- v %>% stringr::str_split(sep)
   res <- purrr::map2_dfr(
     names(v), l,
@@ -216,14 +219,17 @@ move_row <- function(df, rows, .after = FALSE, .before = FALSE) {
 #' @return sliced tibble
 #' @export
 #'
-#' @examples ordered_slice(mini_diamond, "id", c("id-3", "id-2"))
+#' @examples ordered_slice(mini_diamond, id, c("id-3", "id-2"))
 ordered_slice <- function(df, by, ordered_vector,
                           na.rm = FALSE, dup.rm = FALSE) {
-  if (any(duplicated(df[[by]]))) {
+  by <- enquo(by)
+  by_chr <- deparse(quo_get_expr(by))
+
+  if (any(duplicated(df[[by_chr]]))) {
     stop("Column values not unique!")
   }
 
-  index <- match(ordered_vector, df[[by]])
+  index <- match(ordered_vector, df[[by_chr]])
   na_count <- sum(is.na(index))
   dup_count <- sum(duplicated(index))
 

@@ -435,7 +435,7 @@ fancy_count(mini_diamond, cut, clarity, ext = id) %>% head(5)
 - split a column and return a longer dataframe
 
 ``` r
-fancy_count(mini_diamond, cut, ext=clarity) %>%
+fancy_count(mini_diamond, cut, ext = clarity) %>%
   split_column(name_col = "cut", value_col = "clarity")
 #> # A tibble: 24 × 2
 #>    cut   clarity
@@ -512,56 +512,54 @@ move_row(mini_diamond, 3:5, .after = TRUE)
 
 ``` r
 ordered_slice(mini_diamond, "id", c("id-3", "id-2"))
+#> Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2")): 2 NA values!
+#> Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2")): 1 duplicated
+#> values!
 #> # A tibble: 2 × 7
 #>   id    carat cut   clarity price     x     y
 #>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
-#> 1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
-#> 2 id-2   1.51 Good  VS2     11746  7.27  7.18
+#> 1 <NA>     NA <NA>  <NA>       NA    NA    NA
+#> 2 <NA>     NA <NA>  <NA>       NA    NA    NA
 
 # support NA and known values in ordered vector
 ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", "id-3", NA))
-#> Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 2
+#> Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 5
 #> NA values!
-#> Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 2
+#> Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 4
 #> duplicated values!
 #> # A tibble: 5 × 7
 #>   id    carat cut   clarity price     x     y
 #>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
-#> 1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
-#> 2 id-2   1.51 Good  VS2     11746  7.27  7.18
-#> 3 <NA>  NA    <NA>  <NA>       NA NA    NA   
-#> 4 id-3   0.52 Ideal VVS1     2029  5.15  5.18
-#> 5 <NA>  NA    <NA>  <NA>       NA NA    NA
+#> 1 <NA>     NA <NA>  <NA>       NA    NA    NA
+#> 2 <NA>     NA <NA>  <NA>       NA    NA    NA
+#> 3 <NA>     NA <NA>  <NA>       NA    NA    NA
+#> 4 <NA>     NA <NA>  <NA>       NA    NA    NA
+#> 5 <NA>     NA <NA>  <NA>       NA    NA    NA
 
 # remove NA
 ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", "id-3", NA),
   na.rm = TRUE
 )
-#> Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 2
+#> Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 5
 #> NA values!
-#> Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 2
+#> Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 4
 #> duplicated values!
-#> # A tibble: 3 × 7
-#>   id    carat cut   clarity price     x     y
-#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
-#> 1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
-#> 2 id-2   1.51 Good  VS2     11746  7.27  7.18
-#> 3 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+#> # A tibble: 0 × 7
+#> # … with 7 variables: id <chr>, carat <dbl>, cut <chr>, clarity <chr>,
+#> #   price <int>, x <dbl>, y <dbl>
 
 # remove duplication
 ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", "id-3", NA),
   dup.rm = TRUE
 )
-#> Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 2
+#> Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 5
 #> NA values!
-#> Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 2
+#> Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 4
 #> duplicated values!
-#> # A tibble: 3 × 7
+#> # A tibble: 1 × 7
 #>   id    carat cut   clarity price     x     y
 #>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
-#> 1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
-#> 2 id-2   1.51 Good  VS2     11746  7.27  7.18
-#> 3 <NA>  NA    <NA>  <NA>       NA NA    NA
+#> 1 <NA>     NA <NA>  <NA>       NA    NA    NA
 ```
 
 ## stat
@@ -629,7 +627,7 @@ cmdargs()
 #> [2] "--no-save"                            
 #> [3] "--no-restore"                         
 #> [4] "-f"                                   
-#> [5] "/tmp/Rtmp4Mwpmt/callr-scr-bbe335004c1"
+#> [5] "/tmp/Rtmp4Mwpmt/callr-scr-bbe5129635a"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"

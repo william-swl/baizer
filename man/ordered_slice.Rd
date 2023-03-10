@@ -24,5 +24,5 @@ sliced tibble
 slice a tibble by an ordered vector
 }
 \examples{
-ordered_slice(mini_diamond, "id", c("id-3", "id-2"))
+ordered_slice(mini_diamond, id, c("id-3", "id-2"))
 }

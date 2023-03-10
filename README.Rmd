@@ -252,7 +252,7 @@ fancy_count(mini_diamond, cut, clarity, ext = id) %>% head(5)
 
 - split a column and return a longer dataframe
 ```{r dataframe-split_column}
-fancy_count(mini_diamond, cut, ext=clarity) %>%
+fancy_count(mini_diamond, cut, ext = clarity) %>%
   split_column(name_col = "cut", value_col = "clarity")
 ```
 

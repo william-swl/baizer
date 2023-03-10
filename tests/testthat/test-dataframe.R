@@ -62,7 +62,7 @@ test_that("fancy_count, three column", {
 
 test_that("expand_df", {
   expect_snapshot(fancy_count(mini_diamond, cut, ext = clarity) %>%
-    split_column(name_col = "cut", value_col = "clarity"))
+    split_column(name_col = cut, value_col = clarity))
 })
 
 
@@ -97,19 +97,48 @@ test_that("move_row", {
 
 
 test_that("ordered_slice", {
-  expect_snapshot(ordered_slice(mini_diamond, "id", c("id-3", "id-2")))
+  expect_snapshot(ordered_slice(mini_diamond, id, c("id-3", "id-2")))
 })
 
 test_that("ordered_slice, with NA and dup", {
   expect_snapshot(
-    ordered_slice(mini_diamond, "id", c("id-3", "id-2", "id-3", NA, NA))
+    ordered_slice(mini_diamond, id, c("id-3", "id-2", "id-3", NA, NA))
   )
 })
 
 test_that("ordered_slice, with unknown id", {
-  expect_snapshot(ordered_slice(mini_diamond, "id", c("id-3", "unknown-id")))
+  expect_snapshot(
+    ordered_slice(mini_diamond, id, c("id-3", "unknown-id"))
+  )
+})
+
+test_that("ordered_slice, remove dup", {
+  expect_snapshot(
+    ordered_slice(mini_diamond, id,
+      c("id-3", "id-2", NA, "id-3", "unknown-id", NA),
+      dup.rm = TRUE
+    )
+  )
+})
+
+test_that("ordered_slice, remove NA", {
+  expect_snapshot(
+    ordered_slice(mini_diamond, id,
+      c("id-3", "id-2", NA, "id-3", "unknown-id", NA),
+      na.rm = TRUE
+    )
+  )
+})
+
+test_that("ordered_slice, remove dup and NA", {
+  expect_snapshot(
+    ordered_slice(mini_diamond, id,
+      c("id-3", "id-2", NA, "id-3", "unknown-id", NA),
+      na.rm = TRUE, dup = TRUE
+    )
+  )
 })
 
 test_that("ordered_slice, pass column with duplication", {
-  expect_error(ordered_slice(mini_diamond, "cut", c("Ideal")))
+  expect_error(ordered_slice(mini_diamond, cut, c("Ideal")))
 })

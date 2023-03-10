@@ -94,8 +94,8 @@
 # expand_df
 
     Code
-      fancy_count(mini_diamond, cut, ext = clarity) %>% split_column(name_col = "cut",
-        value_col = "clarity")
+      fancy_count(mini_diamond, cut, ext = clarity) %>% split_column(name_col = cut,
+        value_col = clarity)
     Output
       # A tibble: 24 x 2
          cut   clarity
@@ -255,7 +255,7 @@
 # ordered_slice
 
     Code
-      ordered_slice(mini_diamond, "id", c("id-3", "id-2"))
+      ordered_slice(mini_diamond, id, c("id-3", "id-2"))
     Output
       # A tibble: 2 x 7
         id    carat cut   clarity price     x     y
@@ -266,7 +266,7 @@
 # ordered_slice, with NA and dup
 
     Code
-      ordered_slice(mini_diamond, "id", c("id-3", "id-2", "id-3", NA, NA))
+      ordered_slice(mini_diamond, id, c("id-3", "id-2", "id-3", NA, NA))
     Warning <simpleWarning>
       2 NA values!
       2 duplicated values!
@@ -283,7 +283,7 @@
 # ordered_slice, with unknown id
 
     Code
-      ordered_slice(mini_diamond, "id", c("id-3", "unknown-id"))
+      ordered_slice(mini_diamond, id, c("id-3", "unknown-id"))
     Warning <simpleWarning>
       1 NA values!
     Output
@@ -292,4 +292,51 @@
         <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
       1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
       2 <NA>  NA    <NA>  <NA>       NA NA    NA   
+
+# ordered_slice, remove dup
+
+    Code
+      ordered_slice(mini_diamond, id, c("id-3", "id-2", NA, "id-3", "unknown-id", NA),
+      dup.rm = TRUE)
+    Warning <simpleWarning>
+      3 NA values!
+      3 duplicated values!
+    Output
+      # A tibble: 3 x 7
+        id    carat cut   clarity price     x     y
+        <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+      1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+      2 id-2   1.51 Good  VS2     11746  7.27  7.18
+      3 <NA>  NA    <NA>  <NA>       NA NA    NA   
+
+# ordered_slice, remove NA
+
+    Code
+      ordered_slice(mini_diamond, id, c("id-3", "id-2", NA, "id-3", "unknown-id", NA),
+      na.rm = TRUE)
+    Warning <simpleWarning>
+      3 NA values!
+      3 duplicated values!
+    Output
+      # A tibble: 3 x 7
+        id    carat cut   clarity price     x     y
+        <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+      1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+      2 id-2   1.51 Good  VS2     11746  7.27  7.18
+      3 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+
+# ordered_slice, remove dup and NA
+
+    Code
+      ordered_slice(mini_diamond, id, c("id-3", "id-2", NA, "id-3", "unknown-id", NA),
+      na.rm = TRUE, dup = TRUE)
+    Warning <simpleWarning>
+      3 NA values!
+      3 duplicated values!
+    Output
+      # A tibble: 2 x 7
+        id    carat cut   clarity price     x     y
+        <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+      1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+      2 id-2   1.51 Good  VS2     11746  7.27  7.18
 
