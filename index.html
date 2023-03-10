@@ -54,7 +54,7 @@
     
     <a class="navbar-brand me-2" href="index.html">baizer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -678,9 +678,22 @@
 <h2 id="io">IO<a class="anchor" aria-label="anchor" href="#io"></a>
 </h2>
 <ul>
-<li>get the command line arguments</li>
+<li>load packages as a batch</li>
 </ul>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">baizer</span><span class="fu">::</span><span class="fu"><a href="reference/pkglib.html">pkglib</a></span><span class="op">(</span><span class="va">dplyr</span>, <span class="va">purrr</span>, <span class="va">tidyr</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     filter, lag</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span></code></pre></div>
+<ul>
+<li>get the command line arguments</li>
+</ul>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/cmdargs.html">cmdargs</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $wd</span></span>
 <span><span class="co">#&gt; [1] "/home/william/rpkg/baizer"</span></span>
@@ -695,18 +708,18 @@
 <span><span class="co">#&gt; character(0)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $env_configs</span></span>
-<span><span class="co">#&gt; [1] "--slave"                              </span></span>
-<span><span class="co">#&gt; [2] "--no-save"                            </span></span>
-<span><span class="co">#&gt; [3] "--no-restore"                         </span></span>
-<span><span class="co">#&gt; [4] "-f"                                   </span></span>
-<span><span class="co">#&gt; [5] "/tmp/Rtmp4Mwpmt/callr-scr-bbe5129635a"</span></span>
+<span><span class="co">#&gt; [1] "--slave"                               </span></span>
+<span><span class="co">#&gt; [2] "--no-save"                             </span></span>
+<span><span class="co">#&gt; [3] "--no-restore"                          </span></span>
+<span><span class="co">#&gt; [4] "-f"                                    </span></span>
+<span><span class="co">#&gt; [5] "/tmp/RtmpnpISG6/callr-scr-2f937974eacc"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/cmdargs.html">cmdargs</a></span><span class="op">(</span><span class="st">"R_env"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"</span></span></code></pre></div>
 <ul>
 <li>write a tibble, or a list of tibbles into an excel file</li>
 </ul>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># write_excel(mini_diamond, "mini_diamond.xlsx")</span></span>
 <span></span>
 <span><span class="co"># Ldf &lt;- list(mini_diamond[1:3, ], mini_diamond[4:6, ])</span></span>
