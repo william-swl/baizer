@@ -11,6 +11,7 @@
 #' @importFrom rlang quo_get_expr
 #' @importFrom rlang quo_is_null
 #' @importFrom rlang quo_name
+#' @importFrom stats median
 #' @importFrom tibble as_tibble
 #' @importFrom tibble as_tibble_col
 ## usethis namespace: end
