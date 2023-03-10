@@ -22,6 +22,6 @@ expanded tibble
 split a column and return a longer dataframe
 }
 \examples{
-fancy_count(mini_diamond, cut, ext=clarity) \%>\%
+fancy_count(mini_diamond, cut, ext = clarity) \%>\%
   split_column(name_col = cut, value_col = clarity)
 }

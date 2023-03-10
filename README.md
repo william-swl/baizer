@@ -606,6 +606,20 @@ stat_fc(mini_diamond, y = price, x = cut, .by = clarity)
 
 ## IO
 
+- load packages as a batch
+
+``` r
+baizer::pkglib(dplyr, purrr, tidyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
+```
+
 - get the command line arguments
 
 ``` r
@@ -623,11 +637,11 @@ cmdargs()
 #> character(0)
 #> 
 #> $env_configs
-#> [1] "--slave"                              
-#> [2] "--no-save"                            
-#> [3] "--no-restore"                         
-#> [4] "-f"                                   
-#> [5] "/tmp/Rtmp4Mwpmt/callr-scr-bbe5129635a"
+#> [1] "--slave"                               
+#> [2] "--no-save"                             
+#> [3] "--no-restore"                          
+#> [4] "-f"                                    
+#> [5] "/tmp/RtmpnpISG6/callr-scr-2f937974eacc"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"

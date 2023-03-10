@@ -299,8 +299,15 @@ stat_fc(mini_diamond, y = price, x = cut, .by = clarity)
 ```
 
 ## IO
+
+- load packages as a batch
+```{r IO-pkglib}
+baizer::pkglib(dplyr, purrr, tidyr)
+```
+
+
 - get the command line arguments
-```{r}
+```{r IO-cmdargs}
 cmdargs()
 
 cmdargs("R_env")
