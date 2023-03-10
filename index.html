@@ -54,7 +54,7 @@
     
     <a class="navbar-brand me-2" href="index.html">baizer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -124,12 +124,14 @@
 </h3>
 <ul>
 <li>save a series of filter conditions, and support logical operating among conditions</li>
-<li>use <code>filterC</code> apply <code>tbflt</code> on dplyr filter</li>
+<li>use <code>filterC</code> to apply <code>tbflt</code> on <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">dplyr::filter</a></code>
+</li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">c1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tbflt.html">tbflt</a></span><span class="op">(</span><span class="va">cut</span> <span class="op">==</span> <span class="st">"Fair"</span><span class="op">)</span></span>
-<span></span>
 <span><span class="va">c2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tbflt.html">tbflt</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">8</span><span class="op">)</span></span>
+<span><span class="va">c1</span> <span class="op">|</span> <span class="va">c2</span></span>
+<span><span class="co">#&gt; cut == "Fair" | x &gt; 8</span></span>
 <span></span>
 <span><span class="va">mini_diamond</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/filterC.html">filterC</a></span><span class="op">(</span><span class="va">c1</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
@@ -488,11 +490,13 @@
 <span><span class="co">#&gt; 3 Good     31  0.31 I1,IF,SI1,SI2,VS2,VVS1,VVS2,VS1</span></span>
 <span></span>
 <span><span class="co"># count an extended column, in an order by character</span></span>
-<span><span class="fu"><a href="reference/fancy_count.html">fancy_count</a></span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="st">"cut"</span>, <span class="st">"clarity"</span>, sort <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 1 × 4</span></span>
-<span><span class="co">#&gt;   `"cut"` `"clarity"`     n     r</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;       &lt;int&gt; &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 cut     clarity       100     1</span></span>
+<span><span class="fu"><a href="reference/fancy_count.html">fancy_count</a></span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="va">cut</span>, ext <span class="op">=</span> <span class="va">clarity</span>, sort <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 4</span></span>
+<span><span class="co">#&gt;   cut       n     r clarity                                                </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;                                                  </span></span>
+<span><span class="co">#&gt; 1 Fair     35  0.35 I1(5),IF(4),SI1(5),SI2(4),VS1(3),VS2(5),VVS1(5),VVS2(4)</span></span>
+<span><span class="co">#&gt; 2 Good     31  0.31 I1(5),IF(5),SI1(4),SI2(4),VS1(2),VS2(4),VVS1(4),VVS2(3)</span></span>
+<span><span class="co">#&gt; 3 Ideal    34  0.34 I1(4),IF(4),SI1(5),SI2(4),VS1(5),VS2(2),VVS1(5),VVS2(5)</span></span>
 <span></span>
 <span><span class="co"># extended column after a two-column count</span></span>
 <span><span class="fu"><a href="reference/fancy_count.html">fancy_count</a></span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="va">cut</span>, <span class="va">clarity</span>, ext <span class="op">=</span> <span class="va">id</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span>
@@ -505,11 +509,11 @@
 <span><span class="co">#&gt; 4 Fair  VVS1        5  0.05 id-10(1),id-18(1),id-46(1),id-55(1),id-59(1)</span></span>
 <span><span class="co">#&gt; 5 Good  I1          5  0.05 id-16(1),id-34(1),id-69(1),id-82(1),id-91(1)</span></span></code></pre></div>
 <ul>
-<li>split a column and return a longer dataframe</li>
+<li>split a column and return a longer tibble</li>
 </ul>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/fancy_count.html">fancy_count</a></span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="va">cut</span>, ext <span class="op">=</span> <span class="va">clarity</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="reference/split_column.html">split_column</a></span><span class="op">(</span>name_col <span class="op">=</span> <span class="st">"cut"</span>, value_col <span class="op">=</span> <span class="st">"clarity"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="reference/split_column.html">split_column</a></span><span class="op">(</span>name_col <span class="op">=</span> <span class="va">cut</span>, value_col <span class="op">=</span> <span class="va">clarity</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 24 × 2</span></span>
 <span><span class="co">#&gt;    cut   clarity</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;  </span></span>
@@ -582,55 +586,57 @@
 <li>slice a tibble by an ordered vector</li>
 </ul>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/ordered_slice.html">ordered_slice</a></span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="st">"id"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id-3"</span>, <span class="st">"id-2"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2")): 2 NA values!</span></span>
-<span><span class="co">#&gt; Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2")): 1 duplicated</span></span>
-<span><span class="co">#&gt; values!</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/ordered_slice.html">ordered_slice</a></span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="va">id</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id-3"</span>, <span class="st">"id-2"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 2 × 7</span></span>
 <span><span class="co">#&gt;   id    carat cut   clarity price     x     y</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 &lt;NA&gt;     NA &lt;NA&gt;  &lt;NA&gt;       NA    NA    NA</span></span>
-<span><span class="co">#&gt; 2 &lt;NA&gt;     NA &lt;NA&gt;  &lt;NA&gt;       NA    NA    NA</span></span>
+<span><span class="co">#&gt; 1 id-3   0.52 Ideal VVS1     2029  5.15  5.18</span></span>
+<span><span class="co">#&gt; 2 id-2   1.51 Good  VS2     11746  7.27  7.18</span></span>
 <span></span>
 <span><span class="co"># support NA and known values in ordered vector</span></span>
-<span><span class="fu"><a href="reference/ordered_slice.html">ordered_slice</a></span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="st">"id"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id-3"</span>, <span class="st">"id-2"</span>, <span class="st">"unknown_id"</span>, <span class="st">"id-3"</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 5</span></span>
+<span><span class="fu"><a href="reference/ordered_slice.html">ordered_slice</a></span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="va">id</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id-3"</span>, <span class="st">"id-2"</span>, <span class="st">"unknown_id"</span>, <span class="st">"id-3"</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in ordered_slice(mini_diamond, id, c("id-3", "id-2", "unknown_id", : 2</span></span>
 <span><span class="co">#&gt; NA values!</span></span>
-<span><span class="co">#&gt; Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 4</span></span>
+<span><span class="co">#&gt; Warning in ordered_slice(mini_diamond, id, c("id-3", "id-2", "unknown_id", : 2</span></span>
 <span><span class="co">#&gt; duplicated values!</span></span>
 <span><span class="co">#&gt; # A tibble: 5 × 7</span></span>
 <span><span class="co">#&gt;   id    carat cut   clarity price     x     y</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 &lt;NA&gt;     NA &lt;NA&gt;  &lt;NA&gt;       NA    NA    NA</span></span>
-<span><span class="co">#&gt; 2 &lt;NA&gt;     NA &lt;NA&gt;  &lt;NA&gt;       NA    NA    NA</span></span>
-<span><span class="co">#&gt; 3 &lt;NA&gt;     NA &lt;NA&gt;  &lt;NA&gt;       NA    NA    NA</span></span>
-<span><span class="co">#&gt; 4 &lt;NA&gt;     NA &lt;NA&gt;  &lt;NA&gt;       NA    NA    NA</span></span>
-<span><span class="co">#&gt; 5 &lt;NA&gt;     NA &lt;NA&gt;  &lt;NA&gt;       NA    NA    NA</span></span>
+<span><span class="co">#&gt; 1 id-3   0.52 Ideal VVS1     2029  5.15  5.18</span></span>
+<span><span class="co">#&gt; 2 id-2   1.51 Good  VS2     11746  7.27  7.18</span></span>
+<span><span class="co">#&gt; 3 &lt;NA&gt;  NA    &lt;NA&gt;  &lt;NA&gt;       NA NA    NA   </span></span>
+<span><span class="co">#&gt; 4 id-3   0.52 Ideal VVS1     2029  5.15  5.18</span></span>
+<span><span class="co">#&gt; 5 &lt;NA&gt;  NA    &lt;NA&gt;  &lt;NA&gt;       NA NA    NA</span></span>
 <span></span>
 <span><span class="co"># remove NA</span></span>
-<span><span class="fu"><a href="reference/ordered_slice.html">ordered_slice</a></span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="st">"id"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id-3"</span>, <span class="st">"id-2"</span>, <span class="st">"unknown_id"</span>, <span class="st">"id-3"</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
+<span><span class="fu"><a href="reference/ordered_slice.html">ordered_slice</a></span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="va">id</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id-3"</span>, <span class="st">"id-2"</span>, <span class="st">"unknown_id"</span>, <span class="st">"id-3"</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 5</span></span>
+<span><span class="co">#&gt; Warning in ordered_slice(mini_diamond, id, c("id-3", "id-2", "unknown_id", : 2</span></span>
 <span><span class="co">#&gt; NA values!</span></span>
-<span><span class="co">#&gt; Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 4</span></span>
+<span><span class="co">#&gt; Warning in ordered_slice(mini_diamond, id, c("id-3", "id-2", "unknown_id", : 2</span></span>
 <span><span class="co">#&gt; duplicated values!</span></span>
-<span><span class="co">#&gt; # A tibble: 0 × 7</span></span>
-<span><span class="co">#&gt; # … with 7 variables: id &lt;chr&gt;, carat &lt;dbl&gt;, cut &lt;chr&gt;, clarity &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   price &lt;int&gt;, x &lt;dbl&gt;, y &lt;dbl&gt;</span></span>
-<span></span>
-<span><span class="co"># remove duplication</span></span>
-<span><span class="fu"><a href="reference/ordered_slice.html">ordered_slice</a></span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="st">"id"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id-3"</span>, <span class="st">"id-2"</span>, <span class="st">"unknown_id"</span>, <span class="st">"id-3"</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
-<span>  dup.rm <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 5</span></span>
-<span><span class="co">#&gt; NA values!</span></span>
-<span><span class="co">#&gt; Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 4</span></span>
-<span><span class="co">#&gt; duplicated values!</span></span>
-<span><span class="co">#&gt; # A tibble: 1 × 7</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 7</span></span>
 <span><span class="co">#&gt;   id    carat cut   clarity price     x     y</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 &lt;NA&gt;     NA &lt;NA&gt;  &lt;NA&gt;       NA    NA    NA</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 id-3   0.52 Ideal VVS1     2029  5.15  5.18</span></span>
+<span><span class="co">#&gt; 2 id-2   1.51 Good  VS2     11746  7.27  7.18</span></span>
+<span><span class="co">#&gt; 3 id-3   0.52 Ideal VVS1     2029  5.15  5.18</span></span>
+<span></span>
+<span><span class="co"># remove duplication</span></span>
+<span><span class="fu"><a href="reference/ordered_slice.html">ordered_slice</a></span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="va">id</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id-3"</span>, <span class="st">"id-2"</span>, <span class="st">"unknown_id"</span>, <span class="st">"id-3"</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
+<span>  dup.rm <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in ordered_slice(mini_diamond, id, c("id-3", "id-2", "unknown_id", : 2</span></span>
+<span><span class="co">#&gt; NA values!</span></span>
+<span><span class="co">#&gt; Warning in ordered_slice(mini_diamond, id, c("id-3", "id-2", "unknown_id", : 2</span></span>
+<span><span class="co">#&gt; duplicated values!</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 7</span></span>
+<span><span class="co">#&gt;   id    carat cut   clarity price     x     y</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 id-3   0.52 Ideal VVS1     2029  5.15  5.18</span></span>
+<span><span class="co">#&gt; 2 id-2   1.51 Good  VS2     11746  7.27  7.18</span></span>
+<span><span class="co">#&gt; 3 &lt;NA&gt;  NA    &lt;NA&gt;  &lt;NA&gt;       NA NA    NA</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="stat">stat<a class="anchor" aria-label="anchor" href="#stat"></a>
@@ -712,7 +718,7 @@
 <span><span class="co">#&gt; [2] "--no-save"                             </span></span>
 <span><span class="co">#&gt; [3] "--no-restore"                          </span></span>
 <span><span class="co">#&gt; [4] "-f"                                    </span></span>
-<span><span class="co">#&gt; [5] "/tmp/RtmpnpISG6/callr-scr-2f937974eacc"</span></span>
+<span><span class="co">#&gt; [5] "/tmp/RtmpnpISG6/callr-scr-2f9368321a90"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/cmdargs.html">cmdargs</a></span><span class="op">(</span><span class="st">"R_env"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"</span></span></code></pre></div>
