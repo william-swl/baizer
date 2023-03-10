@@ -18,5 +18,5 @@ geometric mean value
 geometric mean
 }
 \examples{
-geom_mean(1,9)
+geom_mean(1, 9)
 }

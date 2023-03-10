@@ -4,12 +4,12 @@
 \alias{filterC}
 \title{apply tbflt on dplyr filter}
 \usage{
-filterC(.data, tbflts = NULL, .by = NULL)
+filterC(.data, tbflt = NULL, .by = NULL)
 }
 \arguments{
 \item{.data}{tibble}
 
-\item{tbflts}{tbflts object}
+\item{tbflt}{tbflt object}
 
 \item{.by}{group by, same as \code{.by} argument in \code{dplyr::filter}}
 }

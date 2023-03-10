@@ -55,7 +55,7 @@ print.tbflt <- function(x, ...) {
 #' apply tbflt on dplyr filter
 #'
 #' @param .data tibble
-#' @param tbflts tbflts object
+#' @param tbflt tbflt object
 #' @param .by group by, same as `.by` argument in `dplyr::filter`
 #'
 #' @return tibble
@@ -72,9 +72,9 @@ print.tbflt <- function(x, ...) {
 #'
 #' mini_diamond %>% filterC(c1 & c2)
 #'
-filterC <- function(.data, tbflts = NULL, .by = NULL) { # nolint
-  if (!is.null(tbflts)) {
-    dplyr::filter(.data, eval(tbflts), .by = .by)
+filterC <- function(.data, tbflt = NULL, .by = NULL) { # nolint
+  if (!is.null(tbflt)) {
+    dplyr::filter(.data, eval(tbflt), .by = .by)
   } else {
     .data
   }
