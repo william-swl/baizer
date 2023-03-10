@@ -374,12 +374,12 @@ head(mini_diamond) %>%
 #> 6 id-6   2.02 Fair  SI2     14080  8.33  8.37
 ```
 
-- fancy count to show up to two columns and their summary
+- fancy count to show an extended column
 
 ``` r
 
 # count one column
-fancy_count(mini_diamond, "cut")
+fancy_count(mini_diamond, cut)
 #> # A tibble: 3 × 3
 #>   cut       n     r
 #>   <chr> <int> <dbl>
@@ -387,8 +387,8 @@ fancy_count(mini_diamond, "cut")
 #> 2 Ideal    34  0.34
 #> 3 Good     31  0.31
 
-# count two columns and sort by n (default)
-fancy_count(mini_diamond, "cut", "clarity")
+# count an extended column, in a default order by n
+fancy_count(mini_diamond, cut, ext = clarity)
 #> # A tibble: 3 × 4
 #>   cut       n     r clarity                                                
 #>   <chr> <int> <dbl> <chr>                                                  
@@ -396,7 +396,8 @@ fancy_count(mini_diamond, "cut", "clarity")
 #> 2 Ideal    34  0.34 SI1(5),VS1(5),VVS1(5),VVS2(5),I1(4),IF(4),SI2(4),VS2(2)
 #> 3 Good     31  0.31 I1(5),IF(5),SI1(4),SI2(4),VS2(4),VVS1(4),VVS2(3),VS1(2)
 
-fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "ratio")
+# change format
+fancy_count(mini_diamond, cut, ext = clarity, ext_fmt = "ratio")
 #> # A tibble: 3 × 4
 #>   cut       n     r clarity                                                     
 #>   <chr> <int> <dbl> <chr>                                                       
@@ -404,7 +405,7 @@ fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "ratio")
 #> 2 Ideal    34  0.34 SI1(0.15),VS1(0.15),VVS1(0.15),VVS2(0.15),I1(0.12),IF(0.12)…
 #> 3 Good     31  0.31 I1(0.16),IF(0.16),SI1(0.13),SI2(0.13),VS2(0.13),VVS1(0.13),…
 
-fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "clean")
+fancy_count(mini_diamond, cut, ext = clarity, ext_fmt = "clean")
 #> # A tibble: 3 × 4
 #>   cut       n     r clarity                        
 #>   <chr> <int> <dbl> <chr>                          
@@ -412,20 +413,29 @@ fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "clean")
 #> 2 Ideal    34  0.34 SI1,VS1,VVS1,VVS2,I1,IF,SI2,VS2
 #> 3 Good     31  0.31 I1,IF,SI1,SI2,VS2,VVS1,VVS2,VS1
 
-# count two columns and sort by character order
+# count an extended column, in an order by character
 fancy_count(mini_diamond, "cut", "clarity", sort = FALSE)
-#> # A tibble: 3 × 4
-#>   cut       n     r clarity                                                
-#>   <chr> <int> <dbl> <chr>                                                  
-#> 1 Fair     35  0.35 I1(5),IF(4),SI1(5),SI2(4),VS1(3),VS2(5),VVS1(5),VVS2(4)
-#> 2 Good     31  0.31 I1(5),IF(5),SI1(4),SI2(4),VS1(2),VS2(4),VVS1(4),VVS2(3)
-#> 3 Ideal    34  0.34 I1(4),IF(4),SI1(5),SI2(4),VS1(5),VS2(2),VVS1(5),VVS2(5)
+#> # A tibble: 1 × 4
+#>   `"cut"` `"clarity"`     n     r
+#>   <chr>   <chr>       <int> <dbl>
+#> 1 cut     clarity       100     1
+
+# extended column after a two-column count
+fancy_count(mini_diamond, cut, clarity, ext = id) %>% head(5)
+#> # A tibble: 5 × 5
+#>   cut   clarity     n     r id                                          
+#>   <chr> <chr>   <int> <dbl> <chr>                                       
+#> 1 Fair  I1          5  0.05 id-20(1),id-23(1),id-28(1),id-32(1),id-48(1)
+#> 2 Fair  SI1         5  0.05 id-1(1),id-64(1),id-65(1),id-68(1),id-76(1) 
+#> 3 Fair  VS2         5  0.05 id-52(1),id-63(1),id-66(1),id-70(1),id-77(1)
+#> 4 Fair  VVS1        5  0.05 id-10(1),id-18(1),id-46(1),id-55(1),id-59(1)
+#> 5 Good  I1          5  0.05 id-16(1),id-34(1),id-69(1),id-82(1),id-91(1)
 ```
 
 - split a column and return a longer dataframe
 
 ``` r
-fancy_count(mini_diamond, "cut", "clarity") %>%
+fancy_count(mini_diamond, cut, ext=clarity) %>%
   split_column(name_col = "cut", value_col = "clarity")
 #> # A tibble: 24 × 2
 #>    cut   clarity
@@ -619,7 +629,7 @@ cmdargs()
 #> [2] "--no-save"                            
 #> [3] "--no-restore"                         
 #> [4] "-f"                                   
-#> [5] "/tmp/Rtmp4Mwpmt/callr-scr-bbe193c7418"
+#> [5] "/tmp/Rtmp4Mwpmt/callr-scr-bbe335004c1"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"

@@ -34,68 +34,82 @@ r2c <- function(df, col = "") {
 }
 
 
-#' fancy count to show up to two columns and their summary
+#' fancy count to show an extended column
 #'
 #' @param df tibble
-#' @param main_group first column as main group
-#' @param fine_group second column as subgroup, can be ignore
-#' @param fine_fmt output fine column format, `count|ratio|clean`
 #' @param sort sort by frequency or not
+#' @param ... other arguments from `dplyr::count()`
+#' @param ext extended column
+#' @param ext_fmt `count|ratio|clean`, output format of extended column
+#' @param digits if `ext_fmt=ratio`, the digits of ratio
 #'
-#' @return tibble
+#' @return count tibble
 #' @export
 #'
-#' @examples fancy_count(mini_diamond, "cut", "clarity")
-fancy_count <- function(df, main_group, fine_group = NULL,
-                        fine_fmt = "count", sort = TRUE) {
-  if (is.null(fine_group)) {
-    # one group
-    res <- df %>%
-      dplyr::count(.data[[main_group]], sort = sort) %>%
-      dplyr::mutate(r = round(.data$n / sum(.data$n), 2))
-    return(res)
-  } else {
-    # two groups
-    fine_group_count <- df %>%
-      dplyr::count(.data[[main_group]], .data[[fine_group]], sort = sort) %>%
-      dplyr::group_split(.data[[main_group]]) %>%
-      purrr::map_dfr(
-        function(x) {
-          v <- c(
-            dplyr::pull(x, .data[[main_group]]) %>% unique(),
-            sum(x$n),
-            if (fine_fmt == "count") {
-              dplyr::pull(x, .data$n, .data[[fine_group]]) %>% collapse_vector()
-            } else if (fine_fmt == "ratio") {
-              round(
-                dplyr::pull(x, .data$n, .data[[fine_group]]) / sum(x$n),
-                2
-              ) %>% collapse_vector()
-            } else if (fine_fmt == "clean") {
-              dplyr::pull(x, .data[[fine_group]]) %>%
-                stringr::str_c(collapse = ",")
-            }
-          )
-          names(v) <- c(main_group, "n", fine_group)
-          return(v)
-        }
-      )
-    # ratio
-    res <- fine_group_count %>%
-      dplyr::mutate(
-        n = as.integer(.data$n),
-        r = round(.data$n / sum(.data$n), 2), .after = "n"
-      )
+#' @examples
+#' fancy_count(mini_diamond, cut, ext = clarity)
+#'
+#' fancy_count(mini_diamond, cut, ext = clarity, ext_fmt = "ratio")
+#'
+#' fancy_count(mini_diamond, cut, ext = clarity, ext_fmt = "clean")
+#'
+#' fancy_count(mini_diamond, cut, ext = clarity, sort = FALSE)
+#'
+#' fancy_count(mini_diamond, cut, clarity, ext = id) %>% head(5)
+fancy_count <- function(df, ..., ext = NULL,
+                        ext_fmt = "count", sort = TRUE, digits = 2) {
+  # count and ratio column
+  # do not sort to avoid different order against dplyr::group_split
+  res <- dplyr::count(df, ...) %>%
+    dplyr::mutate(r = round(.data$n / sum(.data$n), digits = digits))
 
-    # sort the main_group
-    if (sort == TRUE) {
-      res <- res %>% dplyr::arrange(dplyr::desc(.data$n))
+  ext <- enquo(ext)
+  ext_chr <- deparse(ext[[2]])
+  # if have extended column
+  if (!quo_is_null(ext)) {
+    count_list <- df %>%
+      dplyr::group_split(...) %>%
+      # a safe inline sort
+      purrr::map(~ dplyr::count(.x, ext = eval(ext), sort = sort))
+
+
+    if (ext_fmt == "clean") {
+      # clean
+      dfext <- count_list %>%
+        purrr::map_chr(
+          ~ dplyr::pull(.x, 1) %>% stringr::str_c(collapse = ",")
+        ) %>%
+        as_tibble_col(column_name = ext_chr)
+    } else if (ext_fmt == "count") {
+      # count
+      dfext <- count_list %>%
+        purrr::map_chr(
+          ~ dplyr::pull(.x, 2, 1) %>% collapse_vector()
+        ) %>%
+        as_tibble_col(column_name = ext_chr)
+    } else if (ext_fmt == "ratio") {
+      # ratio
+      dfext <- count_list %>%
+        purrr::map_chr(
+          ~ dplyr::mutate(.x, r = round(n / sum(n), 2)) %>%
+            dplyr::pull("r", 1) %>%
+            collapse_vector()
+        ) %>%
+        as_tibble_col(column_name = ext_chr)
     }
 
-    return(res)
+    # merge main count and extended column
+    res <- dplyr::bind_cols(res, dfext)
   }
-}
 
+
+  # sort
+  if (sort == TRUE) {
+    res <- res %>% dplyr::arrange(dplyr::desc(.data$n))
+  }
+
+  return(res)
+}
 
 
 #' split a column and return a longer dataframe

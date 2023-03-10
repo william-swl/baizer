@@ -2,27 +2,37 @@
 % Please edit documentation in R/dataframe.R
 \name{fancy_count}
 \alias{fancy_count}
-\title{fancy count to show up to two columns and their summary}
+\title{fancy count to show an extended column}
 \usage{
-fancy_count(df, main_group, fine_group = NULL, fine_fmt = "count", sort = TRUE)
+fancy_count(df, ..., ext = NULL, ext_fmt = "count", sort = TRUE, digits = 2)
 }
 \arguments{
 \item{df}{tibble}
 
-\item{main_group}{first column as main group}
+\item{...}{other arguments from \code{dplyr::count()}}
 
-\item{fine_group}{second column as subgroup, can be ignore}
+\item{ext}{extended column}
 
-\item{fine_fmt}{output fine column format, \code{count|ratio|clean}}
+\item{ext_fmt}{\code{count|ratio|clean}, output format of extended column}
 
 \item{sort}{sort by frequency or not}
+
+\item{digits}{if \code{ext_fmt=ratio}, the digits of ratio}
 }
 \value{
-tibble
+count tibble
 }
 \description{
-fancy count to show up to two columns and their summary
+fancy count to show an extended column
 }
 \examples{
-fancy_count(mini_diamond, "cut", "clarity")
+fancy_count(mini_diamond, cut, ext = clarity)
+
+fancy_count(mini_diamond, cut, ext = clarity, ext_fmt = "ratio")
+
+fancy_count(mini_diamond, cut, ext = clarity, ext_fmt = "clean")
+
+fancy_count(mini_diamond, cut, ext = clarity, sort = FALSE)
+
+fancy_count(mini_diamond, cut, clarity, ext = id) \%>\% head(5)
 }

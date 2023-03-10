@@ -11,10 +11,10 @@
       id-5  0.72 Ideal     VS1  2498 5.73 5.77
       id-6  2.02  Fair     SI2 14080 8.33 8.37
 
-# fancy_count, one group
+# fancy_count, one column
 
     Code
-      fancy_count(mini_diamond, "cut")
+      fancy_count(mini_diamond, cut)
     Output
       # A tibble: 3 x 3
         cut       n     r
@@ -23,10 +23,10 @@
       2 Ideal    34  0.34
       3 Good     31  0.31
 
-# fancy_count, fine_fmt='count'
+# fancy_count, ext_fmt='count'
 
     Code
-      fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "count")
+      fancy_count(mini_diamond, cut, ext = clarity, ext_fmt = "count")
     Output
       # A tibble: 3 x 4
         cut       n     r clarity                                                
@@ -35,10 +35,10 @@
       2 Ideal    34  0.34 SI1(5),VS1(5),VVS1(5),VVS2(5),I1(4),IF(4),SI2(4),VS2(2)
       3 Good     31  0.31 I1(5),IF(5),SI1(4),SI2(4),VS2(4),VVS1(4),VVS2(3),VS1(2)
 
-# fancy_count, fine_fmt='ratio'
+# fancy_count, ext_fmt='ratio'
 
     Code
-      fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "ratio")
+      fancy_count(mini_diamond, cut, ext = clarity, ext_fmt = "ratio")
     Output
       # A tibble: 3 x 4
         cut       n     r clarity                                                     
@@ -47,10 +47,10 @@
       2 Ideal    34  0.34 SI1(0.15),VS1(0.15),VVS1(0.15),VVS2(0.15),I1(0.12),IF(0.12)~
       3 Good     31  0.31 I1(0.16),IF(0.16),SI1(0.13),SI2(0.13),VS2(0.13),VVS1(0.13),~
 
-# fancy_count, fine_fmt='clean'
+# fancy_count, ext_fmt='clean'
 
     Code
-      fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "clean")
+      fancy_count(mini_diamond, cut, ext = clarity, ext_fmt = "clean")
     Output
       # A tibble: 3 x 4
         cut       n     r clarity                        
@@ -59,22 +59,42 @@
       2 Ideal    34  0.34 SI1,VS1,VVS1,VVS2,I1,IF,SI2,VS2
       3 Good     31  0.31 I1,IF,SI1,SI2,VS2,VVS1,VVS2,VS1
 
-# fancy_count, sort=TRUE
+# fancy_count, sort=FALSE
 
     Code
-      fancy_count(mini_diamond, "cut", "clarity", sort = TRUE)
+      fancy_count(mini_diamond, cut, ext = clarity, sort = FALSE)
     Output
       # A tibble: 3 x 4
         cut       n     r clarity                                                
         <chr> <int> <dbl> <chr>                                                  
-      1 Fair     35  0.35 I1(5),SI1(5),VS2(5),VVS1(5),IF(4),SI2(4),VVS2(4),VS1(3)
-      2 Ideal    34  0.34 SI1(5),VS1(5),VVS1(5),VVS2(5),I1(4),IF(4),SI2(4),VS2(2)
-      3 Good     31  0.31 I1(5),IF(5),SI1(4),SI2(4),VS2(4),VVS1(4),VVS2(3),VS1(2)
+      1 Fair     35  0.35 I1(5),IF(4),SI1(5),SI2(4),VS1(3),VS2(5),VVS1(5),VVS2(4)
+      2 Good     31  0.31 I1(5),IF(5),SI1(4),SI2(4),VS1(2),VS2(4),VVS1(4),VVS2(3)
+      3 Ideal    34  0.34 I1(4),IF(4),SI1(5),SI2(4),VS1(5),VS2(2),VVS1(5),VVS2(5)
+
+# fancy_count, three column
+
+    Code
+      fancy_count(mini_diamond, cut, clarity, ext = id)
+    Output
+      # A tibble: 24 x 5
+         cut   clarity     n     r id                                          
+         <chr> <chr>   <int> <dbl> <chr>                                       
+       1 Fair  I1          5  0.05 id-20(1),id-23(1),id-28(1),id-32(1),id-48(1)
+       2 Fair  SI1         5  0.05 id-1(1),id-64(1),id-65(1),id-68(1),id-76(1) 
+       3 Fair  VS2         5  0.05 id-52(1),id-63(1),id-66(1),id-70(1),id-77(1)
+       4 Fair  VVS1        5  0.05 id-10(1),id-18(1),id-46(1),id-55(1),id-59(1)
+       5 Good  I1          5  0.05 id-16(1),id-34(1),id-69(1),id-82(1),id-91(1)
+       6 Good  IF          5  0.05 id-15(1),id-53(1),id-56(1),id-61(1),id-62(1)
+       7 Ideal SI1         5  0.05 id-13(1),id-47(1),id-84(1),id-9(1),id-93(1) 
+       8 Ideal VS1         5  0.05 id-26(1),id-5(1),id-78(1),id-80(1),id-94(1) 
+       9 Ideal VVS1        5  0.05 id-3(1),id-31(1),id-35(1),id-37(1),id-83(1) 
+      10 Ideal VVS2        5  0.05 id-14(1),id-19(1),id-54(1),id-60(1),id-96(1)
+      # ... with 14 more rows
 
 # expand_df
 
     Code
-      fancy_count(mini_diamond, "cut", "clarity") %>% split_column(name_col = "cut",
+      fancy_count(mini_diamond, cut, ext = clarity) %>% split_column(name_col = "cut",
         value_col = "clarity")
     Output
       # A tibble: 24 x 2

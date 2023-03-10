@@ -17,11 +17,11 @@ tbflt
 logical operating among conditions
 }
 \examples{
-c1 <- tbflt(cut == 'Fair')
+c1 <- tbflt(cut == "Fair")
 
 c2 <- tbflt(x > 8)
 
-! c1
+!c1
 
 c1 | c2
 

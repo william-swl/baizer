@@ -20,13 +20,14 @@ tibble
 apply tbflt on dplyr filter
 }
 \examples{
-c1 <- tbflt(cut == 'Fair')
+c1 <- tbflt(cut == "Fair")
 
 c2 <- tbflt(x > 8)
 
-mini_diamond \%>\% filterC(c1) \%>\% head(5)
+mini_diamond \%>\%
+  filterC(c1) \%>\%
+  head(5)
 
 mini_diamond \%>\% filterC(c1 & c2)
-
 
 }

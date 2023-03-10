@@ -229,26 +229,30 @@ head(mini_diamond) %>%
   r2c("id")
 ```
 
-- fancy count to show up to two columns and their summary
+- fancy count to show an extended column
 ```{r dataframe-fancy_count}
 
 # count one column
-fancy_count(mini_diamond, "cut")
+fancy_count(mini_diamond, cut)
 
-# count two columns and sort by n (default)
-fancy_count(mini_diamond, "cut", "clarity")
+# count an extended column, in a default order by n
+fancy_count(mini_diamond, cut, ext = clarity)
 
-fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "ratio")
+# change format
+fancy_count(mini_diamond, cut, ext = clarity, ext_fmt = "ratio")
 
-fancy_count(mini_diamond, "cut", "clarity", fine_fmt = "clean")
+fancy_count(mini_diamond, cut, ext = clarity, ext_fmt = "clean")
 
-# count two columns and sort by character order
+# count an extended column, in an order by character
 fancy_count(mini_diamond, "cut", "clarity", sort = FALSE)
+
+# extended column after a two-column count
+fancy_count(mini_diamond, cut, clarity, ext = id) %>% head(5)
 ```
 
 - split a column and return a longer dataframe
 ```{r dataframe-split_column}
-fancy_count(mini_diamond, "cut", "clarity") %>%
+fancy_count(mini_diamond, cut, ext=clarity) %>%
   split_column(name_col = "cut", value_col = "clarity")
 ```
 
