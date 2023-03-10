@@ -36,12 +36,13 @@ devtools::install_github("william-swl/baizer")
 
 - save a series of filter conditions, and support logical operating
   among conditions
-- use `filterC` apply `tbflt` on dplyr filter
+- use `filterC` to apply `tbflt` on `dplyr::filter`
 
 ``` r
 c1 <- tbflt(cut == "Fair")
-
 c2 <- tbflt(x > 8)
+c1 | c2
+#> cut == "Fair" | x > 8
 
 mini_diamond %>%
   filterC(c1) %>%
@@ -414,11 +415,13 @@ fancy_count(mini_diamond, cut, ext = clarity, ext_fmt = "clean")
 #> 3 Good     31  0.31 I1,IF,SI1,SI2,VS2,VVS1,VVS2,VS1
 
 # count an extended column, in an order by character
-fancy_count(mini_diamond, "cut", "clarity", sort = FALSE)
-#> # A tibble: 1 × 4
-#>   `"cut"` `"clarity"`     n     r
-#>   <chr>   <chr>       <int> <dbl>
-#> 1 cut     clarity       100     1
+fancy_count(mini_diamond, cut, ext = clarity, sort = FALSE)
+#> # A tibble: 3 × 4
+#>   cut       n     r clarity                                                
+#>   <chr> <int> <dbl> <chr>                                                  
+#> 1 Fair     35  0.35 I1(5),IF(4),SI1(5),SI2(4),VS1(3),VS2(5),VVS1(5),VVS2(4)
+#> 2 Good     31  0.31 I1(5),IF(5),SI1(4),SI2(4),VS1(2),VS2(4),VVS1(4),VVS2(3)
+#> 3 Ideal    34  0.34 I1(4),IF(4),SI1(5),SI2(4),VS1(5),VS2(2),VVS1(5),VVS2(5)
 
 # extended column after a two-column count
 fancy_count(mini_diamond, cut, clarity, ext = id) %>% head(5)
@@ -432,11 +435,11 @@ fancy_count(mini_diamond, cut, clarity, ext = id) %>% head(5)
 #> 5 Good  I1          5  0.05 id-16(1),id-34(1),id-69(1),id-82(1),id-91(1)
 ```
 
-- split a column and return a longer dataframe
+- split a column and return a longer tibble
 
 ``` r
 fancy_count(mini_diamond, cut, ext = clarity) %>%
-  split_column(name_col = "cut", value_col = "clarity")
+  split_column(name_col = cut, value_col = clarity)
 #> # A tibble: 24 × 2
 #>    cut   clarity
 #>    <chr> <chr>  
@@ -511,55 +514,57 @@ move_row(mini_diamond, 3:5, .after = TRUE)
 - slice a tibble by an ordered vector
 
 ``` r
-ordered_slice(mini_diamond, "id", c("id-3", "id-2"))
-#> Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2")): 2 NA values!
-#> Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2")): 1 duplicated
-#> values!
+ordered_slice(mini_diamond, id, c("id-3", "id-2"))
 #> # A tibble: 2 × 7
 #>   id    carat cut   clarity price     x     y
 #>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
-#> 1 <NA>     NA <NA>  <NA>       NA    NA    NA
-#> 2 <NA>     NA <NA>  <NA>       NA    NA    NA
+#> 1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+#> 2 id-2   1.51 Good  VS2     11746  7.27  7.18
 
 # support NA and known values in ordered vector
-ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", "id-3", NA))
-#> Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 5
+ordered_slice(mini_diamond, id, c("id-3", "id-2", "unknown_id", "id-3", NA))
+#> Warning in ordered_slice(mini_diamond, id, c("id-3", "id-2", "unknown_id", : 2
 #> NA values!
-#> Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 4
+#> Warning in ordered_slice(mini_diamond, id, c("id-3", "id-2", "unknown_id", : 2
 #> duplicated values!
 #> # A tibble: 5 × 7
 #>   id    carat cut   clarity price     x     y
 #>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
-#> 1 <NA>     NA <NA>  <NA>       NA    NA    NA
-#> 2 <NA>     NA <NA>  <NA>       NA    NA    NA
-#> 3 <NA>     NA <NA>  <NA>       NA    NA    NA
-#> 4 <NA>     NA <NA>  <NA>       NA    NA    NA
-#> 5 <NA>     NA <NA>  <NA>       NA    NA    NA
+#> 1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+#> 2 id-2   1.51 Good  VS2     11746  7.27  7.18
+#> 3 <NA>  NA    <NA>  <NA>       NA NA    NA   
+#> 4 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+#> 5 <NA>  NA    <NA>  <NA>       NA NA    NA
 
 # remove NA
-ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", "id-3", NA),
+ordered_slice(mini_diamond, id, c("id-3", "id-2", "unknown_id", "id-3", NA),
   na.rm = TRUE
 )
-#> Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 5
+#> Warning in ordered_slice(mini_diamond, id, c("id-3", "id-2", "unknown_id", : 2
 #> NA values!
-#> Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 4
+#> Warning in ordered_slice(mini_diamond, id, c("id-3", "id-2", "unknown_id", : 2
 #> duplicated values!
-#> # A tibble: 0 × 7
-#> # … with 7 variables: id <chr>, carat <dbl>, cut <chr>, clarity <chr>,
-#> #   price <int>, x <dbl>, y <dbl>
-
-# remove duplication
-ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", "id-3", NA),
-  dup.rm = TRUE
-)
-#> Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 5
-#> NA values!
-#> Warning in ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", : 4
-#> duplicated values!
-#> # A tibble: 1 × 7
+#> # A tibble: 3 × 7
 #>   id    carat cut   clarity price     x     y
 #>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
-#> 1 <NA>     NA <NA>  <NA>       NA    NA    NA
+#> 1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+#> 2 id-2   1.51 Good  VS2     11746  7.27  7.18
+#> 3 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+
+# remove duplication
+ordered_slice(mini_diamond, id, c("id-3", "id-2", "unknown_id", "id-3", NA),
+  dup.rm = TRUE
+)
+#> Warning in ordered_slice(mini_diamond, id, c("id-3", "id-2", "unknown_id", : 2
+#> NA values!
+#> Warning in ordered_slice(mini_diamond, id, c("id-3", "id-2", "unknown_id", : 2
+#> duplicated values!
+#> # A tibble: 3 × 7
+#>   id    carat cut   clarity price     x     y
+#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+#> 1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+#> 2 id-2   1.51 Good  VS2     11746  7.27  7.18
+#> 3 <NA>  NA    <NA>  <NA>       NA NA    NA
 ```
 
 ## stat
@@ -641,7 +646,7 @@ cmdargs()
 #> [2] "--no-save"                             
 #> [3] "--no-restore"                          
 #> [4] "-f"                                    
-#> [5] "/tmp/RtmpnpISG6/callr-scr-2f937974eacc"
+#> [5] "/tmp/RtmpnpISG6/callr-scr-2f9368321a90"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"

@@ -26,8 +26,8 @@ tbflt <- function(x = expression()) {
 }
 
 #' @export
-print.tbflt <- function(x) {
-  print(unclass(x))
+print.tbflt <- function(x, ...) {
+  print(unclass(x), ...)
 }
 
 #' @export

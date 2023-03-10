@@ -2,7 +2,7 @@
 % Please edit documentation in R/dataframe.R
 \name{split_column}
 \alias{split_column}
-\title{split a column and return a longer dataframe}
+\title{split a column and return a longer tibble}
 \usage{
 split_column(df, name_col, value_col, sep = ",")
 }
@@ -19,7 +19,7 @@ split_column(df, name_col, value_col, sep = ",")
 expanded tibble
 }
 \description{
-split a column and return a longer dataframe
+split a column and return a longer tibble
 }
 \examples{
 fancy_count(mini_diamond, cut, ext = clarity) \%>\%

@@ -43,12 +43,12 @@ devtools::install_github("william-swl/baizer")
 ### tbflt
 - save a series of filter conditions, and support 
 logical operating among conditions
-- use `filterC` apply `tbflt` on dplyr filter
+- use `filterC` to apply `tbflt` on `dplyr::filter`
 
 ``` {r tbflt}
 c1 <- tbflt(cut == "Fair")
-
 c2 <- tbflt(x > 8)
+c1 | c2
 
 mini_diamond %>%
   filterC(c1) %>%
@@ -244,16 +244,16 @@ fancy_count(mini_diamond, cut, ext = clarity, ext_fmt = "ratio")
 fancy_count(mini_diamond, cut, ext = clarity, ext_fmt = "clean")
 
 # count an extended column, in an order by character
-fancy_count(mini_diamond, "cut", "clarity", sort = FALSE)
+fancy_count(mini_diamond, cut, ext = clarity, sort = FALSE)
 
 # extended column after a two-column count
 fancy_count(mini_diamond, cut, clarity, ext = id) %>% head(5)
 ```
 
-- split a column and return a longer dataframe
+- split a column and return a longer tibble
 ```{r dataframe-split_column}
 fancy_count(mini_diamond, cut, ext = clarity) %>%
-  split_column(name_col = "cut", value_col = "clarity")
+  split_column(name_col = cut, value_col = clarity)
 ```
 
 - move selected rows to target location
@@ -271,18 +271,18 @@ move_row(mini_diamond, 3:5, .after = TRUE)
 
 - slice a tibble by an ordered vector
 ```{r dataframe-ordered_slice}
-ordered_slice(mini_diamond, "id", c("id-3", "id-2"))
+ordered_slice(mini_diamond, id, c("id-3", "id-2"))
 
 # support NA and known values in ordered vector
-ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", "id-3", NA))
+ordered_slice(mini_diamond, id, c("id-3", "id-2", "unknown_id", "id-3", NA))
 
 # remove NA
-ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", "id-3", NA),
+ordered_slice(mini_diamond, id, c("id-3", "id-2", "unknown_id", "id-3", NA),
   na.rm = TRUE
 )
 
 # remove duplication
-ordered_slice(mini_diamond, "id", c("id-3", "id-2", "unknown_id", "id-3", NA),
+ordered_slice(mini_diamond, id, c("id-3", "id-2", "unknown_id", "id-3", NA),
   dup.rm = TRUE
 )
 ```

@@ -112,7 +112,7 @@ fancy_count <- function(df, ..., ext = NULL,
 }
 
 
-#' split a column and return a longer dataframe
+#' split a column and return a longer tibble
 #'
 #' @param df tibble
 #' @param name_col repeat this as name column
