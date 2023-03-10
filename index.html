@@ -215,7 +215,7 @@
 <span><span class="co">#&gt; [[1]]</span></span>
 <span><span class="co">#&gt; [1] 2 3</span></span>
 <span></span>
-<span><span class="co"># only the index of second different character, NA if unaccessible</span></span>
+<span><span class="co"># only the index of nth different character, NA if unaccessible</span></span>
 <span><span class="fu"><a href="reference/diff_index.html">diff_index</a></span><span class="op">(</span><span class="st">"AAAA"</span>, <span class="st">"ABBA"</span>, nth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
 <span><span class="co">#&gt; [1] 3</span></span>
@@ -333,7 +333,7 @@
 <h2 id="numbers">numbers<a class="anchor" aria-label="anchor" href="#numbers"></a>
 </h2>
 <ul>
-<li>better round/signif string</li>
+<li>from float number to fixed digits character</li>
 </ul>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2.1951</span>, <span class="fl">2</span><span class="op">)</span></span>
@@ -357,8 +357,8 @@
 <span><span class="co">#&gt; [1] "20.53"</span></span>
 <span></span>
 <span><span class="co"># but will keep the raw value if necessary</span></span>
-<span><span class="fu"><a href="reference/signif_round_string.html">signif_round_string</a></span><span class="op">(</span><span class="fl">0.000002</span>, <span class="fl">3</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "0.00000200"</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/signif_round_string.html">signif_round_string</a></span><span class="op">(</span><span class="fl">0.000002654</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "0.00000265"</span></span></code></pre></div>
 <ul>
 <li>whether the number string only has zero</li>
 </ul>
@@ -665,20 +665,20 @@
 </ul>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/stat_fc.html">stat_fc</a></span><span class="op">(</span><span class="va">mini_diamond</span>, y <span class="op">=</span> <span class="va">price</span>, x <span class="op">=</span> <span class="va">cut</span>, .by <span class="op">=</span> <span class="va">clarity</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 1,266 × 7</span></span>
-<span><span class="co">#&gt;    clarity cut_1 cut_2 price_1 price_2 fc_price fc_price_fmt</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;int&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;chr&gt;       </span></span>
-<span><span class="co">#&gt;  1 SI1     Fair  Fair     3027    3027    1     1.0x        </span></span>
-<span><span class="co">#&gt;  2 SI1     Fair  Ideal    3027    5590    0.542 0.54x       </span></span>
-<span><span class="co">#&gt;  3 SI1     Fair  Ideal    3027    1633    1.85  1.9x        </span></span>
-<span><span class="co">#&gt;  4 SI1     Fair  Good     3027    5252    0.576 0.58x       </span></span>
-<span><span class="co">#&gt;  5 SI1     Fair  Good     3027     589    5.14  5.1x        </span></span>
-<span><span class="co">#&gt;  6 SI1     Fair  Ideal    3027    5370    0.564 0.56x       </span></span>
-<span><span class="co">#&gt;  7 SI1     Fair  Good     3027    4851    0.624 0.62x       </span></span>
-<span><span class="co">#&gt;  8 SI1     Fair  Fair     3027    4480    0.676 0.68x       </span></span>
-<span><span class="co">#&gt;  9 SI1     Fair  Fair     3027    1952    1.55  1.6x        </span></span>
-<span><span class="co">#&gt; 10 SI1     Fair  Fair     3027   18026    0.168 0.17x       </span></span>
-<span><span class="co">#&gt; # … with 1,256 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # A tibble: 72 × 7</span></span>
+<span><span class="co">#&gt;    clarity group1 group2    y1    y2    fc fc_fmt</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; </span></span>
+<span><span class="co">#&gt;  1 SI1     Fair   Fair   5844. 5844.  1    1.0x  </span></span>
+<span><span class="co">#&gt;  2 SI1     Fair   Ideal  5844. 3877.  1.51 1.5x  </span></span>
+<span><span class="co">#&gt;  3 SI1     Fair   Good   5844. 3227.  1.81 1.8x  </span></span>
+<span><span class="co">#&gt;  4 VS2     Good   Good   5582. 5582.  1    1.0x  </span></span>
+<span><span class="co">#&gt;  5 VS2     Good   Ideal  5582. 3024.  1.85 1.8x  </span></span>
+<span><span class="co">#&gt;  6 VS2     Good   Fair   5582. 3529.  1.58 1.6x  </span></span>
+<span><span class="co">#&gt;  7 VVS1    Ideal  Ideal  4652. 4652.  1    1.0x  </span></span>
+<span><span class="co">#&gt;  8 VVS1    Ideal  Good   4652. 2810.  1.66 1.7x  </span></span>
+<span><span class="co">#&gt;  9 VVS1    Ideal  Fair   4652. 2184   2.13 2.1x  </span></span>
+<span><span class="co">#&gt; 10 SI2     Ideal  Ideal  4267. 4267.  1    1.0x  </span></span>
+<span><span class="co">#&gt; # … with 62 more rows</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="io">IO<a class="anchor" aria-label="anchor" href="#io"></a>
@@ -718,7 +718,7 @@
 <span><span class="co">#&gt; [2] "--no-save"                             </span></span>
 <span><span class="co">#&gt; [3] "--no-restore"                          </span></span>
 <span><span class="co">#&gt; [4] "-f"                                    </span></span>
-<span><span class="co">#&gt; [5] "/tmp/RtmpnpISG6/callr-scr-2f9368321a90"</span></span>
+<span><span class="co">#&gt; [5] "/tmp/RtmpnpISG6/callr-scr-2f9322f7eb79"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/cmdargs.html">cmdargs</a></span><span class="op">(</span><span class="st">"R_env"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"</span></span></code></pre></div>

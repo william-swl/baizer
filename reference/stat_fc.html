@@ -67,7 +67,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">stat_fc</span><span class="op">(</span><span class="va">df</span>, <span class="va">y</span>, <span class="va">x</span>, .by <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">stat_fc</span><span class="op">(</span><span class="va">df</span>, <span class="va">y</span>, <span class="va">x</span>, method <span class="op">=</span> <span class="st">"mean"</span>, .by <span class="op">=</span> <span class="cn">NULL</span>, signif_digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -84,8 +84,16 @@
 <dd><p>sample test group</p></dd>
 
 
+<dt>method</dt>
+<dd><p><code>'mean'|'median'|'geom_mean'</code>, the summary method</p></dd>
+
+
 <dt>.by</dt>
 <dd><p>super-group</p></dd>
+
+
+<dt>signif_digits</dt>
+<dd><p>fold change signif digits</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -98,20 +106,20 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">stat_fc</span><span class="op">(</span><span class="va">mini_diamond</span>, y <span class="op">=</span> <span class="va">price</span>, x <span class="op">=</span> <span class="va">cut</span>, .by <span class="op">=</span> <span class="va">clarity</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1,266 × 7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    clarity cut_1 cut_2 price_1 price_2 fc_price fc_price_fmt</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> SI1     Fair  Fair     <span style="text-decoration: underline;">3</span>027    <span style="text-decoration: underline;">3</span>027    1     1.0x        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> SI1     Fair  Ideal    <span style="text-decoration: underline;">3</span>027    <span style="text-decoration: underline;">5</span>590    0.542 0.54x       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> SI1     Fair  Ideal    <span style="text-decoration: underline;">3</span>027    <span style="text-decoration: underline;">1</span>633    1.85  1.9x        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> SI1     Fair  Good     <span style="text-decoration: underline;">3</span>027    <span style="text-decoration: underline;">5</span>252    0.576 0.58x       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> SI1     Fair  Good     <span style="text-decoration: underline;">3</span>027     589    5.14  5.1x        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> SI1     Fair  Ideal    <span style="text-decoration: underline;">3</span>027    <span style="text-decoration: underline;">5</span>370    0.564 0.56x       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> SI1     Fair  Good     <span style="text-decoration: underline;">3</span>027    <span style="text-decoration: underline;">4</span>851    0.624 0.62x       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> SI1     Fair  Fair     <span style="text-decoration: underline;">3</span>027    <span style="text-decoration: underline;">4</span>480    0.676 0.68x       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> SI1     Fair  Fair     <span style="text-decoration: underline;">3</span>027    <span style="text-decoration: underline;">1</span>952    1.55  1.6x        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> SI1     Fair  Fair     <span style="text-decoration: underline;">3</span>027   <span style="text-decoration: underline;">18</span>026    0.168 0.17x       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 1,256 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 72 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    clarity group1 group2    y1    y2    fc fc_fmt</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> SI1     Fair   Fair   <span style="text-decoration: underline;">5</span>844. <span style="text-decoration: underline;">5</span>844.  1    1.0x  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> SI1     Fair   Ideal  <span style="text-decoration: underline;">5</span>844. <span style="text-decoration: underline;">3</span>877.  1.51 1.5x  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> SI1     Fair   Good   <span style="text-decoration: underline;">5</span>844. <span style="text-decoration: underline;">3</span>227.  1.81 1.8x  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> VS2     Good   Good   <span style="text-decoration: underline;">5</span>582. <span style="text-decoration: underline;">5</span>582.  1    1.0x  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> VS2     Good   Ideal  <span style="text-decoration: underline;">5</span>582. <span style="text-decoration: underline;">3</span>024.  1.85 1.8x  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> VS2     Good   Fair   <span style="text-decoration: underline;">5</span>582. <span style="text-decoration: underline;">3</span>529.  1.58 1.6x  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> VVS1    Ideal  Ideal  <span style="text-decoration: underline;">4</span>652. <span style="text-decoration: underline;">4</span>652.  1    1.0x  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> VVS1    Ideal  Good   <span style="text-decoration: underline;">4</span>652. <span style="text-decoration: underline;">2</span>810.  1.66 1.7x  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> VVS1    Ideal  Fair   <span style="text-decoration: underline;">4</span>652. <span style="text-decoration: underline;">2</span>184   2.13 2.1x  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> SI2     Ideal  Ideal  <span style="text-decoration: underline;">4</span>267. <span style="text-decoration: underline;">4</span>267.  1    1.0x  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 62 more rows</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
