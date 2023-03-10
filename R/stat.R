@@ -1,3 +1,17 @@
+#' geometric mean
+#'
+#' @param x value
+#' @param na.rm remove NA or not
+#'
+#' @return geometric mean value
+#' @export
+#'
+#' @examples geom_mean(1, 9)
+geom_mean <- function(x, na.rm = TRUE) {
+  exp(mean(log(x), na.rm = na.rm))
+}
+
+
 #' statistical test which returns a extensible tibble
 #'
 #' @param df tibble
@@ -50,19 +64,36 @@ stat_test <- function(df, y, x, paired = FALSE, alternative = "two.sided",
 #' @param y value
 #' @param x sample test group
 #' @param .by super-group
+#' @param method `'mean'|'median'|'geom_mean'`, the summary method
+#' @param signif_digits fold change signif digits
 #'
 #' @return fold change result tibble
 #' @export
 #'
 #' @examples stat_fc(mini_diamond, y = price, x = cut, .by = clarity)
-stat_fc <- function(df, y, x, .by = NULL) {
-  # only keep necessary columns
-  df <- df %>% dplyr::select({{ y }}, {{ x }}, {{ .by }})
-
+stat_fc <- function(df, y, x, method = "mean", .by = NULL, signif_digits = 2) {
   y <- rlang::enquo(y)
   x <- rlang::enquo(x)
   .by <- rlang::enquo(.by)
 
+  # only keep necessary columns
+  df <- df %>% dplyr::select({{ y }}, {{ x }}, {{ .by }})
+
+  # smmarise
+  if (method == "mean") {
+    func <- function(x) mean(x, na.rm = TRUE)
+  } else if (method == "median") {
+    func <- function(x) median(x, na.rm = TRUE)
+  } else if (method == "geom_mean") {
+    func <- function(x) geom_mean(x, na.rm = TRUE)
+  } else {
+    stop("choose a method from mean, median and geom_mean")
+  }
+
+  df <- df %>% dplyr::summarise("{{y}}" :=  # nolint
+    func({{ y }}), .by = c({{ .by }}, {{ x }}))
+
+  # full join
   if (rlang::quo_is_null(.by)) {
     # create auxiliary column
     df <- df %>% dplyr::mutate(by = "")
@@ -75,13 +106,14 @@ stat_fc <- function(df, y, x, .by = NULL) {
     by = by,
     suffix = c("_1", "_2"), multiple = "all"
   )
-  c1 <- stringr::str_c(rlang::quo_name(y), "_1")
-  c2 <- stringr::str_c(rlang::quo_name(y), "_2")
-  fc_col <- stringr::str_c("fc_", rlang::quo_name(y))
+
+  # fold change
+  ycol1 <- stringr::str_c(rlang::quo_name(y), "_1")
+  ycol2 <- stringr::str_c(rlang::quo_name(y), "_2")
   res <- res %>%
     dplyr::mutate(
-      "fc_{{y}}" := .data[[c1]] / .data[[c2]], # nolint
-      "fc_{{y}}_fmt" := signif_string(.data[[fc_col]], 2) %>% # nolint
+      fc = .data[[ycol1]] / .data[[ycol2]], # nolint
+      fc_fmt = signif_string(.data$fc, signif_digits) %>%
         stringr::str_c("x")
     )
 
@@ -90,11 +122,20 @@ stat_fc <- function(df, y, x, .by = NULL) {
     res <- res %>% dplyr::select(-by)
   }
 
+  # rename
+  rename_vector <- c(
+    stringr::str_c(rlang::quo_name(x), c("_1", "_2")),
+    ycol1, ycol2
+  )
+  names(rename_vector) <- c("group1", "group2", "y1", "y2")
+  res <- res %>% dplyr::rename(rename_vector)
+
   # relocate
   res <- res %>% dplyr::select(
-    {{ .by }}, tidyselect::contains(rlang::quo_name(x)),
-    tidyselect::contains(rlang::quo_name(y)), tidyselect::contains("fc")
+    {{ .by }}, tidyselect::matches("group\\d"), tidyselect::matches("y\\d"),
+    tidyselect::starts_with("fc")
   )
+
 
   return(res)
 }

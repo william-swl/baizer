@@ -2,7 +2,7 @@
 % Please edit documentation in R/numbers.R
 \name{signif_round_string}
 \alias{signif_round_string}
-\title{signif or round strings}
+\title{signif or round string depend on the character length}
 \usage{
 signif_round_string(x, digits = 2, format = "short")
 }
@@ -17,7 +17,7 @@ signif_round_string(x, digits = 2, format = "short")
 signif or round strings
 }
 \description{
-signif or round strings
+signif or round string depend on the character length
 }
 \examples{
 signif_round_string(0.03851)

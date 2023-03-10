@@ -66,7 +66,7 @@ is.zero <- function(x) {
 
 
 
-#' signif or round strings
+#' signif or round string depend on the character length
 #'
 #' @param x number
 #' @param digits signif or round digits

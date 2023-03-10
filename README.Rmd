@@ -96,7 +96,7 @@ diff_index("AAAA", "ABBA")
 # ignore case
 diff_index("AAAA", "abba", ignore_case = TRUE)
 
-# only the index of second different character, NA if unaccessible
+# only the index of nth different character, NA if unaccessible
 diff_index("AAAA", "ABBA", nth = 2)
 
 diff_index("AAAA", "ABBA", 10)
@@ -163,7 +163,7 @@ fps_vector(c(1, 2, NA), 2)
 
 ## numbers
 
-- better round/signif string
+- from float number to fixed digits character
 ```{r numbers-round_signif}
 round(2.1951, 2)
 
@@ -180,7 +180,7 @@ signif_round_string(20.526, 2, "short")
 signif_round_string(20.526, 2, "long")
 
 # but will keep the raw value if necessary
-signif_round_string(0.000002, 3)
+signif_round_string(0.000002654, 3)
 ```
 
 - whether the number string only has zero

@@ -127,7 +127,7 @@ diff_index("AAAA", "abba", ignore_case = TRUE)
 #> [[1]]
 #> [1] 2 3
 
-# only the index of second different character, NA if unaccessible
+# only the index of nth different character, NA if unaccessible
 diff_index("AAAA", "ABBA", nth = 2)
 #> [[1]]
 #> [1] 3
@@ -251,7 +251,7 @@ fps_vector(c(1, 2, NA), 2)
 
 ## numbers
 
-- better round/signif string
+- from float number to fixed digits character
 
 ``` r
 round(2.1951, 2)
@@ -276,8 +276,8 @@ signif_round_string(20.526, 2, "long")
 #> [1] "20.53"
 
 # but will keep the raw value if necessary
-signif_round_string(0.000002, 3)
-#> [1] "0.00000200"
+signif_round_string(0.000002654, 3)
+#> [1] "0.00000265"
 ```
 
 - whether the number string only has zero
@@ -593,20 +593,20 @@ stat_test(mini_diamond, y = price, x = cut, .by = clarity)
 
 ``` r
 stat_fc(mini_diamond, y = price, x = cut, .by = clarity)
-#> # A tibble: 1,266 × 7
-#>    clarity cut_1 cut_2 price_1 price_2 fc_price fc_price_fmt
-#>    <chr>   <chr> <chr>   <int>   <int>    <dbl> <chr>       
-#>  1 SI1     Fair  Fair     3027    3027    1     1.0x        
-#>  2 SI1     Fair  Ideal    3027    5590    0.542 0.54x       
-#>  3 SI1     Fair  Ideal    3027    1633    1.85  1.9x        
-#>  4 SI1     Fair  Good     3027    5252    0.576 0.58x       
-#>  5 SI1     Fair  Good     3027     589    5.14  5.1x        
-#>  6 SI1     Fair  Ideal    3027    5370    0.564 0.56x       
-#>  7 SI1     Fair  Good     3027    4851    0.624 0.62x       
-#>  8 SI1     Fair  Fair     3027    4480    0.676 0.68x       
-#>  9 SI1     Fair  Fair     3027    1952    1.55  1.6x        
-#> 10 SI1     Fair  Fair     3027   18026    0.168 0.17x       
-#> # … with 1,256 more rows
+#> # A tibble: 72 × 7
+#>    clarity group1 group2    y1    y2    fc fc_fmt
+#>    <chr>   <chr>  <chr>  <dbl> <dbl> <dbl> <chr> 
+#>  1 SI1     Fair   Fair   5844. 5844.  1    1.0x  
+#>  2 SI1     Fair   Ideal  5844. 3877.  1.51 1.5x  
+#>  3 SI1     Fair   Good   5844. 3227.  1.81 1.8x  
+#>  4 VS2     Good   Good   5582. 5582.  1    1.0x  
+#>  5 VS2     Good   Ideal  5582. 3024.  1.85 1.8x  
+#>  6 VS2     Good   Fair   5582. 3529.  1.58 1.6x  
+#>  7 VVS1    Ideal  Ideal  4652. 4652.  1    1.0x  
+#>  8 VVS1    Ideal  Good   4652. 2810.  1.66 1.7x  
+#>  9 VVS1    Ideal  Fair   4652. 2184   2.13 2.1x  
+#> 10 SI2     Ideal  Ideal  4267. 4267.  1    1.0x  
+#> # … with 62 more rows
 ```
 
 ## IO
@@ -646,7 +646,7 @@ cmdargs()
 #> [2] "--no-save"                             
 #> [3] "--no-restore"                          
 #> [4] "-f"                                    
-#> [5] "/tmp/RtmpnpISG6/callr-scr-2f9368321a90"
+#> [5] "/tmp/RtmpnpISG6/callr-scr-2f9322f7eb79"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"

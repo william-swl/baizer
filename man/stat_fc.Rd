@@ -4,7 +4,7 @@
 \alias{stat_fc}
 \title{fold change calculation which returns a extensible tibble}
 \usage{
-stat_fc(df, y, x, .by = NULL)
+stat_fc(df, y, x, method = "mean", .by = NULL, signif_digits = 2)
 }
 \arguments{
 \item{df}{tibble}
@@ -13,7 +13,11 @@ stat_fc(df, y, x, .by = NULL)
 
 \item{x}{sample test group}
 
+\item{method}{\code{'mean'|'median'|'geom_mean'}, the summary method}
+
 \item{.by}{super-group}
+
+\item{signif_digits}{fold change signif digits}
 }
 \value{
 fold change result tibble

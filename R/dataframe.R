@@ -64,7 +64,7 @@ fancy_count <- function(df, ..., ext = NULL,
     dplyr::mutate(r = round(.data$n / sum(.data$n), digits = digits))
 
   ext <- enquo(ext)
-  ext_chr <- deparse(quo_get_expr(ext))
+  ext_chr <- quo_name(ext)
   # if have extended column
   if (!quo_is_null(ext)) {
     count_list <- df %>%
@@ -223,7 +223,7 @@ move_row <- function(df, rows, .after = FALSE, .before = FALSE) {
 ordered_slice <- function(df, by, ordered_vector,
                           na.rm = FALSE, dup.rm = FALSE) {
   by <- enquo(by)
-  by_chr <- deparse(quo_get_expr(by))
+  by_chr <- quo_name(by)
 
   if (any(duplicated(df[[by_chr]]))) {
     stop("Column values not unique!")
