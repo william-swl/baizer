@@ -313,6 +313,27 @@ cmdargs()
 cmdargs("R_env")
 ```
 
+- detect whether directory is empty recursively, and detect 
+whether file is empty recursively
+```{r empty}
+# create an empty directory
+dir.create("some/deep/path/in/a/folder", recursive = TRUE)
+empty_dir("some/deep/path/in/a/folder")
+
+# create an empty file
+file.create("some/deep/path/in/a/folder/there_is_a_file.txt")
+empty_dir("some/deep/path/in/a/folder")
+empty_file("some/deep/path/in/a/folder/there_is_a_file.txt", strict = TRUE)
+
+# create a file with only character of length 0
+write("", "some/deep/path/in/a/folder/there_is_a_file.txt")
+empty_file("some/deep/path/in/a/folder/there_is_a_file.txt", strict = TRUE)
+empty_file("some/deep/path/in/a/folder/there_is_a_file.txt")
+
+# clean
+unlink("some", recursive = TRUE)
+```
+
 
 - write a tibble, or a list of tibbles into an excel file
 ```{r IO-write_excel}

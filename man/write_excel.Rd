@@ -4,14 +4,15 @@
 \alias{write_excel}
 \title{write a tibble into an excel file}
 \usage{
-write_excel(df, filename, sheetname = "sheet1", creator = "")
+write_excel(df, filename, sheetname = NULL, creator = "")
 }
 \arguments{
 \item{df}{tibble or a list of tibbles}
 
 \item{filename}{the output filename}
 
-\item{sheetname}{the name of sheets, \code{sheet1} as default}
+\item{sheetname}{the names of sheets. If not given, will use 'sheet1', or
+the names of list}
 
 \item{creator}{creator}
 }

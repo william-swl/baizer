@@ -20,7 +20,9 @@ test_that("stat_fc, method='median'", {
 
 test_that("stat_fc, method='geom_mean'", {
   expect_snapshot(
-    stat_fc(mini_diamond, y = price, x = cut,
-            .by = clarity, method = "geom_mean")
+    stat_fc(mini_diamond,
+      y = price, x = cut,
+      .by = clarity, method = "geom_mean"
+    )
   )
 })

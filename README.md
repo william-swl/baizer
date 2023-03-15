@@ -646,10 +646,38 @@ cmdargs()
 #> [2] "--no-save"                             
 #> [3] "--no-restore"                          
 #> [4] "-f"                                    
-#> [5] "/tmp/RtmpnpISG6/callr-scr-2f9311c14f21"
+#> [5] "/tmp/Rtmpp1slsi/callr-scr-3d2b27938c2c"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"
+```
+
+- detect whether directory is empty recursively, and detect whether file
+  is empty recursively
+
+``` r
+# create an empty directory
+dir.create("some/deep/path/in/a/folder", recursive = TRUE)
+empty_dir("some/deep/path/in/a/folder")
+#> [1] TRUE
+
+# create an empty file
+file.create("some/deep/path/in/a/folder/there_is_a_file.txt")
+#> [1] TRUE
+empty_dir("some/deep/path/in/a/folder")
+#> [1] FALSE
+empty_file("some/deep/path/in/a/folder/there_is_a_file.txt", strict = TRUE)
+#> [1] TRUE
+
+# create a file with only character of length 0
+write("", "some/deep/path/in/a/folder/there_is_a_file.txt")
+empty_file("some/deep/path/in/a/folder/there_is_a_file.txt", strict = TRUE)
+#> [1] FALSE
+empty_file("some/deep/path/in/a/folder/there_is_a_file.txt")
+#> [1] TRUE
+
+# clean
+unlink("some", recursive = TRUE)
 ```
 
 - write a tibble, or a list of tibbles into an excel file

@@ -90,7 +90,7 @@ stat_fc <- function(df, y, x, method = "mean", .by = NULL, signif_digits = 2) {
     stop("choose a method from mean, median and geom_mean")
   }
 
-  df <- df %>% dplyr::summarise("{{y}}" :=  # nolint
+  df <- df %>% dplyr::summarise("{{y}}" := # nolint
     func({{ y }}), .by = c({{ .by }}, {{ x }}))
 
   # full join
