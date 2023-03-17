@@ -115,18 +115,24 @@ float_to_percent <- function(x, digits = 2) {
 #'
 #' @param x percent number character
 #' @param digits hold n digits after the decimal point
+#' @param to_double use double output
 #'
-#' @return float character of x
+#' @return float character or double of x
 #' @export
 #'
 #' @examples percent_to_float("12%")
-percent_to_float <- function(x, digits = 2) {
-  if (stringr::str_detect(x, "^[-\\d\\.]+%$")) {
-    x <- stringr::str_replace(x, "%", "") %>% as.double()
-    round_string(x / 100, digits)
-  } else {
+percent_to_float <- function(x, digits = 2, to_double=FALSE) {
+  if(any(!stringr::str_detect(x, "^[-\\d\\.]+%$"))) {
     stop("Not a percent number character!")
   }
+  x <- stringr::str_replace(x, "%", "") %>% as.double()
+  x <- round_string(x / 100, digits)
+  if(to_double == TRUE) {
+    x <- as.double(x)
+  }
+
+  return(x)
+
 }
 
 

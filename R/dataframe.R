@@ -251,3 +251,19 @@ ordered_slice <- function(df, by, ordered_vector,
 
   return(df[index, ])
 }
+
+
+
+#' remove columns only have NA value
+#'
+#' @param df tibble
+#'
+#' @return tibble
+#' @export
+#'
+#' @examples # remove_nacol(df)
+remove_nacol <- function(df) {
+  keep <-  which(colSums(is.na(df)) != nrow(df))
+  res <- df[, keep]
+  return (res)
+}

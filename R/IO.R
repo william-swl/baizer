@@ -44,7 +44,7 @@ cmdargs <- function(x = NULL) {
 
 #' detect whether directory is empty recursively
 #'
-#' @param dir
+#' @param dir the directory
 #'
 #' @return logical value
 #' @export
