@@ -4,15 +4,17 @@
 \alias{percent_to_float}
 \title{from percent number to float number}
 \usage{
-percent_to_float(x, digits = 2)
+percent_to_float(x, digits = 2, to_double = FALSE)
 }
 \arguments{
 \item{x}{percent number character}
 
 \item{digits}{hold n digits after the decimal point}
+
+\item{to_double}{use double output}
 }
 \value{
-float character of x
+float character or double of x
 }
 \description{
 from percent number to float number

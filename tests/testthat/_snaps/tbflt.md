@@ -110,3 +110,153 @@
       10 id-30  0.52 Fair  VVS2     1401  5.26  5.2 
       # ... with 27 more rows
 
+# tbflt in function
+
+    Code
+      foo(mini_diamond, "Ideal")
+    Warning <lifecycle_warning_deprecated>
+      Using an external vector in selections was deprecated in tidyselect 1.1.0.
+      i Please use `all_of()` or `any_of()` instead.
+        # Was:
+        data %>% select(.by)
+      
+        # Now:
+        data %>% select(all_of(.by))
+      
+      See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
+    Output
+      # A tibble: 34 x 7
+         id    carat cut   clarity price     x     y
+         <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+       1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+       2 id-4   1.54 Ideal SI2      9452  7.43  7.45
+       3 id-5   0.72 Ideal VS1      2498  5.73  5.77
+       4 id-9   1.01 Ideal SI1      5590  6.43  6.4 
+       5 id-13  0.56 Ideal SI1      1633  5.31  5.32
+       6 id-14  0.3  Ideal VVS2      812  4.33  4.39
+       7 id-17  0.97 Ideal I1       2239  6.4   6.43
+       8 id-19  0.59 Ideal VVS2     2155  5.34  5.39
+       9 id-26  0.31 Ideal VS1       717  4.36  4.41
+      10 id-29  0.72 Ideal SI2      2300  5.72  5.78
+      # ... with 24 more rows
+
+# tbflt logical operation in function
+
+    Code
+      foo(mini_diamond, "Ideal", "VVS1")
+    Warning <lifecycle_warning_deprecated>
+      Using an external vector in selections was deprecated in tidyselect 1.1.0.
+      i Please use `all_of()` or `any_of()` instead.
+        # Was:
+        data %>% select(.by)
+      
+        # Now:
+        data %>% select(all_of(.by))
+      
+      See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
+    Output
+      # A tibble: 5 x 7
+        id    carat cut   clarity price     x     y
+        <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+      1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+      2 id-31  1.03 Ideal VVS1     8398  6.54  6.5 
+      3 id-35  1    Ideal VVS1     6535  6.37  6.41
+      4 id-37  0.51 Ideal VVS1     2812  5.15  5.11
+      5 id-83  0.73 Ideal VVS1     3487  5.77  5.82
+
+# tbflt logical operation in and out of function
+
+    Code
+      foo(mini_diamond, "Ideal", cond2)
+    Warning <lifecycle_warning_deprecated>
+      Using an external vector in selections was deprecated in tidyselect 1.1.0.
+      i Please use `all_of()` or `any_of()` instead.
+        # Was:
+        data %>% select(.by)
+      
+        # Now:
+        data %>% select(all_of(.by))
+      
+      See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
+    Output
+      # A tibble: 5 x 7
+        id    carat cut   clarity price     x     y
+        <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+      1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+      2 id-31  1.03 Ideal VVS1     8398  6.54  6.5 
+      3 id-35  1    Ideal VVS1     6535  6.37  6.41
+      4 id-37  0.51 Ideal VVS1     2812  5.15  5.11
+      5 id-83  0.73 Ideal VVS1     3487  5.77  5.82
+
+# tbflt logical operation out of function
+
+    Code
+      foo(mini_diamond, cond1, cond2)
+    Warning <lifecycle_warning_deprecated>
+      Using an external vector in selections was deprecated in tidyselect 1.1.0.
+      i Please use `all_of()` or `any_of()` instead.
+        # Was:
+        data %>% select(.by)
+      
+        # Now:
+        data %>% select(all_of(.by))
+      
+      See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
+    Output
+      # A tibble: 5 x 7
+        id    carat cut   clarity price     x     y
+        <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+      1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+      2 id-31  1.03 Ideal VVS1     8398  6.54  6.5 
+      3 id-35  1    Ideal VVS1     6535  6.37  6.41
+      4 id-37  0.51 Ideal VVS1     2812  5.15  5.11
+      5 id-83  0.73 Ideal VVS1     3487  5.77  5.82
+
+# tbflt, usecol=FALSE
+
+    Code
+      filterC(mini_diamond, cond, usecol = FALSE)
+    Warning <lifecycle_warning_deprecated>
+      Using an external vector in selections was deprecated in tidyselect 1.1.0.
+      i Please use `all_of()` or `any_of()` instead.
+        # Was:
+        data %>% select(.by)
+      
+        # Now:
+        data %>% select(all_of(.by))
+      
+      See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
+    Output
+      # A tibble: 5 x 7
+        id    carat cut   clarity price     x     y
+        <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+      1 id-6   2.02 Fair  SI2     14080  8.33  8.37
+      2 id-48  2.01 Fair  I1       7294  8.3   8.19
+      3 id-49  2.16 Ideal I1       8709  8.31  8.26
+      4 id-68  2.32 Fair  SI1     18026  8.47  8.31
+      5 id-97  2.61 Good  SI2     13784  8.66  8.57
+
+# tbflt, usecol=FALSE, use .env
+
+    Code
+      filterC(mini_diamond, cond)
+    Warning <lifecycle_warning_deprecated>
+      Using an external vector in selections was deprecated in tidyselect 1.1.0.
+      i Please use `all_of()` or `any_of()` instead.
+        # Was:
+        data %>% select(.by)
+      
+        # Now:
+        data %>% select(all_of(.by))
+      
+      See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
+    Output
+      # A tibble: 5 x 7
+        id    carat cut   clarity price     x     y
+        <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+      1 id-6   2.02 Fair  SI2     14080  8.33  8.37
+      2 id-48  2.01 Fair  I1       7294  8.3   8.19
+      3 id-49  2.16 Ideal I1       8709  8.31  8.26
+      4 id-68  2.32 Fair  SI1     18026  8.47  8.31
+      5 id-97  2.61 Good  SI2     13784  8.66  8.57
+

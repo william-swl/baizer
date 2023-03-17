@@ -42,7 +42,9 @@ devtools::install_github("william-swl/baizer")
 c1 <- tbflt(cut == "Fair")
 c2 <- tbflt(x > 8)
 c1 | c2
-#> cut == "Fair" | x > 8
+#> <quosure>
+#> expr: ^cut == "Fair" | x > 8
+#> env:  0x562c39647738
 
 mini_diamond %>%
   filterC(c1) %>%
@@ -75,6 +77,100 @@ mini_diamond %>% filterC(c1 & c2)
 #> 1 id-6   2.02 Fair  SI2     14080  8.33  8.37
 #> 2 id-48  2.01 Fair  I1       7294  8.3   8.19
 #> 3 id-68  2.32 Fair  SI1     18026  8.47  8.31
+```
+
+- more strict limitation as the defination of `tbflt` may be far away
+  from its application
+
+``` r
+# default behavior of dplyr::filter, use column in data at first
+x <- 8
+mini_diamond %>% dplyr::filter(y > x)
+#> # A tibble: 53 × 7
+#>    id    carat cut   clarity price     x     y
+#>    <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+#>  1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+#>  2 id-4   1.54 Ideal SI2      9452  7.43  7.45
+#>  3 id-5   0.72 Ideal VS1      2498  5.73  5.77
+#>  4 id-6   2.02 Fair  SI2     14080  8.33  8.37
+#>  5 id-8   0.51 Good  SI2      1029  5.05  5.08
+#>  6 id-11  1.02 Good  VVS1     7861  6.37  6.4 
+#>  7 id-13  0.56 Ideal SI1      1633  5.31  5.32
+#>  8 id-14  0.3  Ideal VVS2      812  4.33  4.39
+#>  9 id-15  0.28 Good  IF        612  4.09  4.12
+#> 10 id-16  0.41 Good  I1        467  4.7   4.74
+#> # … with 43 more rows
+
+# so the default behavior of filterC is just like it
+x <- 8
+cond <- tbflt(y > x)
+mini_diamond %>% filterC(cond)
+#> # A tibble: 53 × 7
+#>    id    carat cut   clarity price     x     y
+#>    <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+#>  1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+#>  2 id-4   1.54 Ideal SI2      9452  7.43  7.45
+#>  3 id-5   0.72 Ideal VS1      2498  5.73  5.77
+#>  4 id-6   2.02 Fair  SI2     14080  8.33  8.37
+#>  5 id-8   0.51 Good  SI2      1029  5.05  5.08
+#>  6 id-11  1.02 Good  VVS1     7861  6.37  6.4 
+#>  7 id-13  0.56 Ideal SI1      1633  5.31  5.32
+#>  8 id-14  0.3  Ideal VVS2      812  4.33  4.39
+#>  9 id-15  0.28 Good  IF        612  4.09  4.12
+#> 10 id-16  0.41 Good  I1        467  4.7   4.74
+#> # … with 43 more rows
+
+# but if you want y > 8, and the defination of cond is far away from
+# its application, the results will be unexpected
+cond <- tbflt(y > 8)
+mini_diamond %>% filterC(cond)
+#> # A tibble: 5 × 7
+#>   id    carat cut   clarity price     x     y
+#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+#> 1 id-6   2.02 Fair  SI2     14080  8.33  8.37
+#> 2 id-48  2.01 Fair  I1       7294  8.3   8.19
+#> 3 id-49  2.16 Ideal I1       8709  8.31  8.26
+#> 4 id-68  2.32 Fair  SI1     18026  8.47  8.31
+#> 5 id-97  2.61 Good  SI2     13784  8.66  8.57
+
+# to avoid this, set usecol=FALSE. An error will be raised for warning you
+# to change the variable name
+# mini_diamond %>% filterC(cond, usecol=FALSE)
+x_lim <- 8
+cond <- tbflt(y > x_lim)
+mini_diamond %>% filterC(cond)
+#> # A tibble: 5 × 7
+#>   id    carat cut   clarity price     x     y
+#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+#> 1 id-6   2.02 Fair  SI2     14080  8.33  8.37
+#> 2 id-48  2.01 Fair  I1       7294  8.3   8.19
+#> 3 id-49  2.16 Ideal I1       8709  8.31  8.26
+#> 4 id-68  2.32 Fair  SI1     18026  8.47  8.31
+#> 5 id-97  2.61 Good  SI2     13784  8.66  8.57
+
+# you can always ignore this argument if you know how to use .env or !!
+x <- 8
+cond1 <- tbflt(y > !!x)
+mini_diamond %>% filterC(cond1)
+#> # A tibble: 5 × 7
+#>   id    carat cut   clarity price     x     y
+#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+#> 1 id-6   2.02 Fair  SI2     14080  8.33  8.37
+#> 2 id-48  2.01 Fair  I1       7294  8.3   8.19
+#> 3 id-49  2.16 Ideal I1       8709  8.31  8.26
+#> 4 id-68  2.32 Fair  SI1     18026  8.47  8.31
+#> 5 id-97  2.61 Good  SI2     13784  8.66  8.57
+
+cond2 <- tbflt(y > .env$x)
+mini_diamond %>% filterC(cond1)
+#> # A tibble: 5 × 7
+#>   id    carat cut   clarity price     x     y
+#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+#> 1 id-6   2.02 Fair  SI2     14080  8.33  8.37
+#> 2 id-48  2.01 Fair  I1       7294  8.3   8.19
+#> 3 id-49  2.16 Ideal I1       8709  8.31  8.26
+#> 4 id-68  2.32 Fair  SI1     18026  8.47  8.31
+#> 5 id-97  2.61 Good  SI2     13784  8.66  8.57
 ```
 
 ## basic utils
@@ -298,6 +394,9 @@ float_to_percent(0.123, digits = 1)
 
 percent_to_float("123%", digits = 3)
 #> [1] "1.230"
+
+percent_to_float("123%", digits = 3, to_double = TRUE)
+#> [1] 1.23
 ```
 
 - wrapper of the functions to process number string with prefix and
@@ -385,37 +484,11 @@ fancy_count(mini_diamond, cut)
 #>   cut       n     r
 #>   <chr> <int> <dbl>
 #> 1 Fair     35  0.35
-#> 2 Ideal    34  0.34
-#> 3 Good     31  0.31
+#> 2 Good     31  0.31
+#> 3 Ideal    34  0.34
 
-# count an extended column, in a default order by n
+# count an extended column
 fancy_count(mini_diamond, cut, ext = clarity)
-#> # A tibble: 3 × 4
-#>   cut       n     r clarity                                                
-#>   <chr> <int> <dbl> <chr>                                                  
-#> 1 Fair     35  0.35 I1(5),SI1(5),VS2(5),VVS1(5),IF(4),SI2(4),VVS2(4),VS1(3)
-#> 2 Ideal    34  0.34 SI1(5),VS1(5),VVS1(5),VVS2(5),I1(4),IF(4),SI2(4),VS2(2)
-#> 3 Good     31  0.31 I1(5),IF(5),SI1(4),SI2(4),VS2(4),VVS1(4),VVS2(3),VS1(2)
-
-# change format
-fancy_count(mini_diamond, cut, ext = clarity, ext_fmt = "ratio")
-#> # A tibble: 3 × 4
-#>   cut       n     r clarity                                                     
-#>   <chr> <int> <dbl> <chr>                                                       
-#> 1 Fair     35  0.35 I1(0.14),SI1(0.14),VS2(0.14),VVS1(0.14),IF(0.11),SI2(0.11),…
-#> 2 Ideal    34  0.34 SI1(0.15),VS1(0.15),VVS1(0.15),VVS2(0.15),I1(0.12),IF(0.12)…
-#> 3 Good     31  0.31 I1(0.16),IF(0.16),SI1(0.13),SI2(0.13),VS2(0.13),VVS1(0.13),…
-
-fancy_count(mini_diamond, cut, ext = clarity, ext_fmt = "clean")
-#> # A tibble: 3 × 4
-#>   cut       n     r clarity                        
-#>   <chr> <int> <dbl> <chr>                          
-#> 1 Fair     35  0.35 I1,SI1,VS2,VVS1,IF,SI2,VVS2,VS1
-#> 2 Ideal    34  0.34 SI1,VS1,VVS1,VVS2,I1,IF,SI2,VS2
-#> 3 Good     31  0.31 I1,IF,SI1,SI2,VS2,VVS1,VVS2,VS1
-
-# count an extended column, in an order by character
-fancy_count(mini_diamond, cut, ext = clarity, sort = FALSE)
 #> # A tibble: 3 × 4
 #>   cut       n     r clarity                                                
 #>   <chr> <int> <dbl> <chr>                                                  
@@ -423,16 +496,42 @@ fancy_count(mini_diamond, cut, ext = clarity, sort = FALSE)
 #> 2 Good     31  0.31 I1(5),IF(5),SI1(4),SI2(4),VS1(2),VS2(4),VVS1(4),VVS2(3)
 #> 3 Ideal    34  0.34 I1(4),IF(4),SI1(5),SI2(4),VS1(5),VS2(2),VVS1(5),VVS2(5)
 
+# change format
+fancy_count(mini_diamond, cut, ext = clarity, ext_fmt = "ratio")
+#> # A tibble: 3 × 4
+#>   cut       n     r clarity                                                     
+#>   <chr> <int> <dbl> <chr>                                                       
+#> 1 Fair     35  0.35 I1(0.14),IF(0.11),SI1(0.14),SI2(0.11),VS1(0.09),VS2(0.14),V…
+#> 2 Good     31  0.31 I1(0.16),IF(0.16),SI1(0.13),SI2(0.13),VS1(0.06),VS2(0.13),V…
+#> 3 Ideal    34  0.34 I1(0.12),IF(0.12),SI1(0.15),SI2(0.12),VS1(0.15),VS2(0.06),V…
+
+fancy_count(mini_diamond, cut, ext = clarity, ext_fmt = "clean")
+#> # A tibble: 3 × 4
+#>   cut       n     r clarity                        
+#>   <chr> <int> <dbl> <chr>                          
+#> 1 Fair     35  0.35 I1,IF,SI1,SI2,VS1,VS2,VVS1,VVS2
+#> 2 Good     31  0.31 I1,IF,SI1,SI2,VS1,VS2,VVS1,VVS2
+#> 3 Ideal    34  0.34 I1,IF,SI1,SI2,VS1,VS2,VVS1,VVS2
+
+# count an extended column, in an order by n
+fancy_count(mini_diamond, cut, ext = clarity, sort = TRUE)
+#> # A tibble: 3 × 4
+#>   cut       n     r clarity                                                
+#>   <chr> <int> <dbl> <chr>                                                  
+#> 1 Fair     35  0.35 I1(5),SI1(5),VS2(5),VVS1(5),IF(4),SI2(4),VVS2(4),VS1(3)
+#> 2 Ideal    34  0.34 SI1(5),VS1(5),VVS1(5),VVS2(5),I1(4),IF(4),SI2(4),VS2(2)
+#> 3 Good     31  0.31 I1(5),IF(5),SI1(4),SI2(4),VS2(4),VVS1(4),VVS2(3),VS1(2)
+
 # extended column after a two-column count
 fancy_count(mini_diamond, cut, clarity, ext = id) %>% head(5)
 #> # A tibble: 5 × 5
 #>   cut   clarity     n     r id                                          
 #>   <chr> <chr>   <int> <dbl> <chr>                                       
 #> 1 Fair  I1          5  0.05 id-20(1),id-23(1),id-28(1),id-32(1),id-48(1)
-#> 2 Fair  SI1         5  0.05 id-1(1),id-64(1),id-65(1),id-68(1),id-76(1) 
-#> 3 Fair  VS2         5  0.05 id-52(1),id-63(1),id-66(1),id-70(1),id-77(1)
-#> 4 Fair  VVS1        5  0.05 id-10(1),id-18(1),id-46(1),id-55(1),id-59(1)
-#> 5 Good  I1          5  0.05 id-16(1),id-34(1),id-69(1),id-82(1),id-91(1)
+#> 2 Fair  IF          4  0.04 id-12(1),id-45(1),id-89(1),id-95(1)         
+#> 3 Fair  SI1         5  0.05 id-1(1),id-64(1),id-65(1),id-68(1),id-76(1) 
+#> 4 Fair  SI2         4  0.04 id-25(1),id-40(1),id-6(1),id-99(1)          
+#> 5 Fair  VS1         3  0.03 id-36(1),id-43(1),id-85(1)
 ```
 
 - split a column and return a longer tibble
@@ -444,15 +543,15 @@ fancy_count(mini_diamond, cut, ext = clarity) %>%
 #>    cut   clarity
 #>    <chr> <chr>  
 #>  1 Fair  I1(5)  
-#>  2 Fair  SI1(5) 
-#>  3 Fair  VS2(5) 
-#>  4 Fair  VVS1(5)
-#>  5 Fair  IF(4)  
-#>  6 Fair  SI2(4) 
-#>  7 Fair  VVS2(4)
-#>  8 Fair  VS1(3) 
-#>  9 Ideal SI1(5) 
-#> 10 Ideal VS1(5) 
+#>  2 Fair  IF(4)  
+#>  3 Fair  SI1(5) 
+#>  4 Fair  SI2(4) 
+#>  5 Fair  VS1(3) 
+#>  6 Fair  VS2(5) 
+#>  7 Fair  VVS1(5)
+#>  8 Fair  VVS2(4)
+#>  9 Good  I1(5)  
+#> 10 Good  IF(5)  
 #> # … with 14 more rows
 ```
 
@@ -567,6 +666,46 @@ ordered_slice(mini_diamond, id, c("id-3", "id-2", "unknown_id", "id-3", NA),
 #> 3 <NA>  NA    <NA>  <NA>       NA NA    NA
 ```
 
+- remove columns only have NA value
+
+``` r
+df_with_nacol <- dplyr::bind_cols(
+  mini_diamond,
+  tibble::tibble(na1 = NA, na2 = NA)
+)
+df_with_nacol
+#> # A tibble: 100 × 9
+#>    id    carat cut   clarity price     x     y na1   na2  
+#>    <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl> <lgl> <lgl>
+#>  1 id-1   1.02 Fair  SI1      3027  6.25  6.18 NA    NA   
+#>  2 id-2   1.51 Good  VS2     11746  7.27  7.18 NA    NA   
+#>  3 id-3   0.52 Ideal VVS1     2029  5.15  5.18 NA    NA   
+#>  4 id-4   1.54 Ideal SI2      9452  7.43  7.45 NA    NA   
+#>  5 id-5   0.72 Ideal VS1      2498  5.73  5.77 NA    NA   
+#>  6 id-6   2.02 Fair  SI2     14080  8.33  8.37 NA    NA   
+#>  7 id-7   0.27 Good  VVS1      752  4.1   4.07 NA    NA   
+#>  8 id-8   0.51 Good  SI2      1029  5.05  5.08 NA    NA   
+#>  9 id-9   1.01 Ideal SI1      5590  6.43  6.4  NA    NA   
+#> 10 id-10  0.7  Fair  VVS1     1691  5.56  5.41 NA    NA   
+#> # … with 90 more rows
+
+remove_nacol(df_with_nacol)
+#> # A tibble: 100 × 7
+#>    id    carat cut   clarity price     x     y
+#>    <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+#>  1 id-1   1.02 Fair  SI1      3027  6.25  6.18
+#>  2 id-2   1.51 Good  VS2     11746  7.27  7.18
+#>  3 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+#>  4 id-4   1.54 Ideal SI2      9452  7.43  7.45
+#>  5 id-5   0.72 Ideal VS1      2498  5.73  5.77
+#>  6 id-6   2.02 Fair  SI2     14080  8.33  8.37
+#>  7 id-7   0.27 Good  VVS1      752  4.1   4.07
+#>  8 id-8   0.51 Good  SI2      1029  5.05  5.08
+#>  9 id-9   1.01 Ideal SI1      5590  6.43  6.4 
+#> 10 id-10  0.7  Fair  VVS1     1691  5.56  5.41
+#> # … with 90 more rows
+```
+
 ## stat
 
 - statistical test which returns a extensible tibble
@@ -646,7 +785,7 @@ cmdargs()
 #> [2] "--no-save"                             
 #> [3] "--no-restore"                          
 #> [4] "-f"                                    
-#> [5] "/tmp/Rtmpp1slsi/callr-scr-3d2b27938c2c"
+#> [5] "/tmp/RtmpeflCzc/callr-scr-394a47cda7e3"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"

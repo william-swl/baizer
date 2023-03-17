@@ -4,7 +4,7 @@
 \alias{fancy_count}
 \title{fancy count to show an extended column}
 \usage{
-fancy_count(df, ..., ext = NULL, ext_fmt = "count", sort = TRUE, digits = 2)
+fancy_count(df, ..., ext = NULL, ext_fmt = "count", sort = FALSE, digits = 2)
 }
 \arguments{
 \item{df}{tibble}

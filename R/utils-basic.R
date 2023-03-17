@@ -262,3 +262,78 @@ fps_vector <- function(v, n, method = "round") {
 
   return(v[idx])
 }
+
+
+
+
+#' whether the expression is an atomic one
+#'
+#' @param ex expression
+#'
+#' @return logical value
+#' @export
+#'
+#' @examples
+#' atomic_expr(expr(x))
+#'
+#' atomic_expr(expr(!x))
+#'
+#' atomic_expr(expr(x + y))
+#'
+#' atomic_expr(expr(x > 1))
+#'
+#' atomic_expr(expr(!x + y))
+#'
+#' atomic_expr(expr(x > 1 | y < 2))
+#'
+atomic_expr <- function(ex) {
+  if (!is_expression(ex)) {
+    stop("not an expression object!")
+  }
+
+  if (length(ex) > 1) {
+    if (purrr::map_lgl(as.list(ex), ~ length(.x) == 1) %>% all() == TRUE) {
+      return(TRUE)
+    } else {
+      return(FALSE)
+    }
+  } else if (length(ex) == 1) {
+    return(TRUE)
+  } else {
+    stop("error!")
+  }
+}
+
+
+
+#' pileup the subexpressions which is atomic
+#'
+#' @param ex expression
+#'
+#' @return the character vector of subexpressions
+#' @export
+#'
+#' @examples
+#' ex <- expr(a == 2 & b == 3 | !b & x + 2)
+#' expr_pileup(ex)
+#'
+expr_pileup <- function(ex) {
+  if (!is_expression(ex)) {
+    stop("no an expression object!")
+  }
+
+  if (atomic_expr(ex)) {
+    return(deparse(ex))
+  }
+
+  res <- c()
+  for (i in as.list(ex)) {
+    if (atomic_expr(i)) {
+      res <- c(res, deparse(i))
+    } else {
+      res <- c(res, expr_pileup(i))
+    }
+  }
+
+  return(res)
+}

@@ -61,6 +61,39 @@ mini_diamond %>%
 mini_diamond %>% filterC(c1 & c2)
 ```
 
+- more strict limitation as the defination of `tbflt` may be far away from its
+application
+```{r tbflt-uscol}
+# default behavior of dplyr::filter, use column in data at first
+x <- 8
+mini_diamond %>% dplyr::filter(y > x)
+
+# so the default behavior of filterC is just like it
+x <- 8
+cond <- tbflt(y > x)
+mini_diamond %>% filterC(cond)
+
+# but if you want y > 8, and the defination of cond is far away from
+# its application, the results will be unexpected
+cond <- tbflt(y > 8)
+mini_diamond %>% filterC(cond)
+
+# to avoid this, set usecol=FALSE. An error will be raised for warning you
+# to change the variable name
+# mini_diamond %>% filterC(cond, usecol=FALSE)
+x_lim <- 8
+cond <- tbflt(y > x_lim)
+mini_diamond %>% filterC(cond)
+
+# you can always ignore this argument if you know how to use .env or !!
+x <- 8
+cond1 <- tbflt(y > !!x)
+mini_diamond %>% filterC(cond1)
+
+cond2 <- tbflt(y > .env$x)
+mini_diamond %>% filterC(cond1)
+```
+
 
 
 ## basic utils
@@ -196,6 +229,8 @@ is.zero("0.0001")
 float_to_percent(0.123, digits = 1)
 
 percent_to_float("123%", digits = 3)
+
+percent_to_float("123%", digits = 3, to_double = TRUE)
 ```
 
 - wrapper of the functions to process number string with prefix and suffix
@@ -235,7 +270,7 @@ head(mini_diamond) %>%
 # count one column
 fancy_count(mini_diamond, cut)
 
-# count an extended column, in a default order by n
+# count an extended column
 fancy_count(mini_diamond, cut, ext = clarity)
 
 # change format
@@ -243,8 +278,8 @@ fancy_count(mini_diamond, cut, ext = clarity, ext_fmt = "ratio")
 
 fancy_count(mini_diamond, cut, ext = clarity, ext_fmt = "clean")
 
-# count an extended column, in an order by character
-fancy_count(mini_diamond, cut, ext = clarity, sort = FALSE)
+# count an extended column, in an order by n
+fancy_count(mini_diamond, cut, ext = clarity, sort = TRUE)
 
 # extended column after a two-column count
 fancy_count(mini_diamond, cut, clarity, ext = id) %>% head(5)
@@ -286,6 +321,18 @@ ordered_slice(mini_diamond, id, c("id-3", "id-2", "unknown_id", "id-3", NA),
   dup.rm = TRUE
 )
 ```
+
+- remove columns only have NA value
+```{r dataframe-remove_nacol}
+df_with_nacol <- dplyr::bind_cols(
+  mini_diamond,
+  tibble::tibble(na1 = NA, na2 = NA)
+)
+df_with_nacol
+
+remove_nacol(df_with_nacol)
+```
+
 
 ## stat
 - statistical test which returns a extensible tibble

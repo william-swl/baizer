@@ -7,7 +7,7 @@
 empty_dir(dir)
 }
 \arguments{
-\item{dir}{}
+\item{dir}{the directory}
 }
 \value{
 logical value

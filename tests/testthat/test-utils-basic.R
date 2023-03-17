@@ -132,3 +132,26 @@ test_that("fps_vector", {
   expect_error(fps_vector(1:10, 12))
   expect_error(fps_vector(1, 2, NULL, 3))
 })
+
+
+
+test_that("atomic_expr", {
+  expect_identical(atomic_expr(expr(x)), TRUE)
+  expect_identical(atomic_expr(expr(!x)), TRUE)
+  expect_identical(atomic_expr(expr(x + y)), TRUE)
+  expect_identical(atomic_expr(expr(x > 1)), TRUE)
+  expect_identical(atomic_expr(expr(x & y)), TRUE)
+  expect_identical(atomic_expr(expr(!x & y)), FALSE)
+  expect_identical(atomic_expr(expr(!x + y)), FALSE)
+  expect_identical(atomic_expr(expr(x > 1 | y < 2)), FALSE)
+})
+
+
+
+test_that("expr_pileup", {
+  ex <- expr(a == 2 & b == 3 | !b & x + 2)
+  expect_identical(
+    expr_pileup(ex),
+    c("|", "&", "a == 2", "b == 3", "&", "!b", "x + 2")
+  )
+})

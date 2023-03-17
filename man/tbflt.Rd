@@ -4,7 +4,7 @@
 \alias{tbflt}
 \title{create a tbflt object to save filter conditions}
 \usage{
-tbflt(x = expression())
+tbflt(x = expression(), .env = NULL)
 }
 \arguments{
 \item{x}{any expression}

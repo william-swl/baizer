@@ -57,7 +57,7 @@ r2c <- function(df, col = "") {
 #'
 #' fancy_count(mini_diamond, cut, clarity, ext = id) %>% head(5)
 fancy_count <- function(df, ..., ext = NULL,
-                        ext_fmt = "count", sort = TRUE, digits = 2) {
+                        ext_fmt = "count", sort = FALSE, digits = 2) {
   # count and ratio column
   # do not sort to avoid different order against dplyr::group_split
   res <- dplyr::count(df, ...) %>%
@@ -263,7 +263,7 @@ ordered_slice <- function(df, by, ordered_vector,
 #'
 #' @examples # remove_nacol(df)
 remove_nacol <- function(df) {
-  keep <-  which(colSums(is.na(df)) != nrow(df))
+  keep <- which(colSums(is.na(df)) != nrow(df))
   res <- df[, keep]
-  return (res)
+  return(res)
 }

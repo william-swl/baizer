@@ -4,7 +4,7 @@
 \alias{filterC}
 \title{apply tbflt on dplyr filter}
 \usage{
-filterC(.data, tbflt = NULL, .by = NULL)
+filterC(.data, tbflt = NULL, .by = NULL, usecol = TRUE)
 }
 \arguments{
 \item{.data}{tibble}
@@ -12,6 +12,14 @@ filterC(.data, tbflt = NULL, .by = NULL)
 \item{tbflt}{tbflt object}
 
 \item{.by}{group by, same as \code{.by} argument in \code{dplyr::filter}}
+
+\item{usecol}{if \code{TRUE} (default), use the default behavior of
+\code{dplyr::filter()}, which allows the usage of same variable in
+colnames, and filter by the data column. If \code{FALSE}, will check
+whether the variables on the right side of \verb{==,>,<,>=,<=} have
+same names as columns and raise error, for the sake of
+more predictable results. You can always ignore this argument if
+you know how to use \code{.env} or \verb{!!}}
 }
 \value{
 tibble
@@ -29,5 +37,23 @@ mini_diamond \%>\%
   head(5)
 
 mini_diamond \%>\% filterC(c1 & c2)
+
+
+
+x <- 8
+cond <- tbflt(y > x)
+
+# variable `x` not used because of column `x` in `mini_diamond`
+filterC(mini_diamond, cond)
+
+# will raise error because `x`  is on the right side of `>`
+# filterC(mini_diamond, cond, usecol=FALSE)
+
+# if you know how to use `.env` or `!!`, forget argument `usecol`!
+cond <- tbflt(y > !!x)
+expect_snapshot(filterC(mini_diamond, cond))
+
+cond <- tbflt(y > .env[[x]])
+expect_snapshot(filterC(mini_diamond, cond))
 
 }
