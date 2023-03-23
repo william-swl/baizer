@@ -390,6 +390,17 @@ unlink("some", recursive = TRUE)
 # write_excel(Ldf, '2sheets.xlsx')
 ```
 
+- fetch remote files via sftp
+```{r IO-sftp}
+# sftp_con <- sftp_connect(server='remote_host', port=22,
+#                         user='username', password = "password", wd='~')
+#
+# sftp_download(sftp_con,
+#    path=c('t1.txt', 't2.txt'),
+#    to=c('path1.txt', 'path2.txt')
+# )
+```
+
 ## Code of Conduct
 Please note that the baizer project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html). 
 By contributing to this project, you agree to abide by its terms.

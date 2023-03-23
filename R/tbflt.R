@@ -5,6 +5,7 @@
 #' logical operating among conditions
 #'
 #' @param x any expression
+#' @param .env environment
 #'
 #' @return tbflt
 #' @export

@@ -181,3 +181,82 @@ write_excel <- function(df, filename, sheetname = NULL, creator = "") {
 
   openxlsx::saveWorkbook(wb, filename, overwrite = TRUE)
 }
+
+
+
+
+#' connection parameters to remote server via sftp
+#'
+#' @param server remote server
+#' @param port SSH port, 22 as default
+#' @param user username
+#' @param password password
+#' @param wd workdir
+#'
+#' @return sftp_connection object
+#' @export
+#'
+#' @examples
+#' # sftp_con <- sftp_connect(server='remote_host', port=22,
+#' #     user='username', password = "password", wd='~')
+sftp_connect <- function(server = "localhost", port = 22,
+                         user = NULL, password = NULL, wd = "~") {
+  structure(
+    list(
+      server = server,
+      port = port,
+      userpwd = stringr::str_glue("{user}:{password}"),
+      # if ends with / and not root directory (/), remove the last /
+      workdir = stringr::str_replace(wd, "([^/]+)/$", "\\1")
+    ),
+    class = "sftp_connection"
+  )
+}
+
+
+#' download file from remote server via sftp
+#'
+#' @param sftp_con sftp_connection created by sftp_connect()
+#' @param path remote file path
+#' @param to local target path
+#'
+#' @return NULL
+#' @export
+#'
+#' @examples
+#' # sftp_download(sftp_con,
+#' #   path=c('t1.txt', 't2.txt'),
+#' #   to=c('path1.txt', 'path2.txt')
+sftp_download <- function(sftp_con, path = NULL, to = basename(path)) {
+  if (!inherits(sftp_con, "sftp_connection")) {
+    stop("sftp_con must be a sftp_connection object")
+  }
+
+  # absolute path of remote file
+  absolute_path <- ifelse( # nolint
+    stringr::str_starts(path, "/|~"),
+    path,
+    stringr::str_c(sftp_con$workdir, path, sep = "/")
+  )
+
+  # path of target file
+  to <- ifelse(
+    stringr::str_ends(to, "/"),
+    stringr::str_c(to, basename(path)),
+    to
+  )
+
+  # download
+  url <- stringr::str_glue(
+    "sftp://{sftp_con$server}:{sftp_con$port}/{absolute_path}"
+  )
+  handle <- curl::new_handle(userpwd = sftp_con$userpwd)
+
+  purrr::walk2(url, to,
+    function(x, y) {
+      curl::curl_download(x, y, handle = handle)
+      cat(stringr::str_glue("finished: {y} <- {x}"), "\n")
+    },
+    .progress = TRUE
+  )
+}

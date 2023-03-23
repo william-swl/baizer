@@ -8,6 +8,8 @@ tbflt(x = expression(), .env = NULL)
 }
 \arguments{
 \item{x}{any expression}
+
+\item{.env}{environment}
 }
 \value{
 tbflt

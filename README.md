@@ -44,7 +44,7 @@ c2 <- tbflt(x > 8)
 c1 | c2
 #> <quosure>
 #> expr: ^cut == "Fair" | x > 8
-#> env:  0x562c39647738
+#> env:  0x557f07096d28
 
 mini_diamond %>%
   filterC(c1) %>%
@@ -785,7 +785,7 @@ cmdargs()
 #> [2] "--no-save"                             
 #> [3] "--no-restore"                          
 #> [4] "-f"                                    
-#> [5] "/tmp/RtmpeflCzc/callr-scr-394a47cda7e3"
+#> [5] "/tmp/RtmpDG3E8P/callr-scr-2052417ef246"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"
@@ -826,6 +826,18 @@ unlink("some", recursive = TRUE)
 
 # Ldf <- list(mini_diamond[1:3, ], mini_diamond[4:6, ])
 # write_excel(Ldf, '2sheets.xlsx')
+```
+
+- fetch remote files via sftp
+
+``` r
+# sftp_con <- sftp_connect(server='remote_host', port=22,
+#                         user='username', password = "password", wd='~')
+#
+# sftp_download(sftp_con,
+#    path=c('t1.txt', 't2.txt'),
+#    to=c('path1.txt', 'path2.txt')
+# )
 ```
 
 ## Code of Conduct
