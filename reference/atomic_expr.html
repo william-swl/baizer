@@ -85,23 +85,23 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">atomic_expr</span><span class="op">(</span><span class="fu">expr</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in expr(x):</span> could not find function "expr"</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">atomic_expr</span><span class="op">(</span><span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/expr.html" class="external-link">expr</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">atomic_expr</span><span class="op">(</span><span class="fu">expr</span><span class="op">(</span><span class="op">!</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in expr(!x):</span> could not find function "expr"</span>
+<span class="r-in"><span><span class="fu">atomic_expr</span><span class="op">(</span><span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/expr.html" class="external-link">expr</a></span><span class="op">(</span><span class="op">!</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">atomic_expr</span><span class="op">(</span><span class="fu">expr</span><span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in expr(x + y):</span> could not find function "expr"</span>
+<span class="r-in"><span><span class="fu">atomic_expr</span><span class="op">(</span><span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/expr.html" class="external-link">expr</a></span><span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">atomic_expr</span><span class="op">(</span><span class="fu">expr</span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in expr(x &gt; 1):</span> could not find function "expr"</span>
+<span class="r-in"><span><span class="fu">atomic_expr</span><span class="op">(</span><span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/expr.html" class="external-link">expr</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">atomic_expr</span><span class="op">(</span><span class="fu">expr</span><span class="op">(</span><span class="op">!</span><span class="va">x</span> <span class="op">+</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in expr(!x + y):</span> could not find function "expr"</span>
+<span class="r-in"><span><span class="fu">atomic_expr</span><span class="op">(</span><span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/expr.html" class="external-link">expr</a></span><span class="op">(</span><span class="op">!</span><span class="va">x</span> <span class="op">+</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">atomic_expr</span><span class="op">(</span><span class="fu">expr</span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">1</span> <span class="op">|</span> <span class="va">y</span> <span class="op">&lt;</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in expr(x &gt; 1 | y &lt; 2):</span> could not find function "expr"</span>
+<span class="r-in"><span><span class="fu">atomic_expr</span><span class="op">(</span><span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/expr.html" class="external-link">expr</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">1</span> <span class="op">|</span> <span class="va">y</span> <span class="op">&lt;</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

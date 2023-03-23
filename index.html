@@ -123,7 +123,7 @@
 <h3 id="tbflt">tbflt<a class="anchor" aria-label="anchor" href="#tbflt"></a>
 </h3>
 <ul>
-<li>save a series of filter conditions, and support logical operating among conditions</li>
+<li>save a series of filter conditions, and support logical operation among conditions</li>
 <li>use <code>filterC</code> to apply <code>tbflt</code> on <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">dplyr::filter</a></code>
 </li>
 </ul>
@@ -133,7 +133,7 @@
 <span><span class="va">c1</span> <span class="op">|</span> <span class="va">c2</span></span>
 <span><span class="co">#&gt; &lt;quosure&gt;</span></span>
 <span><span class="co">#&gt; expr: ^cut == "Fair" | x &gt; 8</span></span>
-<span><span class="co">#&gt; env:  0x557f07096d28</span></span>
+<span><span class="co">#&gt; env:  0x55b71b2c6ed8</span></span>
 <span></span>
 <span><span class="va">mini_diamond</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/filterC.html">filterC</a></span><span class="op">(</span><span class="va">c1</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
@@ -188,7 +188,7 @@
 <span><span class="co">#&gt; 10 id-16  0.41 Good  I1        467  4.7   4.74</span></span>
 <span><span class="co">#&gt; # … with 43 more rows</span></span>
 <span></span>
-<span><span class="co"># so the default behavior of filterC is just like it</span></span>
+<span><span class="co"># so the default behavior of filterC is just like that</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">8</span></span>
 <span><span class="va">cond</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tbflt.html">tbflt</a></span><span class="op">(</span><span class="va">y</span> <span class="op">&gt;</span> <span class="va">x</span><span class="op">)</span></span>
 <span><span class="va">mini_diamond</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/filterC.html">filterC</a></span><span class="op">(</span><span class="va">cond</span><span class="op">)</span></span>
@@ -208,7 +208,7 @@
 <span><span class="co">#&gt; # … with 43 more rows</span></span>
 <span></span>
 <span><span class="co"># but if you want y &gt; 8, and the defination of cond is far away from</span></span>
-<span><span class="co"># its application, the results will be unexpected</span></span>
+<span><span class="co"># its application, the results may be unexpected</span></span>
 <span><span class="va">cond</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tbflt.html">tbflt</a></span><span class="op">(</span><span class="va">y</span> <span class="op">&gt;</span> <span class="fl">8</span><span class="op">)</span></span>
 <span><span class="va">mini_diamond</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/filterC.html">filterC</a></span><span class="op">(</span><span class="va">cond</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 5 × 7</span></span>
@@ -854,7 +854,7 @@
 <span><span class="co">#&gt; [2] "--no-save"                             </span></span>
 <span><span class="co">#&gt; [3] "--no-restore"                          </span></span>
 <span><span class="co">#&gt; [4] "-f"                                    </span></span>
-<span><span class="co">#&gt; [5] "/tmp/RtmpDG3E8P/callr-scr-2052417ef246"</span></span>
+<span><span class="co">#&gt; [5] "/tmp/RtmpDG3E8P/callr-scr-20523d30690e"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/cmdargs.html">cmdargs</a></span><span class="op">(</span><span class="st">"R_env"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"</span></span></code></pre></div>
