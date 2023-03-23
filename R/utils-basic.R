@@ -274,17 +274,17 @@ fps_vector <- function(v, n, method = "round") {
 #' @export
 #'
 #' @examples
-#' atomic_expr(expr(x))
+#' atomic_expr(rlang::expr(x))
 #'
-#' atomic_expr(expr(!x))
+#' atomic_expr(rlang::expr(!x))
 #'
-#' atomic_expr(expr(x + y))
+#' atomic_expr(rlang::expr(x + y))
 #'
-#' atomic_expr(expr(x > 1))
+#' atomic_expr(rlang::expr(x > 1))
 #'
-#' atomic_expr(expr(!x + y))
+#' atomic_expr(rlang::expr(!x + y))
 #'
-#' atomic_expr(expr(x > 1 | y < 2))
+#' atomic_expr(rlang::expr(x > 1 | y < 2))
 #'
 atomic_expr <- function(ex) {
   if (!is_expression(ex)) {

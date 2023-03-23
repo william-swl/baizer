@@ -34,7 +34,7 @@ devtools::install_github("william-swl/baizer")
 
 ### tbflt
 
-- save a series of filter conditions, and support logical operating
+- save a series of filter conditions, and support logical operation
   among conditions
 - use `filterC` to apply `tbflt` on `dplyr::filter`
 
@@ -44,7 +44,7 @@ c2 <- tbflt(x > 8)
 c1 | c2
 #> <quosure>
 #> expr: ^cut == "Fair" | x > 8
-#> env:  0x557f07096d28
+#> env:  0x55b71b2c6ed8
 
 mini_diamond %>%
   filterC(c1) %>%
@@ -101,7 +101,7 @@ mini_diamond %>% dplyr::filter(y > x)
 #> 10 id-16  0.41 Good  I1        467  4.7   4.74
 #> # … with 43 more rows
 
-# so the default behavior of filterC is just like it
+# so the default behavior of filterC is just like that
 x <- 8
 cond <- tbflt(y > x)
 mini_diamond %>% filterC(cond)
@@ -121,7 +121,7 @@ mini_diamond %>% filterC(cond)
 #> # … with 43 more rows
 
 # but if you want y > 8, and the defination of cond is far away from
-# its application, the results will be unexpected
+# its application, the results may be unexpected
 cond <- tbflt(y > 8)
 mini_diamond %>% filterC(cond)
 #> # A tibble: 5 × 7
@@ -785,7 +785,7 @@ cmdargs()
 #> [2] "--no-save"                             
 #> [3] "--no-restore"                          
 #> [4] "-f"                                    
-#> [5] "/tmp/RtmpDG3E8P/callr-scr-2052417ef246"
+#> [5] "/tmp/RtmpDG3E8P/callr-scr-20523d30690e"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"
