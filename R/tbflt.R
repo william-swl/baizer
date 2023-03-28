@@ -106,10 +106,10 @@ tbflt <- function(x = expression(), .env = NULL) {
 #'
 #' # if you know how to use `.env` or `!!`, forget argument `usecol`!
 #' cond <- tbflt(y > !!x)
-#' expect_snapshot(filterC(mini_diamond, cond))
+#' filterC(mini_diamond, cond)
 #'
 #' cond <- tbflt(y > .env[[x]])
-#' expect_snapshot(filterC(mini_diamond, cond))
+#' filterC(mini_diamond, cond)
 #'
 filterC <- function(.data, tbflt = NULL, .by = NULL, usecol = TRUE) { # nolint
   if (!is.null(tbflt)) {
