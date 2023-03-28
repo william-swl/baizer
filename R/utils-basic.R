@@ -314,12 +314,12 @@ atomic_expr <- function(ex) {
 #' @export
 #'
 #' @examples
-#' ex <- expr(a == 2 & b == 3 | !b & x + 2)
+#' ex <- rlang::expr(a == 2 & b == 3 | !b & x + 2)
 #' expr_pileup(ex)
 #'
 expr_pileup <- function(ex) {
   if (!is_expression(ex)) {
-    stop("no an expression object!")
+    stop("not an expression object!")
   }
 
   if (atomic_expr(ex)) {

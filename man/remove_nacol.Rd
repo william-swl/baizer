@@ -2,18 +2,21 @@
 % Please edit documentation in R/dataframe.R
 \name{remove_nacol}
 \alias{remove_nacol}
-\title{remove columns only have NA value}
+\title{remove columns by the ratio of NA}
 \usage{
-remove_nacol(df)
+remove_nacol(df, max_ratio = 1)
 }
 \arguments{
 \item{df}{tibble}
+
+\item{max_ratio}{max NA ratio, default as 1 which remove the columns only
+have NA}
 }
 \value{
 tibble
 }
 \description{
-remove columns only have NA value
+remove columns by the ratio of NA
 }
 \examples{
 # remove_nacol(df)

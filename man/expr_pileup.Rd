@@ -16,7 +16,7 @@ the character vector of subexpressions
 pileup the subexpressions which is atomic
 }
 \examples{
-ex <- expr(a == 2 & b == 3 | !b & x + 2)
+ex <- rlang::expr(a == 2 & b == 3 | !b & x + 2)
 expr_pileup(ex)
 
 }

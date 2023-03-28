@@ -44,7 +44,7 @@ c2 <- tbflt(x > 8)
 c1 | c2
 #> <quosure>
 #> expr: ^cut == "Fair" | x > 8
-#> env:  0x55b71b2c6ed8
+#> env:  0x560bf4d87c40
 
 mini_diamond %>%
   filterC(c1) %>%
@@ -666,7 +666,8 @@ ordered_slice(mini_diamond, id, c("id-3", "id-2", "unknown_id", "id-3", NA),
 #> 3 <NA>  NA    <NA>  <NA>       NA NA    NA
 ```
 
-- remove columns only have NA value
+- remove columns by the ratio of NA, default to remove the columns only
+  have NA
 
 ``` r
 df_with_nacol <- dplyr::bind_cols(
@@ -704,6 +705,15 @@ remove_nacol(df_with_nacol)
 #>  9 id-9   1.01 Ideal SI1      5590  6.43  6.4 
 #> 10 id-10  0.7  Fair  VVS1     1691  5.56  5.41
 #> # … with 90 more rows
+
+# remove the columns that have more than 20% NA values
+# remove_nacol(df_with_nacol, max_ratio=0.2)
+```
+
+- remove rows by the ratio of NA
+
+``` r
+# remove_narow(df)
 ```
 
 ## stat
@@ -781,11 +791,11 @@ cmdargs()
 #> character(0)
 #> 
 #> $env_configs
-#> [1] "--slave"                               
-#> [2] "--no-save"                             
-#> [3] "--no-restore"                          
-#> [4] "-f"                                    
-#> [5] "/tmp/RtmpDG3E8P/callr-scr-20523d30690e"
+#> [1] "--slave"                              
+#> [2] "--no-save"                            
+#> [3] "--no-restore"                         
+#> [4] "-f"                                   
+#> [5] "/tmp/RtmpknW2dU/callr-scr-3c21d9b03c0"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"

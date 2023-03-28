@@ -254,16 +254,34 @@ ordered_slice <- function(df, by, ordered_vector,
 
 
 
-#' remove columns only have NA value
+#' remove columns by the ratio of NA
 #'
 #' @param df tibble
+#' @param max_ratio max NA ratio, default as 1 which remove the columns only
+#' have NA
 #'
 #' @return tibble
 #' @export
 #'
 #' @examples # remove_nacol(df)
-remove_nacol <- function(df) {
-  keep <- which(colSums(is.na(df)) != nrow(df))
+remove_nacol <- function(df, max_ratio = 1) {
+  keep <- which(colSums(is.na(df)) < max_ratio * nrow(df))
   res <- df[, keep]
+  return(res)
+}
+
+#' remove rows by the ratio of NA
+#'
+#' @param df tibble
+#' @param max_ratio max NA ratio, default as 1 which remove the rows only
+#' have NA
+#'
+#' @return tibble
+#' @export
+#'
+#' @examples # remove_narow(df)
+remove_narow <- function(df, max_ratio = 1) {
+  keep <- which(rowSums(is.na(df)) < max_ratio * ncol(df))
+  res <- df[keep, ]
   return(res)
 }

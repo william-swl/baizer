@@ -322,7 +322,7 @@ ordered_slice(mini_diamond, id, c("id-3", "id-2", "unknown_id", "id-3", NA),
 )
 ```
 
-- remove columns only have NA value
+- remove columns by the ratio of NA, default to remove the columns only have NA
 ```{r dataframe-remove_nacol}
 df_with_nacol <- dplyr::bind_cols(
   mini_diamond,
@@ -331,8 +331,15 @@ df_with_nacol <- dplyr::bind_cols(
 df_with_nacol
 
 remove_nacol(df_with_nacol)
+
+# remove the columns that have more than 20% NA values
+# remove_nacol(df_with_nacol, max_ratio=0.2)
 ```
 
+- remove rows by the ratio of NA
+```{r dataframe-remove_narow}
+# remove_narow(df)
+```
 
 ## stat
 - statistical test which returns a extensible tibble

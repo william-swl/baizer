@@ -114,7 +114,7 @@ tbflt <- function(x = expression(), .env = NULL) {
 filterC <- function(.data, tbflt = NULL, .by = NULL, usecol = TRUE) { # nolint
   if (!is.null(tbflt)) {
     # extract the right part of each subexpression
-    right_in_expr <- expr_pileup(tbflt) %>%
+    right_in_expr <- expr_pileup(quo_get_expr(tbflt)) %>%
       stringr::str_split("==|>|<|>=|<=") %>%
       purrr::map_chr(
         ~ ifelse(length(.x) == 2, stringr::str_trim(.x[2]), NA)
