@@ -22,7 +22,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">baizer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,10 +85,9 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">ex</span> <span class="op">&lt;-</span> <span class="fu">expr</span><span class="op">(</span><span class="va">a</span> <span class="op">==</span> <span class="fl">2</span> <span class="op">&amp;</span> <span class="va">b</span> <span class="op">==</span> <span class="fl">3</span> <span class="op">|</span> <span class="op">!</span><span class="va">b</span> <span class="op">&amp;</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in expr(a == 2 &amp; b == 3 | !b &amp; x + 2):</span> could not find function "expr"</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">ex</span> <span class="op">&lt;-</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/expr.html" class="external-link">expr</a></span><span class="op">(</span><span class="va">a</span> <span class="op">==</span> <span class="fl">2</span> <span class="op">&amp;</span> <span class="va">b</span> <span class="op">==</span> <span class="fl">3</span> <span class="op">|</span> <span class="op">!</span><span class="va">b</span> <span class="op">&amp;</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">expr_pileup</span><span class="op">(</span><span class="va">ex</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in zap_srcref(x):</span> object 'ex' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "|"      "&amp;"      "a == 2" "b == 3" "&amp;"      "!b"     "x + 2" </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

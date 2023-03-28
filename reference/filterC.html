@@ -22,7 +22,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">baizer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -110,10 +110,22 @@ you know how to use <code>.env</code> or <code>!!</code></p></dd>
 <span class="r-in"><span><span class="va">mini_diamond</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu">filterC</span><span class="op">(</span><span class="va">c1</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in expr_pileup(tbflt):</span> no an expression object!</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   id    carat cut   clarity price     x     y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> id-1   1.02 Fair  SI1      <span style="text-decoration: underline;">3</span>027  6.25  6.18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> id-6   2.02 Fair  SI2     <span style="text-decoration: underline;">14</span>080  8.33  8.37</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> id-10  0.7  Fair  VVS1     <span style="text-decoration: underline;">1</span>691  5.56  5.41</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> id-12  0.71 Fair  IF       <span style="text-decoration: underline;">3</span>205  5.87  5.81</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> id-18  0.34 Fair  VVS1     <span style="text-decoration: underline;">1</span>012  4.8   4.76</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">mini_diamond</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">filterC</span><span class="op">(</span><span class="va">c1</span> <span class="op">&amp;</span> <span class="va">c2</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in expr_pileup(tbflt):</span> no an expression object!</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   id    carat cut   clarity price     x     y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> id-6   2.02 Fair  SI2     <span style="text-decoration: underline;">14</span>080  8.33  8.37</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> id-48  2.01 Fair  I1       <span style="text-decoration: underline;">7</span>294  8.3   8.19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> id-68  2.32 Fair  SI1     <span style="text-decoration: underline;">18</span>026  8.47  8.31</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -122,7 +134,20 @@ you know how to use <code>.env</code> or <code>!!</code></p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># variable `x` not used because of column `x` in `mini_diamond`</span></span></span>
 <span class="r-in"><span><span class="fu">filterC</span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="va">cond</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in expr_pileup(tbflt):</span> no an expression object!</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 53 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    id    carat cut   clarity price     x     y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> id-3   0.52 Ideal VVS1     <span style="text-decoration: underline;">2</span>029  5.15  5.18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> id-4   1.54 Ideal SI2      <span style="text-decoration: underline;">9</span>452  7.43  7.45</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> id-5   0.72 Ideal VS1      <span style="text-decoration: underline;">2</span>498  5.73  5.77</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> id-6   2.02 Fair  SI2     <span style="text-decoration: underline;">14</span>080  8.33  8.37</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> id-8   0.51 Good  SI2      <span style="text-decoration: underline;">1</span>029  5.05  5.08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> id-11  1.02 Good  VVS1     <span style="text-decoration: underline;">7</span>861  6.37  6.4 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> id-13  0.56 Ideal SI1      <span style="text-decoration: underline;">1</span>633  5.31  5.32</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> id-14  0.3  Ideal VVS2      812  4.33  4.39</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> id-15  0.28 Good  IF        612  4.09  4.12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> id-16  0.41 Good  I1        467  4.7   4.74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 43 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># will raise error because `x`  is on the right side of `&gt;`</span></span></span>
 <span class="r-in"><span><span class="co"># filterC(mini_diamond, cond, usecol=FALSE)</span></span></span>
