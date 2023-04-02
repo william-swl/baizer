@@ -44,7 +44,7 @@ c2 <- tbflt(x > 8)
 c1 | c2
 #> <quosure>
 #> expr: ^cut == "Fair" | x > 8
-#> env:  0x5564512adb58
+#> env:  0x558f6b1c24e8
 
 mini_diamond %>%
   filterC(c1) %>%
@@ -79,8 +79,7 @@ mini_diamond %>% filterC(c1 & c2)
 #> 3 id-68  2.32 Fair  SI1     18026  8.47  8.31
 ```
 
-- more strict limitation as the defination of `tbflt` may be far away
-  from its application
+- more strict limitation to avoid the unexpected default behavior
 
 ``` r
 # default behavior of dplyr::filter, use column in data at first
@@ -102,6 +101,9 @@ mini_diamond %>% dplyr::filter(y > x)
 #> # … with 43 more rows
 
 # so the default behavior of filterC is just like that
+# but if you want y > 8, and the defination of cond is far away from
+# its application, the results may be unexpected
+
 x <- 8
 cond <- tbflt(y > x)
 mini_diamond %>% filterC(cond)
@@ -120,8 +122,6 @@ mini_diamond %>% filterC(cond)
 #> 10 id-16  0.41 Good  I1        467  4.7   4.74
 #> # … with 43 more rows
 
-# but if you want y > 8, and the defination of cond is far away from
-# its application, the results may be unexpected
 cond <- tbflt(y > 8)
 mini_diamond %>% filterC(cond)
 #> # A tibble: 5 × 7
@@ -133,20 +133,11 @@ mini_diamond %>% filterC(cond)
 #> 4 id-68  2.32 Fair  SI1     18026  8.47  8.31
 #> 5 id-97  2.61 Good  SI2     13784  8.66  8.57
 
+
 # to avoid this, set usecol=FALSE. An error will be raised for warning you
 # to change the variable name
 # mini_diamond %>% filterC(cond, usecol=FALSE)
-x_lim <- 8
-cond <- tbflt(y > x_lim)
-mini_diamond %>% filterC(cond)
-#> # A tibble: 5 × 7
-#>   id    carat cut   clarity price     x     y
-#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
-#> 1 id-6   2.02 Fair  SI2     14080  8.33  8.37
-#> 2 id-48  2.01 Fair  I1       7294  8.3   8.19
-#> 3 id-49  2.16 Ideal I1       8709  8.31  8.26
-#> 4 id-68  2.32 Fair  SI1     18026  8.47  8.31
-#> 5 id-97  2.61 Good  SI2     13784  8.66  8.57
+
 
 # you can always ignore this argument if you know how to use .env or !!
 x <- 8
@@ -817,7 +808,7 @@ cmdargs()
 #> [2] "--no-save"                             
 #> [3] "--no-restore"                          
 #> [4] "-f"                                    
-#> [5] "/tmp/Rtmp3rkQcP/callr-scr-1b6973bb6afe"
+#> [5] "/tmp/RtmpAvIOXB/callr-scr-29a93e9641c1"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/plutor/lib/R/bin/exec/R"

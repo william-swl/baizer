@@ -53,7 +53,7 @@ filterC(mini_diamond, cond)
 cond <- tbflt(y > !!x)
 filterC(mini_diamond, cond)
 
-cond <- tbflt(y > .env[[x]])
+cond <- tbflt(y > .env$x)
 filterC(mini_diamond, cond)
 
 }

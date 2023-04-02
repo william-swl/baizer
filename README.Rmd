@@ -61,29 +61,28 @@ mini_diamond %>%
 mini_diamond %>% filterC(c1 & c2)
 ```
 
-- more strict limitation as the defination of `tbflt` may be far away from its
-application
+- more strict limitation to avoid the unexpected default behavior
 ```{r tbflt-uscol}
 # default behavior of dplyr::filter, use column in data at first
 x <- 8
 mini_diamond %>% dplyr::filter(y > x)
 
 # so the default behavior of filterC is just like that
+# but if you want y > 8, and the defination of cond is far away from
+# its application, the results may be unexpected
+
 x <- 8
 cond <- tbflt(y > x)
 mini_diamond %>% filterC(cond)
 
-# but if you want y > 8, and the defination of cond is far away from
-# its application, the results may be unexpected
 cond <- tbflt(y > 8)
 mini_diamond %>% filterC(cond)
+
 
 # to avoid this, set usecol=FALSE. An error will be raised for warning you
 # to change the variable name
 # mini_diamond %>% filterC(cond, usecol=FALSE)
-x_lim <- 8
-cond <- tbflt(y > x_lim)
-mini_diamond %>% filterC(cond)
+
 
 # you can always ignore this argument if you know how to use .env or !!
 x <- 8
