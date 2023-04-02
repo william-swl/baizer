@@ -133,7 +133,7 @@
 <span><span class="va">c1</span> <span class="op">|</span> <span class="va">c2</span></span>
 <span><span class="co">#&gt; &lt;quosure&gt;</span></span>
 <span><span class="co">#&gt; expr: ^cut == "Fair" | x &gt; 8</span></span>
-<span><span class="co">#&gt; env:  0x5564512adb58</span></span>
+<span><span class="co">#&gt; env:  0x558f6b1c24e8</span></span>
 <span></span>
 <span><span class="va">mini_diamond</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/filterC.html">filterC</a></span><span class="op">(</span><span class="va">c1</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
@@ -167,7 +167,7 @@
 <span><span class="co">#&gt; 2 id-48  2.01 Fair  I1       7294  8.3   8.19</span></span>
 <span><span class="co">#&gt; 3 id-68  2.32 Fair  SI1     18026  8.47  8.31</span></span></code></pre></div>
 <ul>
-<li>more strict limitation as the defination of <code>tbflt</code> may be far away from its application</li>
+<li>more strict limitation to avoid the unexpected default behavior</li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># default behavior of dplyr::filter, use column in data at first</span></span>
@@ -189,6 +189,9 @@
 <span><span class="co">#&gt; # … with 43 more rows</span></span>
 <span></span>
 <span><span class="co"># so the default behavior of filterC is just like that</span></span>
+<span><span class="co"># but if you want y &gt; 8, and the defination of cond is far away from</span></span>
+<span><span class="co"># its application, the results may be unexpected</span></span>
+<span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">8</span></span>
 <span><span class="va">cond</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tbflt.html">tbflt</a></span><span class="op">(</span><span class="va">y</span> <span class="op">&gt;</span> <span class="va">x</span><span class="op">)</span></span>
 <span><span class="va">mini_diamond</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/filterC.html">filterC</a></span><span class="op">(</span><span class="va">cond</span><span class="op">)</span></span>
@@ -207,8 +210,6 @@
 <span><span class="co">#&gt; 10 id-16  0.41 Good  I1        467  4.7   4.74</span></span>
 <span><span class="co">#&gt; # … with 43 more rows</span></span>
 <span></span>
-<span><span class="co"># but if you want y &gt; 8, and the defination of cond is far away from</span></span>
-<span><span class="co"># its application, the results may be unexpected</span></span>
 <span><span class="va">cond</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tbflt.html">tbflt</a></span><span class="op">(</span><span class="va">y</span> <span class="op">&gt;</span> <span class="fl">8</span><span class="op">)</span></span>
 <span><span class="va">mini_diamond</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/filterC.html">filterC</a></span><span class="op">(</span><span class="va">cond</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 5 × 7</span></span>
@@ -220,20 +221,11 @@
 <span><span class="co">#&gt; 4 id-68  2.32 Fair  SI1     18026  8.47  8.31</span></span>
 <span><span class="co">#&gt; 5 id-97  2.61 Good  SI2     13784  8.66  8.57</span></span>
 <span></span>
+<span></span>
 <span><span class="co"># to avoid this, set usecol=FALSE. An error will be raised for warning you</span></span>
 <span><span class="co"># to change the variable name</span></span>
 <span><span class="co"># mini_diamond %&gt;% filterC(cond, usecol=FALSE)</span></span>
-<span><span class="va">x_lim</span> <span class="op">&lt;-</span> <span class="fl">8</span></span>
-<span><span class="va">cond</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tbflt.html">tbflt</a></span><span class="op">(</span><span class="va">y</span> <span class="op">&gt;</span> <span class="va">x_lim</span><span class="op">)</span></span>
-<span><span class="va">mini_diamond</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/filterC.html">filterC</a></span><span class="op">(</span><span class="va">cond</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 5 × 7</span></span>
-<span><span class="co">#&gt;   id    carat cut   clarity price     x     y</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 id-6   2.02 Fair  SI2     14080  8.33  8.37</span></span>
-<span><span class="co">#&gt; 2 id-48  2.01 Fair  I1       7294  8.3   8.19</span></span>
-<span><span class="co">#&gt; 3 id-49  2.16 Ideal I1       8709  8.31  8.26</span></span>
-<span><span class="co">#&gt; 4 id-68  2.32 Fair  SI1     18026  8.47  8.31</span></span>
-<span><span class="co">#&gt; 5 id-97  2.61 Good  SI2     13784  8.66  8.57</span></span>
+<span></span>
 <span></span>
 <span><span class="co"># you can always ignore this argument if you know how to use .env or !!</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">8</span></span>
@@ -883,7 +875,7 @@
 <span><span class="co">#&gt; [2] "--no-save"                             </span></span>
 <span><span class="co">#&gt; [3] "--no-restore"                          </span></span>
 <span><span class="co">#&gt; [4] "-f"                                    </span></span>
-<span><span class="co">#&gt; [5] "/tmp/Rtmp3rkQcP/callr-scr-1b6973bb6afe"</span></span>
+<span><span class="co">#&gt; [5] "/tmp/RtmpAvIOXB/callr-scr-29a93e9641c1"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/cmdargs.html">cmdargs</a></span><span class="op">(</span><span class="st">"R_env"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "/home/william/software/mambaforge/envs/plutor/lib/R/bin/exec/R"</span></span></code></pre></div>

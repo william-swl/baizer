@@ -164,11 +164,16 @@ you know how to use <code>.env</code> or <code>!!</code></p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> id-68  2.32 Fair  SI1     <span style="text-decoration: underline;">18</span>026  8.47  8.31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> id-97  2.61 Good  SI2     <span style="text-decoration: underline;">13</span>784  8.66  8.57</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">cond</span> <span class="op">&lt;-</span> <span class="fu"><a href="tbflt.html">tbflt</a></span><span class="op">(</span><span class="va">y</span> <span class="op">&gt;</span> <span class="va">.env</span><span class="op">[[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cond</span> <span class="op">&lt;-</span> <span class="fu"><a href="tbflt.html">tbflt</a></span><span class="op">(</span><span class="va">y</span> <span class="op">&gt;</span> <span class="va">.env</span><span class="op">$</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">filterC</span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="va">cond</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in dplyr::filter(.data, eval(tbflt), .by = .by):</span> <span style="color: #00BBBB;">ℹ</span> In argument: `eval(tbflt)`.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `ctxt_pronoun_get()`:</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Must subset the context pronoun with a string, not a double vector.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   id    carat cut   clarity price     x     y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> id-6   2.02 Fair  SI2     <span style="text-decoration: underline;">14</span>080  8.33  8.37</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> id-48  2.01 Fair  I1       <span style="text-decoration: underline;">7</span>294  8.3   8.19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> id-49  2.16 Ideal I1       <span style="text-decoration: underline;">8</span>709  8.31  8.26</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> id-68  2.32 Fair  SI1     <span style="text-decoration: underline;">18</span>026  8.47  8.31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> id-97  2.61 Good  SI2     <span style="text-decoration: underline;">13</span>784  8.66  8.57</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
