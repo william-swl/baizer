@@ -285,3 +285,55 @@ remove_narow <- function(df, max_ratio = 1) {
   res <- df[keep, ]
   return(res)
 }
+
+
+
+#' separate numeric vector into bins
+#'
+#' @param vector numeric vector
+#' @param bins bins number, defaults to 10
+#' @param sort sort the result tibble
+#'
+#' @return tibble
+#' @export
+#'
+#' @examples
+#'
+#' vector <- dplyr::pull(mini_diamond, price, id)
+#'
+#' hist_bins(vector, bins = 20)
+#'
+hist_bins <- function(vector, bins = 10, sort = FALSE) {
+  if (!is.numeric(vector)) {
+    stop("please use numerice vector!")
+  }
+
+  breaks <- seq(min(vector), max(vector), length.out = bins + 1)
+
+  dfbin <- tibble(
+    start = breaks[1:(length(breaks) - 1)],
+    end = breaks[2:length(breaks)]
+  ) %>%
+    dplyr::mutate(bin = seq_len(dplyr::n()))
+
+  if (is.null(names(vector))) {
+    dfvec <- as_tibble(vector)
+  } else {
+    dfvec <- as_tibble(vector, rownames = "id")
+  }
+
+  dfres <- dfvec %>% dplyr::left_join(dfbin, by = dplyr::join_by(
+    between(value, start, end, bounds = "(]") # nolint
+  ))
+
+  fill_row <- which(!is.na(dfres[["value"]]) & is.na(dfres[["bin"]]))
+
+  dfres[fill_row, c("start", "end", "bin")] <-
+    dfbin[1, c("start", "end", "bin")]
+
+  if (sort == TRUE) {
+    dfres <- dplyr::arrange(dfres, .data[["value"]])
+  }
+
+  return(dfres)
+}

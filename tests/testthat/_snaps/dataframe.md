@@ -340,3 +340,23 @@
       1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
       2 id-2   1.51 Good  VS2     11746  7.27  7.18
 
+# hist_bins
+
+    Code
+      hist_bins(vector)
+    Output
+      # A tibble: 100 x 5
+         id    value  start    end   bin
+         <chr> <int>  <dbl>  <dbl> <int>
+       1 id-1   3027  2218.  3975.     2
+       2 id-2  11746 11000. 12757.     7
+       3 id-3   2029   462   2218.     1
+       4 id-4   9452  9244  11000.     6
+       5 id-5   2498  2218.  3975.     2
+       6 id-6  14080 12757. 14513.     8
+       7 id-7    752   462   2218.     1
+       8 id-8   1029   462   2218.     1
+       9 id-9   5590  3975.  5731.     3
+      10 id-10  1691   462   2218.     1
+      # ... with 90 more rows
+

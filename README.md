@@ -44,7 +44,7 @@ c2 <- tbflt(x > 8)
 c1 | c2
 #> <quosure>
 #> expr: ^cut == "Fair" | x > 8
-#> env:  0x560bf4d87c40
+#> env:  0x5564512adb58
 
 mini_diamond %>%
   filterC(c1) %>%
@@ -716,6 +716,28 @@ remove_nacol(df_with_nacol)
 # remove_narow(df)
 ```
 
+- separate numeric vector into bins
+
+``` r
+vector <- dplyr::pull(mini_diamond, price, id)
+
+hist_bins(vector, bins = 20)
+#> # A tibble: 100 × 5
+#>    id    value  start    end   bin
+#>    <chr> <int>  <dbl>  <dbl> <int>
+#>  1 id-1   3027  2218.  3097.     3
+#>  2 id-2  11746 11000. 11879.    13
+#>  3 id-3   2029  1340.  2218.     2
+#>  4 id-4   9452  9244  10122.    11
+#>  5 id-5   2498  2218.  3097.     3
+#>  6 id-6  14080 13635  14513.    16
+#>  7 id-7    752   462   1340.     1
+#>  8 id-8   1029   462   1340.     1
+#>  9 id-9   5590  4853   5731.     6
+#> 10 id-10  1691  1340.  2218.     2
+#> # … with 90 more rows
+```
+
 ## stat
 
 - statistical test which returns a extensible tibble
@@ -782,7 +804,7 @@ cmdargs()
 #> [1] "/home/william/rpkg/baizer"
 #> 
 #> $R_env
-#> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"
+#> [1] "/home/william/software/mambaforge/envs/plutor/lib/R/bin/exec/R"
 #> 
 #> $script_path
 #> character(0)
@@ -791,14 +813,14 @@ cmdargs()
 #> character(0)
 #> 
 #> $env_configs
-#> [1] "--slave"                              
-#> [2] "--no-save"                            
-#> [3] "--no-restore"                         
-#> [4] "-f"                                   
-#> [5] "/tmp/RtmpknW2dU/callr-scr-3c21d9b03c0"
+#> [1] "--slave"                               
+#> [2] "--no-save"                             
+#> [3] "--no-restore"                          
+#> [4] "-f"                                    
+#> [5] "/tmp/Rtmp3rkQcP/callr-scr-1b6973bb6afe"
 
 cmdargs("R_env")
-#> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"
+#> [1] "/home/william/software/mambaforge/envs/plutor/lib/R/bin/exec/R"
 ```
 
 - detect whether directory is empty recursively, and detect whether file

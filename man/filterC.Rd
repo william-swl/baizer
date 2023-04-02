@@ -51,9 +51,9 @@ filterC(mini_diamond, cond)
 
 # if you know how to use `.env` or `!!`, forget argument `usecol`!
 cond <- tbflt(y > !!x)
-expect_snapshot(filterC(mini_diamond, cond))
+filterC(mini_diamond, cond)
 
 cond <- tbflt(y > .env[[x]])
-expect_snapshot(filterC(mini_diamond, cond))
+filterC(mini_diamond, cond)
 
 }

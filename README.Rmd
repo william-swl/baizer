@@ -341,6 +341,14 @@ remove_nacol(df_with_nacol)
 # remove_narow(df)
 ```
 
+- separate numeric vector into bins
+```{r dataframe-hist_bins}
+vector <- dplyr::pull(mini_diamond, price, id)
+
+hist_bins(vector, bins = 20)
+```
+
+
 ## stat
 - statistical test which returns a extensible tibble
 ```{r stat-stat_test}

@@ -142,3 +142,9 @@ test_that("ordered_slice, remove dup and NA", {
 test_that("ordered_slice, pass column with duplication", {
   expect_error(ordered_slice(mini_diamond, cut, c("Ideal")))
 })
+
+test_that("hist_bins", {
+  vector <- dplyr::pull(mini_diamond, price, id)
+  expect_error(hist_bins(c("a", "b")))
+  expect_snapshot(hist_bins(vector))
+})
