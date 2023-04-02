@@ -44,7 +44,7 @@ c2 <- tbflt(x > 8)
 c1 | c2
 #> <quosure>
 #> expr: ^cut == "Fair" | x > 8
-#> env:  0x558f6b1c24e8
+#> env:  0x55be8db5db30
 
 mini_diamond %>%
   filterC(c1) %>%
@@ -808,7 +808,7 @@ cmdargs()
 #> [2] "--no-save"                             
 #> [3] "--no-restore"                          
 #> [4] "-f"                                    
-#> [5] "/tmp/RtmpAvIOXB/callr-scr-29a93e9641c1"
+#> [5] "/tmp/RtmpAvIOXB/callr-scr-29a97f7a218a"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/plutor/lib/R/bin/exec/R"
