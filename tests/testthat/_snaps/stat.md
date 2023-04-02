@@ -20,6 +20,20 @@
       10 SI2     price Fair   Good       4     4        15 0.057 0.171 ns           NS      
       # ... with 14 more rows
 
+---
+
+    Code
+      withr::with_options(list(options(width = 99)), {
+        stat_test(mini_diamond, y = price, x = cut)
+      })
+    Output
+      # A tibble: 3 x 10
+        .y.   group1 group2    n1    n2 statistic     p p.adj p.adj.signif p.signif
+        <chr> <chr>  <chr>  <int> <int>     <dbl> <dbl> <dbl> <chr>        <chr>   
+      1 price Fair   Good      35    31       702 0.04  0.081 ns           *       
+      2 price Fair   Ideal     35    34       793 0.018 0.053 ns           *       
+      3 price Good   Ideal     31    34       520 0.932 0.932 ns           NS      
+
 # stat_fc
 
     Code

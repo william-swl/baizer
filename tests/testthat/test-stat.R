@@ -11,6 +11,13 @@ test_that("stat_test", {
   )
 })
 
+test_that("stat_test", {
+  expect_snapshot(
+    withr::with_options(list(options(width = 99)), {
+      stat_test(mini_diamond, y = price, x = cut)
+    })
+  )
+})
 
 test_that("stat_fc", {
   expect_snapshot(

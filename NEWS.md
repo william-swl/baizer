@@ -1,3 +1,5 @@
+# baizer 0.3.6
+
 # baizer 0.3.5
 
 # baizer 0.3.4

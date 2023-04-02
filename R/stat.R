@@ -17,6 +17,7 @@ geom_mean <- function(x, na.rm = TRUE) {
 #' @param df tibble
 #' @param y value
 #' @param x sample test group
+#' @param trans scale transformation
 #' @param paired paired samples or not
 #' @param .by super-group
 #' @param method test method, 'wilcoxon' as default
@@ -27,19 +28,24 @@ geom_mean <- function(x, na.rm = TRUE) {
 #' @export
 #'
 #' @examples stat_test(mini_diamond, y = price, x = cut, .by = clarity)
-stat_test <- function(df, y, x, paired = FALSE, alternative = "two.sided",
+stat_test <- function(df, y, x, trans = "identity",
+                      paired = FALSE, alternative = "two.sided",
                       method = "wilcoxon", .by = NULL, ...) {
   y <- rlang::enquo(y)
   x <- rlang::enquo(x)
   .by <- rlang::enquo(.by)
+  res <- df
 
-  # fomular
+  # trans
+  if (trans == "log10") {
+    res <- dplyr::mutate(res, !!y := log10(!!y))
+  }
+
+  # fomula
   fomular_str <- stringr::str_c(rlang::quo_name(y), "~", rlang::quo_name(x))
 
   # super-group
-  if (!rlang::quo_is_null(.by)) {
-    res <- df %>% dplyr::group_by({{ .by }})
-  }
+  res <- res %>% dplyr::group_by({{ .by }})
 
   # test
   if (method == "wilcoxon") {
@@ -47,8 +53,15 @@ stat_test <- function(df, y, x, paired = FALSE, alternative = "two.sided",
       paired = paired,
       alternative = alternative, ...
     )
+  } else if (method == "t") {
+    res <- res %>% rstatix::t_test(stats::as.formula(fomular_str),
+      paired = paired,
+      alternative = alternative, ...
+    )
   }
-  res <- res %>% rstatix::add_significance("p",
+
+  res <- res %>% rstatix::add_significance(
+    "p",
     symbols = c("****", "***", "**", "*", "NS")
   )
 

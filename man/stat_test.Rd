@@ -8,6 +8,7 @@ stat_test(
   df,
   y,
   x,
+  trans = "identity",
   paired = FALSE,
   alternative = "two.sided",
   method = "wilcoxon",
@@ -21,6 +22,8 @@ stat_test(
 \item{y}{value}
 
 \item{x}{sample test group}
+
+\item{trans}{scale transformation}
 
 \item{paired}{paired samples or not}
 
