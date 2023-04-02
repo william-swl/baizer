@@ -20,8 +20,9 @@ Imports:
     rstatix,
     stats,
     stringr,
-    tibble,
-    tidyselect
+    tibble (>= 3.1),
+    tidyselect,
+    withr
 Suggests: 
     car (>= 0.5.1),
     covr,
