@@ -4,7 +4,15 @@
 \alias{stat_fc}
 \title{fold change calculation which returns a extensible tibble}
 \usage{
-stat_fc(df, y, x, method = "mean", .by = NULL, signif_digits = 2)
+stat_fc(
+  df,
+  y,
+  x,
+  method = "mean",
+  .by = NULL,
+  rev_div = FALSE,
+  signif_digits = 2
+)
 }
 \arguments{
 \item{df}{tibble}
@@ -16,6 +24,8 @@ stat_fc(df, y, x, method = "mean", .by = NULL, signif_digits = 2)
 \item{method}{\code{'mean'|'median'|'geom_mean'}, the summary method}
 
 \item{.by}{super-group}
+
+\item{rev_div}{reverse division}
 
 \item{signif_digits}{fold change signif digits}
 }

@@ -25,6 +25,15 @@ test_that("stat_fc", {
   )
 })
 
+test_that("stat_fc, rev_div=TRUE", {
+  expect_snapshot(
+    stat_fc(mini_diamond,
+      y = price, x = cut,
+      rev_div = TRUE, .by = clarity
+    )
+  )
+})
+
 test_that("stat_fc, method='median'", {
   expect_snapshot(
     suppressWarnings(

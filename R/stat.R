@@ -79,12 +79,14 @@ stat_test <- function(df, y, x, trans = "identity",
 #' @param .by super-group
 #' @param method `'mean'|'median'|'geom_mean'`, the summary method
 #' @param signif_digits fold change signif digits
+#' @param rev_div reverse division
 #'
 #' @return fold change result tibble
 #' @export
 #'
 #' @examples stat_fc(mini_diamond, y = price, x = cut, .by = clarity)
-stat_fc <- function(df, y, x, method = "mean", .by = NULL, signif_digits = 2) {
+stat_fc <- function(df, y, x, method = "mean", .by = NULL,
+                    rev_div = FALSE, signif_digits = 2) {
   y <- rlang::enquo(y)
   x <- rlang::enquo(x)
   .by <- rlang::enquo(.by)
@@ -125,10 +127,17 @@ stat_fc <- function(df, y, x, method = "mean", .by = NULL, signif_digits = 2) {
   ycol2 <- stringr::str_c(rlang::quo_name(y), "_2")
   res <- res %>%
     dplyr::mutate(
-      fc = .data[[ycol1]] / .data[[ycol2]], # nolint
-      fc_fmt = signif_string(.data$fc, signif_digits) %>%
-        stringr::str_c("x")
-    )
+      fc = .data[[ycol1]] / .data[[ycol2]]
+    ) # nolint
+  # reverse div
+  if (rev_div) {
+    res <- res %>% dplyr::mutate(fc = 1 / .data[["fc"]])
+  }
+
+  res <- res %>% dplyr::mutate(
+    fc_fmt = signif_string(.data$fc, signif_digits) %>%
+      stringr::str_c("x")
+  )
 
   # remove auxiliary column
   if (rlang::quo_is_null(.by)) {

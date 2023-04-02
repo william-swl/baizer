@@ -64,6 +64,36 @@
       10 SI2     Ideal  Ideal  4267. 4267.  1    1.0x  
       # ... with 62 more rows
 
+# stat_fc, rev_div=TRUE
+
+    Code
+      stat_fc(mini_diamond, y = price, x = cut, rev_div = TRUE, .by = clarity)
+    Warning <lifecycle_warning_deprecated>
+      Using an external vector in selections was deprecated in tidyselect 1.1.0.
+      i Please use `all_of()` or `any_of()` instead.
+        # Was:
+        data %>% select(rename_vector)
+      
+        # Now:
+        data %>% select(all_of(rename_vector))
+      
+      See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
+    Output
+      # A tibble: 72 x 7
+         clarity group1 group2    y1    y2    fc fc_fmt
+         <chr>   <chr>  <chr>  <dbl> <dbl> <dbl> <chr> 
+       1 SI1     Fair   Fair   5844. 5844. 1     1.0x  
+       2 SI1     Fair   Ideal  5844. 3877. 0.663 0.66x 
+       3 SI1     Fair   Good   5844. 3227. 0.552 0.55x 
+       4 VS2     Good   Good   5582. 5582. 1     1.0x  
+       5 VS2     Good   Ideal  5582. 3024. 0.542 0.54x 
+       6 VS2     Good   Fair   5582. 3529. 0.632 0.63x 
+       7 VVS1    Ideal  Ideal  4652. 4652. 1     1.0x  
+       8 VVS1    Ideal  Good   4652. 2810. 0.604 0.60x 
+       9 VVS1    Ideal  Fair   4652. 2184  0.469 0.47x 
+      10 SI2     Ideal  Ideal  4267. 4267. 1     1.0x  
+      # ... with 62 more rows
+
 # stat_fc, method='median'
 
     Code
