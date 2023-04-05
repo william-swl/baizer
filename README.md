@@ -44,7 +44,7 @@ c2 <- tbflt(x > 8)
 c1 | c2
 #> <quosure>
 #> expr: ^cut == "Fair" | x > 8
-#> env:  0x55bd27b40980
+#> env:  0x55ec3348a308
 
 mini_diamond %>%
   filterC(c1) %>%
@@ -334,6 +334,35 @@ fps_vector(c(1, 2, NULL), 2)
 
 fps_vector(c(1, 2, NA), 2)
 #> [1]  1 NA
+```
+
+- split vector into list
+
+``` r
+split_vector(1:10, c(3, 7))
+#> [[1]]
+#> [1] 1 2 3
+#> 
+#> [[2]]
+#> [1] 4 5 6 7
+#> 
+#> [[3]]
+#> [1]  8  9 10
+
+
+vec <- stringr::str_split("ABCDEFGHIJ", "") %>% unlist()
+vec
+#>  [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J"
+
+split_vector(vec, breaks = c(3, 7), bounds = "[)")
+#> [[1]]
+#> [1] "A" "B"
+#> 
+#> [[2]]
+#> [1] "C" "D" "E" "F"
+#> 
+#> [[3]]
+#> [1] "G" "H" "I" "J"
 ```
 
 ## numbers
@@ -795,7 +824,7 @@ cmdargs()
 #> [1] "/home/william/rpkg/baizer"
 #> 
 #> $R_env
-#> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"
+#> [1] "/home/william/software/mambaforge/envs/plutor/lib/R/bin/exec/R"
 #> 
 #> $script_path
 #> character(0)
@@ -808,10 +837,10 @@ cmdargs()
 #> [2] "--no-save"                             
 #> [3] "--no-restore"                          
 #> [4] "-f"                                    
-#> [5] "/tmp/Rtmpnm7xZe/callr-scr-4e797784891b"
+#> [5] "/tmp/RtmpGoKKBc/callr-scr-4b9450567ba6"
 
 cmdargs("R_env")
-#> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"
+#> [1] "/home/william/software/mambaforge/envs/plutor/lib/R/bin/exec/R"
 ```
 
 - detect whether directory is empty recursively, and detect whether file

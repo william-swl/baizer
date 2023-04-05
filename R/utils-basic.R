@@ -337,3 +337,42 @@ expr_pileup <- function(ex) {
 
   return(res)
 }
+
+
+
+#' split vector into list
+#'
+#' @param vector vector
+#' @param breaks split breaks
+#' @param bounds "(]" as default, can also be "[), []"
+#'
+#' @return list
+#' @export
+#'
+#' @examples
+#' split_vector(1:10, c(3, 7))
+#' split_vector(stringr::str_split("ABCDEFGHIJ", "") %>% unlist(),
+#'   c(3, 7),
+#'   bounds = "[)"
+#' )
+split_vector <- function(vector, breaks, bounds = "(]") {
+  margins <- c(1, breaks, length(vector))
+
+  split_index <- purrr::map2(
+    margins[seq_along(margins)[-length(margins)]],
+    margins[seq_along(margins)[-1]],
+    ~ .x:.y
+  )
+
+  if (bounds == "(]") {
+    process_index <- seq_along(split_index)[-1]
+    split_index[process_index] <- split_index[process_index] %>%
+      purrr::map(~ .x[-1])
+  } else if (bounds == "[)") {
+    process_index <- seq_along(split_index)[-length(split_index)]
+    split_index[process_index] <- split_index[process_index] %>%
+      purrr::map(~ .x[-length(.x)])
+  }
+
+  purrr::map(split_index, ~ vector[.x])
+}

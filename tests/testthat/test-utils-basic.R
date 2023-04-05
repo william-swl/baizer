@@ -155,3 +155,15 @@ test_that("expr_pileup", {
     c("|", "&", "a == 2", "b == 3", "&", "!b", "x + 2")
   )
 })
+
+
+test_that("split_vector", {
+  expect_identical(split_vector(1:10, c(3, 7)), list(1:3, 4:7, 8:10))
+  expect_identical(
+    split_vector(stringr::str_split("ABCDEFGHIJ", "") %>% unlist(),
+      c(3, 7),
+      bounds = "[)"
+    ),
+    list(c("A", "B"), c("C", "D", "E", "F"), c("G", "H", "I", "J"))
+  )
+})
