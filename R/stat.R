@@ -34,7 +34,19 @@ stat_test <- function(df, y, x, trans = "identity",
   y <- rlang::enquo(y)
   x <- rlang::enquo(x)
   .by <- rlang::enquo(.by)
+
+  # if the real x column levels not match to factor levels
+  # rstatix will throw an error
+  factor_levels <- df[[quo_name(x)]] %>% levels()
+  real_levels <- df[[quo_name(x)]] %>% unique()
+
+  if (!is.null(factor_levels) &&
+      (length(factor_levels) != length(real_levels))) {
+    stop("please reset the factor levels to match the data!")
+  }
+
   res <- df
+
 
   # trans
   if (trans == "log10") {

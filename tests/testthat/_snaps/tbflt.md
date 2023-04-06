@@ -2,7 +2,8 @@
 
     Code
       mini_diamond %>% filterC(c1)
-    Warning <lifecycle_warning_deprecated>
+    Condition
+      Warning:
       Using an external vector in selections was deprecated in tidyselect 1.1.0.
       i Please use `all_of()` or `any_of()` instead.
         # Was:
@@ -32,7 +33,8 @@
 
     Code
       mini_diamond %>% filterC(!c1)
-    Warning <lifecycle_warning_deprecated>
+    Condition
+      Warning:
       Using an external vector in selections was deprecated in tidyselect 1.1.0.
       i Please use `all_of()` or `any_of()` instead.
         # Was:
@@ -62,7 +64,8 @@
 
     Code
       mini_diamond %>% filterC(c1 & c2)
-    Warning <lifecycle_warning_deprecated>
+    Condition
+      Warning:
       Using an external vector in selections was deprecated in tidyselect 1.1.0.
       i Please use `all_of()` or `any_of()` instead.
         # Was:
@@ -84,7 +87,8 @@
 
     Code
       mini_diamond %>% filterC(c1 | c2)
-    Warning <lifecycle_warning_deprecated>
+    Condition
+      Warning:
       Using an external vector in selections was deprecated in tidyselect 1.1.0.
       i Please use `all_of()` or `any_of()` instead.
         # Was:
@@ -114,7 +118,8 @@
 
     Code
       foo(mini_diamond, "Ideal")
-    Warning <lifecycle_warning_deprecated>
+    Condition
+      Warning:
       Using an external vector in selections was deprecated in tidyselect 1.1.0.
       i Please use `all_of()` or `any_of()` instead.
         # Was:
@@ -144,7 +149,8 @@
 
     Code
       foo(mini_diamond, "Ideal", "VVS1")
-    Warning <lifecycle_warning_deprecated>
+    Condition
+      Warning:
       Using an external vector in selections was deprecated in tidyselect 1.1.0.
       i Please use `all_of()` or `any_of()` instead.
         # Was:
@@ -168,7 +174,8 @@
 
     Code
       foo(mini_diamond, "Ideal", cond2)
-    Warning <lifecycle_warning_deprecated>
+    Condition
+      Warning:
       Using an external vector in selections was deprecated in tidyselect 1.1.0.
       i Please use `all_of()` or `any_of()` instead.
         # Was:
@@ -192,7 +199,8 @@
 
     Code
       foo(mini_diamond, cond1, cond2)
-    Warning <lifecycle_warning_deprecated>
+    Condition
+      Warning:
       Using an external vector in selections was deprecated in tidyselect 1.1.0.
       i Please use `all_of()` or `any_of()` instead.
         # Was:
@@ -216,7 +224,8 @@
 
     Code
       filterC(mini_diamond, cond, usecol = FALSE)
-    Warning <lifecycle_warning_deprecated>
+    Condition
+      Warning:
       Using an external vector in selections was deprecated in tidyselect 1.1.0.
       i Please use `all_of()` or `any_of()` instead.
         # Was:
@@ -240,7 +249,8 @@
 
     Code
       filterC(mini_diamond, cond)
-    Warning <lifecycle_warning_deprecated>
+    Condition
+      Warning:
       Using an external vector in selections was deprecated in tidyselect 1.1.0.
       i Please use `all_of()` or `any_of()` instead.
         # Was:

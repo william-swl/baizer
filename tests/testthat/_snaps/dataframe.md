@@ -267,8 +267,10 @@
 
     Code
       ordered_slice(mini_diamond, id, c("id-3", "id-2", "id-3", NA, NA))
-    Warning <simpleWarning>
+    Condition
+      Warning in `ordered_slice()`:
       2 NA values!
+      Warning in `ordered_slice()`:
       2 duplicated values!
     Output
       # A tibble: 5 x 7
@@ -284,7 +286,8 @@
 
     Code
       ordered_slice(mini_diamond, id, c("id-3", "unknown-id"))
-    Warning <simpleWarning>
+    Condition
+      Warning in `ordered_slice()`:
       1 NA values!
     Output
       # A tibble: 2 x 7
@@ -298,8 +301,10 @@
     Code
       ordered_slice(mini_diamond, id, c("id-3", "id-2", NA, "id-3", "unknown-id", NA),
       dup.rm = TRUE)
-    Warning <simpleWarning>
+    Condition
+      Warning in `ordered_slice()`:
       3 NA values!
+      Warning in `ordered_slice()`:
       3 duplicated values!
     Output
       # A tibble: 3 x 7
@@ -314,8 +319,10 @@
     Code
       ordered_slice(mini_diamond, id, c("id-3", "id-2", NA, "id-3", "unknown-id", NA),
       na.rm = TRUE)
-    Warning <simpleWarning>
+    Condition
+      Warning in `ordered_slice()`:
       3 NA values!
+      Warning in `ordered_slice()`:
       3 duplicated values!
     Output
       # A tibble: 3 x 7
@@ -330,8 +337,10 @@
     Code
       ordered_slice(mini_diamond, id, c("id-3", "id-2", NA, "id-3", "unknown-id", NA),
       na.rm = TRUE, dup = TRUE)
-    Warning <simpleWarning>
+    Condition
+      Warning in `ordered_slice()`:
       3 NA values!
+      Warning in `ordered_slice()`:
       3 duplicated values!
     Output
       # A tibble: 2 x 7

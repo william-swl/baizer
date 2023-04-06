@@ -44,7 +44,7 @@ c2 <- tbflt(x > 8)
 c1 | c2
 #> <quosure>
 #> expr: ^cut == "Fair" | x > 8
-#> env:  0x55ec3348a308
+#> env:  0x55ba9cad1d38
 
 mini_diamond %>%
   filterC(c1) %>%
@@ -363,6 +363,49 @@ split_vector(vec, breaks = c(3, 7), bounds = "[)")
 #> 
 #> [[3]]
 #> [1] "G" "H" "I" "J"
+```
+
+- regex match
+
+``` r
+v <- stringr::str_c("id", 1:3, c("A", "B", "C"))
+v
+#> [1] "id1A" "id2B" "id3C"
+
+# return first group as default
+reg_match(v, "id(\\d+)(\\w)")
+#> [1] "1" "2" "3"
+
+reg_match(v, "id(\\d+)(\\w)", group = 2)
+#> [1] "A" "B" "C"
+
+# when group=-1, return full matched tibble
+reg_match(v, "id(\\d+)(\\w)", group = -1)
+#> # A tibble: 3 × 3
+#>   match group1 group2
+#>   <chr> <chr>  <chr> 
+#> 1 id1A  1      A     
+#> 2 id2B  2      B     
+#> 3 id3C  3      C
+```
+
+- sort by a function
+
+``` r
+v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) %>% sort()
+v
+#> [1] "id1"   "id10"  "id101" "id102" "id11"  "id12"  "id2"   "id9"   "id99"
+
+sortf(v, function(x) reg_match(x, "\\d+") %>% as.double())
+#> [1] "id1"   "id2"   "id9"   "id10"  "id11"  "id12"  "id99"  "id101" "id102"
+
+# you can also use purrr functions
+sortf(v, ~ reg_match(.x, "\\d+") %>% as.double())
+#> [1] "id1"   "id2"   "id9"   "id10"  "id11"  "id12"  "id99"  "id101" "id102"
+
+# only return the order
+sortf(v, ~ reg_match(.x, "\\d+") %>% as.double(), order = TRUE)
+#> [1] 1 7 8 2 5 6 9 3 4
 ```
 
 ## numbers
@@ -824,7 +867,7 @@ cmdargs()
 #> [1] "/home/william/rpkg/baizer"
 #> 
 #> $R_env
-#> [1] "/home/william/software/mambaforge/envs/plutor/lib/R/bin/exec/R"
+#> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"
 #> 
 #> $script_path
 #> character(0)
@@ -837,10 +880,10 @@ cmdargs()
 #> [2] "--no-save"                             
 #> [3] "--no-restore"                          
 #> [4] "-f"                                    
-#> [5] "/tmp/RtmpGoKKBc/callr-scr-4b9450567ba6"
+#> [5] "/tmp/RtmpVCeeln/callr-scr-3b936358d277"
 
 cmdargs("R_env")
-#> [1] "/home/william/software/mambaforge/envs/plutor/lib/R/bin/exec/R"
+#> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"
 ```
 
 - detect whether directory is empty recursively, and detect whether file

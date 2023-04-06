@@ -376,3 +376,72 @@ split_vector <- function(vector, breaks, bounds = "(]") {
 
   purrr::map(split_index, ~ vector[.x])
 }
+
+
+#' regex match
+#'
+#' @param x vector
+#' @param pattern regex pattern
+#' @param group regex gruop, 1 as default. when group=-1,
+#' return full matched tibble
+#'
+#' @return vector or tibble
+#' @export
+#'
+#' @examples
+#' v <- stringr::str_c("id", 1:3, c("A", "B", "C"))
+#'
+#' reg_match(v, "id(\\d+)(\\w)")
+#'
+#' reg_match(v, "id(\\d+)(\\w)", group = 2)
+#'
+#' reg_match(v, "id(\\d+)(\\w)", group = -1)
+#'
+reg_match <- function(x, pattern, group = 1) {
+  res <- suppressMessages(
+    stringr::str_match(x, pattern) %>%
+      tibble::as_tibble(.name_repair = "unique")
+  )
+  res <- res %>% rlang::set_names(c(
+    "match",
+    stringr::str_c("group", seq_along(colnames(res))[-ncol(res)])
+  ))
+  if (group == -1) {
+    return(res)
+  } else if (ncol(res) == 1) {
+    return(dplyr::pull(res, 1))
+  } else {
+    return(dplyr::pull(res, group + 1))
+  }
+}
+
+
+#' sort by a function
+#'
+#' @param x vector
+#' @param func a function used by the sort
+#' @param order only return the order
+#'
+#' @return vector
+#' @export
+#'
+#' @examples
+#' v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) %>% sort()
+#'
+#' sortf(v, function(x) reg_match(x, "\\d+") %>% as.double())
+#'
+#' sortf(v, ~ reg_match(.x, "\\d+") %>% as.double())
+#'
+#' sortf(v, ~ reg_match(.x, "\\d+") %>% as.double(), order = TRUE)
+#'
+sortf <- function(x, func, order = FALSE) {
+  sort_ord <- x %>%
+    purrr::map(func) %>%
+    unlist() %>%
+    order()
+  if (order) {
+    return(sort_ord)
+  } else {
+    return(x[sort_ord])
+  }
+}

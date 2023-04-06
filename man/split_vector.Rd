@@ -21,6 +21,8 @@ split vector into list
 }
 \examples{
 split_vector(1:10, c(3, 7))
-split_vector(stringr::str_split('ABCDEFGHIJ', '') \%>\% unlist,
-  c(3, 7), bounds="[)")
+split_vector(stringr::str_split("ABCDEFGHIJ", "") \%>\% unlist(),
+  c(3, 7),
+  bounds = "[)"
+)
 }

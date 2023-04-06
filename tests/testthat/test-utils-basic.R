@@ -167,3 +167,35 @@ test_that("split_vector", {
     list(c("A", "B"), c("C", "D", "E", "F"), c("G", "H", "I", "J"))
   )
 })
+
+
+test_that("reg_match", {
+  v <- stringr::str_c("id", 1:3, c("A", "B", "C"))
+  expect_identical(reg_match(v, "id(\\d+)(\\w)"), c("1", "2", "3"))
+  expect_identical(reg_match(v, "id(\\d+)(\\w)", group = 2), c("A", "B", "C"))
+  expect_identical(
+    reg_match(v, "id(\\d+)(\\w)", group = -1),
+    tibble(
+      match = v,
+      group1 = c("1", "2", "3"),
+      group2 = c("A", "B", "C")
+    )
+  )
+})
+
+
+test_that("sortf", {
+  v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) %>% sort()
+  expect_identical(
+    sortf(v, function(x) reg_match(x, "\\d+") %>% as.double()),
+    c("id1", "id2", "id9", "id10", "id11", "id12", "id99", "id101", "id102")
+  )
+  expect_identical(
+    sortf(v, function(x) reg_match(x, "\\d+") %>% as.double()),
+    sortf(v, ~ reg_match(.x, "\\d+") %>% as.double())
+  )
+  expect_identical(
+    sortf(v, ~ reg_match(.x, "\\d+") %>% as.double(), order = TRUE),
+    as.integer(c(1, 7, 8, 2, 5, 6, 9, 3, 4))
+  )
+})
