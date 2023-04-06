@@ -118,6 +118,9 @@
     <loc>https://william-swl.github.io/baizer/reference/r2c.html</loc>
   </url>
   <url>
+    <loc>https://william-swl.github.io/baizer/reference/reg_match.html</loc>
+  </url>
+  <url>
     <loc>https://william-swl.github.io/baizer/reference/remove_nacol.html</loc>
   </url>
   <url>
@@ -142,6 +145,9 @@
     <loc>https://william-swl.github.io/baizer/reference/signif_string.html</loc>
   </url>
   <url>
+    <loc>https://william-swl.github.io/baizer/reference/sortf.html</loc>
+  </url>
+  <url>
     <loc>https://william-swl.github.io/baizer/reference/split_column.html</loc>
   </url>
   <url>
@@ -158,6 +164,9 @@
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/tbflt.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/tidyeval.html</loc>
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/write_excel.html</loc>
