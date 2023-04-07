@@ -22,7 +22,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">baizer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.10</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,7 +67,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">sortf</span><span class="op">(</span><span class="va">x</span>, <span class="va">func</span>, order <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">sortf</span><span class="op">(</span><span class="va">x</span>, <span class="va">func</span>, group_pattern <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -80,8 +80,9 @@
 <dd><p>a function used by the sort</p></dd>
 
 
-<dt>order</dt>
-<dd><p>only return the order</p></dd>
+<dt>group_pattern</dt>
+<dd><p>a regex pattern to group by, only aviable if x is a
+character vector</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -93,16 +94,25 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html" class="external-link">str_c</a></span><span class="op">(</span><span class="st">'id'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">9</span>, <span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">12</span>, <span class="fl">99</span>, <span class="fl">101</span>, <span class="fl">102</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="va">sort</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">sortf</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>, <span class="va">abs</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  1 -2  3</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">sortf</span><span class="op">(</span><span class="va">v</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="reg_match.html">reg_match</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">'\\d+'</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="va">as.double</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html" class="external-link">str_c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">9</span>, <span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">12</span>, <span class="fl">99</span>, <span class="fl">101</span>, <span class="fl">102</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">sortf</span><span class="op">(</span><span class="va">v</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="reg_match.html">reg_match</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"\\d+"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">as.double</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "id1"   "id2"   "id9"   "id10"  "id11"  "id12"  "id99"  "id101" "id102"</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">sortf</span><span class="op">(</span><span class="va">v</span>, <span class="op">~</span><span class="fu"><a href="reg_match.html">reg_match</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">'\\d+'</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="va">as.double</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sortf</span><span class="op">(</span><span class="va">v</span>, <span class="op">~</span> <span class="fu"><a href="reg_match.html">reg_match</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"\\d+"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">as.double</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "id1"   "id2"   "id9"   "id10"  "id11"  "id12"  "id99"  "id101" "id102"</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">sortf</span><span class="op">(</span><span class="va">v</span>, <span class="op">~</span><span class="fu"><a href="reg_match.html">reg_match</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">'\\d+'</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="va">as.double</span>, order<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1 7 8 2 5 6 9 3 4</span>
+<span class="r-in"><span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html" class="external-link">str_c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">9</span>, <span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">12</span>, <span class="fl">99</span>, <span class="fl">101</span>, <span class="fl">102</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html" class="external-link">str_c</a></span><span class="op">(</span><span class="st">"B"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">9</span>, <span class="fl">10</span>, <span class="fl">21</span>, <span class="fl">32</span>, <span class="fl">99</span>, <span class="fl">101</span>, <span class="fl">102</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">sortf</span><span class="op">(</span><span class="va">v</span>, <span class="op">~</span> <span class="fu"><a href="reg_match.html">reg_match</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"\\d+"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">as.double</a></span><span class="op">(</span><span class="op">)</span>, group_pattern <span class="op">=</span> <span class="st">"\\w"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "A1"   "A2"   "A9"   "A10"  "A11"  "A12"  "A99"  "A101" "A102" "B1"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "B2"   "B9"   "B10"  "B21"  "B32"  "B99"  "B101" "B102"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
