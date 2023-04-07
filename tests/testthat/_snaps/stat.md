@@ -1,45 +1,67 @@
+# stat_test, by
+
+    Code
+      stat_test(mini_diamond, y = price, x = cut, .by = clarity) %>% print(width = Inf,
+        n = Inf)
+    Output
+      # A tibble: 24 x 11
+         clarity .y.   group1 group2    n1    n2 statistic     p p.adj p.adj.signif
+         <chr>   <chr> <chr>  <chr>  <int> <int>     <dbl> <dbl> <dbl> <chr>       
+       1 I1      price Fair   Good       5     5        18 0.31  0.62  ns          
+       2 I1      price Fair   Ideal      5     4        11 0.905 0.905 ns          
+       3 I1      price Good   Ideal      5     4         4 0.19  0.57  ns          
+       4 IF      price Fair   Good       4     5        18 0.064 0.177 ns          
+       5 IF      price Fair   Ideal      4     4        15 0.059 0.177 ns          
+       6 IF      price Good   Ideal      5     4        10 1     1     ns          
+       7 SI1     price Fair   Good       5     4        10 1     1     ns          
+       8 SI1     price Fair   Ideal      5     5        13 1     1     ns          
+       9 SI1     price Good   Ideal      4     5         6 0.413 1     ns          
+      10 SI2     price Fair   Good       4     4        15 0.057 0.171 ns          
+      11 SI2     price Fair   Ideal      4     4        15 0.057 0.171 ns          
+      12 SI2     price Good   Ideal      4     4        10 0.686 0.686 ns          
+      13 VS1     price Fair   Good       3     2         6 0.2   0.4   ns          
+      14 VS1     price Fair   Ideal      3     5        15 0.036 0.107 ns          
+      15 VS1     price Good   Ideal      2     5         3 0.571 0.571 ns          
+      16 VS2     price Fair   Good       5     4         6 0.413 1     ns          
+      17 VS2     price Fair   Ideal      5     2         6 0.857 1     ns          
+      18 VS2     price Good   Ideal      4     2         5 0.8   1     ns          
+      19 VVS1    price Fair   Good       5     4        11 0.905 0.905 ns          
+      20 VVS1    price Fair   Ideal      5     5         5 0.151 0.453 ns          
+      21 VVS1    price Good   Ideal      4     5         4 0.19  0.453 ns          
+      22 VVS2    price Fair   Good       4     3         4 0.629 0.629 ns          
+      23 VVS2    price Fair   Ideal      4     5        19 0.032 0.095 ns          
+      24 VVS2    price Good   Ideal      3     5        14 0.071 0.143 ns          
+         p.signif
+         <chr>   
+       1 NS      
+       2 NS      
+       3 NS      
+       4 NS      
+       5 NS      
+       6 NS      
+       7 NS      
+       8 NS      
+       9 NS      
+      10 NS      
+      11 NS      
+      12 NS      
+      13 NS      
+      14 *       
+      15 NS      
+      16 NS      
+      17 NS      
+      18 NS      
+      19 NS      
+      20 NS      
+      21 NS      
+      22 NS      
+      23 *       
+      24 NS      
+
 # stat_test
 
     Code
-      withr::with_options(list(options(width = 99)), {
-        stat_test(mini_diamond, y = price, x = cut, .by = clarity) %>% print(n = Inf)
-      })
-    Output
-      # A tibble: 24 x 11
-         clarity .y.   group1 group2    n1    n2 statistic     p p.adj p.adj~1 p.sig~2
-         <chr>   <chr> <chr>  <chr>  <int> <int>     <dbl> <dbl> <dbl> <chr>   <chr>  
-       1 I1      price Fair   Good       5     5        18 0.31  0.62  ns      NS     
-       2 I1      price Fair   Ideal      5     4        11 0.905 0.905 ns      NS     
-       3 I1      price Good   Ideal      5     4         4 0.19  0.57  ns      NS     
-       4 IF      price Fair   Good       4     5        18 0.064 0.177 ns      NS     
-       5 IF      price Fair   Ideal      4     4        15 0.059 0.177 ns      NS     
-       6 IF      price Good   Ideal      5     4        10 1     1     ns      NS     
-       7 SI1     price Fair   Good       5     4        10 1     1     ns      NS     
-       8 SI1     price Fair   Ideal      5     5        13 1     1     ns      NS     
-       9 SI1     price Good   Ideal      4     5         6 0.413 1     ns      NS     
-      10 SI2     price Fair   Good       4     4        15 0.057 0.171 ns      NS     
-      11 SI2     price Fair   Ideal      4     4        15 0.057 0.171 ns      NS     
-      12 SI2     price Good   Ideal      4     4        10 0.686 0.686 ns      NS     
-      13 VS1     price Fair   Good       3     2         6 0.2   0.4   ns      NS     
-      14 VS1     price Fair   Ideal      3     5        15 0.036 0.107 ns      *      
-      15 VS1     price Good   Ideal      2     5         3 0.571 0.571 ns      NS     
-      16 VS2     price Fair   Good       5     4         6 0.413 1     ns      NS     
-      17 VS2     price Fair   Ideal      5     2         6 0.857 1     ns      NS     
-      18 VS2     price Good   Ideal      4     2         5 0.8   1     ns      NS     
-      19 VVS1    price Fair   Good       5     4        11 0.905 0.905 ns      NS     
-      20 VVS1    price Fair   Ideal      5     5         5 0.151 0.453 ns      NS     
-      21 VVS1    price Good   Ideal      4     5         4 0.19  0.453 ns      NS     
-      22 VVS2    price Fair   Good       4     3         4 0.629 0.629 ns      NS     
-      23 VVS2    price Fair   Ideal      4     5        19 0.032 0.095 ns      *      
-      24 VVS2    price Good   Ideal      3     5        14 0.071 0.143 ns      NS     
-      # ... with abbreviated variable names 1: p.adj.signif, 2: p.signif
-
----
-
-    Code
-      withr::with_options(list(options(width = 99)), {
-        stat_test(mini_diamond, y = price, x = cut)
-      })
+      stat_test(mini_diamond, y = price, x = cut) %>% print(width = Inf, n = Inf)
     Output
       # A tibble: 3 x 10
         .y.   group1 group2    n1    n2 statistic     p p.adj p.adj.signif p.signif

@@ -74,7 +74,7 @@
 # fancy_count, three column
 
     Code
-      fancy_count(mini_diamond, cut, clarity, ext = id)
+      fancy_count(mini_diamond, cut, clarity, ext = id) %>% print(n = Inf)
     Output
       # A tibble: 24 x 5
          cut   clarity     n     r id                                          
@@ -89,7 +89,20 @@
        8 Fair  VVS2        4  0.04 id-30(1),id-58(1),id-79(1),id-98(1)         
        9 Good  I1          5  0.05 id-16(1),id-34(1),id-69(1),id-82(1),id-91(1)
       10 Good  IF          5  0.05 id-15(1),id-53(1),id-56(1),id-61(1),id-62(1)
-      # ... with 14 more rows
+      11 Good  SI1         4  0.04 id-33(1),id-42(1),id-50(1),id-75(1)         
+      12 Good  SI2         4  0.04 id-100(1),id-27(1),id-8(1),id-97(1)         
+      13 Good  VS1         2  0.02 id-81(1),id-87(1)                           
+      14 Good  VS2         4  0.04 id-2(1),id-22(1),id-24(1),id-44(1)          
+      15 Good  VVS1        4  0.04 id-11(1),id-21(1),id-7(1),id-74(1)          
+      16 Good  VVS2        3  0.03 id-51(1),id-72(1),id-92(1)                  
+      17 Ideal I1          4  0.04 id-17(1),id-49(1),id-71(1),id-90(1)         
+      18 Ideal IF          4  0.04 id-39(1),id-57(1),id-73(1),id-86(1)         
+      19 Ideal SI1         5  0.05 id-13(1),id-47(1),id-84(1),id-9(1),id-93(1) 
+      20 Ideal SI2         4  0.04 id-29(1),id-4(1),id-41(1),id-67(1)          
+      21 Ideal VS1         5  0.05 id-26(1),id-5(1),id-78(1),id-80(1),id-94(1) 
+      22 Ideal VS2         2  0.02 id-38(1),id-88(1)                           
+      23 Ideal VVS1        5  0.05 id-3(1),id-31(1),id-35(1),id-37(1),id-83(1) 
+      24 Ideal VVS2        5  0.05 id-14(1),id-19(1),id-54(1),id-60(1),id-96(1)
 
 # expand_df
 

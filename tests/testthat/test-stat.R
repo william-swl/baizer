@@ -3,20 +3,17 @@ test_that("geom_mean", {
   expect_equal(geom_mean(c(1, 10, 100)), 10)
 })
 
-test_that("stat_test", {
+test_that("stat_test, by", {
   expect_snapshot(
-    withr::with_options(list(options(width = 99)), {
       stat_test(mini_diamond, y = price, x = cut, .by = clarity) %>%
-        print(n = Inf)
-    })
+        print(width=Inf, n = Inf)
   )
 })
 
 test_that("stat_test", {
   expect_snapshot(
-    withr::with_options(list(options(width = 99)), {
-      stat_test(mini_diamond, y = price, x = cut)
-    })
+      stat_test(mini_diamond, y = price, x = cut) %>%
+        print(width=Inf, n=Inf)
   )
 })
 

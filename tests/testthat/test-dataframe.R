@@ -54,7 +54,7 @@ test_that("fancy_count, sort=FALSE", {
 
 test_that("fancy_count, three column", {
   expect_snapshot(
-    fancy_count(mini_diamond, cut, clarity, ext = id)
+    fancy_count(mini_diamond, cut, clarity, ext = id) %>% print(n=Inf)
   )
 })
 

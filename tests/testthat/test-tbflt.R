@@ -1,11 +1,11 @@
 test_that("tbflt1", {
   c1 <- tbflt(cut == "Fair")
-  expect_snapshot(mini_diamond %>% filterC(c1))
+  expect_snapshot(mini_diamond %>% filterC(c1) %>% print(n=Inf))
 })
 
 test_that("tbflt2", {
   c1 <- tbflt(cut == "Fair")
-  expect_snapshot(mini_diamond %>% filterC(!c1))
+  expect_snapshot(mini_diamond %>% filterC(!c1) %>% print(n=Inf))
 })
 
 test_that("tbflt3", {
@@ -17,7 +17,7 @@ test_that("tbflt3", {
 test_that("tbflt4", {
   c1 <- tbflt(cut == "Fair")
   c2 <- tbflt(x > 8)
-  expect_snapshot(mini_diamond %>% filterC(c1 | c2))
+  expect_snapshot(mini_diamond %>% filterC(c1 | c2) %>% print(n=Inf))
 })
 
 test_that("tbflt in function", {
@@ -25,7 +25,7 @@ test_that("tbflt in function", {
     cond <- tbflt(cut == d)
     tb %>% filterC(cond)
   }
-  expect_snapshot(foo(mini_diamond, "Ideal"))
+  expect_snapshot(foo(mini_diamond, "Ideal")%>% print(n=Inf))
 })
 
 test_that("tbflt logical operation in function", {

@@ -141,7 +141,7 @@ stat_fc <- function(df, y, x, method = "mean", .by = NULL,
   res <- res %>%
     dplyr::mutate(
       fc = .data[[ycol1]] / .data[[ycol2]]
-    ) # nolint
+    )
   # reverse div
   if (rev_div) {
     res <- res %>% dplyr::mutate(fc = 1 / .data[["fc"]])
