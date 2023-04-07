@@ -414,7 +414,13 @@ remove_nacol(df_with_nacol)
 ```{r dataframe-hist_bins}
 vector <- dplyr::pull(mini_diamond, price, id)
 
-hist_bins(vector, bins = 20)
+hist_bins(vector)
+
+# set the max and min limits
+hist_bins(vector, bins = 20, lim = c(0, 20000))
+
+# or pass breaks directly
+hist_bins(vector, breaks = seq(0, 20000, length.out = 11))
 ```
 
 

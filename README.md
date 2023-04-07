@@ -44,7 +44,7 @@ c2 <- tbflt(x > 8)
 c1 | c2
 #> <quosure>
 #> expr: ^cut == "Fair" | x > 8
-#> env:  0x5570a6ae8040
+#> env:  0x55a7a6a87178
 
 mini_diamond %>%
   filterC(c1) %>%
@@ -397,19 +397,19 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "A12"  "B9"   "A2"   "B21"  "B102" "A99"  "B101" "B99"  "B10"  "B32" 
-#> [11] "A11"  "A102" "A1"   "A10"  "A9"   "B2"   "B1"   "A101"
+#>  [1] "A102" "A12"  "B2"   "A99"  "B99"  "B9"   "A9"   "B102" "A101" "B21" 
+#> [11] "A11"  "A1"   "A2"   "B1"   "B10"  "B101" "B32"  "A10"
 
 group_vector(v)
 #> $A
-#> [1] "A12"  "A2"   "A99"  "A11"  "A102" "A1"   "A10"  "A9"   "A101"
+#> [1] "A102" "A12"  "A99"  "A9"   "A101" "A11"  "A1"   "A2"   "A10" 
 #> 
 #> $B
-#> [1] "B9"   "B21"  "B102" "B101" "B99"  "B10"  "B32"  "B2"   "B1"
+#> [1] "B2"   "B99"  "B9"   "B102" "B21"  "B1"   "B10"  "B101" "B32"
 
 group_vector(v, pattern = "\\w\\d")
 #> $A1
-#> [1] "A12"  "A11"  "A102" "A1"   "A10"  "A101"
+#> [1] "A102" "A12"  "A101" "A11"  "A1"   "A10" 
 #> 
 #> $A2
 #> [1] "A2"
@@ -418,35 +418,35 @@ group_vector(v, pattern = "\\w\\d")
 #> [1] "A99" "A9" 
 #> 
 #> $B1
-#> [1] "B102" "B101" "B10"  "B1"  
+#> [1] "B102" "B1"   "B10"  "B101"
 #> 
 #> $B2
-#> [1] "B21" "B2" 
+#> [1] "B2"  "B21"
 #> 
 #> $B3
 #> [1] "B32"
 #> 
 #> $B9
-#> [1] "B9"  "B99"
+#> [1] "B99" "B9"
 
 # the pattern rules are just same as reg_match()
 group_vector(v, pattern = "\\w(\\d)")
 #> $`1`
-#>  [1] "A12"  "B102" "B101" "B10"  "A11"  "A102" "A1"   "A10"  "B1"   "A101"
+#>  [1] "A102" "A12"  "B102" "A101" "A11"  "A1"   "B1"   "B10"  "B101" "A10" 
 #> 
 #> $`2`
-#> [1] "A2"  "B21" "B2" 
+#> [1] "B2"  "B21" "A2" 
 #> 
 #> $`3`
 #> [1] "B32"
 #> 
 #> $`9`
-#> [1] "B9"  "A99" "B99" "A9"
+#> [1] "A99" "B99" "B9"  "A9"
 
 # unmatched part will alse be stored
 group_vector(v, pattern = "\\d{2}")
 #> $`10`
-#> [1] "B102" "B101" "B10"  "A102" "A10"  "A101"
+#> [1] "A102" "B102" "A101" "B10"  "B101" "A10" 
 #> 
 #> $`11`
 #> [1] "A11"
@@ -464,7 +464,7 @@ group_vector(v, pattern = "\\d{2}")
 #> [1] "A99" "B99"
 #> 
 #> $unmatch
-#> [1] "B9" "A2" "A1" "A9" "B2" "B1"
+#> [1] "B2" "B9" "A9" "A1" "A2" "B1"
 ```
 
 - sort by a function
@@ -475,7 +475,7 @@ sortf(c(-2, 1, 3), abs)
 
 v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) %>% sample()
 v
-#> [1] "id2"   "id99"  "id101" "id11"  "id102" "id1"   "id9"   "id12"  "id10"
+#> [1] "id9"   "id1"   "id102" "id11"  "id10"  "id101" "id12"  "id99"  "id2"
 
 sortf(v, function(x) reg_match(x, "\\d+") %>% as.double())
 #> [1] "id1"   "id2"   "id9"   "id10"  "id11"  "id12"  "id99"  "id101" "id102"
@@ -491,8 +491,8 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "A11"  "B102" "B99"  "A12"  "A9"   "A1"   "B101" "A99"  "A10"  "A2"  
-#> [11] "A101" "B10"  "B1"   "B2"   "A102" "B9"   "B21"  "B32"
+#>  [1] "B1"   "A12"  "A1"   "A10"  "A9"   "B32"  "B102" "A11"  "B9"   "B2"  
+#> [11] "B99"  "A101" "A99"  "B101" "A2"   "B10"  "B21"  "A102"
 
 sortf(v, ~ reg_match(.x, "\\d+") %>% as.double(), group_pattern = "\\w")
 #>  [1] "A1"   "A2"   "A9"   "A10"  "A11"  "A12"  "A99"  "A101" "A102" "B1"  
@@ -875,20 +875,54 @@ remove_nacol(df_with_nacol)
 ``` r
 vector <- dplyr::pull(mini_diamond, price, id)
 
-hist_bins(vector, bins = 20)
+hist_bins(vector)
 #> # A tibble: 100 × 5
 #>    id    value  start    end   bin
 #>    <chr> <int>  <dbl>  <dbl> <int>
-#>  1 id-1   3027  2218.  3097.     3
-#>  2 id-2  11746 11000. 11879.    13
-#>  3 id-3   2029  1340.  2218.     2
-#>  4 id-4   9452  9244  10122.    11
-#>  5 id-5   2498  2218.  3097.     3
-#>  6 id-6  14080 13635  14513.    16
-#>  7 id-7    752   462   1340.     1
-#>  8 id-8   1029   462   1340.     1
-#>  9 id-9   5590  4853   5731.     6
-#> 10 id-10  1691  1340.  2218.     2
+#>  1 id-1   3027  2218.  3975.     2
+#>  2 id-2  11746 11000. 12757.     7
+#>  3 id-3   2029   462   2218.     1
+#>  4 id-4   9452  9244  11000.     6
+#>  5 id-5   2498  2218.  3975.     2
+#>  6 id-6  14080 12757. 14513.     8
+#>  7 id-7    752   462   2218.     1
+#>  8 id-8   1029   462   2218.     1
+#>  9 id-9   5590  3975.  5731.     3
+#> 10 id-10  1691   462   2218.     1
+#> # … with 90 more rows
+
+# set the max and min limits
+hist_bins(vector, bins = 20, lim = c(0, 20000))
+#> # A tibble: 100 × 5
+#>    id    value start   end   bin
+#>    <chr> <int> <dbl> <dbl> <int>
+#>  1 id-1   3027  3000  4000     4
+#>  2 id-2  11746 11000 12000    12
+#>  3 id-3   2029  2000  3000     3
+#>  4 id-4   9452  9000 10000    10
+#>  5 id-5   2498  2000  3000     3
+#>  6 id-6  14080 14000 15000    15
+#>  7 id-7    752     0  1000     1
+#>  8 id-8   1029  1000  2000     2
+#>  9 id-9   5590  5000  6000     6
+#> 10 id-10  1691  1000  2000     2
+#> # … with 90 more rows
+
+# or pass breaks directly
+hist_bins(vector, breaks = seq(0, 20000, length.out = 11))
+#> # A tibble: 100 × 5
+#>    id    value start   end   bin
+#>    <chr> <int> <dbl> <dbl> <int>
+#>  1 id-1   3027  2000  4000     2
+#>  2 id-2  11746 10000 12000     6
+#>  3 id-3   2029  2000  4000     2
+#>  4 id-4   9452  8000 10000     5
+#>  5 id-5   2498  2000  4000     2
+#>  6 id-6  14080 14000 16000     8
+#>  7 id-7    752     0  2000     1
+#>  8 id-8   1029     0  2000     1
+#>  9 id-9   5590  4000  6000     3
+#> 10 id-10  1691     0  2000     1
 #> # … with 90 more rows
 ```
 
@@ -971,7 +1005,7 @@ cmdargs()
 #> [2] "--no-save"                             
 #> [3] "--no-restore"                          
 #> [4] "-f"                                    
-#> [5] "/tmp/RtmpqVFDei/callr-scr-1dc36cc06776"
+#> [5] "/tmp/RtmpnE79ZK/callr-scr-43727166dbba"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"

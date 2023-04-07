@@ -5,15 +5,15 @@ test_that("geom_mean", {
 
 test_that("stat_test, by", {
   expect_snapshot(
-      stat_test(mini_diamond, y = price, x = cut, .by = clarity) %>%
-        print(width=Inf, n = Inf)
+    stat_test(mini_diamond, y = price, x = cut, .by = clarity) %>%
+      print(width = Inf, n = Inf)
   )
 })
 
 test_that("stat_test", {
   expect_snapshot(
-      stat_test(mini_diamond, y = price, x = cut) %>%
-        print(width=Inf, n=Inf)
+    stat_test(mini_diamond, y = price, x = cut) %>%
+      print(width = Inf, n = Inf)
   )
 })
 

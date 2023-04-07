@@ -54,7 +54,7 @@ test_that("fancy_count, sort=FALSE", {
 
 test_that("fancy_count, three column", {
   expect_snapshot(
-    fancy_count(mini_diamond, cut, clarity, ext = id) %>% print(n=Inf)
+    fancy_count(mini_diamond, cut, clarity, ext = id) %>% print(n = Inf)
   )
 })
 
@@ -159,4 +159,17 @@ test_that("hist_bins", {
   vector <- dplyr::pull(mini_diamond, price, id)
   expect_error(hist_bins(c("a", "b")))
   expect_snapshot(hist_bins(vector) %>% print(n = Inf))
+})
+
+test_that("hist_bins, lim", {
+  vector <- dplyr::pull(mini_diamond, price, id)
+  expect_error(hist_bins(vector, lim = c(2000, 18000)))
+  expect_snapshot(hist_bins(vector, lim = c(0, 20000)) %>% print(n = Inf))
+})
+
+test_that("hist_bins, breaks", {
+  vector <- dplyr::pull(mini_diamond, price, id)
+  expect_error(hist_bins(vector, breaks = seq(2000, 18000, length.out = 11)))
+  expect_snapshot(hist_bins(vector, breaks = seq(0, 20000, length.out = 11)) %>%
+    print(n = Inf))
 })

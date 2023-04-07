@@ -9,9 +9,10 @@ test_that("round_string", {
 
 
 test_that("formatC, fg#", {
-expect_identical(
-  formatC(6.9785, 2, format = "fg", flag = "#"),
-  '7.0')
+  expect_identical(
+    formatC(6.9785, 2, format = "fg", flag = "#"),
+    "7.0"
+  )
 })
 
 test_that("signif_string", {

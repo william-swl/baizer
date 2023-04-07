@@ -132,7 +132,7 @@ stat_fc <- function(df, y, x, method = "mean", .by = NULL,
   res <- dplyr::full_join(df, df,
     by = by,
     suffix = c("_1", "_2"), multiple = "all",
-    relationship='many-to-many'
+    relationship = "many-to-many"
   )
 
   # fold change

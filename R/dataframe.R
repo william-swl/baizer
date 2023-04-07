@@ -288,27 +288,43 @@ remove_narow <- function(df, max_ratio = 1) {
 
 
 
-#' separate numeric vector into bins
+#' separate numeric x into bins
 #'
-#' @param vector numeric vector
+#' @param x numeric vector
 #' @param bins bins number, defaults to 10
 #' @param sort sort the result tibble
+#' @param lim the min and max limits of bins, default as `c(min(x), max(x))`
+#' @param breaks assign breaks directly and will ignore `bins` and `lim`
 #'
 #' @return tibble
 #' @export
 #'
 #' @examples
 #'
-#' vector <- dplyr::pull(mini_diamond, price, id)
+#' x <- dplyr::pull(mini_diamond, price, id)
 #'
-#' hist_bins(vector, bins = 20)
+#' hist_bins(x, bins = 20)
 #'
-hist_bins <- function(vector, bins = 10, sort = FALSE) {
-  if (!is.numeric(vector)) {
+hist_bins <- function(x, bins = 10, lim = c(min(x), max(x)),
+                      breaks = NULL, sort = FALSE) {
+  if (!is.numeric(x)) {
     stop("please use numerice vector!")
   }
 
-  breaks <- seq(min(vector), max(vector), length.out = bins + 1)
+  if (lim[1] > min(x) || lim[2] < max(x)) {
+    stop(
+    "the full interval assigned by lim or breaks must cover min(x) to max(x)!")
+  }
+
+  if (!is.null(breaks) &&
+    (breaks[1] > min(x) || breaks[length(breaks)] < max(x))) {
+    stop("the global interval assigned by lim or breaks
+         must include min(x) to max(x)!")
+  }
+
+  if (is.null(breaks)) {
+    breaks <- seq(lim[1], lim[2], length.out = bins + 1)
+  }
 
   dfbin <- tibble(
     start = breaks[1:(length(breaks) - 1)],
@@ -316,10 +332,10 @@ hist_bins <- function(vector, bins = 10, sort = FALSE) {
   ) %>%
     dplyr::mutate(bin = seq_len(dplyr::n()))
 
-  if (is.null(names(vector))) {
-    dfvec <- as_tibble(vector)
+  if (is.null(names(x))) {
+    dfvec <- as_tibble(x)
   } else {
-    dfvec <- as_tibble(vector, rownames = "id")
+    dfvec <- as_tibble(x, rownames = "id")
   }
 
   dfres <- dfvec %>% dplyr::left_join(dfbin, by = dplyr::join_by(

@@ -2,14 +2,18 @@
 % Please edit documentation in R/dataframe.R
 \name{hist_bins}
 \alias{hist_bins}
-\title{separate numeric vector into bins}
+\title{separate numeric x into bins}
 \usage{
-hist_bins(vector, bins = 10, sort = FALSE)
+hist_bins(x, bins = 10, lim = c(min(x), max(x)), breaks = NULL, sort = FALSE)
 }
 \arguments{
-\item{vector}{numeric vector}
+\item{x}{numeric vector}
 
 \item{bins}{bins number, defaults to 10}
+
+\item{lim}{the min and max limits of bins, default as \code{c(min(x), max(x))}}
+
+\item{breaks}{assign breaks directly and will ignore \code{bins} and \code{lim}}
 
 \item{sort}{sort the result tibble}
 }
@@ -17,12 +21,12 @@ hist_bins(vector, bins = 10, sort = FALSE)
 tibble
 }
 \description{
-separate numeric vector into bins
+separate numeric x into bins
 }
 \examples{
 
-vector <- dplyr::pull(mini_diamond, price, id)
+x <- dplyr::pull(mini_diamond, price, id)
 
-hist_bins(vector, bins = 20)
+hist_bins(x, bins = 20)
 
 }
