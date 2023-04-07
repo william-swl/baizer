@@ -339,45 +339,6 @@ expr_pileup <- function(ex) {
 }
 
 
-
-#' split vector into list
-#'
-#' @param vector vector
-#' @param breaks split breaks
-#' @param bounds "(]" as default, can also be "[), []"
-#'
-#' @return list
-#' @export
-#'
-#' @examples
-#' split_vector(1:10, c(3, 7))
-#' split_vector(stringr::str_split("ABCDEFGHIJ", "") %>% unlist(),
-#'   c(3, 7),
-#'   bounds = "[)"
-#' )
-split_vector <- function(vector, breaks, bounds = "(]") {
-  margins <- c(1, breaks, length(vector))
-
-  split_index <- purrr::map2(
-    margins[seq_along(margins)[-length(margins)]],
-    margins[seq_along(margins)[-1]],
-    ~ .x:.y
-  )
-
-  if (bounds == "(]") {
-    process_index <- seq_along(split_index)[-1]
-    split_index[process_index] <- split_index[process_index] %>%
-      purrr::map(~ .x[-1])
-  } else if (bounds == "[)") {
-    process_index <- seq_along(split_index)[-length(split_index)]
-    split_index[process_index] <- split_index[process_index] %>%
-      purrr::map(~ .x[-length(.x)])
-  }
-
-  purrr::map(split_index, ~ vector[.x])
-}
-
-
 #' regex match
 #'
 #' @param x vector
@@ -416,32 +377,136 @@ reg_match <- function(x, pattern, group = 1) {
 }
 
 
+
+#' split vector into list
+#'
+#' @param vector vector
+#' @param breaks split breaks
+#' @param bounds "(]" as default, can also be "[), []"
+#'
+#' @return list
+#' @export
+#'
+#' @examples
+#' split_vector(1:10, c(3, 7))
+#' split_vector(stringr::str_split("ABCDEFGHIJ", "") %>% unlist(),
+#'   c(3, 7),
+#'   bounds = "[)"
+#' )
+split_vector <- function(vector, breaks, bounds = "(]") {
+  margins <- c(1, breaks, length(vector))
+
+  split_index <- purrr::map2(
+    margins[seq_along(margins)[-length(margins)]],
+    margins[seq_along(margins)[-1]],
+    ~ .x:.y
+  )
+
+  if (bounds == "(]") {
+    process_index <- seq_along(split_index)[-1]
+    split_index[process_index] <- split_index[process_index] %>%
+      purrr::map(~ .x[-1])
+  } else if (bounds == "[)") {
+    process_index <- seq_along(split_index)[-length(split_index)]
+    split_index[process_index] <- split_index[process_index] %>%
+      purrr::map(~ .x[-length(.x)])
+  }
+
+  purrr::map(split_index, ~ vector[.x])
+}
+
+#' group chracter vector by a regex pattern
+#'
+#' @param x character vector
+#' @param pattern regex pattern, '\\w' as default
+#'
+#' @return list
+#' @export
+#'
+#' @examples
+#' v <- c(
+#'   stringr::str_c("A", c(1, 2, 9, 10, 11, 12, 99, 101, 102)),
+#'   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
+#' ) %>% sample()
+#'
+#' group_vector(v)
+#'
+#' group_vector(v, pattern = "\\w\\d")
+#'
+#' group_vector(v, pattern = "\\w(\\d)")
+#'
+#' # unmatched part will alse be stored
+#' group_vector(v, pattern = "\\d{2}")
+#'
+group_vector <- function(x, pattern = "\\w") {
+  if (!is.character(x)) {
+    stop("x must be a character vector")
+  }
+
+  # matched part and unmatched part
+  reg_result <- x %>% reg_match(pattern)
+  match <- reg_result[!is.na(reg_result)]
+  x_match <- x[!is.na(reg_result)] # nolint
+  unmatch <- reg_result[is.na(reg_result)]
+  x_unmatch <- x[is.na(reg_result)]
+
+  group <- match %>%
+    unique() %>%
+    sort()
+  res <- group %>% purrr::map(~ x_match[match == .x])
+  names(res) <- group
+
+  if (length(unmatch) > 0) {
+    res <- c(res, list(unmatch = x_unmatch))
+  }
+
+  return(res)
+}
+
+
 #' sort by a function
 #'
 #' @param x vector
 #' @param func a function used by the sort
-#' @param order only return the order
+#' @param group_pattern a regex pattern to group by, only aviable if x is a
+#' character vector
 #'
 #' @return vector
 #' @export
 #'
 #' @examples
-#' v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) %>% sort()
+#' sortf(c(-2, 1, 3), abs)
+#'
+#' v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) %>% sample()
 #'
 #' sortf(v, function(x) reg_match(x, "\\d+") %>% as.double())
 #'
 #' sortf(v, ~ reg_match(.x, "\\d+") %>% as.double())
 #'
-#' sortf(v, ~ reg_match(.x, "\\d+") %>% as.double(), order = TRUE)
+#' v <- c(
+#'   stringr::str_c("A", c(1, 2, 9, 10, 11, 12, 99, 101, 102)),
+#'   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
+#' ) %>% sample()
 #'
-sortf <- function(x, func, order = FALSE) {
-  sort_ord <- x %>%
-    purrr::map(func) %>%
-    unlist() %>%
-    order()
-  if (order) {
-    return(sort_ord)
+#' sortf(v, ~ reg_match(.x, "\\d+") %>% as.double(), group_pattern = "\\w")
+#'
+sortf <- function(x, func, group_pattern = NULL) {
+  if (!is.null(group_pattern) && is.character(x)) {
+    x <- group_vector(x, group_pattern)
+    sort_ord <- x %>%
+      purrr::map(func) %>%
+      purrr::map(order)
+    res <- purrr::map2(x, sort_ord, ~ .x[.y]) %>%
+      unlist() %>%
+      unname()
   } else {
-    return(x[sort_ord])
+    sort_ord <- x %>%
+      purrr::map(func) %>%
+      unlist() %>%
+      order()
+    res <- x[sort_ord]
   }
+
+
+  return(res)
 }

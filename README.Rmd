@@ -192,16 +192,6 @@ fps_vector(c(1, 2, NULL), 2)
 fps_vector(c(1, 2, NA), 2)
 ```
 
-- split vector into list
-```{r basic-utils-split_vector}
-split_vector(1:10, c(3, 7))
-
-
-vec <- stringr::str_split("ABCDEFGHIJ", "") %>% unlist()
-vec
-
-split_vector(vec, breaks = c(3, 7), bounds = "[)")
-```
 
 - regex match
 ```{r reg_match}
@@ -217,9 +207,43 @@ reg_match(v, "id(\\d+)(\\w)", group = 2)
 reg_match(v, "id(\\d+)(\\w)", group = -1)
 ```
 
+
+- split vector into list
+```{r basic-utils-split_vector}
+split_vector(1:10, c(3, 7))
+
+
+vec <- stringr::str_split("ABCDEFGHIJ", "") %>% unlist()
+vec
+
+split_vector(vec, breaks = c(3, 7), bounds = "[)")
+```
+
+- group chracter vector by a regex pattern
+```{r basic-utils-group_vector}
+v <- c(
+  stringr::str_c("A", c(1, 2, 9, 10, 11, 12, 99, 101, 102)),
+  stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
+) %>% sample()
+v
+
+group_vector(v)
+
+group_vector(v, pattern = "\\w\\d")
+
+# the pattern rules are just same as reg_match()
+group_vector(v, pattern = "\\w(\\d)")
+
+# unmatched part will alse be stored
+group_vector(v, pattern = "\\d{2}")
+```
+
+
 - sort by a function
 ```{r sortf}
-v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) %>% sort()
+sortf(c(-2, 1, 3), abs)
+
+v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) %>% sample()
 v
 
 sortf(v, function(x) reg_match(x, "\\d+") %>% as.double())
@@ -227,8 +251,15 @@ sortf(v, function(x) reg_match(x, "\\d+") %>% as.double())
 # you can also use purrr functions
 sortf(v, ~ reg_match(.x, "\\d+") %>% as.double())
 
-# only return the order
-sortf(v, ~ reg_match(.x, "\\d+") %>% as.double(), order = TRUE)
+
+# group before sort
+v <- c(
+  stringr::str_c("A", c(1, 2, 9, 10, 11, 12, 99, 101, 102)),
+  stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
+) %>% sample()
+v
+
+sortf(v, ~ reg_match(.x, "\\d+") %>% as.double(), group_pattern = "\\w")
 ```
 
 

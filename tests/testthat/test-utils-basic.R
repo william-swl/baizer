@@ -183,9 +183,56 @@ test_that("reg_match", {
   )
 })
 
+test_that("group_vector", {
+  v <- c(
+    "A11", "A10", "A102", "A101", "A1", "B10", "A9", "B32", "B1", "A99",
+    "A12", "B21", "B102", "B2", "B9", "A2", "B101", "B99"
+  )
+
+  expect_identical(
+    group_vector(v),
+    list(
+      A = c("A11", "A10", "A102", "A101", "A1", "A9", "A99", "A12", "A2"),
+      B = c("B10", "B32", "B1", "B21", "B102", "B2", "B9", "B101", "B99")
+    )
+  )
+
+  expect_identical(
+    group_vector(v, pattern = "\\w\\d"),
+    list(
+      A1 = c("A11", "A10", "A102", "A101", "A1", "A12"),
+      A2 = c("A2"),
+      A9 = c("A9", "A99"),
+      B1 = c("B10", "B1", "B102", "B101"),
+      B2 = c("B21", "B2"),
+      B3 = c("B32"),
+      B9 = c("B9", "B99")
+    )
+  )
+
+  expect_identical(
+    group_vector(v, pattern = "\\d"),
+    group_vector(v, pattern = "\\w(\\d)")
+  )
+
+  expect_identical(
+    group_vector(v, pattern = "\\d{2}"),
+    list(
+      `10` = c("A10", "A102", "A101", "B10", "B102", "B101"),
+      `11` = c("A11"),
+      `12` = c("A12"),
+      `21` = c("B21"),
+      `32` = c("B32"),
+      `99` = c("A99", "B99"),
+      unmatch = c("A1", "A9", "B1", "B2", "B9", "A2")
+    )
+  )
+})
+
 
 test_that("sortf", {
-  v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) %>% sort()
+  expect_identical(sortf(c(-2, 1, 3), abs), c(1, -2, 3))
+  v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) %>% sample()
   expect_identical(
     sortf(v, function(x) reg_match(x, "\\d+") %>% as.double()),
     c("id1", "id2", "id9", "id10", "id11", "id12", "id99", "id101", "id102")
@@ -194,8 +241,16 @@ test_that("sortf", {
     sortf(v, function(x) reg_match(x, "\\d+") %>% as.double()),
     sortf(v, ~ reg_match(.x, "\\d+") %>% as.double())
   )
+
+  v <- c(
+    stringr::str_c("A", c(1, 2, 9, 10, 11, 12, 99, 101, 102)),
+    stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
+  ) %>% sample()
   expect_identical(
-    sortf(v, ~ reg_match(.x, "\\d+") %>% as.double(), order = TRUE),
-    as.integer(c(1, 7, 8, 2, 5, 6, 9, 3, 4))
+    sortf(v, ~ reg_match(.x, "\\d+") %>% as.double(), group_pattern = "\\w"),
+    c(
+      "A1", "A2", "A9", "A10", "A11", "A12", "A99", "A101", "A102",
+      "B1", "B2", "B9", "B10", "B21", "B32", "B99", "B101", "B102"
+    )
   )
 })

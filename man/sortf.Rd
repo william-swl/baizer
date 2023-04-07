@@ -4,14 +4,15 @@
 \alias{sortf}
 \title{sort by a function}
 \usage{
-sortf(x, func, order = FALSE)
+sortf(x, func, group_pattern = NULL)
 }
 \arguments{
 \item{x}{vector}
 
 \item{func}{a function used by the sort}
 
-\item{order}{only return the order}
+\item{group_pattern}{a regex pattern to group by, only aviable if x is a
+character vector}
 }
 \value{
 vector
@@ -20,12 +21,19 @@ vector
 sort by a function
 }
 \examples{
-v <- stringr::str_c('id', c(1, 2, 9, 10, 11, 12, 99, 101, 102)) \%>\% sort
+sortf(c(-2, 1, 3), abs)
 
-sortf(v, function(x) reg_match(x, '\\\\d+') \%>\% as.double)
+v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) \%>\% sample()
 
-sortf(v, ~reg_match(.x, '\\\\d+') \%>\% as.double)
+sortf(v, function(x) reg_match(x, "\\\\d+") \%>\% as.double())
 
-sortf(v, ~reg_match(.x, '\\\\d+') \%>\% as.double, order=TRUE)
+sortf(v, ~ reg_match(.x, "\\\\d+") \%>\% as.double())
+
+v <- c(
+  stringr::str_c("A", c(1, 2, 9, 10, 11, 12, 99, 101, 102)),
+  stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
+) \%>\% sample()
+
+sortf(v, ~ reg_match(.x, "\\\\d+") \%>\% as.double(), group_pattern = "\\\\w")
 
 }

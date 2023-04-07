@@ -21,12 +21,12 @@ vector or tibble
 regex match
 }
 \examples{
-v <- str_c('id', 1:3, c('A', 'B', 'C'))
+v <- stringr::str_c("id", 1:3, c("A", "B", "C"))
 
-reg_match(v, 'id(\\\\d+)(\\\\w)')
+reg_match(v, "id(\\\\d+)(\\\\w)")
 
-reg_match(v, 'id(\\\\d+)(\\\\w)', group=2)
+reg_match(v, "id(\\\\d+)(\\\\w)", group = 2)
 
-reg_match(v, 'id(\\\\d+)(\\\\w)', group=-1)
+reg_match(v, "id(\\\\d+)(\\\\w)", group = -1)
 
 }

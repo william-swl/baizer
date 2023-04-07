@@ -6,7 +6,8 @@ test_that("geom_mean", {
 test_that("stat_test", {
   expect_snapshot(
     withr::with_options(list(options(width = 99)), {
-      stat_test(mini_diamond, y = price, x = cut, .by = clarity)
+      stat_test(mini_diamond, y = price, x = cut, .by = clarity) %>%
+        print(n = Inf)
     })
   )
 })
@@ -21,7 +22,8 @@ test_that("stat_test", {
 
 test_that("stat_fc", {
   expect_snapshot(
-    stat_fc(mini_diamond, y = price, x = cut, .by = clarity)
+    stat_fc(mini_diamond, y = price, x = cut, .by = clarity) %>%
+      print(n = Inf)
   )
 })
 
@@ -30,7 +32,8 @@ test_that("stat_fc, rev_div=TRUE", {
     stat_fc(mini_diamond,
       y = price, x = cut,
       rev_div = TRUE, .by = clarity
-    )
+    ) %>%
+      print(n = Inf)
   )
 })
 
@@ -40,7 +43,8 @@ test_that("stat_fc, method='median'", {
       stat_fc(mini_diamond,
         y = price, x = cut,
         .by = clarity, method = "median"
-      )
+      ) %>%
+        print(n = Inf)
     )
   )
 })
@@ -50,6 +54,6 @@ test_that("stat_fc, method='geom_mean'", {
     stat_fc(mini_diamond,
       y = price, x = cut,
       .by = clarity, method = "geom_mean"
-    )
+    ) %>% print(n = Inf)
   )
 })

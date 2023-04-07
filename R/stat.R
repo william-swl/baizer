@@ -41,7 +41,7 @@ stat_test <- function(df, y, x, trans = "identity",
   real_levels <- df[[quo_name(x)]] %>% unique()
 
   if (!is.null(factor_levels) &&
-      (length(factor_levels) != length(real_levels))) {
+    (length(factor_levels) != length(real_levels))) {
     stop("please reset the factor levels to match the data!")
   }
 
@@ -153,7 +153,7 @@ stat_fc <- function(df, y, x, method = "mean", .by = NULL,
 
   # remove auxiliary column
   if (rlang::quo_is_null(.by)) {
-    res <- res %>% dplyr::select(-by)
+    res <- res %>% dplyr::select(-tidyselect::all_of(by))
   }
 
   # rename
