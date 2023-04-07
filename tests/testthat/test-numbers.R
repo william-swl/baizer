@@ -8,6 +8,12 @@ test_that("round_string", {
 })
 
 
+test_that("formatC, fg#", {
+expect_identical(
+  formatC(6.9785, 2, format = "fg", flag = "#"),
+  '7.0')
+})
+
 test_that("signif_string", {
   expect_identical(
     signif_string(c(1.1, 1.14, 1.151, 10, -9, -9.213, 0.0000002), 2),

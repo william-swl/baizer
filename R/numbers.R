@@ -31,7 +31,7 @@ signif_string <- function(x, digits = 2) {
   formatC(x, digits = digits, format = "fg", flag = "#") %>%
     stringr::str_trim() %>%
     ifelse(stringr::str_detect(., "\\.$"),
-      stringr::str_replace(., "\\.", ""), .
+      stringr::str_replace(., "\\.$", ""), .
     )
 }
 
