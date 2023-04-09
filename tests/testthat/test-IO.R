@@ -13,7 +13,7 @@ test_that("empty", {
   ), FALSE)
   expect_identical(
     empty_file("some/deep/path/in/a/folder/there_is_a_file.txt"),
-    if (Sys.info()["sysname"] == "Windows") FALE else TRUE
+    if (Sys.info()["sysname"] == "Windows") FALSE else TRUE
   )
   unlink("some", recursive = TRUE)
 })
