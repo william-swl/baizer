@@ -10,8 +10,10 @@
 #' @examples round_string(1.1, 2)
 round_string <- function(x, digits = 2) {
   x <- as.double(x)
-  purrr::map2_chr(x, digits,
-                  ~formatC(round(.x, digits=.y), digits = .y, format='f')) %>%
+  purrr::map2_chr(
+    x, digits,
+    ~ formatC(round(.x, digits = .y), digits = .y, format = "f")
+  ) %>%
     stringr::str_trim()
 }
 
@@ -25,50 +27,60 @@ round_string <- function(x, digits = 2) {
 #'
 #' @examples signif_string(1.1, 2)
 signif_string <- function(x, digits = 2) {
-
   if (any(digits < 1)) {
-    stop('digits must more than 0!')
+    stop("digits must more than 0!")
   }
 
   x <- as.double(x)
 
   # for the 0.000000000000 numbers, keep the longest digits
-  max_digits <- log10(abs(x)) %>% floor %>% abs %>% max
+  max_digits <- log10(abs(x)) %>%
+    floor() %>%
+    abs() %>%
+    max()
   max_digits <- max_digits + digits + 1
   pre <- formatC(x, digits = max_digits, format = "f", flag = "#")
 
   # extract the digits, maybe 1 extra
-  p <- paste0('^[-0\\.]*[\\d\\.]{', digits + 1, '}')
+  p <- paste0("^[-0\\.]*[\\d\\.]{", digits + 1, "}")
   pre2 <- stringr::str_extract(pre, p)
 
   # the correct digits
-  pre2_corr <- stringr::str_sub(pre2, end=nchar(pre2) - 1)
+  pre2_corr <- stringr::str_sub(pre2, end = nchar(pre2) - 1)
   pre3 <- ifelse(
     # three conditions should remove 1 digits: 1000, 1000., 0.1000
-    !stringr::str_detect(pre2, '\\.') |
-      stringr::str_detect(pre2, '\\.$') |
-      stringr::str_detect(pre2, '^-*0\\.'),
+    !stringr::str_detect(pre2, "\\.") |
+      stringr::str_detect(pre2, "\\.$") |
+      stringr::str_detect(pre2, "^-*0\\."),
     pre2_corr, pre2
   )
 
   # if there is ., get the digits after .
-  fractional_digits <- pre3 %>% stringr::str_split('\\.') %>%
-    purrr::map_dbl(~nchar(.x[2]))
+  fractional_digits <- pre3 %>%
+    stringr::str_split("\\.") %>%
+    purrr::map_dbl(~ nchar(.x[2]))
   fractional_digits[is.na(fractional_digits)] <- 0
 
 
-  integer_part <- pre2 %>% stringr::str_split('\\.') %>% purrr::map_chr(1)
-  integer_digits <- integer_part %>% stringr::str_replace('^-', '') %>% nchar
-  true_for_large_integer_part <- purrr::map2_chr(pre, digits, ~signif(as.double(.x), digits=.y) %>% as.character)
+  integer_part <- pre2 %>%
+    stringr::str_split("\\.") %>%
+    purrr::map_chr(1)
+  integer_digits <- integer_part %>%
+    stringr::str_replace("^-", "") %>%
+    nchar()
+  true_for_large_integer_part <- purrr::map2_chr(
+    pre, digits,
+    ~ signif(as.double(.x), digits = .y) %>% as.character()
+  )
   true_for_small_integer_part <- round_string(pre, fractional_digits)
 
 
   res <- ifelse(integer_digits >= digits,
-                true_for_large_integer_part,
-                true_for_small_integer_part
+    true_for_large_integer_part,
+    true_for_small_integer_part
   )
 
-  return (res)
+  return(res)
 }
 
 #' if a number only have zeros

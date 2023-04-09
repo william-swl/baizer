@@ -313,7 +313,8 @@ hist_bins <- function(x, bins = 10, lim = c(min(x), max(x)),
 
   if (lim[1] > min(x) || lim[2] < max(x)) {
     stop(
-    "the full interval assigned by lim or breaks must cover min(x) to max(x)!")
+      "the full interval assigned by lim or breaks must cover min(x) to max(x)!"
+    )
   }
 
   if (!is.null(breaks) &&
