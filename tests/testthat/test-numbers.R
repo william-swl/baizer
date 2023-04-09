@@ -5,23 +5,43 @@ test_that("round_string", {
   )
   expect_identical(round_string(-0.523, 0), "-1")
   expect_identical(round_string("-0.5237", 3), "-0.524")
-})
-
-
-test_that("formatC, fg#", {
   expect_identical(
-    formatC(6.9785, 2, format = "fg", flag = "#"),
-    "7.0"
+    round_string(c(0.265, 26.5), c(2, 0)),
+    c('0.26', '26')
+  )
+  expect_identical(
+    round_string(c(0.2651, 26.51),c(2, 0)),
+    c('0.27', '27')
   )
 })
+
 
 test_that("signif_string", {
   expect_identical(
-    signif_string(c(1.1, 1.14, 1.151, 10, -9, -9.213, 0.0000002), 2),
-    c("1.1", "1.1", "1.2", "10", "-9.0", "-9.2", "0.00000020")
+    signif_string(
+      c(1.1, 1.14, 1.151, 10, 10.5, 10.51, 10.52, 115, 115.5, 6.9785,
+        0.5273, 0.526, -0.5273, -9, 9, 9.213, -9.213,
+        0.0000000000000002),
+    2),
+    c('1.1', '1.1', '1.2', '10', '10', '11', '11', '120', '120', '7.0',
+      '0.53', '0.53', '-0.53', '-9.0', '9.0', '9.2', '-9.2',
+      '0.00000000000000020')
   )
   expect_error(signif_string(-0.523, 0))
-  expect_identical(signif_string("-0.5237", 3), "-0.524")
+  expect_identical(
+    signif_string(
+      c(-0.5237, 0.5237, -0.0100, 0.0100, 1116.21, -1116.21),
+      3),
+      c("-0.524", '0.524', '-0.0100', '0.0100', '1120', '-1120')
+  )
+  expect_identical(
+    signif_string(c(0.265, 26.5, 2650), 2),
+    c('0.26', '26', '2600')
+  )
+  expect_identical(
+    signif_string(c(0.2651, 26.51, 2651), 2),
+    c('0.27', '27', '2700')
+  )
 })
 
 
