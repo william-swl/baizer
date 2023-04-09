@@ -7,7 +7,11 @@
 
 [![Codecov test
 coverage](https://codecov.io/gh/william-swl/baizer/branch/master/graph/badge.svg)](https://app.codecov.io/gh/william-swl/baizer?branch=master)
-[![R-CMD-check](https://github.com/william-swl/baizer/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/william-swl/baizer/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml)
+[![](https://www.r-pkg.org/badges/version/baizer?color=orange)](https://cran.r-project.org/package=baizer)
+[![](https://img.shields.io/badge/devel%20version-0.4.0-blue.svg)](https://github.com/william-swl/baizer)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/baizer?color=blue)](https://cran.r-project.org/package=baizer)
+[![](http://cranlogs.r-pkg.org/badges/last-month/baizer?color=green)](https://cran.r-project.org/package=baizer)
 <!-- badges: end -->
 
 - In ancient Chinese mythology, Bai Ze is a divine creature that knows
@@ -44,7 +48,7 @@ c2 <- tbflt(x > 8)
 c1 | c2
 #> <quosure>
 #> expr: ^cut == "Fair" | x > 8
-#> env:  0x55a7a6a87178
+#> env:  0x5568f9034358
 
 mini_diamond %>%
   filterC(c1) %>%
@@ -397,19 +401,19 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "A102" "A12"  "B2"   "A99"  "B99"  "B9"   "A9"   "B102" "A101" "B21" 
-#> [11] "A11"  "A1"   "A2"   "B1"   "B10"  "B101" "B32"  "A10"
+#>  [1] "A12"  "A99"  "B2"   "A102" "A2"   "B101" "B21"  "B32"  "B102" "A101"
+#> [11] "B1"   "B9"   "A10"  "B10"  "A11"  "A1"   "A9"   "B99"
 
 group_vector(v)
 #> $A
-#> [1] "A102" "A12"  "A99"  "A9"   "A101" "A11"  "A1"   "A2"   "A10" 
+#> [1] "A12"  "A99"  "A102" "A2"   "A101" "A10"  "A11"  "A1"   "A9"  
 #> 
 #> $B
-#> [1] "B2"   "B99"  "B9"   "B102" "B21"  "B1"   "B10"  "B101" "B32"
+#> [1] "B2"   "B101" "B21"  "B32"  "B102" "B1"   "B9"   "B10"  "B99"
 
 group_vector(v, pattern = "\\w\\d")
 #> $A1
-#> [1] "A102" "A12"  "A101" "A11"  "A1"   "A10" 
+#> [1] "A12"  "A102" "A101" "A10"  "A11"  "A1"  
 #> 
 #> $A2
 #> [1] "A2"
@@ -418,7 +422,7 @@ group_vector(v, pattern = "\\w\\d")
 #> [1] "A99" "A9" 
 #> 
 #> $B1
-#> [1] "B102" "B1"   "B10"  "B101"
+#> [1] "B101" "B102" "B1"   "B10" 
 #> 
 #> $B2
 #> [1] "B2"  "B21"
@@ -427,26 +431,26 @@ group_vector(v, pattern = "\\w\\d")
 #> [1] "B32"
 #> 
 #> $B9
-#> [1] "B99" "B9"
+#> [1] "B9"  "B99"
 
 # the pattern rules are just same as reg_match()
 group_vector(v, pattern = "\\w(\\d)")
 #> $`1`
-#>  [1] "A102" "A12"  "B102" "A101" "A11"  "A1"   "B1"   "B10"  "B101" "A10" 
+#>  [1] "A12"  "A102" "B101" "B102" "A101" "B1"   "A10"  "B10"  "A11"  "A1"  
 #> 
 #> $`2`
-#> [1] "B2"  "B21" "A2" 
+#> [1] "B2"  "A2"  "B21"
 #> 
 #> $`3`
 #> [1] "B32"
 #> 
 #> $`9`
-#> [1] "A99" "B99" "B9"  "A9"
+#> [1] "A99" "B9"  "A9"  "B99"
 
 # unmatched part will alse be stored
 group_vector(v, pattern = "\\d{2}")
 #> $`10`
-#> [1] "A102" "B102" "A101" "B10"  "B101" "A10" 
+#> [1] "A102" "B101" "B102" "A101" "A10"  "B10" 
 #> 
 #> $`11`
 #> [1] "A11"
@@ -464,7 +468,7 @@ group_vector(v, pattern = "\\d{2}")
 #> [1] "A99" "B99"
 #> 
 #> $unmatch
-#> [1] "B2" "B9" "A9" "A1" "A2" "B1"
+#> [1] "B2" "A2" "B1" "B9" "A1" "A9"
 ```
 
 - sort by a function
@@ -475,7 +479,7 @@ sortf(c(-2, 1, 3), abs)
 
 v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) %>% sample()
 v
-#> [1] "id9"   "id1"   "id102" "id11"  "id10"  "id101" "id12"  "id99"  "id2"
+#> [1] "id1"   "id10"  "id101" "id11"  "id2"   "id9"   "id99"  "id12"  "id102"
 
 sortf(v, function(x) reg_match(x, "\\d+") %>% as.double())
 #> [1] "id1"   "id2"   "id9"   "id10"  "id11"  "id12"  "id99"  "id101" "id102"
@@ -491,8 +495,8 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "B1"   "A12"  "A1"   "A10"  "A9"   "B32"  "B102" "A11"  "B9"   "B2"  
-#> [11] "B99"  "A101" "A99"  "B101" "A2"   "B10"  "B21"  "A102"
+#>  [1] "B10"  "A99"  "A11"  "B1"   "A101" "A102" "A1"   "A2"   "A12"  "B101"
+#> [11] "B32"  "B2"   "B9"   "B99"  "B21"  "A10"  "B102" "A9"
 
 sortf(v, ~ reg_match(.x, "\\d+") %>% as.double(), group_pattern = "\\w")
 #>  [1] "A1"   "A2"   "A9"   "A10"  "A11"  "A12"  "A99"  "A101" "A102" "B1"  
@@ -1005,7 +1009,7 @@ cmdargs()
 #> [2] "--no-save"                             
 #> [3] "--no-restore"                          
 #> [4] "-f"                                    
-#> [5] "/tmp/RtmpnE79ZK/callr-scr-43727166dbba"
+#> [5] "/tmp/Rtmpq8t9dV/callr-scr-2b1f459411c0"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"

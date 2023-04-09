@@ -12,13 +12,18 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 library(baizer)
+library(badger)
 ```
 
 # baizer <img src="man/figures/logo.png" align="right" />
 
 <!-- badges: start -->
 [![Codecov test coverage](https://codecov.io/gh/william-swl/baizer/branch/master/graph/badge.svg)](https://app.codecov.io/gh/william-swl/baizer?branch=master)
-[![R-CMD-check](https://github.com/william-swl/baizer/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/william-swl/baizer/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml)
+`r badge_cran_release("baizer", "orange")`
+`r badge_devel("william-swl/baizer", "blue")`
+`r badge_cran_download("baizer", "grand-total", "blue")`
+`r badge_cran_download("baizer", "last-month", "green")`
 <!-- badges: end -->
 
 - In ancient Chinese mythology, Bai Ze is a divine creature that knows the needs of everything.
