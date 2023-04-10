@@ -1,4 +1,6 @@
-There is one NOTE:
+There are three NOTEs:
+
+# First
 
 ```
 * checking R code for possible problems ... [7s/21s] NOTE
@@ -20,7 +22,23 @@ dfres <- dfvec %>% dplyr::left_join(dfbin, by = dplyr::join_by(
 ))
 ```
 
-Since `dplyr::join_by()` accepts `expression` objects, I think it's proper to 
-keep it as is.
+Since `dplyr::join_by()` accepts `expression` objects, I think it's reasonable 
+to keep it as is.
 
 https://github.com/tidyverse/dplyr/blob/07934097b71ec98f7112ceee4bf6345825eb39ef/R/join-by.R#L229
+
+# Second
+
+```
+checking for detritus in the temp directory ... NOTE Found the following files/directories: 'lastMiKTeXException'
+```
+As noted in R-hub issue #503, this could be due to a bug/crash in MiKTeX and can likely be ignored.
+
+# Third
+
+```
+* checking HTML version of manual ... NOTE
+Skipping checking HTML validation: no command 'tidy' found
+```
+Also noted in R-hub issue #548.
+
