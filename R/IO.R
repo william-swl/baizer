@@ -1,19 +1,3 @@
-
-#' load packages as a batch
-#'
-#' @param ... pkgs
-#'
-#' @return nothing
-#' @export
-#'
-#' @examples baizer::pkglib(dplyr, purrr, tidyr)
-pkglib <- function(...) {
-  pkgs <- rlang::enexprs(...)
-  purrr::walk(pkgs, ~ library(deparse(.x), character.only = TRUE))
-}
-
-
-
 #' get the command line arguments
 #'
 #' @param x one of 'wd, R_env, script_path, script_dir, env_configs'

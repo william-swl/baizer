@@ -1,3 +1,16 @@
+#' load packages as a batch
+#'
+#' @param ... pkgs
+#'
+#' @return nothing
+#' @export
+#'
+#' @examples baizer::pkglib(tidyverse, baizer)
+pkglib <- function(...) {
+  pkgs <- rlang::enexprs(...)
+  purrr::walk(pkgs, ~ library(deparse(.x), character.only = TRUE))
+}
+
 
 #' not in calculation operator
 #'

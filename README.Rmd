@@ -101,6 +101,12 @@ mini_diamond %>% filterC(cond1)
 
 
 ## basic utils
+- load packages as a batch
+```{r IO-pkglib}
+baizer::pkglib(dplyr, purrr, tidyr)
+```
+
+
 - use `%nin%` to get 'not in' logical value
 ```{r basic-utils-nin}
 1 %nin% c(1, 2, 3)
@@ -465,13 +471,6 @@ stat_fc(mini_diamond, y = price, x = cut, .by = clarity)
 ```
 
 ## IO
-
-- load packages as a batch
-```{r IO-pkglib}
-baizer::pkglib(dplyr, purrr, tidyr)
-```
-
-
 - get the command line arguments
 ```{r IO-cmdargs}
 cmdargs()
