@@ -25,6 +25,9 @@
     <loc>https://william-swl.github.io/baizer/reference/adjacent_div.html</loc>
   </url>
   <url>
+    <loc>https://william-swl.github.io/baizer/reference/as_tibble_md.html</loc>
+  </url>
+  <url>
     <loc>https://william-swl.github.io/baizer/reference/atomic_expr.html</loc>
   </url>
   <url>
@@ -94,6 +97,9 @@
     <loc>https://william-swl.github.io/baizer/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://william-swl.github.io/baizer/reference/int_digits.html</loc>
+  </url>
+  <url>
     <loc>https://william-swl.github.io/baizer/reference/is.zero.html</loc>
   </url>
   <url>
@@ -110,6 +116,9 @@
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/percent_to_float.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/pileup_logical.html</loc>
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/pipe.html</loc>
