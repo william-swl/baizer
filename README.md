@@ -48,7 +48,7 @@ c2 <- tbflt(x > 8)
 c1 | c2
 #> <quosure>
 #> expr: ^cut == "Fair" | x > 8
-#> env:  0x55d78035c3b8
+#> env:  0x562916f013b8
 
 mini_diamond %>%
   filterC(c1) %>%
@@ -415,56 +415,56 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "B9"   "B101" "B102" "A2"   "A102" "A99"  "B2"   "B21"  "A10"  "B10" 
-#> [11] "A101" "A12"  "A1"   "A11"  "B99"  "B1"   "A9"   "B32"
+#>  [1] "B99"  "B21"  "B1"   "B9"   "B10"  "A9"   "B101" "A99"  "A2"   "B102"
+#> [11] "A102" "A101" "A1"   "A12"  "B32"  "A11"  "B2"   "A10"
 
 group_vector(v)
 #> $A
-#> [1] "A2"   "A102" "A99"  "A10"  "A101" "A12"  "A1"   "A11"  "A9"  
+#> [1] "A9"   "A99"  "A2"   "A102" "A101" "A1"   "A12"  "A11"  "A10" 
 #> 
 #> $B
-#> [1] "B9"   "B101" "B102" "B2"   "B21"  "B10"  "B99"  "B1"   "B32"
+#> [1] "B99"  "B21"  "B1"   "B9"   "B10"  "B101" "B102" "B32"  "B2"
 
 group_vector(v, pattern = "\\w\\d")
 #> $A1
-#> [1] "A102" "A10"  "A101" "A12"  "A1"   "A11" 
+#> [1] "A102" "A101" "A1"   "A12"  "A11"  "A10" 
 #> 
 #> $A2
 #> [1] "A2"
 #> 
 #> $A9
-#> [1] "A99" "A9" 
+#> [1] "A9"  "A99"
 #> 
 #> $B1
-#> [1] "B101" "B102" "B10"  "B1"  
+#> [1] "B1"   "B10"  "B101" "B102"
 #> 
 #> $B2
-#> [1] "B2"  "B21"
+#> [1] "B21" "B2" 
 #> 
 #> $B3
 #> [1] "B32"
 #> 
 #> $B9
-#> [1] "B9"  "B99"
+#> [1] "B99" "B9"
 
 # the pattern rules are just same as reg_match()
 group_vector(v, pattern = "\\w(\\d)")
 #> $`1`
-#>  [1] "B101" "B102" "A102" "A10"  "B10"  "A101" "A12"  "A1"   "A11"  "B1"  
+#>  [1] "B1"   "B10"  "B101" "B102" "A102" "A101" "A1"   "A12"  "A11"  "A10" 
 #> 
 #> $`2`
-#> [1] "A2"  "B2"  "B21"
+#> [1] "B21" "A2"  "B2" 
 #> 
 #> $`3`
 #> [1] "B32"
 #> 
 #> $`9`
-#> [1] "B9"  "A99" "B99" "A9"
+#> [1] "B99" "B9"  "A9"  "A99"
 
 # unmatched part will alse be stored
 group_vector(v, pattern = "\\d{2}")
 #> $`10`
-#> [1] "B101" "B102" "A102" "A10"  "B10"  "A101"
+#> [1] "B10"  "B101" "B102" "A102" "A101" "A10" 
 #> 
 #> $`11`
 #> [1] "A11"
@@ -479,10 +479,10 @@ group_vector(v, pattern = "\\d{2}")
 #> [1] "B32"
 #> 
 #> $`99`
-#> [1] "A99" "B99"
+#> [1] "B99" "A99"
 #> 
 #> $unmatch
-#> [1] "B9" "A2" "B2" "A1" "B1" "A9"
+#> [1] "B1" "B9" "A9" "A2" "A1" "B2"
 ```
 
 - sort by a function
@@ -493,7 +493,7 @@ sortf(c(-2, 1, 3), abs)
 
 v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) %>% sample()
 v
-#> [1] "id9"   "id12"  "id1"   "id102" "id2"   "id99"  "id101" "id11"  "id10"
+#> [1] "id12"  "id9"   "id1"   "id10"  "id102" "id2"   "id101" "id11"  "id99"
 
 sortf(v, function(x) reg_match(x, "\\d+") %>% as.double())
 #> [1] "id1"   "id2"   "id9"   "id10"  "id11"  "id12"  "id99"  "id101" "id102"
@@ -509,8 +509,8 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "A12"  "B2"   "B32"  "A10"  "B10"  "A2"   "A9"   "B21"  "A11"  "A102"
-#> [11] "B102" "A99"  "B99"  "A101" "B101" "A1"   "B1"   "B9"
+#>  [1] "B101" "A11"  "B102" "B99"  "A10"  "B21"  "B9"   "A101" "A102" "A99" 
+#> [11] "A1"   "A9"   "B2"   "A2"   "A12"  "B10"  "B32"  "B1"
 
 sortf(v, ~ reg_match(.x, "\\d+") %>% as.double(), group_pattern = "\\w")
 #>  [1] "A1"   "A2"   "A9"   "A10"  "A11"  "A12"  "A99"  "A101" "A102" "B1"  
@@ -1040,7 +1040,7 @@ cmdargs()
 #> [2] "--no-save"                            
 #> [3] "--no-restore"                         
 #> [4] "-f"                                   
-#> [5] "/tmp/RtmphhmHqC/callr-scr-73474ee5e02"
+#> [5] "/tmp/RtmphhmHqC/callr-scr-734636907d1"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"

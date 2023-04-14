@@ -16,5 +16,5 @@ nothing
 load packages as a batch
 }
 \examples{
-baizer::pkglib(tidyverse, baizer)
+baizer::pkglib(dplyr, purrr, tidyr)
 }

@@ -5,7 +5,7 @@
 #' @return nothing
 #' @export
 #'
-#' @examples baizer::pkglib(tidyverse, baizer)
+#' @examples baizer::pkglib(dplyr, purrr, tidyr)
 pkglib <- function(...) {
   pkgs <- rlang::enexprs(...)
   purrr::walk(pkgs, ~ library(deparse(.x), character.only = TRUE))
