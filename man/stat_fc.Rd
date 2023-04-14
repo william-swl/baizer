@@ -11,7 +11,8 @@ stat_fc(
   method = "mean",
   .by = NULL,
   rev_div = FALSE,
-  signif_digits = 2
+  digits = 2,
+  fc_fmt = "short"
 )
 }
 \arguments{
@@ -27,7 +28,9 @@ stat_fc(
 
 \item{rev_div}{reverse division}
 
-\item{signif_digits}{fold change signif digits}
+\item{digits}{fold change digits}
+
+\item{fc_fmt}{fold change format, one of short, signif, round}
 }
 \value{
 fold change result tibble

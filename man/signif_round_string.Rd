@@ -18,6 +18,10 @@ signif_round_string(
 \item{digits}{signif or round digits}
 
 \item{format}{short or long}
+
+\item{full_large}{keep full digits for large number}
+
+\item{full_small}{keep full digits for small number}
 }
 \value{
 signif or round strings
@@ -26,5 +30,5 @@ signif or round strings
 signif or round string depend on the character length
 }
 \examples{
-signif_round_string(0.03851)
+signif_round_string(1.214, 2)
 }

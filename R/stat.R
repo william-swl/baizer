@@ -80,9 +80,6 @@ stat_test <- function(df, y, x, trans = "identity",
   return(res)
 }
 
-
-
-
 #' fold change calculation which returns a extensible tibble
 #'
 #' @param df tibble
@@ -90,15 +87,16 @@ stat_test <- function(df, y, x, trans = "identity",
 #' @param x sample test group
 #' @param .by super-group
 #' @param method `'mean'|'median'|'geom_mean'`, the summary method
-#' @param signif_digits fold change signif digits
 #' @param rev_div reverse division
+#' @param digits fold change digits
+#' @param fc_fmt fold change format, one of short, signif, round
 #'
 #' @return fold change result tibble
 #' @export
 #'
 #' @examples stat_fc(mini_diamond, y = price, x = cut, .by = clarity)
 stat_fc <- function(df, y, x, method = "mean", .by = NULL,
-                    rev_div = FALSE, signif_digits = 2) {
+                    rev_div = FALSE, digits = 2, fc_fmt = "short") {
   y <- rlang::enquo(y)
   x <- rlang::enquo(x)
   .by <- rlang::enquo(.by)
@@ -147,10 +145,27 @@ stat_fc <- function(df, y, x, method = "mean", .by = NULL,
     res <- res %>% dplyr::mutate(fc = 1 / .data[["fc"]])
   }
 
-  res <- res %>% dplyr::mutate(
-    fc_fmt = signif_string(.data$fc, signif_digits) %>%
-      stringr::str_c("x")
-  )
+  # fc format
+  if (fc_fmt == "short") {
+    res <- res %>% dplyr::mutate(
+      fc_fmt = signif_round_string(.data$fc, digits) %>%
+        stringr::str_c("x")
+    )
+  } else if (fc_fmt == "signif") {
+    res <- res %>% dplyr::mutate(
+      fc_fmt = signif_string(.data$fc, digits) %>%
+        stringr::str_c("x")
+    )
+  } else if (fc_fmt == "round") {
+    res <- res %>% dplyr::mutate(
+      fc_fmt = round_string(.data$fc, digits) %>%
+        stringr::str_c("x")
+    )
+  } else {
+    stop("fc_fmt should be one of short,signif,round")
+  }
+
+
 
   # remove auxiliary column
   if (rlang::quo_is_null(.by)) {

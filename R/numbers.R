@@ -104,11 +104,13 @@ is.zero <- function(x) {
 #' @param x number
 #' @param digits signif or round digits
 #' @param format short or long
+#' @param full_large keep full digits for large number
+#' @param full_small keep full digits for small number
 #'
 #' @return signif or round strings
 #' @export
 #'
-#' @examples signif_round_string(0.03851)
+#' @examples signif_round_string(1.214, 2)
 signif_round_string <- function(x, digits = 2, format = "short",
                                 full_large = TRUE, full_small = FALSE) {
   if (digits <= 0) {
