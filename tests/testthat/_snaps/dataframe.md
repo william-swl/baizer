@@ -1325,3 +1325,14 @@
        99 id-99  15351 14000 16000     8
       100 id-100  6344  6000  8000     4
 
+# as_tibble_md
+
+    Code
+      as_tibble_md(x)
+    Output
+      # A tibble: 2 x 3
+        col1  col2  col3 
+        <chr> <chr> <chr>
+      1 v1    v2    v3   
+      2 r1    r2    r3   
+

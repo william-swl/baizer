@@ -354,3 +354,59 @@ hist_bins <- function(x, bins = 10, lim = c(min(x), max(x)),
 
   return(dfres)
 }
+
+
+
+#' trans a table in markdown format into tibble
+#'
+#' @param x character string
+#'
+#' @return tibble
+#' @export
+#'
+#' @examples
+#'
+#' x <- "
+#' col1 | col2 | col3 |
+#' | ---- | ---- | ---- |
+#' | v1   | v2   | v3   |
+#' | r1   | r2   | r3   |
+#' "
+#'
+#' as_tibble_md(x)
+#'
+as_tibble_md <- function(x) {
+  if (length(x) > 1) {
+    stop("input shoule be a string!")
+  }
+
+  md2list <- x %>%
+    # clean header sep row
+    stringr::str_replace_all(c("^\n" = "", "\n[\\|\\s-]+?\n" = "\n")) %>%
+    # row sep
+    stringr::str_replace_all(c("\\s*\\|\\s*\n\\s*\\|\\s*" = "\n")) %>%
+    # clean extra blank characters
+    stringr::str_replace_all(c("\\|\\s*" = "\\|", "\\s*\\|" = "\\|")) %>%
+    # remove first and last |
+    stringr::str_replace_all(c("^\\|" = "", "\\|$" = "")) %>%
+    # delim
+    stringr::str_replace_all("\\|", "\t") %>%
+    # sep row
+    stringr::str_split("\n") %>%
+    unlist() %>%
+    # sep col
+    stringr::str_split("\t")
+
+  md_names <- md2list[[1]]
+
+  md_tb <- md2list[-1]
+
+  res <- md_tb %>%
+    purrr::map_dfr(function(x) {
+      names(x) <- md_names
+      x <- tibble::as_tibble_row(x)
+      return(x)
+    })
+
+  return(res)
+}

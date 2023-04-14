@@ -173,3 +173,14 @@ test_that("hist_bins, breaks", {
   expect_snapshot(hist_bins(vector, breaks = seq(0, 20000, length.out = 11)) %>%
     print(n = Inf))
 })
+
+
+test_that("as_tibble_md", {
+  x <- "
+  | col1 | col2 | col3 |
+  | ---- | ---- | ---- |
+  | v1   | v2   | v3   |
+  | r1   | r2   | r3   |
+  "
+  expect_snapshot(as_tibble_md(x))
+})

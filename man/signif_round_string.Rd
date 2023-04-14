@@ -4,7 +4,13 @@
 \alias{signif_round_string}
 \title{signif or round string depend on the character length}
 \usage{
-signif_round_string(x, digits = 2, format = "short")
+signif_round_string(
+  x,
+  digits = 2,
+  format = "short",
+  full_large = TRUE,
+  full_small = FALSE
+)
 }
 \arguments{
 \item{x}{number}

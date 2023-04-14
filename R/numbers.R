@@ -1,3 +1,24 @@
+#' trans numbers to a fixed integer digit length
+#'
+#' @param x number
+#' @param digits integer digit length
+#' @param scale_factor return the scale_factor instead of value
+#'
+#' @return number
+#' @export
+#'
+#' @examples int_digits(0.0332, 1)
+int_digits <- function(x, digits = 2, scale_factor = FALSE) {
+  xp10 <- floor(log10(abs(x)))
+  sf <- 10^(digits - xp10 - 1)
+  if (scale_factor == TRUE) {
+    return(sf)
+  } else {
+    return(x * sf)
+  }
+}
+
+
 
 #' from float number to fixed digits character
 #'
@@ -27,61 +48,25 @@ round_string <- function(x, digits = 2) {
 #'
 #' @examples signif_string(1.1, 2)
 signif_string <- function(x, digits = 2) {
-  if (any(digits < 1)) {
+  if (digits < 1) {
     stop("digits must more than 0!")
   }
 
   x <- as.double(x)
 
-  # for the 0.000000000000 numbers, keep the longest digits
-  max_digits <- log10(abs(x)) %>%
-    floor() %>%
-    abs() %>%
-    max()
-  max_digits <- max_digits + digits + 1
-  pre <- formatC(x, digits = max_digits, format = "f", flag = "#")
+  # trans to 0.xx
+  trans <- int_digits(x, digits = 0)
+  trans_scale <- int_digits(x, digits = 0, scale_factor = TRUE)
 
-  # extract the digits, maybe 1 extra
-  p <- paste0("^[-0\\.]*[\\d\\.]{", digits + 1, "}")
-  pre2 <- stringr::str_extract(pre, p)
+  x <- round(trans, digits) / trans_scale
 
-  # the correct digits
-  pre2_corr <- stringr::str_sub(pre2, end = nchar(pre2) - 1)
-  pre3 <- ifelse(
-    # three conditions should remove 1 digits: 1000, 1000., 0.1000
-    !stringr::str_detect(pre2, "\\.") |
-      stringr::str_detect(pre2, "\\.$") |
-      stringr::str_detect(pre2, "^-*0\\."),
-    pre2_corr, pre2
-  )
+  round_digits <- log10(trans_scale) + digits
+  round_digits <- ifelse(round_digits < 0, 0, round_digits)
 
-  # if there is ., get the digits after .
-  fractional_digits <- pre3 %>%
-    stringr::str_split("\\.") %>%
-    purrr::map_dbl(~ nchar(.x[2]))
-  fractional_digits[is.na(fractional_digits)] <- 0
-
-
-  integer_part <- pre2 %>%
-    stringr::str_split("\\.") %>%
-    purrr::map_chr(1)
-  integer_digits <- integer_part %>%
-    stringr::str_replace("^-", "") %>%
-    nchar()
-  true_for_large_integer_part <- purrr::map2_chr(
-    pre, digits,
-    ~ signif(as.double(.x), digits = .y) %>% as.character()
-  )
-  true_for_small_integer_part <- round_string(pre, fractional_digits)
-
-
-  res <- ifelse(integer_digits >= digits,
-    true_for_large_integer_part,
-    true_for_small_integer_part
-  )
-
+  res <- round_string(x, round_digits)
   return(res)
 }
+
 
 #' if a number only have zeros
 #'
@@ -97,11 +82,11 @@ is.zero <- function(x) {
     return(x),
     {
       x <- as.character(x)
-      ifelse(!stringr::str_detect(x, "^[\\d\\.]+$"),
-        stop("No a number!"),
+      ifelse(!stringr::str_detect(x, "^[-\\d\\.]+$"),
+        stop("Not a number!"),
         {
           res <- ifelse(is.na(x), NA,
-            stringr::str_detect(x, "^[0\\.]+$")
+            stringr::str_detect(x, "^[-0\\.]+$")
           )
           return(res)
         }
@@ -124,21 +109,33 @@ is.zero <- function(x) {
 #' @export
 #'
 #' @examples signif_round_string(0.03851)
-signif_round_string <- function(x, digits = 2, format = "short") {
+signif_round_string <- function(x, digits = 2, format = "short",
+                                full_large = TRUE, full_small = FALSE) {
   if (digits <= 0) {
-    stop("Significant or round digits should be larger than 0!")
+    stop("significant or round digits should be larger than 0!")
   }
   x <- as.double(x)
   round_x <- round_string(x, digits)
   signif_x <- signif_string(x, digits)
 
   if (format == "short") {
-    return(ifelse(nchar(round_x) < nchar(signif_x) & (!is.zero(round_x)),
-      round_x, signif_x
-    ))
+    res <- ifelse(nchar(round_x) <= nchar(signif_x), round_x, signif_x)
   } else if (format == "long") {
-    return(ifelse(nchar(round_x) < nchar(signif_x), signif_x, round_x))
+    res <- ifelse(nchar(round_x) >= nchar(signif_x), round_x, signif_x)
   }
+
+  # for large number
+  if (full_large == TRUE && format == "short") {
+    large_number_fmt <- round_string(x, 0)
+    res <- ifelse(abs(x) > 10^digits, large_number_fmt, res)
+  }
+
+  # for small number
+  if (full_small == TRUE && format == "short") {
+    res <- ifelse(abs(x) < 0.1^digits, signif_x, res)
+  }
+
+  return(res)
 }
 
 
