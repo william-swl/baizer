@@ -57,7 +57,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>load packages as a batch</h1>
-      <small class="dont-index">Source: <a href="https://github.com/william-swl/baizer/blob/HEAD/R/IO.R" class="external-link"><code>R/IO.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/william-swl/baizer/blob/HEAD/R/utils-basic.R" class="external-link"><code>R/utils-basic.R</code></a></small>
       <div class="d-none name"><code>pkglib.Rd</code></div>
     </div>
 
@@ -85,15 +85,10 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">baizer</span><span class="fu">::</span><span class="fu">pkglib</span><span class="op">(</span><span class="va">dplyr</span>, <span class="va">purrr</span>, <span class="va">tidyr</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘dplyr’</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:stats’:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     filter, lag</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:base’:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     intersect, setdiff, setequal, union</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">baizer</span><span class="fu">::</span><span class="fu">pkglib</span><span class="op">(</span><span class="va">tidyverse</span>, <span class="va">baizer</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in map(.x, .f, ..., .progress = .progress):</span> <span style="color: #00BBBB;">ℹ</span> In index: 1.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `library()`:</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> there is no package called ‘tidyverse’</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
