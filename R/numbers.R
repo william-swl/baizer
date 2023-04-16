@@ -246,3 +246,38 @@ adjacent_div <- function(v, n_div = 10, .unique = FALSE) {
 
   return(res)
 }
+
+
+#' correct the numbers to a target ratio
+#'
+#' @param raw the raw numbers
+#' @param target the target ratio
+#' @param digits the result digits
+#'
+#' @return corrected number vector
+#' @export
+#'
+#' @examples
+#' correct_ratio(c(10, 10), c(3, 5))
+#'
+#' # support ratio as a float
+#' correct_ratio(c(100, 100), c(0.2, 0.8))
+#'
+#' # more numbers
+#' correct_ratio(10:13, c(2, 3, 4, 6))
+#'
+#' # with digits after decimal point
+#' correct_ratio(c(10, 10), c(1, 4), digits = 1)
+correct_ratio <- function(raw, target, digits = 0) {
+  targets <- (raw / target) %>%
+    purrr::map(~ round(target * .x, digits = digits))
+  targets_allow <- targets %>% purrr::map_lgl(~ all(raw - .x >= 0))
+  if (sum(targets_allow) != 1) {
+    print("Multiple results!")
+  }
+  res <- targets[targets_allow] %>%
+    unlist() %>%
+    unname()
+
+  return(res)
+}

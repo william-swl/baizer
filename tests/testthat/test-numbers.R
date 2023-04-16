@@ -188,3 +188,23 @@ test_that("adjacent_div", {
     )
   )
 })
+
+
+test_that("correct_ratio", {
+  expect_identical(
+    correct_ratio(c(10, 10), c(3, 5)),
+    c(6, 10)
+  )
+  expect_identical(
+    correct_ratio(c(100, 100), c(0.2, 0.8)),
+    c(25, 100)
+  )
+  expect_identical(
+    correct_ratio(10:13, c(2, 3, 4, 6)),
+    c(4, 6, 9, 13)
+  )
+  expect_identical(
+    correct_ratio(c(10, 10), c(1, 4), digits = 1),
+    c(2.5, 10.0)
+  )
+})
