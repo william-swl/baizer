@@ -20,14 +20,14 @@ corrected number vector
 correct the numbers to a target ratio
 }
 \examples{
-correct_ratio(c(10,10), c(3, 5))
+correct_ratio(c(10, 10), c(3, 5))
 
 # support ratio as a float
-correct_ratio(c(100,100), c(0.2, 0.8))
+correct_ratio(c(100, 100), c(0.2, 0.8))
 
 # more numbers
 correct_ratio(10:13, c(2, 3, 4, 6))
 
 # with digits after decimal point
-correct_ratio(c(10,10), c(1, 4), digits = 1)
+correct_ratio(c(10, 10), c(1, 4), digits = 1)
 }

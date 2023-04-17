@@ -184,3 +184,16 @@ test_that("as_tibble_md", {
   "
   expect_snapshot(as_tibble_md(x))
 })
+
+
+
+test_that("ref_level", {
+  cut_level <- mini_diamond %>%
+    dplyr::pull(cut) %>%
+    unique()
+  df <- mini_diamond %>%
+    dplyr::mutate(cut = factor(cut, cut_level)) %>%
+    dplyr::mutate(cut0 = stringr::str_c(cut, "xxx")) %>%
+    ref_level(cut0, cut)
+  expect_identical(levels(df$cut0), stringr::str_c(levels(df$cut), "xxx"))
+})

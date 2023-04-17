@@ -410,3 +410,45 @@ as_tibble_md <- function(x) {
 
   return(res)
 }
+
+
+#' relevel a target column by another reference column
+#'
+#' @param x tibble
+#' @param col target column
+#' @param ref reference column
+#'
+#' @return tibble
+#' @export
+#'
+#' @examples
+#'
+#' cut_level <- mini_diamond %>%
+#'   dplyr::pull(cut) %>%
+#'   unique()
+#'
+#' mini_diamond %>%
+#'   dplyr::mutate(cut = factor(cut, cut_level)) %>%
+#'   dplyr::mutate(cut0 = stringr::str_c(cut, "xxx")) %>%
+#'   ref_level(cut0, cut)
+ref_level <- function(x, col, ref) {
+  col <- enquo(col)
+  ref <- enquo(ref)
+
+  ref_levels <- levels(x[[quo_name(ref)]])
+  ref2col <- x %>%
+    dplyr::pull({{ col }}, {{ ref }}) %>%
+    uniq()
+
+  if (length(ref2col) != length(ref_levels)) {
+    diff <- setdiff(ref_levels, names(ref2col)) %>%
+      string::str_c(collapse = ", ")
+    stop(string::str_c("unmatched between ref and col: ", diff))
+  }
+
+  col_levels <- ref2col[ref_levels]
+
+  res <- x %>% dplyr::mutate(!!col := factor(!!col, levels = col_levels))
+
+  return(res)
+}

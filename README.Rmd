@@ -284,6 +284,18 @@ v2 <- c(FALSE, TRUE)
 pileup_logical(v1, v2)
 ```
 
+- only keep unique vector values and its names
+
+```{r basic-utils-uniq}
+v <- c(a = 1, b = 2, c = 3, b = 2, a = 1)
+
+# unique will lost the names
+unique(v)
+
+# uniq can keep them
+uniq(v)
+```
+
 
 ## numbers
 
@@ -471,6 +483,29 @@ x <- "
 
 as_tibble_md(x)
 ```
+
+- relevel a target column by another reference column
+
+```{r dataframe-ref_level}
+cut_level <- mini_diamond %>%
+  pull(cut) %>%
+  unique()
+df <- mini_diamond %>%
+  dplyr::mutate(cut = factor(cut, cut_level)) %>%
+  dplyr::mutate(cut0 = stringr::str_c(cut, "xxx"))
+
+levels(df$cut)
+
+levels(df$cut0)
+
+# after relevel
+df <- ref_level(df, cut0, cut)
+
+levels(df$cut)
+
+levels(df$cut0)
+```
+
 
 
 ## stat

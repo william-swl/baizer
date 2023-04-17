@@ -578,3 +578,22 @@ pileup_logical <- function(x, v) {
 
   return(res)
 }
+
+
+
+#' only keep unique vector values and its names
+#'
+#' @param x vector
+#'
+#' @return vector
+#' @export
+#'
+#' @examples
+#'
+#' v <- c(a = 1, b = 2, c = 3, b = 2, a = 1)
+#'
+#' uniq(x)
+#'
+uniq <- function(x) {
+  return(x[-which(duplicated(x))])
+}
