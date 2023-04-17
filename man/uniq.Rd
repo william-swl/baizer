@@ -17,7 +17,7 @@ only keep unique vector values and its names
 }
 \examples{
 
-v <- c(a=1, b=2, c=3, b=2, a=1)
+x <- c(a = 1, b = 2, c = 3, b = 2, a = 1)
 
 uniq(x)
 

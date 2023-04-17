@@ -590,7 +590,7 @@ pileup_logical <- function(x, v) {
 #'
 #' @examples
 #'
-#' v <- c(a = 1, b = 2, c = 3, b = 2, a = 1)
+#' x <- c(a = 1, b = 2, c = 3, b = 2, a = 1)
 #'
 #' uniq(x)
 #'

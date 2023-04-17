@@ -21,9 +21,12 @@ relevel a target column by another reference column
 }
 \examples{
 
-cut_level <- mini_diamond \%>\% dplyr::pull(cut) \%>\% unique
+cut_level <- mini_diamond \%>\%
+  dplyr::pull(cut) \%>\%
+  unique()
 
-mini_diamond \%>\% dplyr::mutate(cut = factor(cut, cut_level)) \%>\%
-  dplyr::mutate(cut0 = stringr::str_c(cut, 'xxx')) \%>\%
+mini_diamond \%>\%
+  dplyr::mutate(cut = factor(cut, cut_level)) \%>\%
+  dplyr::mutate(cut0 = stringr::str_c(cut, "xxx")) \%>\%
   ref_level(cut0, cut)
 }
