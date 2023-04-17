@@ -133,6 +133,9 @@
     <loc>https://william-swl.github.io/baizer/reference/r2c.html</loc>
   </url>
   <url>
+    <loc>https://william-swl.github.io/baizer/reference/ref_level.html</loc>
+  </url>
+  <url>
     <loc>https://william-swl.github.io/baizer/reference/reg_match.html</loc>
   </url>
   <url>
@@ -182,6 +185,9 @@
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/tidyeval.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/uniq.html</loc>
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/write_excel.html</loc>
