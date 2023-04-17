@@ -442,7 +442,7 @@ ref_level <- function(x, col, ref) {
 
   if (length(ref2col) != length(ref_levels)) {
     diff <- setdiff(ref_levels, names(ref2col)) %>%
-      string::str_c(collapse = ", ")
+      stringr::str_c(collapse = ", ")
     stop(string::str_c("unmatched between ref and col: ", diff))
   }
 
