@@ -48,7 +48,7 @@ c2 <- tbflt(x > 8)
 c1 | c2
 #> <quosure>
 #> expr: ^cut == "Fair" | x > 8
-#> env:  0x56033806cb10
+#> env:  0x55aadabbdb10
 
 mini_diamond %>%
   filterC(c1) %>%
@@ -415,19 +415,19 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "A11"  "A1"   "A102" "A10"  "B32"  "B9"   "B101" "A9"   "A99"  "B99" 
-#> [11] "A101" "A2"   "B2"   "B102" "B1"   "B10"  "A12"  "B21"
+#>  [1] "A12"  "B9"   "B99"  "A1"   "A102" "B102" "A10"  "A2"   "B32"  "A9"  
+#> [11] "B21"  "B1"   "B10"  "A99"  "B101" "A11"  "B2"   "A101"
 
 group_vector(v)
 #> $A
-#> [1] "A11"  "A1"   "A102" "A10"  "A9"   "A99"  "A101" "A2"   "A12" 
+#> [1] "A12"  "A1"   "A102" "A10"  "A2"   "A9"   "A99"  "A11"  "A101"
 #> 
 #> $B
-#> [1] "B32"  "B9"   "B101" "B99"  "B2"   "B102" "B1"   "B10"  "B21"
+#> [1] "B9"   "B99"  "B102" "B32"  "B21"  "B1"   "B10"  "B101" "B2"
 
 group_vector(v, pattern = "\\w\\d")
 #> $A1
-#> [1] "A11"  "A1"   "A102" "A10"  "A101" "A12" 
+#> [1] "A12"  "A1"   "A102" "A10"  "A11"  "A101"
 #> 
 #> $A2
 #> [1] "A2"
@@ -436,10 +436,10 @@ group_vector(v, pattern = "\\w\\d")
 #> [1] "A9"  "A99"
 #> 
 #> $B1
-#> [1] "B101" "B102" "B1"   "B10" 
+#> [1] "B102" "B1"   "B10"  "B101"
 #> 
 #> $B2
-#> [1] "B2"  "B21"
+#> [1] "B21" "B2" 
 #> 
 #> $B3
 #> [1] "B32"
@@ -450,21 +450,21 @@ group_vector(v, pattern = "\\w\\d")
 # the pattern rules are just same as reg_match()
 group_vector(v, pattern = "\\w(\\d)")
 #> $`1`
-#>  [1] "A11"  "A1"   "A102" "A10"  "B101" "A101" "B102" "B1"   "B10"  "A12" 
+#>  [1] "A12"  "A1"   "A102" "B102" "A10"  "B1"   "B10"  "B101" "A11"  "A101"
 #> 
 #> $`2`
-#> [1] "A2"  "B2"  "B21"
+#> [1] "A2"  "B21" "B2" 
 #> 
 #> $`3`
 #> [1] "B32"
 #> 
 #> $`9`
-#> [1] "B9"  "A9"  "A99" "B99"
+#> [1] "B9"  "B99" "A9"  "A99"
 
 # unmatched part will alse be stored
 group_vector(v, pattern = "\\d{2}")
 #> $`10`
-#> [1] "A102" "A10"  "B101" "A101" "B102" "B10" 
+#> [1] "A102" "B102" "A10"  "B10"  "B101" "A101"
 #> 
 #> $`11`
 #> [1] "A11"
@@ -479,10 +479,10 @@ group_vector(v, pattern = "\\d{2}")
 #> [1] "B32"
 #> 
 #> $`99`
-#> [1] "A99" "B99"
+#> [1] "B99" "A99"
 #> 
 #> $unmatch
-#> [1] "A1" "B9" "A9" "A2" "B2" "B1"
+#> [1] "B9" "A1" "A2" "A9" "B1" "B2"
 ```
 
 - sort by a function
@@ -493,7 +493,7 @@ sortf(c(-2, 1, 3), abs)
 
 v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) %>% sample()
 v
-#> [1] "id2"   "id102" "id9"   "id12"  "id1"   "id11"  "id101" "id99"  "id10"
+#> [1] "id10"  "id1"   "id11"  "id101" "id2"   "id99"  "id102" "id9"   "id12"
 
 sortf(v, function(x) reg_match(x, "\\d+") %>% as.double())
 #> [1] "id1"   "id2"   "id9"   "id10"  "id11"  "id12"  "id99"  "id101" "id102"
@@ -509,8 +509,8 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "A101" "B32"  "B102" "B9"   "B2"   "B101" "A102" "A10"  "A12"  "A9"  
-#> [11] "A1"   "B21"  "A11"  "B10"  "B1"   "A99"  "A2"   "B99"
+#>  [1] "A9"   "A10"  "B2"   "A101" "B1"   "A102" "A11"  "B99"  "B102" "B101"
+#> [11] "A12"  "B9"   "A99"  "A2"   "A1"   "B10"  "B21"  "B32"
 
 sortf(v, ~ reg_match(.x, "\\d+") %>% as.double(), group_pattern = "\\w")
 #>  [1] "A1"   "A2"   "A9"   "A10"  "A11"  "A12"  "A99"  "A101" "A102" "B1"  
@@ -1015,14 +1015,6 @@ as_tibble_md(x)
 mini_diamond %>%
   head(5) %>%
   as_md_table()
-#> Warning: The `x` argument of `as_tibble.matrix()` must have unique column names if
-#> `.name_repair` is omitted as of tibble 2.0.0.
-#> ℹ Using compatibility `.name_repair`.
-#> ℹ The deprecated feature was likely used in the baizer package.
-#>   Please report the issue at <https://github.com/william-swl/baizer/issues>.
-#> This warning is displayed once every 8 hours.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-#> generated.
 #> | id | carat | cut | clarity | price | x | y |
 #> | - | - | - | - | - | - | - |
 #> | id-1 | 1.02 | Fair | SI1 |  3027 | 6.25 | 6.18 |
@@ -1119,11 +1111,11 @@ cmdargs()
 #> character(0)
 #> 
 #> $env_configs
-#> [1] "--slave"                              
-#> [2] "--no-save"                            
-#> [3] "--no-restore"                         
-#> [4] "-f"                                   
-#> [5] "/tmp/Rtmp4ery2d/callr-scr-2194d5e4bfb"
+#> [1] "--slave"                               
+#> [2] "--no-save"                             
+#> [3] "--no-restore"                          
+#> [4] "-f"                                    
+#> [5] "/tmp/Rtmp4ery2d/callr-scr-21941abdc471"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"

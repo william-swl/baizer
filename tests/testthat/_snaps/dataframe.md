@@ -1339,11 +1339,7 @@
 # as_md_table
 
     Code
-      mini_diamond %>% head(5) %>% as_md_table
-    Condition
-      Warning:
-      The `x` argument of `as_tibble.matrix()` must have unique column names if `.name_repair` is omitted as of tibble 2.0.0.
-      i Using compatibility `.name_repair`.
+      mini_diamond %>% head(5) %>% as_md_table()
     Output
       | id | carat | cut | clarity | price | x | y |
       | - | - | - | - | - | - | - |

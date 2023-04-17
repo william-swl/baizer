@@ -20,6 +20,8 @@ trans a tibble into markdown format table
 }
 \examples{
 
-mini_diamond \%>\% head(5) \%>\% as_md_table
+mini_diamond \%>\%
+  head(5) \%>\%
+  as_md_table()
 
 }

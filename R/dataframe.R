@@ -438,8 +438,9 @@ as_md_table <- function(x, show = TRUE) {
 
   sep_row <- rep("-", ncol(x))
 
-  mdlist <- x %>%
-    t() %>%
+  mdlist <- x %>% t()
+  colnames(mdlist) <- stringr::str_c("c", seq_along(x[[1]]))
+  mdlist <- mdlist %>%
     as_tibble() %>%
     as.list()
 
