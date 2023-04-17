@@ -380,13 +380,15 @@ as_tibble_md <- function(x) {
     stop("input shoule be a string!")
   }
 
-  md2list <- x %>%
+  mdlist <- x %>%
+    # remove blank on two sides
+    stringr::str_replace_all(c("^\\s+?" = "", "\\s+?$" = "")) %>%
     # clean header sep row
-    stringr::str_replace_all(c("^\n" = "", "\n[\\|\\s-]+?\n" = "\n")) %>%
+    stringr::str_replace_all(c("\n[\\|\\t -]+?\n" = "\n")) %>%
     # row sep
-    stringr::str_replace_all(c("\\s*\\|\\s*\n\\s*\\|\\s*" = "\n")) %>%
+    stringr::str_replace_all(c("\\t* *\\|\\t* *\n\\t* *\\|\\t* *" = "\n")) %>%
     # clean extra blank characters
-    stringr::str_replace_all(c("\\|\\s*" = "\\|", "\\s*\\|" = "\\|")) %>%
+    stringr::str_replace_all(c("\\|\\t* *" = "\\|", "\\t* *\\|" = "\\|")) %>%
     # remove first and last |
     stringr::str_replace_all(c("^\\|" = "", "\\|$" = "")) %>%
     # delim
@@ -397,9 +399,9 @@ as_tibble_md <- function(x) {
     # sep col
     stringr::str_split("\t")
 
-  md_names <- md2list[[1]]
+  md_names <- mdlist[[1]]
 
-  md_tb <- md2list[-1]
+  md_tb <- mdlist[-1]
 
   res <- md_tb %>%
     purrr::map_dfr(function(x) {
@@ -410,6 +412,52 @@ as_tibble_md <- function(x) {
 
   return(res)
 }
+
+
+#' trans a tibble into markdown format table
+#'
+#' @param x tibble
+#' @param show show result instead of return the markdown string, TRUE as
+#' default
+#'
+#' @return NULL or markdown string
+#' @export
+#'
+#' @examples
+#'
+#' mini_diamond %>%
+#'   head(5) %>%
+#'   as_md_table()
+#'
+as_md_table <- function(x, show = TRUE) {
+  if (!is.data.frame(x)) {
+    stop("input should be a tibble")
+  }
+
+  header_row <- colnames(x)
+
+  sep_row <- rep("-", ncol(x))
+
+  mdlist <- x %>%
+    t() %>%
+    as_tibble() %>%
+    as.list()
+
+  mdlist <- c(list(header_row, sep_row), mdlist)
+
+  res <- mdlist %>%
+    purrr::map_chr(
+      ~ stringr::str_c(.x, collapse = " | ") %>%
+        stringr::str_c("| ", ., " |")
+    ) %>%
+    stringr::str_c(collapse = "\n")
+  if (show == TRUE) {
+    cat(res)
+  } else {
+    return(res)
+  }
+}
+
 
 
 #' relevel a target column by another reference column

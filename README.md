@@ -9,7 +9,7 @@
 coverage](https://codecov.io/gh/william-swl/baizer/branch/master/graph/badge.svg)](https://app.codecov.io/gh/william-swl/baizer?branch=master)
 [![R-CMD-check](https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml)
 [![](https://www.r-pkg.org/badges/version/baizer?color=orange)](https://cran.r-project.org/package=baizer)
-[![](https://img.shields.io/badge/devel%20version-0.4.4-blue.svg)](https://github.com/william-swl/baizer)
+[![](https://img.shields.io/badge/devel%20version-0.4.5-blue.svg)](https://github.com/william-swl/baizer)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/baizer?color=blue)](https://cran.r-project.org/package=baizer)
 [![](http://cranlogs.r-pkg.org/badges/last-month/baizer?color=green)](https://cran.r-project.org/package=baizer)
 <!-- badges: end -->
@@ -48,7 +48,7 @@ c2 <- tbflt(x > 8)
 c1 | c2
 #> <quosure>
 #> expr: ^cut == "Fair" | x > 8
-#> env:  0x56403c4714e8
+#> env:  0x56033806cb10
 
 mini_diamond %>%
   filterC(c1) %>%
@@ -415,19 +415,19 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "B2"   "B1"   "A2"   "B99"  "A102" "B10"  "A9"   "A10"  "A99"  "B21" 
-#> [11] "B101" "A101" "A12"  "B9"   "A11"  "A1"   "B102" "B32"
+#>  [1] "A11"  "A1"   "A102" "A10"  "B32"  "B9"   "B101" "A9"   "A99"  "B99" 
+#> [11] "A101" "A2"   "B2"   "B102" "B1"   "B10"  "A12"  "B21"
 
 group_vector(v)
 #> $A
-#> [1] "A2"   "A102" "A9"   "A10"  "A99"  "A101" "A12"  "A11"  "A1"  
+#> [1] "A11"  "A1"   "A102" "A10"  "A9"   "A99"  "A101" "A2"   "A12" 
 #> 
 #> $B
-#> [1] "B2"   "B1"   "B99"  "B10"  "B21"  "B101" "B9"   "B102" "B32"
+#> [1] "B32"  "B9"   "B101" "B99"  "B2"   "B102" "B1"   "B10"  "B21"
 
 group_vector(v, pattern = "\\w\\d")
 #> $A1
-#> [1] "A102" "A10"  "A101" "A12"  "A11"  "A1"  
+#> [1] "A11"  "A1"   "A102" "A10"  "A101" "A12" 
 #> 
 #> $A2
 #> [1] "A2"
@@ -436,7 +436,7 @@ group_vector(v, pattern = "\\w\\d")
 #> [1] "A9"  "A99"
 #> 
 #> $B1
-#> [1] "B1"   "B10"  "B101" "B102"
+#> [1] "B101" "B102" "B1"   "B10" 
 #> 
 #> $B2
 #> [1] "B2"  "B21"
@@ -445,26 +445,26 @@ group_vector(v, pattern = "\\w\\d")
 #> [1] "B32"
 #> 
 #> $B9
-#> [1] "B99" "B9"
+#> [1] "B9"  "B99"
 
 # the pattern rules are just same as reg_match()
 group_vector(v, pattern = "\\w(\\d)")
 #> $`1`
-#>  [1] "B1"   "A102" "B10"  "A10"  "B101" "A101" "A12"  "A11"  "A1"   "B102"
+#>  [1] "A11"  "A1"   "A102" "A10"  "B101" "A101" "B102" "B1"   "B10"  "A12" 
 #> 
 #> $`2`
-#> [1] "B2"  "A2"  "B21"
+#> [1] "A2"  "B2"  "B21"
 #> 
 #> $`3`
 #> [1] "B32"
 #> 
 #> $`9`
-#> [1] "B99" "A9"  "A99" "B9"
+#> [1] "B9"  "A9"  "A99" "B99"
 
 # unmatched part will alse be stored
 group_vector(v, pattern = "\\d{2}")
 #> $`10`
-#> [1] "A102" "B10"  "A10"  "B101" "A101" "B102"
+#> [1] "A102" "A10"  "B101" "A101" "B102" "B10" 
 #> 
 #> $`11`
 #> [1] "A11"
@@ -479,10 +479,10 @@ group_vector(v, pattern = "\\d{2}")
 #> [1] "B32"
 #> 
 #> $`99`
-#> [1] "B99" "A99"
+#> [1] "A99" "B99"
 #> 
 #> $unmatch
-#> [1] "B2" "B1" "A2" "A9" "B9" "A1"
+#> [1] "A1" "B9" "A9" "A2" "B2" "B1"
 ```
 
 - sort by a function
@@ -493,7 +493,7 @@ sortf(c(-2, 1, 3), abs)
 
 v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) %>% sample()
 v
-#> [1] "id9"   "id11"  "id99"  "id10"  "id12"  "id102" "id2"   "id1"   "id101"
+#> [1] "id2"   "id102" "id9"   "id12"  "id1"   "id11"  "id101" "id99"  "id10"
 
 sortf(v, function(x) reg_match(x, "\\d+") %>% as.double())
 #> [1] "id1"   "id2"   "id9"   "id10"  "id11"  "id12"  "id99"  "id101" "id102"
@@ -509,8 +509,8 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "B99"  "A102" "A99"  "A12"  "A9"   "B9"   "A1"   "A2"   "B32"  "B102"
-#> [11] "A101" "B101" "A10"  "B10"  "B2"   "B1"   "B21"  "A11"
+#>  [1] "A101" "B32"  "B102" "B9"   "B2"   "B101" "A102" "A10"  "A12"  "A9"  
+#> [11] "A1"   "B21"  "A11"  "B10"  "B1"   "A99"  "A2"   "B99"
 
 sortf(v, ~ reg_match(.x, "\\d+") %>% as.double(), group_pattern = "\\w")
 #>  [1] "A1"   "A2"   "A9"   "A10"  "A11"  "A12"  "A99"  "A101" "A102" "B1"  
@@ -1009,6 +1009,29 @@ as_tibble_md(x)
 #> 2 r1    r2    r3
 ```
 
+- trans a tibble into markdown format table
+
+``` r
+mini_diamond %>%
+  head(5) %>%
+  as_md_table()
+#> Warning: The `x` argument of `as_tibble.matrix()` must have unique column names if
+#> `.name_repair` is omitted as of tibble 2.0.0.
+#> ℹ Using compatibility `.name_repair`.
+#> ℹ The deprecated feature was likely used in the baizer package.
+#>   Please report the issue at <https://github.com/william-swl/baizer/issues>.
+#> This warning is displayed once every 8 hours.
+#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+#> generated.
+#> | id | carat | cut | clarity | price | x | y |
+#> | - | - | - | - | - | - | - |
+#> | id-1 | 1.02 | Fair | SI1 |  3027 | 6.25 | 6.18 |
+#> | id-2 | 1.51 | Good | VS2 | 11746 | 7.27 | 7.18 |
+#> | id-3 | 0.52 | Ideal | VVS1 |  2029 | 5.15 | 5.18 |
+#> | id-4 | 1.54 | Ideal | SI2 |  9452 | 7.43 | 7.45 |
+#> | id-5 | 0.72 | Ideal | VS1 |  2498 | 5.73 | 5.77 |
+```
+
 - relevel a target column by another reference column
 
 ``` r
@@ -1096,11 +1119,11 @@ cmdargs()
 #> character(0)
 #> 
 #> $env_configs
-#> [1] "--slave"                               
-#> [2] "--no-save"                             
-#> [3] "--no-restore"                          
-#> [4] "-f"                                    
-#> [5] "/tmp/Rtmp4ery2d/callr-scr-219461c91b5f"
+#> [1] "--slave"                              
+#> [2] "--no-save"                            
+#> [3] "--no-restore"                         
+#> [4] "-f"                                   
+#> [5] "/tmp/Rtmp4ery2d/callr-scr-2194d5e4bfb"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"

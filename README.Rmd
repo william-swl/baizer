@@ -484,6 +484,15 @@ x <- "
 as_tibble_md(x)
 ```
 
+- trans a tibble into markdown format table
+
+```{r dataframe-as_md_table}
+mini_diamond %>%
+  head(5) %>%
+  as_md_table()
+```
+
+
 - relevel a target column by another reference column
 
 ```{r dataframe-ref_level}

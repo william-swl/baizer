@@ -186,6 +186,10 @@ test_that("as_tibble_md", {
 })
 
 
+test_that("as_md_table", {
+  expect_snapshot(mini_diamond %>% head(5) %>% as_md_table())
+})
+
 
 test_that("ref_level", {
   cut_level <- mini_diamond %>%
