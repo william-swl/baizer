@@ -85,6 +85,9 @@
     <loc>https://william-swl.github.io/baizer/reference/fps_vector.html</loc>
   </url>
   <url>
+    <loc>https://william-swl.github.io/baizer/reference/generate_ticks.html</loc>
+  </url>
+  <url>
     <loc>https://william-swl.github.io/baizer/reference/geom_mean.html</loc>
   </url>
   <url>
@@ -113,6 +116,12 @@
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/move_row.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/near_ticks.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/nearest_tick.html</loc>
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/number_fun_wrapper.html</loc>
@@ -158,6 +167,12 @@
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/sftp_download.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/signif_ceiling.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/signif_floor.html</loc>
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/signif_round_string.html</loc>
