@@ -140,6 +140,51 @@ signif_round_string <- function(x, digits = 2, format = "short",
   return(res)
 }
 
+#' signif while use floor
+#'
+#' @param x number
+#' @param digits digits
+#'
+#' @return number
+#' @export
+#'
+#' @examples signif_floor(3.19, 2)
+signif_floor <- function(x, digits = 2) {
+  if (any(digits < 1)) {
+    stop("digits must more than 1!")
+  }
+
+  x <- as.double(x)
+  trans_x <- int_digits(x, digits = digits)
+  scale_factor <- int_digits(x, digits = digits, scale_factor = TRUE)
+
+  res <- floor(trans_x) / scale_factor
+  return(res)
+}
+
+
+#' signif while use ceiling
+#'
+#' @param x number
+#' @param digits digits
+#'
+#' @return number
+#' @export
+#'
+#' @examples signif_ceiling(3.11, 2)
+signif_ceiling <- function(x, digits = 2) {
+  if (any(digits < 1)) {
+    stop("digits must more than 1!")
+  }
+
+  x <- as.double(x)
+  trans_x <- int_digits(x, digits = digits)
+  scale_factor <- int_digits(x, digits = digits, scale_factor = TRUE)
+
+  res <- ceiling(trans_x) / scale_factor
+  return(res)
+}
+
 
 
 #' from float number to percent number
@@ -279,5 +324,94 @@ correct_ratio <- function(raw, target, digits = 0) {
     unlist() %>%
     unname()
 
+  return(res)
+}
+
+
+
+
+#' the ticks near a number
+#'
+#' @param x number
+#' @param level the level of ticks, such as 1, 10, 100, etc.
+#' @param div number of divisions
+#'
+#' @return number vector of ticks
+#' @export
+#'
+#' @examples near_ticks(3462, level = 10)
+near_ticks <- function(x, level = NULL, div = 2) {
+  if (length(x) > 1) {
+    stop("the length of x must be 1!")
+  }
+
+  x <- as.double(x)
+
+  if (is.null(level)) {
+    level <- 10^ceiling(log10(x))
+  }
+  ticks <- seq(0, 10^ceiling(log10(level)), length.out = div + 1)
+  scale_factor <- ticks[length(ticks)]
+  base_number <- floor(x / scale_factor) * scale_factor
+  res <- ticks + base_number
+
+  return(res)
+}
+
+
+
+#' the nearest ticks around a number
+#'
+#' @param x number
+#' @param side default as 'both', can be 'both|left|right'
+#' @param level the level of ticks, such as 1, 10, 100, etc.
+#' @param div number of divisions
+#'
+#' @return nearest tick number
+#' @export
+#'
+#' @examples nearest_tick(3462, level = 10)
+nearest_tick <- function(x, side = "both", level = NULL, div = 2) {
+  x <- as.double(x)
+  ticks <- near_ticks(x, level = level, div = div)
+  dist <- ticks - x
+
+  if (side == "both") {
+    tick <- ticks[abs(dist) == min(abs(dist))]
+  } else if (side == "left") {
+    l1 <- dist <= 0
+    left_dist <- dist[l1]
+    l2 <- abs(left_dist) == min(abs(left_dist))
+    tick <- ticks[pileup_logical(l1, l2)]
+  } else if (side == "right") {
+    l1 <- dist >= 0
+    right_dist <- dist[l1]
+    l2 <- abs(right_dist) == min(abs(right_dist))
+    tick <- ticks[pileup_logical(l1, l2)]
+  }
+
+  return(tick)
+}
+
+
+
+
+#' generate ticks for a number vector
+#'
+#' @param x number vector
+#' @param expect_ticks expected number of ticks, may be a little different from
+#' the result
+#'
+#' @return ticks number
+#' @export
+#'
+#' @examples generate_ticks(c(176, 198, 264))
+generate_ticks <- function(x, expect_ticks = 10) {
+  level <- 10^ceiling(log10(max(x) - min(x)))
+  left <- nearest_tick(min(x), level = level, side = "left", div = 20)
+  right <- nearest_tick(max(x), level = level, side = "right", div = 20)
+  step <- nearest_tick((right - left) / expect_ticks, side = "right")
+
+  res <- seq(left, right, by = step)
   return(res)
 }

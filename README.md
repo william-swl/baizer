@@ -9,7 +9,7 @@
 coverage](https://codecov.io/gh/william-swl/baizer/branch/master/graph/badge.svg)](https://app.codecov.io/gh/william-swl/baizer?branch=master)
 [![R-CMD-check](https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml)
 [![](https://www.r-pkg.org/badges/version/baizer?color=orange)](https://cran.r-project.org/package=baizer)
-[![](https://img.shields.io/badge/devel%20version-0.4.5-blue.svg)](https://github.com/william-swl/baizer)
+[![](https://img.shields.io/badge/devel%20version-0.4.6-blue.svg)](https://github.com/william-swl/baizer)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/baizer?color=blue)](https://cran.r-project.org/package=baizer)
 [![](http://cranlogs.r-pkg.org/badges/last-month/baizer?color=green)](https://cran.r-project.org/package=baizer)
 <!-- badges: end -->
@@ -48,7 +48,7 @@ c2 <- tbflt(x > 8)
 c1 | c2
 #> <quosure>
 #> expr: ^cut == "Fair" | x > 8
-#> env:  0x55aadabbdb10
+#> env:  0x564762748b08
 
 mini_diamond %>%
   filterC(c1) %>%
@@ -83,7 +83,7 @@ mini_diamond %>% filterC(c1 & c2)
 #> 3 id-68  2.32 Fair  SI1     18026  8.47  8.31
 ```
 
-- more strict limitation to avoid the unexpected default behavior
+- stricter limitation to avoid the unexpected default behavior
 
 ``` r
 # default behavior of dplyr::filter, use column in data at first
@@ -415,19 +415,19 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "A12"  "B9"   "B99"  "A1"   "A102" "B102" "A10"  "A2"   "B32"  "A9"  
-#> [11] "B21"  "B1"   "B10"  "A99"  "B101" "A11"  "B2"   "A101"
+#>  [1] "A10"  "B99"  "A101" "B21"  "B10"  "A12"  "A9"   "A102" "B9"   "B2"  
+#> [11] "B101" "A99"  "A11"  "B1"   "A2"   "B32"  "B102" "A1"
 
 group_vector(v)
 #> $A
-#> [1] "A12"  "A1"   "A102" "A10"  "A2"   "A9"   "A99"  "A11"  "A101"
+#> [1] "A10"  "A101" "A12"  "A9"   "A102" "A99"  "A11"  "A2"   "A1"  
 #> 
 #> $B
-#> [1] "B9"   "B99"  "B102" "B32"  "B21"  "B1"   "B10"  "B101" "B2"
+#> [1] "B99"  "B21"  "B10"  "B9"   "B2"   "B101" "B1"   "B32"  "B102"
 
 group_vector(v, pattern = "\\w\\d")
 #> $A1
-#> [1] "A12"  "A1"   "A102" "A10"  "A11"  "A101"
+#> [1] "A10"  "A101" "A12"  "A102" "A11"  "A1"  
 #> 
 #> $A2
 #> [1] "A2"
@@ -436,7 +436,7 @@ group_vector(v, pattern = "\\w\\d")
 #> [1] "A9"  "A99"
 #> 
 #> $B1
-#> [1] "B102" "B1"   "B10"  "B101"
+#> [1] "B10"  "B101" "B1"   "B102"
 #> 
 #> $B2
 #> [1] "B21" "B2" 
@@ -445,26 +445,26 @@ group_vector(v, pattern = "\\w\\d")
 #> [1] "B32"
 #> 
 #> $B9
-#> [1] "B9"  "B99"
+#> [1] "B99" "B9"
 
 # the pattern rules are just same as reg_match()
 group_vector(v, pattern = "\\w(\\d)")
 #> $`1`
-#>  [1] "A12"  "A1"   "A102" "B102" "A10"  "B1"   "B10"  "B101" "A11"  "A101"
+#>  [1] "A10"  "A101" "B10"  "A12"  "A102" "B101" "A11"  "B1"   "B102" "A1"  
 #> 
 #> $`2`
-#> [1] "A2"  "B21" "B2" 
+#> [1] "B21" "B2"  "A2" 
 #> 
 #> $`3`
 #> [1] "B32"
 #> 
 #> $`9`
-#> [1] "B9"  "B99" "A9"  "A99"
+#> [1] "B99" "A9"  "B9"  "A99"
 
 # unmatched part will alse be stored
 group_vector(v, pattern = "\\d{2}")
 #> $`10`
-#> [1] "A102" "B102" "A10"  "B10"  "B101" "A101"
+#> [1] "A10"  "A101" "B10"  "A102" "B101" "B102"
 #> 
 #> $`11`
 #> [1] "A11"
@@ -482,7 +482,7 @@ group_vector(v, pattern = "\\d{2}")
 #> [1] "B99" "A99"
 #> 
 #> $unmatch
-#> [1] "B9" "A1" "A2" "A9" "B1" "B2"
+#> [1] "A9" "B9" "B2" "B1" "A2" "A1"
 ```
 
 - sort by a function
@@ -493,7 +493,7 @@ sortf(c(-2, 1, 3), abs)
 
 v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) %>% sample()
 v
-#> [1] "id10"  "id1"   "id11"  "id101" "id2"   "id99"  "id102" "id9"   "id12"
+#> [1] "id10"  "id11"  "id102" "id99"  "id2"   "id101" "id12"  "id9"   "id1"
 
 sortf(v, function(x) reg_match(x, "\\d+") %>% as.double())
 #> [1] "id1"   "id2"   "id9"   "id10"  "id11"  "id12"  "id99"  "id101" "id102"
@@ -509,8 +509,8 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "A9"   "A10"  "B2"   "A101" "B1"   "A102" "A11"  "B99"  "B102" "B101"
-#> [11] "A12"  "B9"   "A99"  "A2"   "A1"   "B10"  "B21"  "B32"
+#>  [1] "A9"   "B21"  "B1"   "B2"   "A99"  "B99"  "A1"   "A101" "B32"  "A2"  
+#> [11] "B9"   "A11"  "B10"  "B101" "A10"  "A12"  "A102" "B102"
 
 sortf(v, ~ reg_match(.x, "\\d+") %>% as.double(), group_pattern = "\\w")
 #>  [1] "A1"   "A2"   "A9"   "A10"  "A11"  "A12"  "A99"  "A101" "A102" "B1"  
@@ -576,6 +576,16 @@ signif_round_string(0.000002654, 3, full_small = TRUE)
 #> [1] "0.00000265"
 ```
 
+- signif while use floor/ceiling
+
+``` r
+signif_floor(3.19, 2)
+#> [1] 3.1
+
+signif_ceiling(3.11, 2)
+#> [1] 3.2
+```
+
 - whether the number string only has zero
 
 ``` r
@@ -637,6 +647,27 @@ correct_ratio(10:13, c(2, 3, 4, 6))
 # with digits after decimal point
 correct_ratio(c(10, 10), c(1, 4), digits = 1)
 #> [1]  2.5 10.0
+```
+
+- the ticks near a number
+
+``` r
+near_ticks(3462, level = 10)
+#> [1] 3460 3465 3470
+```
+
+- the nearest ticks around a number
+
+``` r
+nearest_tick(3462, level = 10)
+#> [1] 3460
+```
+
+- generate ticks for a number vector
+
+``` r
+generate_ticks(c(176, 198, 264))
+#>  [1] 175 185 195 205 215 225 235 245 255 265
 ```
 
 ## dataframe
@@ -1115,7 +1146,7 @@ cmdargs()
 #> [2] "--no-save"                             
 #> [3] "--no-restore"                          
 #> [4] "-f"                                    
-#> [5] "/tmp/Rtmp4ery2d/callr-scr-21941abdc471"
+#> [5] "/tmp/Rtmp4ery2d/callr-scr-21947cd3dac9"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"

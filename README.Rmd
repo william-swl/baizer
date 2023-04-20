@@ -66,7 +66,7 @@ mini_diamond %>%
 mini_diamond %>% filterC(c1 & c2)
 ```
 
-- more strict limitation to avoid the unexpected default behavior
+- stricter limitation to avoid the unexpected default behavior
 ```{r tbflt-uscol}
 # default behavior of dplyr::filter, use column in data at first
 x <- 8
@@ -319,6 +319,14 @@ signif_round_string(20.526, 2, "long")
 signif_round_string(0.000002654, 3, full_small = TRUE)
 ```
 
+- signif while use floor/ceiling
+```{r numbers-signif_floor}
+signif_floor(3.19, 2)
+
+signif_ceiling(3.11, 2)
+```
+
+
 - whether the number string only has zero
 ```{r numbers-iszero}
 is.zero("0.000")
@@ -362,6 +370,25 @@ correct_ratio(10:13, c(2, 3, 4, 6))
 # with digits after decimal point
 correct_ratio(c(10, 10), c(1, 4), digits = 1)
 ```
+
+- the ticks near a number
+```{r numbers-near_ticks}
+near_ticks(3462, level = 10)
+```
+
+- the nearest ticks around a number
+```{r numbers-nearest_tick}
+nearest_tick(3462, level = 10)
+```
+
+- generate ticks for a number vector
+
+```{r numbers-generate_ticks}
+generate_ticks(c(176, 198, 264))
+```
+
+
+
 
 ## dataframe
 - a minimal dataset
