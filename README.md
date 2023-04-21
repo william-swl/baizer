@@ -9,7 +9,7 @@
 coverage](https://codecov.io/gh/william-swl/baizer/branch/master/graph/badge.svg)](https://app.codecov.io/gh/william-swl/baizer?branch=master)
 [![R-CMD-check](https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml)
 [![](https://www.r-pkg.org/badges/version/baizer?color=orange)](https://cran.r-project.org/package=baizer)
-[![](https://img.shields.io/badge/devel%20version-0.4.6-blue.svg)](https://github.com/william-swl/baizer)
+[![](https://img.shields.io/badge/devel%20version-0.4.7-blue.svg)](https://github.com/william-swl/baizer)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/baizer?color=blue)](https://cran.r-project.org/package=baizer)
 [![](http://cranlogs.r-pkg.org/badges/last-month/baizer?color=green)](https://cran.r-project.org/package=baizer)
 <!-- badges: end -->
@@ -48,7 +48,7 @@ c2 <- tbflt(x > 8)
 c1 | c2
 #> <quosure>
 #> expr: ^cut == "Fair" | x > 8
-#> env:  0x564762748b08
+#> env:  0x5646f76d1648
 
 mini_diamond %>%
   filterC(c1) %>%
@@ -182,6 +182,159 @@ baizer::pkglib(dplyr, purrr, tidyr)
 #> The following objects are masked from 'package:base':
 #> 
 #>     intersect, setdiff, setequal, union
+```
+
+- versions of packages
+
+``` r
+baizer::pkgver(dplyr, purrr, tidyr)
+#> $dplyr
+#> [1] "1.1.1"
+#> 
+#> $purrr
+#> [1] "1.0.1"
+#> 
+#> $tidyr
+#> [1] "1.3.0"
+```
+
+- information of packages
+
+``` r
+baizer::pkginfo(dplyr, purrr, tidyr)
+#> $dplyr
+#> Type: Package
+#> Package: dplyr
+#> Title: A Grammar of Data Manipulation
+#> Version: 1.1.1
+#> Authors@R: c( person("Hadley", "Wickham", , "hadley@posit.co", role =
+#>         c("aut", "cre"), comment = c(ORCID = "0000-0003-4757-117X")),
+#>         person("Romain", "François", role = "aut", comment = c(ORCID =
+#>         "0000-0002-2444-4226")), person("Lionel", "Henry", role =
+#>         "aut"), person("Kirill", "Müller", role = "aut", comment =
+#>         c(ORCID = "0000-0002-1416-3412")), person("Davis", "Vaughan", ,
+#>         "davis@posit.co", role = "aut", comment = c(ORCID =
+#>         "0000-0003-4777-038X")), person("Posit Software, PBC", role =
+#>         c("cph", "fnd")) )
+#> Description: A fast, consistent tool for working with data frame like
+#>         objects, both in memory and out of memory.
+#> License: MIT + file LICENSE
+#> URL: https://dplyr.tidyverse.org, https://github.com/tidyverse/dplyr
+#> BugReports: https://github.com/tidyverse/dplyr/issues
+#> Depends: R (>= 3.5.0)
+#> Imports: cli (>= 3.4.0), generics, glue (>= 1.3.2), lifecycle (>=
+#>         1.0.3), magrittr (>= 1.5), methods, pillar (>= 1.5.1), R6,
+#>         rlang (>= 1.1.0), tibble (>= 3.2.0), tidyselect (>= 1.2.0),
+#>         utils, vctrs (>= 0.6.0)
+#> Suggests: bench, broom, callr, covr, DBI, dbplyr (>= 2.2.1), ggplot2,
+#>         knitr, Lahman, lobstr, microbenchmark, nycflights13, purrr,
+#>         rmarkdown, RMySQL, RPostgreSQL, RSQLite, stringi (>= 1.7.6),
+#>         testthat (>= 3.1.5), tidyr (>= 1.3.0), withr
+#> VignetteBuilder: knitr
+#> Config/Needs/website: tidyverse, shiny, pkgdown, tidyverse/tidytemplate
+#> Config/testthat/edition: 3
+#> Encoding: UTF-8
+#> LazyData: true
+#> RoxygenNote: 7.2.3
+#> NeedsCompilation: yes
+#> Packaged: 2023-03-21 21:01:28 UTC; hadleywickham
+#> Author: Hadley Wickham [aut, cre]
+#>         (<https://orcid.org/0000-0003-4757-117X>), Romain François
+#>         [aut] (<https://orcid.org/0000-0002-2444-4226>), Lionel Henry
+#>         [aut], Kirill Müller [aut]
+#>         (<https://orcid.org/0000-0002-1416-3412>), Davis Vaughan [aut]
+#>         (<https://orcid.org/0000-0003-4777-038X>), Posit Software, PBC
+#>         [cph, fnd]
+#> Maintainer: Hadley Wickham <hadley@posit.co>
+#> Repository: CRAN
+#> Date/Publication: 2023-03-22 13:20:07 UTC
+#> Built: R 4.2.3; x86_64-conda-linux-gnu; 2023-03-23 01:46:10 UTC; unix
+#> 
+#> -- File: /home/william/software/mambaforge/envs/baizer/lib/R/library/dplyr/Meta/package.rds 
+#> 
+#> $purrr
+#> Package: purrr
+#> Title: Functional Programming Tools
+#> Version: 1.0.1
+#> Authors@R: c( person("Hadley", "Wickham", , "hadley@rstudio.com", role
+#>         = c("aut", "cre"), comment = c(ORCID = "0000-0003-4757-117X")),
+#>         person("Lionel", "Henry", , "lionel@rstudio.com", role =
+#>         "aut"), person("RStudio", role = c("cph", "fnd")) )
+#> Description: A complete and consistent functional programming toolkit
+#>         for R.
+#> License: MIT + file LICENSE
+#> URL: https://purrr.tidyverse.org/, https://github.com/tidyverse/purrr
+#> BugReports: https://github.com/tidyverse/purrr/issues
+#> Depends: R (>= 3.4.0)
+#> Imports: cli (>= 3.4.0), lifecycle (>= 1.0.3), magrittr (>= 1.5.0),
+#>         rlang (>= 0.4.10), vctrs (>= 0.5.0)
+#> Suggests: covr, dplyr (>= 0.7.8), httr, knitr, lubridate, rmarkdown,
+#>         testthat (>= 3.0.0), tibble, tidyselect
+#> LinkingTo: cli
+#> VignetteBuilder: knitr
+#> Biarch: true
+#> Config/Needs/website: tidyverse/tidytemplate
+#> Config/testthat/edition: 3
+#> Encoding: UTF-8
+#> RoxygenNote: 7.2.3
+#> NeedsCompilation: yes
+#> Packaged: 2023-01-09 14:36:20 UTC; hadleywickham
+#> Author: Hadley Wickham [aut, cre]
+#>         (<https://orcid.org/0000-0003-4757-117X>), Lionel Henry [aut],
+#>         RStudio [cph, fnd]
+#> Maintainer: Hadley Wickham <hadley@rstudio.com>
+#> Repository: CRAN
+#> Date/Publication: 2023-01-10 14:40:02 UTC
+#> Built: R 4.2.2; x86_64-conda-linux-gnu; 2023-01-11 05:51:38 UTC; unix
+#> 
+#> -- File: /home/william/software/mambaforge/envs/baizer/lib/R/library/purrr/Meta/package.rds 
+#> 
+#> $tidyr
+#> Package: tidyr
+#> Title: Tidy Messy Data
+#> Version: 1.3.0
+#> Authors@R: c( person("Hadley", "Wickham", , "hadley@posit.co", role =
+#>         c("aut", "cre")), person("Davis", "Vaughan", ,
+#>         "davis@posit.co", role = "aut"), person("Maximilian",
+#>         "Girlich", role = "aut"), person("Kevin", "Ushey", ,
+#>         "kevin@posit.co", role = "ctb"), person("Posit, PBC", role =
+#>         c("cph", "fnd")) )
+#> Description: Tools to help to create tidy data, where each column is a
+#>         variable, each row is an observation, and each cell contains a
+#>         single value.  'tidyr' contains tools for changing the shape
+#>         (pivoting) and hierarchy (nesting and 'unnesting') of a
+#>         dataset, turning deeply nested lists into rectangular data
+#>         frames ('rectangling'), and extracting values out of string
+#>         columns. It also includes tools for working with missing values
+#>         (both implicit and explicit).
+#> License: MIT + file LICENSE
+#> URL: https://tidyr.tidyverse.org, https://github.com/tidyverse/tidyr
+#> BugReports: https://github.com/tidyverse/tidyr/issues
+#> Depends: R (>= 3.4.0)
+#> Imports: cli (>= 3.4.1), dplyr (>= 1.0.10), glue, lifecycle (>= 1.0.3),
+#>         magrittr, purrr (>= 1.0.1), rlang (>= 1.0.4), stringr (>=
+#>         1.5.0), tibble (>= 2.1.1), tidyselect (>= 1.2.0), utils, vctrs
+#>         (>= 0.5.2)
+#> Suggests: covr, data.table, knitr, readr, repurrrsive (>= 1.1.0),
+#>         rmarkdown, testthat (>= 3.0.0)
+#> LinkingTo: cpp11 (>= 0.4.0)
+#> VignetteBuilder: knitr
+#> Config/Needs/website: tidyverse/tidytemplate
+#> Config/testthat/edition: 3
+#> Encoding: UTF-8
+#> LazyData: true
+#> RoxygenNote: 7.2.3
+#> SystemRequirements: C++11
+#> NeedsCompilation: yes
+#> Packaged: 2023-01-23 22:21:00 UTC; hadleywickham
+#> Author: Hadley Wickham [aut, cre], Davis Vaughan [aut], Maximilian
+#>         Girlich [aut], Kevin Ushey [ctb], Posit, PBC [cph, fnd]
+#> Maintainer: Hadley Wickham <hadley@posit.co>
+#> Repository: CRAN
+#> Date/Publication: 2023-01-24 16:00:02 UTC
+#> Built: R 4.2.2; x86_64-conda-linux-gnu; 2023-01-25 13:36:14 UTC; unix
+#> 
+#> -- File: /home/william/software/mambaforge/envs/baizer/lib/R/library/tidyr/Meta/package.rds
 ```
 
 - use `%nin%` to get ‘not in’ logical value
@@ -415,56 +568,56 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "A10"  "B99"  "A101" "B21"  "B10"  "A12"  "A9"   "A102" "B9"   "B2"  
-#> [11] "B101" "A99"  "A11"  "B1"   "A2"   "B32"  "B102" "A1"
+#>  [1] "B32"  "B102" "B10"  "B2"   "A102" "A11"  "A10"  "A12"  "A101" "B9"  
+#> [11] "B21"  "B1"   "A99"  "A2"   "B99"  "A9"   "A1"   "B101"
 
 group_vector(v)
 #> $A
-#> [1] "A10"  "A101" "A12"  "A9"   "A102" "A99"  "A11"  "A2"   "A1"  
+#> [1] "A102" "A11"  "A10"  "A12"  "A101" "A99"  "A2"   "A9"   "A1"  
 #> 
 #> $B
-#> [1] "B99"  "B21"  "B10"  "B9"   "B2"   "B101" "B1"   "B32"  "B102"
+#> [1] "B32"  "B102" "B10"  "B2"   "B9"   "B21"  "B1"   "B99"  "B101"
 
 group_vector(v, pattern = "\\w\\d")
 #> $A1
-#> [1] "A10"  "A101" "A12"  "A102" "A11"  "A1"  
+#> [1] "A102" "A11"  "A10"  "A12"  "A101" "A1"  
 #> 
 #> $A2
 #> [1] "A2"
 #> 
 #> $A9
-#> [1] "A9"  "A99"
+#> [1] "A99" "A9" 
 #> 
 #> $B1
-#> [1] "B10"  "B101" "B1"   "B102"
+#> [1] "B102" "B10"  "B1"   "B101"
 #> 
 #> $B2
-#> [1] "B21" "B2" 
+#> [1] "B2"  "B21"
 #> 
 #> $B3
 #> [1] "B32"
 #> 
 #> $B9
-#> [1] "B99" "B9"
+#> [1] "B9"  "B99"
 
 # the pattern rules are just same as reg_match()
 group_vector(v, pattern = "\\w(\\d)")
 #> $`1`
-#>  [1] "A10"  "A101" "B10"  "A12"  "A102" "B101" "A11"  "B1"   "B102" "A1"  
+#>  [1] "B102" "B10"  "A102" "A11"  "A10"  "A12"  "A101" "B1"   "A1"   "B101"
 #> 
 #> $`2`
-#> [1] "B21" "B2"  "A2" 
+#> [1] "B2"  "B21" "A2" 
 #> 
 #> $`3`
 #> [1] "B32"
 #> 
 #> $`9`
-#> [1] "B99" "A9"  "B9"  "A99"
+#> [1] "B9"  "A99" "B99" "A9"
 
 # unmatched part will alse be stored
 group_vector(v, pattern = "\\d{2}")
 #> $`10`
-#> [1] "A10"  "A101" "B10"  "A102" "B101" "B102"
+#> [1] "B102" "B10"  "A102" "A10"  "A101" "B101"
 #> 
 #> $`11`
 #> [1] "A11"
@@ -479,10 +632,10 @@ group_vector(v, pattern = "\\d{2}")
 #> [1] "B32"
 #> 
 #> $`99`
-#> [1] "B99" "A99"
+#> [1] "A99" "B99"
 #> 
 #> $unmatch
-#> [1] "A9" "B9" "B2" "B1" "A2" "A1"
+#> [1] "B2" "B9" "B1" "A2" "A9" "A1"
 ```
 
 - sort by a function
@@ -493,7 +646,7 @@ sortf(c(-2, 1, 3), abs)
 
 v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) %>% sample()
 v
-#> [1] "id10"  "id11"  "id102" "id99"  "id2"   "id101" "id12"  "id9"   "id1"
+#> [1] "id99"  "id9"   "id10"  "id12"  "id1"   "id2"   "id11"  "id101" "id102"
 
 sortf(v, function(x) reg_match(x, "\\d+") %>% as.double())
 #> [1] "id1"   "id2"   "id9"   "id10"  "id11"  "id12"  "id99"  "id101" "id102"
@@ -509,8 +662,8 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "A9"   "B21"  "B1"   "B2"   "A99"  "B99"  "A1"   "A101" "B32"  "A2"  
-#> [11] "B9"   "A11"  "B10"  "B101" "A10"  "A12"  "A102" "B102"
+#>  [1] "A1"   "A99"  "B32"  "B102" "B101" "A12"  "A102" "B1"   "A101" "B21" 
+#> [11] "B2"   "B99"  "A2"   "A10"  "A9"   "A11"  "B10"  "B9"
 
 sortf(v, ~ reg_match(.x, "\\d+") %>% as.double(), group_pattern = "\\w")
 #>  [1] "A1"   "A2"   "A9"   "A10"  "A11"  "A12"  "A99"  "A101" "A102" "B1"  
@@ -1146,7 +1299,7 @@ cmdargs()
 #> [2] "--no-save"                             
 #> [3] "--no-restore"                          
 #> [4] "-f"                                    
-#> [5] "/tmp/Rtmp4ery2d/callr-scr-21947cd3dac9"
+#> [5] "/tmp/RtmparX5KT/callr-scr-127a4b2e62b1"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"
@@ -1199,6 +1352,29 @@ unlink("some", recursive = TRUE)
 #    path=c('t1.txt', 't2.txt'),
 #    to=c('path1.txt', 'path2.txt')
 # )
+```
+
+## dev
+
+- use aliases for function arguments
+
+``` r
+# set y, z as aliases of x when create a function
+func <- function(x = 1, y = NULL, z = NULL) {
+  x <- alias_arg(x, y, with_default = x)
+  return(x)
+}
+
+func()
+#> [1] 1
+
+x <- 8
+func(x)
+#> [1] 8
+
+z <- 10
+func(z)
+#> [1] 10
 ```
 
 ## Code of Conduct

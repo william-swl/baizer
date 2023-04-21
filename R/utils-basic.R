@@ -2,7 +2,6 @@
 #'
 #' @param ... pkgs
 #'
-#' @return nothing
 #' @export
 #'
 #' @examples baizer::pkglib(dplyr, purrr, tidyr)
@@ -11,6 +10,31 @@ pkglib <- function(...) {
   purrr::walk(pkgs, ~ library(deparse(.x), character.only = TRUE))
 }
 
+
+#' information of packages
+#'
+#' @param ... pkgs
+#'
+#' @export
+#'
+#' @examples baizer::pkginfo(dplyr, purrr, tidyr)
+pkginfo <- function(...) {
+  x <- enexprs(...)
+  sessionInfo(as.character(x))[[7]]
+}
+
+
+#' versions of packages
+#'
+#' @param ... pkgs
+#'
+#' @export
+#'
+#' @examples baizer::pkgver(dplyr, purrr, tidyr)
+pkgver <- function(...) {
+  pkginfo(...) %>%
+    purrr::map(~ .x[["Version"]])
+}
 
 #' not in calculation operator
 #'

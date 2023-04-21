@@ -102,8 +102,18 @@ mini_diamond %>% filterC(cond1)
 
 ## basic utils
 - load packages as a batch
-```{r IO-pkglib}
+```{r basic-utils-pkglib}
 baizer::pkglib(dplyr, purrr, tidyr)
+```
+
+- versions of packages
+```{r basic-utils-pkgver}
+baizer::pkgver(dplyr, purrr, tidyr)
+```
+
+- information of packages
+```{r basic-utils-pkginfo}
+baizer::pkginfo(dplyr, purrr, tidyr)
 ```
 
 
@@ -603,6 +613,27 @@ unlink("some", recursive = TRUE)
 #    to=c('path1.txt', 'path2.txt')
 # )
 ```
+
+
+## dev
+
+- use aliases for function arguments
+```{r dev-alias_arg}
+# set y, z as aliases of x when create a function
+func <- function(x = 1, y = NULL, z = NULL) {
+  x <- alias_arg(x, y, with_default = x)
+  return(x)
+}
+
+func()
+
+x <- 8
+func(x)
+
+z <- 10
+func(z)
+```
+
 
 ## Code of Conduct
 Please note that the baizer project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html). 

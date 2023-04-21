@@ -22,5 +22,5 @@ nearest tick number
 the nearest ticks around a number
 }
 \examples{
-nearest_tick(3462, level=10)
+nearest_tick(3462, level = 10)
 }

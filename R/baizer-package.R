@@ -7,6 +7,7 @@
 #' @importFrom rlang .env
 #' @importFrom rlang current_env
 #' @importFrom rlang enexpr
+#' @importFrom rlang enexprs
 #' @importFrom rlang enquo
 #' @importFrom rlang env_clone
 #' @importFrom rlang env_coalesce

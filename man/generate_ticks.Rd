@@ -19,5 +19,5 @@ ticks number
 generate ticks for a number vector
 }
 \examples{
-generate_ticks(c(176,198,264))
+generate_ticks(c(176, 198, 264))
 }

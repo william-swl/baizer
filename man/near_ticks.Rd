@@ -20,5 +20,5 @@ number vector of ticks
 the ticks near a number
 }
 \examples{
-near_ticks(3462, level=10)
+near_ticks(3462, level = 10)
 }
