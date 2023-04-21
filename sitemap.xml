@@ -25,6 +25,9 @@
     <loc>https://william-swl.github.io/baizer/reference/adjacent_div.html</loc>
   </url>
   <url>
+    <loc>https://william-swl.github.io/baizer/reference/alias_arg.html</loc>
+  </url>
+  <url>
     <loc>https://william-swl.github.io/baizer/reference/as_md_table.html</loc>
   </url>
   <url>
@@ -139,7 +142,13 @@
     <loc>https://william-swl.github.io/baizer/reference/pipe.html</loc>
   </url>
   <url>
+    <loc>https://william-swl.github.io/baizer/reference/pkginfo.html</loc>
+  </url>
+  <url>
     <loc>https://william-swl.github.io/baizer/reference/pkglib.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/pkgver.html</loc>
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/r2c.html</loc>
