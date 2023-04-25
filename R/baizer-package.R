@@ -2,6 +2,23 @@
 "_PACKAGE"
 
 ## usethis namespace: start
+#' @importFrom dplyr arrange
+#' @importFrom dplyr count
+#' @importFrom dplyr filter
+#' @importFrom dplyr full_join
+#' @importFrom dplyr join_by
+#' @importFrom dplyr left_join
+#' @importFrom dplyr mutate
+#' @importFrom dplyr relocate
+#' @importFrom dplyr rename
+#' @importFrom dplyr select
+#' @importFrom purrr map
+#' @importFrom purrr map_dbl
+#' @importFrom purrr map_dfr
+#' @importFrom purrr map2
+#' @importFrom purrr map2_chr
+#' @importFrom purrr map2_dbl
+#' @importFrom purrr map2_dfr
 #' @importFrom rlang :=
 #' @importFrom rlang .data
 #' @importFrom rlang .env
@@ -22,5 +39,6 @@
 #' @importFrom tibble as_tibble
 #' @importFrom tibble as_tibble_col
 #' @importFrom tibble tibble
+#' @importFrom utils sessionInfo
 ## usethis namespace: end
 NULL

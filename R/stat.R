@@ -17,68 +17,109 @@ geom_mean <- function(x, na.rm = TRUE) {
 #' @param df tibble
 #' @param y value
 #' @param x sample test group
+#' @param .by super-group
 #' @param trans scale transformation
 #' @param paired paired samples or not
-#' @param .by super-group
 #' @param method test method, 'wilcoxon' as default
 #' @param alternative one of "two.sided" (default), "greater" or "less"
-#' @inheritParams rstatix::wilcox_test
+#' @param ns_symbol symbol of nonsiginficant, 'NS' as default
 #'
 #' @return test result tibble
 #' @export
 #'
 #' @examples stat_test(mini_diamond, y = price, x = cut, .by = clarity)
-stat_test <- function(df, y, x, trans = "identity",
+stat_test <- function(df, y, x, .by = NULL, trans = "identity",
                       paired = FALSE, alternative = "two.sided",
-                      method = "wilcoxon", .by = NULL, ...) {
+                      method = "wilcoxon", ns_symbol = "NS") {
   y <- rlang::enquo(y)
   x <- rlang::enquo(x)
   .by <- rlang::enquo(.by)
 
-  # if the real x column levels not match to factor levels
-  # rstatix will throw an error
-  factor_levels <- df[[quo_name(x)]] %>% levels()
-  real_levels <- df[[quo_name(x)]] %>% unique()
+  stat_ingroup <- function(df_ingroup) {
+    # remove NA
+    df_ingroup <- df_ingroup %>%
+      filter(!is.na(!!y)) %>%
+      select(!!x, !!y, !!.by)
+    # trans
+    if (trans == "log10") {
+      df_ingroup <- dplyr::mutate(df_ingroup, !!y := log10(!!y))
+    }
 
-  if (!is.null(factor_levels) &&
-    (length(factor_levels) != length(real_levels))) {
-    stop("please reset the factor levels to match the data!")
-  }
+    xs <- df_ingroup %>%
+      arrange(!!x) %>%
+      dplyr::pull(!!x) %>%
+      unique() %>%
+      as.character()
+    res_ingroup <- combn(xs, 2) %>% t()
+    colnames(res_ingroup) <- c("group1", "group2")
+    res_ingroup <- res_ingroup %>%
+      as_tibble() %>%
+      filter(.data[["group1"]] != .data[["group2"]])
+    x2n <- df_ingroup %>%
+      count(!!x) %>%
+      dplyr::pull(.data[["n"]], !!x)
 
-  res <- df
+    # number in each group
+    res_ingroup <- res_ingroup %>%
+      mutate(n1 = x2n[.data[["group1"]]], n2 = x2n[.data[["group2"]]])
+
+    # split tibble
+    ydata_list <- names(x2n) %>% map(~ df_ingroup %>%
+      filter(!!x == .x) %>%
+      dplyr::pull(!!y))
+    names(ydata_list) <- names(x2n)
+
+    # ydata
+    ydata1 <- ydata_list[unname(unlist(res_ingroup["group1"]))]
+    ydata2 <- ydata_list[unname(unlist(res_ingroup["group2"]))]
+
+    # test
+    pvalue <- suppressWarnings({
+      map2_dbl(
+        ydata1, ydata2,
+        ~ wilcox.test(.x, .y,
+          paired = paired,
+          alternative = alternative
+        )$p.value
+      )
+    })
 
 
-  # trans
-  if (trans == "log10") {
-    res <- dplyr::mutate(res, !!y := log10(!!y))
-  }
-
-  # fomula
-  fomular_str <- stringr::str_c(rlang::quo_name(y), "~", rlang::quo_name(x))
-
-  # super-group
-  res <- res %>% dplyr::group_by({{ .by }})
-
-  # test
-  if (method == "wilcoxon") {
-    res <- res %>% rstatix::wilcox_test(stats::as.formula(fomular_str),
-      paired = paired,
-      alternative = alternative, ...
+    # add symbol
+    symbols <- tibble(
+      plim = c(1.01, 0.05, 0.01, 0.001, 0.0001),
+      symbol = c(ns_symbol, "*", "**", "***", "****")
     )
-  } else if (method == "t") {
-    res <- res %>% rstatix::t_test(stats::as.formula(fomular_str),
-      paired = paired,
-      alternative = alternative, ...
-    )
+
+    res_ingroup <- res_ingroup %>%
+      mutate(p = pvalue) %>%
+      left_join(symbols, by = join_by(closest(p < plim))) # nolint
+
+    res_ingroup <- res_ingroup %>% mutate(y = quo_name(y), .before = 1)
+
+    return(res_ingroup)
   }
 
-  res <- res %>% rstatix::add_significance(
-    "p",
-    symbols = c("****", "***", "**", "*", "NS")
-  )
-
+  if (!quo_is_null(.by)) {
+    bys <- df %>%
+      arrange(!!.by) %>%
+      dplyr::pull(!!.by) %>%
+      unique()
+    df_list <- bys %>% map(~ df %>% filter(!!.by == .x))
+    res <- map2_dfr(
+      df_list, bys,
+      ~ stat_ingroup(.x) %>%
+        mutate(!!.by := .y) %>%
+        relocate(!!.by, .after = y)
+    )
+  } else {
+    res <- stat_ingroup(df)
+  }
   return(res)
 }
+
+
+
 
 #' fold change calculation which returns a extensible tibble
 #'
@@ -101,91 +142,91 @@ stat_fc <- function(df, y, x, method = "mean", .by = NULL,
   x <- rlang::enquo(x)
   .by <- rlang::enquo(.by)
 
-  # only keep necessary columns
-  df <- df %>% dplyr::select({{ y }}, {{ x }}, {{ .by }})
+  stat_ingroup <- function(df_ingroup) {
+    # only keep necessary columns
+    df_ingroup <- df_ingroup %>% dplyr::select({{ y }}, {{ x }})
 
-  # smmarise
-  if (method == "mean") {
-    func <- function(x) mean(x, na.rm = TRUE)
-  } else if (method == "median") {
-    func <- function(x) median(x, na.rm = TRUE)
-  } else if (method == "geom_mean") {
-    func <- function(x) geom_mean(x, na.rm = TRUE)
+    # smmarise
+    if (method == "mean") {
+      func <- function(x) mean(x, na.rm = TRUE)
+    } else if (method == "median") {
+      func <- function(x) median(x, na.rm = TRUE)
+    } else if (method == "geom_mean") {
+      func <- function(x) geom_mean(x, na.rm = TRUE)
+    } else {
+      stop("choose a method from mean, median and geom_mean")
+    }
+
+    df_ingroup <- df_ingroup %>%
+      dplyr::summarise("{{y}}" := # nolint
+        func({{ y }}), .by = {{ x }}) %>%
+      rename(x = {{ x }}, y = {{ y }})
+
+    xs <- df_ingroup %>%
+      arrange(.data[["x"]]) %>%
+      dplyr::pull(.data[["x"]]) %>%
+      unique() %>%
+      as.character()
+    res_ingroup <- combn(xs, 2) %>% t()
+    colnames(res_ingroup) <- c("group1", "group2")
+    res_ingroup <- res_ingroup %>%
+      as_tibble() %>%
+      filter(.data[["group1"]] != .data[["group2"]])
+
+    res_ingroup <- res_ingroup %>%
+      left_join(df_ingroup, by = c("group1" = "x")) %>%
+      left_join(df_ingroup, by = c("group2" = "x"), suffix = c("1", "2"))
+
+    res_ingroup <- res_ingroup %>% dplyr::mutate(
+      fc = .data[["y1"]] / .data[["y2"]]
+    )
+
+    # reverse div
+    if (rev_div) {
+      res_ingroup <- res_ingroup %>% dplyr::mutate(fc = 1 / .data[["fc"]])
+    }
+
+
+    # fc format
+    if (fc_fmt == "short") {
+      res_ingroup <- res_ingroup %>% dplyr::mutate(
+        fc_fmt = signif_round_string(.data$fc, digits) %>%
+          stringr::str_c("x")
+      )
+    } else if (fc_fmt == "signif") {
+      res_ingroup <- res_ingroup %>% dplyr::mutate(
+        fc_fmt = signif_string(.data$fc, digits) %>%
+          stringr::str_c("x")
+      )
+    } else if (fc_fmt == "round") {
+      res_ingroup <- res_ingroup %>% dplyr::mutate(
+        fc_fmt = round_string(.data$fc, digits) %>%
+          stringr::str_c("x")
+      )
+    } else {
+      stop("fc_fmt should be one of short,signif,round")
+    }
+
+    res_ingroup <- res_ingroup %>% mutate(y = quo_name(y), .before = 1)
+
+    return(res_ingroup)
+  }
+
+
+  if (!quo_is_null(.by)) {
+    bys <- df %>%
+      arrange(!!.by) %>%
+      dplyr::pull(!!.by) %>%
+      unique()
+    df_list <- bys %>% map(~ df %>% filter(!!.by == .x))
+    res <- map2_dfr(
+      df_list, bys,
+      ~ stat_ingroup(.x) %>%
+        mutate(!!.by := .y) %>%
+        relocate(!!.by, .after = y)
+    )
   } else {
-    stop("choose a method from mean, median and geom_mean")
+    res <- stat_ingroup(df)
   }
-
-  df <- df %>% dplyr::summarise("{{y}}" := # nolint
-    func({{ y }}), .by = c({{ .by }}, {{ x }}))
-
-  # full join
-  if (rlang::quo_is_null(.by)) {
-    # create auxiliary column
-    df <- df %>% dplyr::mutate(by = "")
-    by <- "by"
-  } else {
-    by <- rlang::quo_name(.by)
-  }
-
-  res <- dplyr::full_join(df, df,
-    by = by,
-    suffix = c("_1", "_2"), multiple = "all",
-    relationship = "many-to-many"
-  )
-
-  # fold change
-  ycol1 <- stringr::str_c(rlang::quo_name(y), "_1")
-  ycol2 <- stringr::str_c(rlang::quo_name(y), "_2")
-  res <- res %>%
-    dplyr::mutate(
-      fc = .data[[ycol1]] / .data[[ycol2]]
-    )
-  # reverse div
-  if (rev_div) {
-    res <- res %>% dplyr::mutate(fc = 1 / .data[["fc"]])
-  }
-
-  # fc format
-  if (fc_fmt == "short") {
-    res <- res %>% dplyr::mutate(
-      fc_fmt = signif_round_string(.data$fc, digits) %>%
-        stringr::str_c("x")
-    )
-  } else if (fc_fmt == "signif") {
-    res <- res %>% dplyr::mutate(
-      fc_fmt = signif_string(.data$fc, digits) %>%
-        stringr::str_c("x")
-    )
-  } else if (fc_fmt == "round") {
-    res <- res %>% dplyr::mutate(
-      fc_fmt = round_string(.data$fc, digits) %>%
-        stringr::str_c("x")
-    )
-  } else {
-    stop("fc_fmt should be one of short,signif,round")
-  }
-
-
-
-  # remove auxiliary column
-  if (rlang::quo_is_null(.by)) {
-    res <- res %>% dplyr::select(-tidyselect::all_of(by))
-  }
-
-  # rename
-  rename_vector <- c(
-    stringr::str_c(rlang::quo_name(x), c("_1", "_2")),
-    ycol1, ycol2
-  )
-  names(rename_vector) <- c("group1", "group2", "y1", "y2")
-  res <- res %>% dplyr::rename(rename_vector)
-
-  # relocate
-  res <- res %>% dplyr::select(
-    {{ .by }}, tidyselect::matches("group\\d"), tidyselect::matches("y\\d"),
-    tidyselect::starts_with("fc")
-  )
-
-
   return(res)
 }

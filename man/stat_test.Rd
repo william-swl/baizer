@@ -8,12 +8,12 @@ stat_test(
   df,
   y,
   x,
+  .by = NULL,
   trans = "identity",
   paired = FALSE,
   alternative = "two.sided",
   method = "wilcoxon",
-  .by = NULL,
-  ...
+  ns_symbol = "NS"
 )
 }
 \arguments{
@@ -23,6 +23,8 @@ stat_test(
 
 \item{x}{sample test group}
 
+\item{.by}{super-group}
+
 \item{trans}{scale transformation}
 
 \item{paired}{paired samples or not}
@@ -31,10 +33,7 @@ stat_test(
 
 \item{method}{test method, 'wilcoxon' as default}
 
-\item{.by}{super-group}
-
-\item{...}{other arguments to be passed to the function
-\code{\link[stats]{wilcox.test}}.}
+\item{ns_symbol}{symbol of nonsiginficant, 'NS' as default}
 }
 \value{
 test result tibble

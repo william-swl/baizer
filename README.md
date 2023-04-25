@@ -9,7 +9,7 @@
 coverage](https://codecov.io/gh/william-swl/baizer/branch/master/graph/badge.svg)](https://app.codecov.io/gh/william-swl/baizer?branch=master)
 [![R-CMD-check](https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml)
 [![](https://www.r-pkg.org/badges/version/baizer?color=orange)](https://cran.r-project.org/package=baizer)
-[![](https://img.shields.io/badge/devel%20version-0.4.7-blue.svg)](https://github.com/william-swl/baizer)
+[![](https://img.shields.io/badge/devel%20version-0.4.8-blue.svg)](https://github.com/william-swl/baizer)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/baizer?color=blue)](https://cran.r-project.org/package=baizer)
 [![](http://cranlogs.r-pkg.org/badges/last-month/baizer?color=green)](https://cran.r-project.org/package=baizer)
 <!-- badges: end -->
@@ -48,7 +48,7 @@ c2 <- tbflt(x > 8)
 c1 | c2
 #> <quosure>
 #> expr: ^cut == "Fair" | x > 8
-#> env:  0x5646f76d1648
+#> env:  0x5594ae7e9bf0
 
 mini_diamond %>%
   filterC(c1) %>%
@@ -568,28 +568,28 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "B32"  "B102" "B10"  "B2"   "A102" "A11"  "A10"  "A12"  "A101" "B9"  
-#> [11] "B21"  "B1"   "A99"  "A2"   "B99"  "A9"   "A1"   "B101"
+#>  [1] "A11"  "B32"  "B2"   "B10"  "B21"  "A101" "A2"   "B101" "B102" "A1"  
+#> [11] "A12"  "B1"   "A10"  "B99"  "A102" "A9"   "A99"  "B9"
 
 group_vector(v)
 #> $A
-#> [1] "A102" "A11"  "A10"  "A12"  "A101" "A99"  "A2"   "A9"   "A1"  
+#> [1] "A11"  "A101" "A2"   "A1"   "A12"  "A10"  "A102" "A9"   "A99" 
 #> 
 #> $B
-#> [1] "B32"  "B102" "B10"  "B2"   "B9"   "B21"  "B1"   "B99"  "B101"
+#> [1] "B32"  "B2"   "B10"  "B21"  "B101" "B102" "B1"   "B99"  "B9"
 
 group_vector(v, pattern = "\\w\\d")
 #> $A1
-#> [1] "A102" "A11"  "A10"  "A12"  "A101" "A1"  
+#> [1] "A11"  "A101" "A1"   "A12"  "A10"  "A102"
 #> 
 #> $A2
 #> [1] "A2"
 #> 
 #> $A9
-#> [1] "A99" "A9" 
+#> [1] "A9"  "A99"
 #> 
 #> $B1
-#> [1] "B102" "B10"  "B1"   "B101"
+#> [1] "B10"  "B101" "B102" "B1"  
 #> 
 #> $B2
 #> [1] "B2"  "B21"
@@ -598,12 +598,12 @@ group_vector(v, pattern = "\\w\\d")
 #> [1] "B32"
 #> 
 #> $B9
-#> [1] "B9"  "B99"
+#> [1] "B99" "B9"
 
 # the pattern rules are just same as reg_match()
 group_vector(v, pattern = "\\w(\\d)")
 #> $`1`
-#>  [1] "B102" "B10"  "A102" "A11"  "A10"  "A12"  "A101" "B1"   "A1"   "B101"
+#>  [1] "A11"  "B10"  "A101" "B101" "B102" "A1"   "A12"  "B1"   "A10"  "A102"
 #> 
 #> $`2`
 #> [1] "B2"  "B21" "A2" 
@@ -612,12 +612,12 @@ group_vector(v, pattern = "\\w(\\d)")
 #> [1] "B32"
 #> 
 #> $`9`
-#> [1] "B9"  "A99" "B99" "A9"
+#> [1] "B99" "A9"  "A99" "B9"
 
 # unmatched part will alse be stored
 group_vector(v, pattern = "\\d{2}")
 #> $`10`
-#> [1] "B102" "B10"  "A102" "A10"  "A101" "B101"
+#> [1] "B10"  "A101" "B101" "B102" "A10"  "A102"
 #> 
 #> $`11`
 #> [1] "A11"
@@ -632,10 +632,10 @@ group_vector(v, pattern = "\\d{2}")
 #> [1] "B32"
 #> 
 #> $`99`
-#> [1] "A99" "B99"
+#> [1] "B99" "A99"
 #> 
 #> $unmatch
-#> [1] "B2" "B9" "B1" "A2" "A9" "A1"
+#> [1] "B2" "A2" "A1" "B1" "A9" "B9"
 ```
 
 - sort by a function
@@ -646,7 +646,7 @@ sortf(c(-2, 1, 3), abs)
 
 v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) %>% sample()
 v
-#> [1] "id99"  "id9"   "id10"  "id12"  "id1"   "id2"   "id11"  "id101" "id102"
+#> [1] "id101" "id102" "id11"  "id12"  "id9"   "id1"   "id2"   "id99"  "id10"
 
 sortf(v, function(x) reg_match(x, "\\d+") %>% as.double())
 #> [1] "id1"   "id2"   "id9"   "id10"  "id11"  "id12"  "id99"  "id101" "id102"
@@ -662,8 +662,8 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "A1"   "A99"  "B32"  "B102" "B101" "A12"  "A102" "B1"   "A101" "B21" 
-#> [11] "B2"   "B99"  "A2"   "A10"  "A9"   "A11"  "B10"  "B9"
+#>  [1] "A1"   "A12"  "A11"  "A9"   "B10"  "A102" "B32"  "A2"   "B9"   "B102"
+#> [11] "B99"  "B21"  "A99"  "A101" "B2"   "B1"   "B101" "A10"
 
 sortf(v, ~ reg_match(.x, "\\d+") %>% as.double(), group_pattern = "\\w")
 #>  [1] "A1"   "A2"   "A9"   "A10"  "A11"  "A12"  "A99"  "A101" "A102" "B1"  
@@ -1240,40 +1240,40 @@ levels(df$cut0)
 
 ``` r
 stat_test(mini_diamond, y = price, x = cut, .by = clarity)
-#> # A tibble: 24 × 11
-#>    clarity .y.   group1 group2    n1    n2 statistic     p p.adj p.adj…¹ p.sig…²
-#>    <chr>   <chr> <chr>  <chr>  <int> <int>     <dbl> <dbl> <dbl> <chr>   <chr>  
-#>  1 I1      price Fair   Good       5     5        18 0.31  0.62  ns      NS     
-#>  2 I1      price Fair   Ideal      5     4        11 0.905 0.905 ns      NS     
-#>  3 I1      price Good   Ideal      5     4         4 0.19  0.57  ns      NS     
-#>  4 IF      price Fair   Good       4     5        18 0.064 0.177 ns      NS     
-#>  5 IF      price Fair   Ideal      4     4        15 0.059 0.177 ns      NS     
-#>  6 IF      price Good   Ideal      5     4        10 1     1     ns      NS     
-#>  7 SI1     price Fair   Good       5     4        10 1     1     ns      NS     
-#>  8 SI1     price Fair   Ideal      5     5        13 1     1     ns      NS     
-#>  9 SI1     price Good   Ideal      4     5         6 0.413 1     ns      NS     
-#> 10 SI2     price Fair   Good       4     4        15 0.057 0.171 ns      NS     
-#> # … with 14 more rows, and abbreviated variable names ¹​p.adj.signif, ²​p.signif
+#> # A tibble: 24 × 9
+#>    y     clarity group1 group2    n1    n2      p  plim symbol
+#>    <chr> <chr>   <chr>  <chr>  <int> <int>  <dbl> <dbl> <chr> 
+#>  1 price I1      Fair   Good       5     5 0.310   1.01 NS    
+#>  2 price I1      Fair   Ideal      5     4 0.905   1.01 NS    
+#>  3 price I1      Good   Ideal      5     4 0.190   1.01 NS    
+#>  4 price IF      Fair   Good       4     5 0.0635  1.01 NS    
+#>  5 price IF      Fair   Ideal      4     4 0.0591  1.01 NS    
+#>  6 price IF      Good   Ideal      5     4 1       1.01 NS    
+#>  7 price SI1     Fair   Good       5     4 1       1.01 NS    
+#>  8 price SI1     Fair   Ideal      5     5 1       1.01 NS    
+#>  9 price SI1     Good   Ideal      4     5 0.413   1.01 NS    
+#> 10 price SI2     Fair   Good       4     4 0.0571  1.01 NS    
+#> # … with 14 more rows
 ```
 
 - fold change calculation which returns a extensible tibble
 
 ``` r
 stat_fc(mini_diamond, y = price, x = cut, .by = clarity)
-#> # A tibble: 72 × 7
-#>    clarity group1 group2    y1    y2    fc fc_fmt
-#>    <chr>   <chr>  <chr>  <dbl> <dbl> <dbl> <chr> 
-#>  1 SI1     Fair   Fair   5844. 5844.  1    1.0x  
-#>  2 SI1     Fair   Ideal  5844. 3877.  1.51 1.5x  
-#>  3 SI1     Fair   Good   5844. 3227.  1.81 1.8x  
-#>  4 VS2     Good   Good   5582. 5582.  1    1.0x  
-#>  5 VS2     Good   Ideal  5582. 3024.  1.85 1.8x  
-#>  6 VS2     Good   Fair   5582. 3529.  1.58 1.6x  
-#>  7 VVS1    Ideal  Ideal  4652. 4652.  1    1.0x  
-#>  8 VVS1    Ideal  Good   4652. 2810.  1.66 1.7x  
-#>  9 VVS1    Ideal  Fair   4652. 2184   2.13 2.1x  
-#> 10 SI2     Ideal  Ideal  4267. 4267.  1    1.0x  
-#> # … with 62 more rows
+#> # A tibble: 24 × 8
+#>    y     clarity group1 group2     y1    y2    fc fc_fmt
+#>    <chr> <chr>   <chr>  <chr>   <dbl> <dbl> <dbl> <chr> 
+#>  1 price I1      Fair   Good    4695. 2760. 1.70  1.7x  
+#>  2 price I1      Fair   Ideal   4695. 4249  1.11  1.1x  
+#>  3 price I1      Good   Ideal   2760. 4249  0.649 0.65x 
+#>  4 price IF      Fair   Good    2016  1044. 1.93  1.9x  
+#>  5 price IF      Fair   Ideal   2016   962. 2.10  2.1x  
+#>  6 price IF      Good   Ideal   1044.  962. 1.09  1.1x  
+#>  7 price SI1     Fair   Good    5844. 3227. 1.81  1.8x  
+#>  8 price SI1     Fair   Ideal   5844. 3877. 1.51  1.5x  
+#>  9 price SI1     Good   Ideal   3227. 3877. 0.832 0.83x 
+#> 10 price SI2     Fair   Good   13162. 6539. 2.01  2.0x  
+#> # … with 14 more rows
 ```
 
 ## IO
@@ -1299,7 +1299,7 @@ cmdargs()
 #> [2] "--no-save"                             
 #> [3] "--no-restore"                          
 #> [4] "-f"                                    
-#> [5] "/tmp/RtmparX5KT/callr-scr-127a4b2e62b1"
+#> [5] "/tmp/Rtmp5GexAX/callr-scr-49657fdbde71"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"
