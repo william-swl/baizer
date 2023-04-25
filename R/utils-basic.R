@@ -4,7 +4,7 @@
 #'
 #' @export
 #'
-#' @examples baizer::pkglib(dplyr, purrr, tidyr)
+#' @examples baizer::pkglib(dplyr, purrr)
 pkglib <- function(...) {
   pkgs <- rlang::enexprs(...)
   purrr::walk(pkgs, ~ library(deparse(.x), character.only = TRUE))
@@ -30,7 +30,7 @@ pkginfo <- function(...) {
 #'
 #' @export
 #'
-#' @examples baizer::pkgver(dplyr, purrr, tidyr)
+#' @examples baizer::pkgver(dplyr, purrr)
 pkgver <- function(...) {
   pkginfo(...) %>%
     purrr::map(~ .x[["Version"]])

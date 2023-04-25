@@ -13,5 +13,5 @@ pkgver(...)
 versions of packages
 }
 \examples{
-baizer::pkgver(dplyr, purrr, tidyr)
+baizer::pkgver(dplyr, purrr)
 }
