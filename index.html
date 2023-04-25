@@ -133,7 +133,7 @@
 <span><span class="va">c1</span> <span class="op">|</span> <span class="va">c2</span></span>
 <span><span class="co">#&gt; &lt;quosure&gt;</span></span>
 <span><span class="co">#&gt; expr: ^cut == "Fair" | x &gt; 8</span></span>
-<span><span class="co">#&gt; env:  0x5594ae7e9bf0</span></span>
+<span><span class="co">#&gt; env:  0x558f3e84b2a8</span></span>
 <span></span>
 <span><span class="va">mini_diamond</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/filterC.html">filterC</a></span><span class="op">(</span><span class="va">c1</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
@@ -259,7 +259,7 @@
 <li>load packages as a batch</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">baizer</span><span class="fu">::</span><span class="fu"><a href="reference/pkglib.html">pkglib</a></span><span class="op">(</span><span class="va">dplyr</span>, <span class="va">purrr</span>, <span class="va">tidyr</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">baizer</span><span class="fu">::</span><span class="fu"><a href="reference/pkglib.html">pkglib</a></span><span class="op">(</span><span class="va">dplyr</span>, <span class="va">purrr</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
 <span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
@@ -272,20 +272,17 @@
 <li>versions of packages</li>
 </ul>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">baizer</span><span class="fu">::</span><span class="fu"><a href="reference/pkgver.html">pkgver</a></span><span class="op">(</span><span class="va">dplyr</span>, <span class="va">purrr</span>, <span class="va">tidyr</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">baizer</span><span class="fu">::</span><span class="fu"><a href="reference/pkgver.html">pkgver</a></span><span class="op">(</span><span class="va">dplyr</span>, <span class="va">purrr</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $dplyr</span></span>
 <span><span class="co">#&gt; [1] "1.1.1"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $purrr</span></span>
-<span><span class="co">#&gt; [1] "1.0.1"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $tidyr</span></span>
-<span><span class="co">#&gt; [1] "1.3.0"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "1.0.1"</span></span></code></pre></div>
 <ul>
 <li>information of packages</li>
 </ul>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">baizer</span><span class="fu">::</span><span class="fu"><a href="reference/pkginfo.html">pkginfo</a></span><span class="op">(</span><span class="va">dplyr</span>, <span class="va">purrr</span>, <span class="va">tidyr</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">baizer</span><span class="fu">::</span><span class="fu"><a href="reference/pkginfo.html">pkginfo</a></span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $dplyr</span></span>
 <span><span class="co">#&gt; Type: Package</span></span>
 <span><span class="co">#&gt; Package: dplyr</span></span>
@@ -334,91 +331,7 @@
 <span><span class="co">#&gt; Date/Publication: 2023-03-22 13:20:07 UTC</span></span>
 <span><span class="co">#&gt; Built: R 4.2.3; x86_64-conda-linux-gnu; 2023-03-23 01:46:10 UTC; unix</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; -- File: /home/william/software/mambaforge/envs/baizer/lib/R/library/dplyr/Meta/package.rds </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $purrr</span></span>
-<span><span class="co">#&gt; Package: purrr</span></span>
-<span><span class="co">#&gt; Title: Functional Programming Tools</span></span>
-<span><span class="co">#&gt; Version: 1.0.1</span></span>
-<span><span class="co">#&gt; Authors@R: c( person("Hadley", "Wickham", , "hadley@rstudio.com", role</span></span>
-<span><span class="co">#&gt;         = c("aut", "cre"), comment = c(ORCID = "0000-0003-4757-117X")),</span></span>
-<span><span class="co">#&gt;         person("Lionel", "Henry", , "lionel@rstudio.com", role =</span></span>
-<span><span class="co">#&gt;         "aut"), person("RStudio", role = c("cph", "fnd")) )</span></span>
-<span><span class="co">#&gt; Description: A complete and consistent functional programming toolkit</span></span>
-<span><span class="co">#&gt;         for R.</span></span>
-<span><span class="co">#&gt; License: MIT + file LICENSE</span></span>
-<span><span class="co">#&gt; URL: https://purrr.tidyverse.org/, https://github.com/tidyverse/purrr</span></span>
-<span><span class="co">#&gt; BugReports: https://github.com/tidyverse/purrr/issues</span></span>
-<span><span class="co">#&gt; Depends: R (&gt;= 3.4.0)</span></span>
-<span><span class="co">#&gt; Imports: cli (&gt;= 3.4.0), lifecycle (&gt;= 1.0.3), magrittr (&gt;= 1.5.0),</span></span>
-<span><span class="co">#&gt;         rlang (&gt;= 0.4.10), vctrs (&gt;= 0.5.0)</span></span>
-<span><span class="co">#&gt; Suggests: covr, dplyr (&gt;= 0.7.8), httr, knitr, lubridate, rmarkdown,</span></span>
-<span><span class="co">#&gt;         testthat (&gt;= 3.0.0), tibble, tidyselect</span></span>
-<span><span class="co">#&gt; LinkingTo: cli</span></span>
-<span><span class="co">#&gt; VignetteBuilder: knitr</span></span>
-<span><span class="co">#&gt; Biarch: true</span></span>
-<span><span class="co">#&gt; Config/Needs/website: tidyverse/tidytemplate</span></span>
-<span><span class="co">#&gt; Config/testthat/edition: 3</span></span>
-<span><span class="co">#&gt; Encoding: UTF-8</span></span>
-<span><span class="co">#&gt; RoxygenNote: 7.2.3</span></span>
-<span><span class="co">#&gt; NeedsCompilation: yes</span></span>
-<span><span class="co">#&gt; Packaged: 2023-01-09 14:36:20 UTC; hadleywickham</span></span>
-<span><span class="co">#&gt; Author: Hadley Wickham [aut, cre]</span></span>
-<span><span class="co">#&gt;         (&lt;https://orcid.org/0000-0003-4757-117X&gt;), Lionel Henry [aut],</span></span>
-<span><span class="co">#&gt;         RStudio [cph, fnd]</span></span>
-<span><span class="co">#&gt; Maintainer: Hadley Wickham &lt;hadley@rstudio.com&gt;</span></span>
-<span><span class="co">#&gt; Repository: CRAN</span></span>
-<span><span class="co">#&gt; Date/Publication: 2023-01-10 14:40:02 UTC</span></span>
-<span><span class="co">#&gt; Built: R 4.2.2; x86_64-conda-linux-gnu; 2023-01-11 05:51:38 UTC; unix</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; -- File: /home/william/software/mambaforge/envs/baizer/lib/R/library/purrr/Meta/package.rds </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $tidyr</span></span>
-<span><span class="co">#&gt; Package: tidyr</span></span>
-<span><span class="co">#&gt; Title: Tidy Messy Data</span></span>
-<span><span class="co">#&gt; Version: 1.3.0</span></span>
-<span><span class="co">#&gt; Authors@R: c( person("Hadley", "Wickham", , "hadley@posit.co", role =</span></span>
-<span><span class="co">#&gt;         c("aut", "cre")), person("Davis", "Vaughan", ,</span></span>
-<span><span class="co">#&gt;         "davis@posit.co", role = "aut"), person("Maximilian",</span></span>
-<span><span class="co">#&gt;         "Girlich", role = "aut"), person("Kevin", "Ushey", ,</span></span>
-<span><span class="co">#&gt;         "kevin@posit.co", role = "ctb"), person("Posit, PBC", role =</span></span>
-<span><span class="co">#&gt;         c("cph", "fnd")) )</span></span>
-<span><span class="co">#&gt; Description: Tools to help to create tidy data, where each column is a</span></span>
-<span><span class="co">#&gt;         variable, each row is an observation, and each cell contains a</span></span>
-<span><span class="co">#&gt;         single value.  'tidyr' contains tools for changing the shape</span></span>
-<span><span class="co">#&gt;         (pivoting) and hierarchy (nesting and 'unnesting') of a</span></span>
-<span><span class="co">#&gt;         dataset, turning deeply nested lists into rectangular data</span></span>
-<span><span class="co">#&gt;         frames ('rectangling'), and extracting values out of string</span></span>
-<span><span class="co">#&gt;         columns. It also includes tools for working with missing values</span></span>
-<span><span class="co">#&gt;         (both implicit and explicit).</span></span>
-<span><span class="co">#&gt; License: MIT + file LICENSE</span></span>
-<span><span class="co">#&gt; URL: https://tidyr.tidyverse.org, https://github.com/tidyverse/tidyr</span></span>
-<span><span class="co">#&gt; BugReports: https://github.com/tidyverse/tidyr/issues</span></span>
-<span><span class="co">#&gt; Depends: R (&gt;= 3.4.0)</span></span>
-<span><span class="co">#&gt; Imports: cli (&gt;= 3.4.1), dplyr (&gt;= 1.0.10), glue, lifecycle (&gt;= 1.0.3),</span></span>
-<span><span class="co">#&gt;         magrittr, purrr (&gt;= 1.0.1), rlang (&gt;= 1.0.4), stringr (&gt;=</span></span>
-<span><span class="co">#&gt;         1.5.0), tibble (&gt;= 2.1.1), tidyselect (&gt;= 1.2.0), utils, vctrs</span></span>
-<span><span class="co">#&gt;         (&gt;= 0.5.2)</span></span>
-<span><span class="co">#&gt; Suggests: covr, data.table, knitr, readr, repurrrsive (&gt;= 1.1.0),</span></span>
-<span><span class="co">#&gt;         rmarkdown, testthat (&gt;= 3.0.0)</span></span>
-<span><span class="co">#&gt; LinkingTo: cpp11 (&gt;= 0.4.0)</span></span>
-<span><span class="co">#&gt; VignetteBuilder: knitr</span></span>
-<span><span class="co">#&gt; Config/Needs/website: tidyverse/tidytemplate</span></span>
-<span><span class="co">#&gt; Config/testthat/edition: 3</span></span>
-<span><span class="co">#&gt; Encoding: UTF-8</span></span>
-<span><span class="co">#&gt; LazyData: true</span></span>
-<span><span class="co">#&gt; RoxygenNote: 7.2.3</span></span>
-<span><span class="co">#&gt; SystemRequirements: C++11</span></span>
-<span><span class="co">#&gt; NeedsCompilation: yes</span></span>
-<span><span class="co">#&gt; Packaged: 2023-01-23 22:21:00 UTC; hadleywickham</span></span>
-<span><span class="co">#&gt; Author: Hadley Wickham [aut, cre], Davis Vaughan [aut], Maximilian</span></span>
-<span><span class="co">#&gt;         Girlich [aut], Kevin Ushey [ctb], Posit, PBC [cph, fnd]</span></span>
-<span><span class="co">#&gt; Maintainer: Hadley Wickham &lt;hadley@posit.co&gt;</span></span>
-<span><span class="co">#&gt; Repository: CRAN</span></span>
-<span><span class="co">#&gt; Date/Publication: 2023-01-24 16:00:02 UTC</span></span>
-<span><span class="co">#&gt; Built: R 4.2.2; x86_64-conda-linux-gnu; 2023-01-25 13:36:14 UTC; unix</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; -- File: /home/william/software/mambaforge/envs/baizer/lib/R/library/tidyr/Meta/package.rds</span></span></code></pre></div>
+<span><span class="co">#&gt; -- File: /home/william/software/mambaforge/envs/baizer/lib/R/library/dplyr/Meta/package.rds</span></span></code></pre></div>
 <ul>
 <li>use <code>%nin%</code> to get ‘not in’ logical value</li>
 </ul>
@@ -638,56 +551,56 @@
 <span>  <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html" class="external-link">str_c</a></span><span class="op">(</span><span class="st">"B"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">9</span>, <span class="fl">10</span>, <span class="fl">21</span>, <span class="fl">32</span>, <span class="fl">99</span>, <span class="fl">101</span>, <span class="fl">102</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">v</span></span>
-<span><span class="co">#&gt;  [1] "A11"  "B32"  "B2"   "B10"  "B21"  "A101" "A2"   "B101" "B102" "A1"  </span></span>
-<span><span class="co">#&gt; [11] "A12"  "B1"   "A10"  "B99"  "A102" "A9"   "A99"  "B9"</span></span>
+<span><span class="co">#&gt;  [1] "A11"  "A101" "B1"   "A2"   "A99"  "A10"  "B9"   "A102" "B101" "B102"</span></span>
+<span><span class="co">#&gt; [11] "B32"  "A9"   "B99"  "A12"  "B10"  "A1"   "B21"  "B2"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/group_vector.html">group_vector</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $A</span></span>
-<span><span class="co">#&gt; [1] "A11"  "A101" "A2"   "A1"   "A12"  "A10"  "A102" "A9"   "A99" </span></span>
+<span><span class="co">#&gt; [1] "A11"  "A101" "A2"   "A99"  "A10"  "A102" "A9"   "A12"  "A1"  </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $B</span></span>
-<span><span class="co">#&gt; [1] "B32"  "B2"   "B10"  "B21"  "B101" "B102" "B1"   "B99"  "B9"</span></span>
+<span><span class="co">#&gt; [1] "B1"   "B9"   "B101" "B102" "B32"  "B99"  "B10"  "B21"  "B2"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/group_vector.html">group_vector</a></span><span class="op">(</span><span class="va">v</span>, pattern <span class="op">=</span> <span class="st">"\\w\\d"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $A1</span></span>
-<span><span class="co">#&gt; [1] "A11"  "A101" "A1"   "A12"  "A10"  "A102"</span></span>
+<span><span class="co">#&gt; [1] "A11"  "A101" "A10"  "A102" "A12"  "A1"  </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $A2</span></span>
 <span><span class="co">#&gt; [1] "A2"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $A9</span></span>
-<span><span class="co">#&gt; [1] "A9"  "A99"</span></span>
+<span><span class="co">#&gt; [1] "A99" "A9" </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $B1</span></span>
-<span><span class="co">#&gt; [1] "B10"  "B101" "B102" "B1"  </span></span>
+<span><span class="co">#&gt; [1] "B1"   "B101" "B102" "B10" </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $B2</span></span>
-<span><span class="co">#&gt; [1] "B2"  "B21"</span></span>
+<span><span class="co">#&gt; [1] "B21" "B2" </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $B3</span></span>
 <span><span class="co">#&gt; [1] "B32"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $B9</span></span>
-<span><span class="co">#&gt; [1] "B99" "B9"</span></span>
+<span><span class="co">#&gt; [1] "B9"  "B99"</span></span>
 <span></span>
 <span><span class="co"># the pattern rules are just same as reg_match()</span></span>
 <span><span class="fu"><a href="reference/group_vector.html">group_vector</a></span><span class="op">(</span><span class="va">v</span>, pattern <span class="op">=</span> <span class="st">"\\w(\\d)"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $`1`</span></span>
-<span><span class="co">#&gt;  [1] "A11"  "B10"  "A101" "B101" "B102" "A1"   "A12"  "B1"   "A10"  "A102"</span></span>
+<span><span class="co">#&gt;  [1] "A11"  "A101" "B1"   "A10"  "A102" "B101" "B102" "A12"  "B10"  "A1"  </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $`2`</span></span>
-<span><span class="co">#&gt; [1] "B2"  "B21" "A2" </span></span>
+<span><span class="co">#&gt; [1] "A2"  "B21" "B2" </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $`3`</span></span>
 <span><span class="co">#&gt; [1] "B32"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $`9`</span></span>
-<span><span class="co">#&gt; [1] "B99" "A9"  "A99" "B9"</span></span>
+<span><span class="co">#&gt; [1] "A99" "B9"  "A9"  "B99"</span></span>
 <span></span>
 <span><span class="co"># unmatched part will alse be stored</span></span>
 <span><span class="fu"><a href="reference/group_vector.html">group_vector</a></span><span class="op">(</span><span class="va">v</span>, pattern <span class="op">=</span> <span class="st">"\\d{2}"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $`10`</span></span>
-<span><span class="co">#&gt; [1] "B10"  "A101" "B101" "B102" "A10"  "A102"</span></span>
+<span><span class="co">#&gt; [1] "A101" "A10"  "A102" "B101" "B102" "B10" </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $`11`</span></span>
 <span><span class="co">#&gt; [1] "A11"</span></span>
@@ -702,10 +615,10 @@
 <span><span class="co">#&gt; [1] "B32"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $`99`</span></span>
-<span><span class="co">#&gt; [1] "B99" "A99"</span></span>
+<span><span class="co">#&gt; [1] "A99" "B99"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $unmatch</span></span>
-<span><span class="co">#&gt; [1] "B2" "A2" "A1" "B1" "A9" "B9"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "B1" "A2" "B9" "A9" "A1" "B2"</span></span></code></pre></div>
 <ul>
 <li>sort by a function</li>
 </ul>
@@ -715,7 +628,7 @@
 <span></span>
 <span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html" class="external-link">str_c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">9</span>, <span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">12</span>, <span class="fl">99</span>, <span class="fl">101</span>, <span class="fl">102</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">v</span></span>
-<span><span class="co">#&gt; [1] "id101" "id102" "id11"  "id12"  "id9"   "id1"   "id2"   "id99"  "id10"</span></span>
+<span><span class="co">#&gt; [1] "id1"   "id101" "id99"  "id102" "id11"  "id12"  "id2"   "id9"   "id10"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/sortf.html">sortf</a></span><span class="op">(</span><span class="va">v</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="reference/reg_match.html">reg_match</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"\\d+"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">as.double</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "id1"   "id2"   "id9"   "id10"  "id11"  "id12"  "id99"  "id101" "id102"</span></span>
@@ -731,8 +644,8 @@
 <span>  <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html" class="external-link">str_c</a></span><span class="op">(</span><span class="st">"B"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">9</span>, <span class="fl">10</span>, <span class="fl">21</span>, <span class="fl">32</span>, <span class="fl">99</span>, <span class="fl">101</span>, <span class="fl">102</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">v</span></span>
-<span><span class="co">#&gt;  [1] "A1"   "A12"  "A11"  "A9"   "B10"  "A102" "B32"  "A2"   "B9"   "B102"</span></span>
-<span><span class="co">#&gt; [11] "B99"  "B21"  "A99"  "A101" "B2"   "B1"   "B101" "A10"</span></span>
+<span><span class="co">#&gt;  [1] "A11"  "B1"   "A99"  "A101" "A12"  "A9"   "B99"  "A2"   "B2"   "B32" </span></span>
+<span><span class="co">#&gt; [11] "A102" "B102" "A1"   "B101" "A10"  "B9"   "B10"  "B21"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/sortf.html">sortf</a></span><span class="op">(</span><span class="va">v</span>, <span class="op">~</span> <span class="fu"><a href="reference/reg_match.html">reg_match</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"\\d+"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">as.double</a></span><span class="op">(</span><span class="op">)</span>, group_pattern <span class="op">=</span> <span class="st">"\\w"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "A1"   "A2"   "A9"   "A10"  "A11"  "A12"  "A99"  "A101" "A102" "B1"  </span></span>
@@ -1346,7 +1259,7 @@
 <span><span class="co">#&gt; [2] "--no-save"                             </span></span>
 <span><span class="co">#&gt; [3] "--no-restore"                          </span></span>
 <span><span class="co">#&gt; [4] "-f"                                    </span></span>
-<span><span class="co">#&gt; [5] "/tmp/Rtmp5GexAX/callr-scr-49657fdbde71"</span></span>
+<span><span class="co">#&gt; [5] "/tmp/Rtmp5GexAX/callr-scr-49657541b951"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/cmdargs.html">cmdargs</a></span><span class="op">(</span><span class="st">"R_env"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"</span></span></code></pre></div>
