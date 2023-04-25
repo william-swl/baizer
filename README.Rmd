@@ -103,17 +103,17 @@ mini_diamond %>% filterC(cond1)
 ## basic utils
 - load packages as a batch
 ```{r basic-utils-pkglib}
-baizer::pkglib(dplyr, purrr, tidyr)
+baizer::pkglib(dplyr, purrr)
 ```
 
 - versions of packages
 ```{r basic-utils-pkgver}
-baizer::pkgver(dplyr, purrr, tidyr)
+baizer::pkgver(dplyr, purrr)
 ```
 
 - information of packages
 ```{r basic-utils-pkginfo}
-baizer::pkginfo(dplyr, purrr, tidyr)
+baizer::pkginfo(dplyr)
 ```
 
 

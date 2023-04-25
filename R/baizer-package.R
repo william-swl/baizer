@@ -39,6 +39,7 @@
 #' @importFrom tibble as_tibble
 #' @importFrom tibble as_tibble_col
 #' @importFrom tibble tibble
+#' @importFrom utils combn
 #' @importFrom utils sessionInfo
 ## usethis namespace: end
 NULL

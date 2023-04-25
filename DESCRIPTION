@@ -20,7 +20,6 @@ Imports:
     stats,
     stringr,
     tibble (>= 3.1),
-    tidyselect,
     utils
 Suggests: 
     covr,

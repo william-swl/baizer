@@ -48,7 +48,7 @@ c2 <- tbflt(x > 8)
 c1 | c2
 #> <quosure>
 #> expr: ^cut == "Fair" | x > 8
-#> env:  0x5594ae7e9bf0
+#> env:  0x558f3e84b2a8
 
 mini_diamond %>%
   filterC(c1) %>%
@@ -173,7 +173,7 @@ mini_diamond %>% filterC(cond1)
 - load packages as a batch
 
 ``` r
-baizer::pkglib(dplyr, purrr, tidyr)
+baizer::pkglib(dplyr, purrr)
 #> 
 #> Attaching package: 'dplyr'
 #> The following objects are masked from 'package:stats':
@@ -187,21 +187,18 @@ baizer::pkglib(dplyr, purrr, tidyr)
 - versions of packages
 
 ``` r
-baizer::pkgver(dplyr, purrr, tidyr)
+baizer::pkgver(dplyr, purrr)
 #> $dplyr
 #> [1] "1.1.1"
 #> 
 #> $purrr
 #> [1] "1.0.1"
-#> 
-#> $tidyr
-#> [1] "1.3.0"
 ```
 
 - information of packages
 
 ``` r
-baizer::pkginfo(dplyr, purrr, tidyr)
+baizer::pkginfo(dplyr)
 #> $dplyr
 #> Type: Package
 #> Package: dplyr
@@ -250,91 +247,7 @@ baizer::pkginfo(dplyr, purrr, tidyr)
 #> Date/Publication: 2023-03-22 13:20:07 UTC
 #> Built: R 4.2.3; x86_64-conda-linux-gnu; 2023-03-23 01:46:10 UTC; unix
 #> 
-#> -- File: /home/william/software/mambaforge/envs/baizer/lib/R/library/dplyr/Meta/package.rds 
-#> 
-#> $purrr
-#> Package: purrr
-#> Title: Functional Programming Tools
-#> Version: 1.0.1
-#> Authors@R: c( person("Hadley", "Wickham", , "hadley@rstudio.com", role
-#>         = c("aut", "cre"), comment = c(ORCID = "0000-0003-4757-117X")),
-#>         person("Lionel", "Henry", , "lionel@rstudio.com", role =
-#>         "aut"), person("RStudio", role = c("cph", "fnd")) )
-#> Description: A complete and consistent functional programming toolkit
-#>         for R.
-#> License: MIT + file LICENSE
-#> URL: https://purrr.tidyverse.org/, https://github.com/tidyverse/purrr
-#> BugReports: https://github.com/tidyverse/purrr/issues
-#> Depends: R (>= 3.4.0)
-#> Imports: cli (>= 3.4.0), lifecycle (>= 1.0.3), magrittr (>= 1.5.0),
-#>         rlang (>= 0.4.10), vctrs (>= 0.5.0)
-#> Suggests: covr, dplyr (>= 0.7.8), httr, knitr, lubridate, rmarkdown,
-#>         testthat (>= 3.0.0), tibble, tidyselect
-#> LinkingTo: cli
-#> VignetteBuilder: knitr
-#> Biarch: true
-#> Config/Needs/website: tidyverse/tidytemplate
-#> Config/testthat/edition: 3
-#> Encoding: UTF-8
-#> RoxygenNote: 7.2.3
-#> NeedsCompilation: yes
-#> Packaged: 2023-01-09 14:36:20 UTC; hadleywickham
-#> Author: Hadley Wickham [aut, cre]
-#>         (<https://orcid.org/0000-0003-4757-117X>), Lionel Henry [aut],
-#>         RStudio [cph, fnd]
-#> Maintainer: Hadley Wickham <hadley@rstudio.com>
-#> Repository: CRAN
-#> Date/Publication: 2023-01-10 14:40:02 UTC
-#> Built: R 4.2.2; x86_64-conda-linux-gnu; 2023-01-11 05:51:38 UTC; unix
-#> 
-#> -- File: /home/william/software/mambaforge/envs/baizer/lib/R/library/purrr/Meta/package.rds 
-#> 
-#> $tidyr
-#> Package: tidyr
-#> Title: Tidy Messy Data
-#> Version: 1.3.0
-#> Authors@R: c( person("Hadley", "Wickham", , "hadley@posit.co", role =
-#>         c("aut", "cre")), person("Davis", "Vaughan", ,
-#>         "davis@posit.co", role = "aut"), person("Maximilian",
-#>         "Girlich", role = "aut"), person("Kevin", "Ushey", ,
-#>         "kevin@posit.co", role = "ctb"), person("Posit, PBC", role =
-#>         c("cph", "fnd")) )
-#> Description: Tools to help to create tidy data, where each column is a
-#>         variable, each row is an observation, and each cell contains a
-#>         single value.  'tidyr' contains tools for changing the shape
-#>         (pivoting) and hierarchy (nesting and 'unnesting') of a
-#>         dataset, turning deeply nested lists into rectangular data
-#>         frames ('rectangling'), and extracting values out of string
-#>         columns. It also includes tools for working with missing values
-#>         (both implicit and explicit).
-#> License: MIT + file LICENSE
-#> URL: https://tidyr.tidyverse.org, https://github.com/tidyverse/tidyr
-#> BugReports: https://github.com/tidyverse/tidyr/issues
-#> Depends: R (>= 3.4.0)
-#> Imports: cli (>= 3.4.1), dplyr (>= 1.0.10), glue, lifecycle (>= 1.0.3),
-#>         magrittr, purrr (>= 1.0.1), rlang (>= 1.0.4), stringr (>=
-#>         1.5.0), tibble (>= 2.1.1), tidyselect (>= 1.2.0), utils, vctrs
-#>         (>= 0.5.2)
-#> Suggests: covr, data.table, knitr, readr, repurrrsive (>= 1.1.0),
-#>         rmarkdown, testthat (>= 3.0.0)
-#> LinkingTo: cpp11 (>= 0.4.0)
-#> VignetteBuilder: knitr
-#> Config/Needs/website: tidyverse/tidytemplate
-#> Config/testthat/edition: 3
-#> Encoding: UTF-8
-#> LazyData: true
-#> RoxygenNote: 7.2.3
-#> SystemRequirements: C++11
-#> NeedsCompilation: yes
-#> Packaged: 2023-01-23 22:21:00 UTC; hadleywickham
-#> Author: Hadley Wickham [aut, cre], Davis Vaughan [aut], Maximilian
-#>         Girlich [aut], Kevin Ushey [ctb], Posit, PBC [cph, fnd]
-#> Maintainer: Hadley Wickham <hadley@posit.co>
-#> Repository: CRAN
-#> Date/Publication: 2023-01-24 16:00:02 UTC
-#> Built: R 4.2.2; x86_64-conda-linux-gnu; 2023-01-25 13:36:14 UTC; unix
-#> 
-#> -- File: /home/william/software/mambaforge/envs/baizer/lib/R/library/tidyr/Meta/package.rds
+#> -- File: /home/william/software/mambaforge/envs/baizer/lib/R/library/dplyr/Meta/package.rds
 ```
 
 - use `%nin%` to get ‘not in’ logical value
@@ -568,56 +481,56 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "A11"  "B32"  "B2"   "B10"  "B21"  "A101" "A2"   "B101" "B102" "A1"  
-#> [11] "A12"  "B1"   "A10"  "B99"  "A102" "A9"   "A99"  "B9"
+#>  [1] "A11"  "A101" "B1"   "A2"   "A99"  "A10"  "B9"   "A102" "B101" "B102"
+#> [11] "B32"  "A9"   "B99"  "A12"  "B10"  "A1"   "B21"  "B2"
 
 group_vector(v)
 #> $A
-#> [1] "A11"  "A101" "A2"   "A1"   "A12"  "A10"  "A102" "A9"   "A99" 
+#> [1] "A11"  "A101" "A2"   "A99"  "A10"  "A102" "A9"   "A12"  "A1"  
 #> 
 #> $B
-#> [1] "B32"  "B2"   "B10"  "B21"  "B101" "B102" "B1"   "B99"  "B9"
+#> [1] "B1"   "B9"   "B101" "B102" "B32"  "B99"  "B10"  "B21"  "B2"
 
 group_vector(v, pattern = "\\w\\d")
 #> $A1
-#> [1] "A11"  "A101" "A1"   "A12"  "A10"  "A102"
+#> [1] "A11"  "A101" "A10"  "A102" "A12"  "A1"  
 #> 
 #> $A2
 #> [1] "A2"
 #> 
 #> $A9
-#> [1] "A9"  "A99"
+#> [1] "A99" "A9" 
 #> 
 #> $B1
-#> [1] "B10"  "B101" "B102" "B1"  
+#> [1] "B1"   "B101" "B102" "B10" 
 #> 
 #> $B2
-#> [1] "B2"  "B21"
+#> [1] "B21" "B2" 
 #> 
 #> $B3
 #> [1] "B32"
 #> 
 #> $B9
-#> [1] "B99" "B9"
+#> [1] "B9"  "B99"
 
 # the pattern rules are just same as reg_match()
 group_vector(v, pattern = "\\w(\\d)")
 #> $`1`
-#>  [1] "A11"  "B10"  "A101" "B101" "B102" "A1"   "A12"  "B1"   "A10"  "A102"
+#>  [1] "A11"  "A101" "B1"   "A10"  "A102" "B101" "B102" "A12"  "B10"  "A1"  
 #> 
 #> $`2`
-#> [1] "B2"  "B21" "A2" 
+#> [1] "A2"  "B21" "B2" 
 #> 
 #> $`3`
 #> [1] "B32"
 #> 
 #> $`9`
-#> [1] "B99" "A9"  "A99" "B9"
+#> [1] "A99" "B9"  "A9"  "B99"
 
 # unmatched part will alse be stored
 group_vector(v, pattern = "\\d{2}")
 #> $`10`
-#> [1] "B10"  "A101" "B101" "B102" "A10"  "A102"
+#> [1] "A101" "A10"  "A102" "B101" "B102" "B10" 
 #> 
 #> $`11`
 #> [1] "A11"
@@ -632,10 +545,10 @@ group_vector(v, pattern = "\\d{2}")
 #> [1] "B32"
 #> 
 #> $`99`
-#> [1] "B99" "A99"
+#> [1] "A99" "B99"
 #> 
 #> $unmatch
-#> [1] "B2" "A2" "A1" "B1" "A9" "B9"
+#> [1] "B1" "A2" "B9" "A9" "A1" "B2"
 ```
 
 - sort by a function
@@ -646,7 +559,7 @@ sortf(c(-2, 1, 3), abs)
 
 v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) %>% sample()
 v
-#> [1] "id101" "id102" "id11"  "id12"  "id9"   "id1"   "id2"   "id99"  "id10"
+#> [1] "id1"   "id101" "id99"  "id102" "id11"  "id12"  "id2"   "id9"   "id10"
 
 sortf(v, function(x) reg_match(x, "\\d+") %>% as.double())
 #> [1] "id1"   "id2"   "id9"   "id10"  "id11"  "id12"  "id99"  "id101" "id102"
@@ -662,8 +575,8 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "A1"   "A12"  "A11"  "A9"   "B10"  "A102" "B32"  "A2"   "B9"   "B102"
-#> [11] "B99"  "B21"  "A99"  "A101" "B2"   "B1"   "B101" "A10"
+#>  [1] "A11"  "B1"   "A99"  "A101" "A12"  "A9"   "B99"  "A2"   "B2"   "B32" 
+#> [11] "A102" "B102" "A1"   "B101" "A10"  "B9"   "B10"  "B21"
 
 sortf(v, ~ reg_match(.x, "\\d+") %>% as.double(), group_pattern = "\\w")
 #>  [1] "A1"   "A2"   "A9"   "A10"  "A11"  "A12"  "A99"  "A101" "A102" "B1"  
@@ -1299,7 +1212,7 @@ cmdargs()
 #> [2] "--no-save"                             
 #> [3] "--no-restore"                          
 #> [4] "-f"                                    
-#> [5] "/tmp/Rtmp5GexAX/callr-scr-49657fdbde71"
+#> [5] "/tmp/Rtmp5GexAX/callr-scr-49657541b951"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"

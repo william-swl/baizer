@@ -13,5 +13,5 @@ pkginfo(...)
 information of packages
 }
 \examples{
-baizer::pkginfo(dplyr, purrr, tidyr)
+baizer::pkginfo(dplyr)
 }
