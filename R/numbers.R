@@ -31,11 +31,12 @@ int_digits <- function(x, digits = 2, scale_factor = FALSE) {
 #' @examples round_string(1.1, 2)
 round_string <- function(x, digits = 2) {
   x <- as.double(x)
-  purrr::map2_chr(
-    x, digits,
-    ~ formatC(round(.x, digits = .y), digits = .y, format = "f")
-  ) %>%
-    stringr::str_trim()
+  res <- purrr::map2_chr(x, digits, ~ formatC(round(.x, digits = .y),
+    digits = .y, format = "f"
+  )) %>% stringr::str_trim()
+
+  res <- ifelse(res == "NA", NA_character_, res)
+  return(res)
 }
 
 #' from float number to fixed significant digits character
@@ -61,7 +62,8 @@ signif_string <- function(x, digits = 2) {
   x <- round(trans, digits) / trans_scale
 
   round_digits <- log10(trans_scale) + digits
-  round_digits <- ifelse(round_digits < 0, 0, round_digits)
+  round_digits <- ifelse(round_digits < 0 | is.na(round_digits),
+                         0, round_digits)
 
   res <- round_string(x, round_digits)
   return(res)

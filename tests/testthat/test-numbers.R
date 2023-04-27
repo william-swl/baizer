@@ -41,6 +41,9 @@ test_that("round_string", {
     round_string(c(0.2651, 26.51), c(2, 0)),
     c("0.27", "27")
   )
+  expect_identical(
+    is.na(round_string(c(NA, NULL, NA))), c(TRUE, TRUE)
+  )
 })
 
 
@@ -75,6 +78,9 @@ test_that("signif_string", {
   expect_identical(
     signif_string(c(0.2651, 26.51, 2651), 2),
     c("0.27", "27", "2700")
+  )
+  expect_identical(
+    is.na(signif_string(c(NA, NULL, NA))), c(TRUE, TRUE)
   )
 })
 
