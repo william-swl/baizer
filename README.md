@@ -9,7 +9,7 @@
 coverage](https://codecov.io/gh/william-swl/baizer/branch/master/graph/badge.svg)](https://app.codecov.io/gh/william-swl/baizer?branch=master)
 [![R-CMD-check](https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml)
 [![](https://www.r-pkg.org/badges/version/baizer?color=orange)](https://cran.r-project.org/package=baizer)
-[![](https://img.shields.io/badge/devel%20version-0.4.8-blue.svg)](https://github.com/william-swl/baizer)
+[![](https://img.shields.io/badge/devel%20version-0.4.9-blue.svg)](https://github.com/william-swl/baizer)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/baizer?color=blue)](https://cran.r-project.org/package=baizer)
 [![](http://cranlogs.r-pkg.org/badges/last-month/baizer?color=green)](https://cran.r-project.org/package=baizer)
 <!-- badges: end -->
@@ -48,7 +48,7 @@ c2 <- tbflt(x > 8)
 c1 | c2
 #> <quosure>
 #> expr: ^cut == "Fair" | x > 8
-#> env:  0x558f3e84b2a8
+#> env:  0x55ec371f1770
 
 mini_diamond %>%
   filterC(c1) %>%
@@ -481,28 +481,28 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "A11"  "A101" "B1"   "A2"   "A99"  "A10"  "B9"   "A102" "B101" "B102"
-#> [11] "B32"  "A9"   "B99"  "A12"  "B10"  "A1"   "B21"  "B2"
+#>  [1] "A10"  "B9"   "B101" "A102" "A9"   "B32"  "B1"   "A11"  "A2"   "A1"  
+#> [11] "A99"  "B21"  "B10"  "A12"  "B99"  "A101" "B102" "B2"
 
 group_vector(v)
 #> $A
-#> [1] "A11"  "A101" "A2"   "A99"  "A10"  "A102" "A9"   "A12"  "A1"  
+#> [1] "A10"  "A102" "A9"   "A11"  "A2"   "A1"   "A99"  "A12"  "A101"
 #> 
 #> $B
-#> [1] "B1"   "B9"   "B101" "B102" "B32"  "B99"  "B10"  "B21"  "B2"
+#> [1] "B9"   "B101" "B32"  "B1"   "B21"  "B10"  "B99"  "B102" "B2"
 
 group_vector(v, pattern = "\\w\\d")
 #> $A1
-#> [1] "A11"  "A101" "A10"  "A102" "A12"  "A1"  
+#> [1] "A10"  "A102" "A11"  "A1"   "A12"  "A101"
 #> 
 #> $A2
 #> [1] "A2"
 #> 
 #> $A9
-#> [1] "A99" "A9" 
+#> [1] "A9"  "A99"
 #> 
 #> $B1
-#> [1] "B1"   "B101" "B102" "B10" 
+#> [1] "B101" "B1"   "B10"  "B102"
 #> 
 #> $B2
 #> [1] "B21" "B2" 
@@ -516,7 +516,7 @@ group_vector(v, pattern = "\\w\\d")
 # the pattern rules are just same as reg_match()
 group_vector(v, pattern = "\\w(\\d)")
 #> $`1`
-#>  [1] "A11"  "A101" "B1"   "A10"  "A102" "B101" "B102" "A12"  "B10"  "A1"  
+#>  [1] "A10"  "B101" "A102" "B1"   "A11"  "A1"   "B10"  "A12"  "A101" "B102"
 #> 
 #> $`2`
 #> [1] "A2"  "B21" "B2" 
@@ -525,12 +525,12 @@ group_vector(v, pattern = "\\w(\\d)")
 #> [1] "B32"
 #> 
 #> $`9`
-#> [1] "A99" "B9"  "A9"  "B99"
+#> [1] "B9"  "A9"  "A99" "B99"
 
 # unmatched part will alse be stored
 group_vector(v, pattern = "\\d{2}")
 #> $`10`
-#> [1] "A101" "A10"  "A102" "B101" "B102" "B10" 
+#> [1] "A10"  "B101" "A102" "B10"  "A101" "B102"
 #> 
 #> $`11`
 #> [1] "A11"
@@ -548,7 +548,7 @@ group_vector(v, pattern = "\\d{2}")
 #> [1] "A99" "B99"
 #> 
 #> $unmatch
-#> [1] "B1" "A2" "B9" "A9" "A1" "B2"
+#> [1] "B9" "A9" "B1" "A2" "A1" "B2"
 ```
 
 - sort by a function
@@ -559,7 +559,7 @@ sortf(c(-2, 1, 3), abs)
 
 v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) %>% sample()
 v
-#> [1] "id1"   "id101" "id99"  "id102" "id11"  "id12"  "id2"   "id9"   "id10"
+#> [1] "id101" "id102" "id2"   "id10"  "id1"   "id99"  "id12"  "id11"  "id9"
 
 sortf(v, function(x) reg_match(x, "\\d+") %>% as.double())
 #> [1] "id1"   "id2"   "id9"   "id10"  "id11"  "id12"  "id99"  "id101" "id102"
@@ -575,8 +575,8 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "A11"  "B1"   "A99"  "A101" "A12"  "A9"   "B99"  "A2"   "B2"   "B32" 
-#> [11] "A102" "B102" "A1"   "B101" "A10"  "B9"   "B10"  "B21"
+#>  [1] "A99"  "B9"   "A2"   "A11"  "B2"   "B32"  "B99"  "B21"  "B101" "B10" 
+#> [11] "A10"  "B1"   "A12"  "A1"   "A102" "A101" "A9"   "B102"
 
 sortf(v, ~ reg_match(.x, "\\d+") %>% as.double(), group_pattern = "\\w")
 #>  [1] "A1"   "A2"   "A9"   "A10"  "A11"  "A12"  "A99"  "A101" "A102" "B1"  
@@ -736,6 +736,41 @@ generate_ticks(c(176, 198, 264))
 #>  [1] 175 185 195 205 215 225 235 245 255 265
 ```
 
+- split a positive integer number as a number vector
+
+``` r
+pos_int_split(12, 3, method = "average")
+#> [1] 4 4 4
+
+pos_int_split(12, 3, method = "random")
+#> [1] 3 7 2
+
+# you can also assign the ratio of output
+pos_int_split(12, 3, method = c(1, 2, 3))
+#> [1] 2 4 6
+```
+
+- generate outliers from a series of number
+
+``` r
+x <- seq(0, 100, 1)
+
+gen_outlier(x, 10)
+#>  [1]  -96  -67 -101 -144 -139  233  273  166  260  172
+
+# generation limits
+gen_outlier(x, 10, lim = c(-80, 160))
+#>  [1] -68 -53 -51 -74 -79 154 150 155 155 159
+
+# assign the left and right outliers
+gen_outlier(x, 10, lim = c(-80, 160), assign_n = c(0.1, 0.9))
+#>  [1] -59 150 159 155 151 159 154 156 151 157
+
+# just generate left outliers
+gen_outlier(x, 10, side = "left")
+#>  [1] -167  -83 -103 -132 -109 -148  -62 -191  -70 -191
+```
+
 ## dataframe
 
 - a minimal dataset
@@ -850,11 +885,43 @@ fancy_count(mini_diamond, cut, clarity, ext = id) %>% head(5)
 #> 5 Fair  VS1         3  0.03 id-36(1),id-43(1),id-85(1)
 ```
 
+- count two columns as a cross-tabulation table
+
+``` r
+cross_count(mini_diamond, cut, clarity)
+#>       I1 IF SI1 SI2 VS1 VS2 VVS1 VVS2
+#> Fair   5  4   5   4   3   5    5    4
+#> Good   5  5   4   4   2   4    4    3
+#> Ideal  4  4   5   4   5   2    5    5
+
+# show the ratio in the row
+cross_count(mini_diamond, cut, clarity, method = "rowr")
+#>         I1   IF  SI1  SI2  VS1  VS2 VVS1 VVS2
+#> Fair  0.14 0.11 0.14 0.11 0.09 0.14 0.14 0.11
+#> Good  0.16 0.16 0.13 0.13 0.06 0.13 0.13 0.10
+#> Ideal 0.12 0.12 0.15 0.12 0.15 0.06 0.15 0.15
+
+# show the ratio in the col
+cross_count(mini_diamond, cut, clarity, method = "colr")
+#>         I1   IF  SI1  SI2 VS1  VS2 VVS1 VVS2
+#> Fair  0.36 0.31 0.36 0.33 0.3 0.45 0.36 0.33
+#> Good  0.36 0.38 0.29 0.33 0.2 0.36 0.29 0.25
+#> Ideal 0.29 0.31 0.36 0.33 0.5 0.18 0.36 0.42
+```
+
 - split a column and return a longer tibble
 
 ``` r
-fancy_count(mini_diamond, cut, ext = clarity) %>%
-  split_column(name_col = cut, value_col = clarity)
+df <- fancy_count(mini_diamond, cut, ext = clarity) 
+head(df)
+#> # A tibble: 3 × 4
+#>   cut       n     r clarity                                                
+#>   <chr> <int> <dbl> <chr>                                                  
+#> 1 Fair     35  0.35 I1(5),IF(4),SI1(5),SI2(4),VS1(3),VS2(5),VVS1(5),VVS2(4)
+#> 2 Good     31  0.31 I1(5),IF(5),SI1(4),SI2(4),VS1(2),VS2(4),VVS1(4),VVS2(3)
+#> 3 Ideal    34  0.34 I1(4),IF(4),SI1(5),SI2(4),VS1(5),VS2(2),VVS1(5),VVS2(5)
+
+split_column(df, name_col = cut, value_col = clarity)
 #> # A tibble: 24 × 2
 #>    cut   clarity
 #>    <chr> <chr>  
@@ -1208,11 +1275,11 @@ cmdargs()
 #> character(0)
 #> 
 #> $env_configs
-#> [1] "--slave"                               
-#> [2] "--no-save"                             
-#> [3] "--no-restore"                          
-#> [4] "-f"                                    
-#> [5] "/tmp/Rtmp5GexAX/callr-scr-49657541b951"
+#> [1] "--slave"                             
+#> [2] "--no-save"                           
+#> [3] "--no-restore"                        
+#> [4] "-f"                                  
+#> [5] "/tmp/RtmpiPxr5n/callr-scr-ed6fc9b615"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"

@@ -201,3 +201,16 @@ test_that("ref_level", {
     ref_level(cut0, cut)
   expect_identical(levels(df$cut0), stringr::str_c(levels(df$cut), "xxx"))
 })
+
+
+test_that("cross_count", {
+  expect_snapshot(cross_count(mini_diamond, cut, clarity))
+})
+
+test_that("cross_count, method='rowr'", {
+  expect_snapshot(cross_count(mini_diamond, cut, clarity, method = "rowr"))
+})
+
+test_that("cross_count, method='colr'", {
+  expect_snapshot(cross_count(mini_diamond, cut, clarity, method = "colr"))
+})

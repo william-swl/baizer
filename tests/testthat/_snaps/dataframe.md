@@ -1349,3 +1349,33 @@
       | id-4 | 1.54 | Ideal | SI2 |  9452 | 7.43 | 7.45 |
       | id-5 | 0.72 | Ideal | VS1 |  2498 | 5.73 | 5.77 |
 
+# cross_count
+
+    Code
+      cross_count(mini_diamond, cut, clarity)
+    Output
+            I1 IF SI1 SI2 VS1 VS2 VVS1 VVS2
+      Fair   5  4   5   4   3   5    5    4
+      Good   5  5   4   4   2   4    4    3
+      Ideal  4  4   5   4   5   2    5    5
+
+# cross_count, method='rowr'
+
+    Code
+      cross_count(mini_diamond, cut, clarity, method = "rowr")
+    Output
+              I1   IF  SI1  SI2  VS1  VS2 VVS1 VVS2
+      Fair  0.14 0.11 0.14 0.11 0.09 0.14 0.14 0.11
+      Good  0.16 0.16 0.13 0.13 0.06 0.13 0.13 0.10
+      Ideal 0.12 0.12 0.15 0.12 0.15 0.06 0.15 0.15
+
+# cross_count, method='colr'
+
+    Code
+      cross_count(mini_diamond, cut, clarity, method = "colr")
+    Output
+              I1   IF  SI1  SI2 VS1  VS2 VVS1 VVS2
+      Fair  0.36 0.31 0.36 0.33 0.3 0.45 0.36 0.33
+      Good  0.36 0.38 0.29 0.33 0.2 0.36 0.29 0.25
+      Ideal 0.29 0.31 0.36 0.33 0.5 0.18 0.36 0.42
+

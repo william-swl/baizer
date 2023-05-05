@@ -63,7 +63,8 @@ signif_string <- function(x, digits = 2) {
 
   round_digits <- log10(trans_scale) + digits
   round_digits <- ifelse(round_digits < 0 | is.na(round_digits),
-                         0, round_digits)
+    0, round_digits
+  )
 
   res <- round_string(x, round_digits)
   return(res)
@@ -415,5 +416,122 @@ generate_ticks <- function(x, expect_ticks = 10) {
   step <- nearest_tick((right - left) / expect_ticks, side = "right")
 
   res <- seq(left, right, by = step)
+  return(res)
+}
+
+
+
+#' split a positive integer number as a number vector
+#'
+#' @param x positive integer
+#' @param n length of the output
+#' @param method should be one of `average, random`, or a number vector which
+#' length is n
+#' @return number vector
+#' @export
+#'
+#' @examples
+#' pos_int_split(12, 3, method = "average")
+#'
+#' pos_int_split(12, 3, method = "random")
+#'
+#' pos_int_split(12, 3, method = c(1, 2, 3))
+#'
+pos_int_split <- function(x, n, method = "average") {
+  x <- as.integer(x)
+  if (x <= 0) {
+    stop("x should be a positive integer!")
+  }
+
+  if (is.numeric(method) == TRUE && length(method) == n) {
+    res <- round(x * method / sum(method))
+  } else if (method == "average") {
+    res <- rep(floor(x / n), n)
+    res[seq_len(x %% n)] <- res[seq_len(x %% n)] + 1
+  } else if (method == "random") {
+    while (TRUE) {
+      res <- sample(1:x, n, replace = TRUE)
+      if (sum(res) == x) break
+    }
+  } else {
+    stop("please input a valid method!")
+  }
+  return(res)
+}
+
+
+
+#' generate outliers from a series of number
+#'
+#' @param x number vector
+#' @param n number of outliers to generate
+#' @param digits the digits of outliers
+#' @param side should be one of `two.sided, left, right`
+#' @param lim a two-length vector to assign the limitations of the generation.
+#' if method is `two.sided`, the generation will be limited in
+#' [lim[1], left-outlier-threshold] and [right-outlier-threshold, lim[2]];
+#' if method is `left`, the generation will be limited in
+#' [lim[1], min(left-outlier-threshold, lim[2])]
+#' if method is `right`, the generation will be limited in
+#' [max(right-outlier-threshold, lim[1]), lim[2]]
+#' @param assign_n manually assign the number of left outliers or
+#' right outliers when method is `two.sided`
+#'
+#' @return number vector of outliers
+#' @export
+#'
+#' @examples
+#' x <- seq(0, 100, 1)
+#'
+#' gen_outlier(x, 10)
+#'
+#' # generation limits
+#' gen_outlier(x, 10, lim = c(-80, 160))
+#'
+#' # assign the left and right outliers
+#' gen_outlier(x, 10, lim = c(-80, 160), assign_n = c(0.1, 0.9))
+#'
+#' # just generate left outliers
+#' gen_outlier(x, 10, side = "left")
+#'
+gen_outlier <- function(x, n, digits = 0, side = "two.sided",
+                        lim = NULL, assign_n = NULL) {
+  x <- as.double(x)
+  iqr <- IQR(x)
+  right_threshold <- boxplot.stats(x)$stats[4] + 1.5 * iqr
+  left_threshold <- boxplot.stats(x)$stats[2] - 1.5 * iqr
+  if (is.null(lim)) {
+    lim <- c(left_threshold - 3 * iqr, right_threshold + 3 * iqr)
+  } else if (length(lim) != 2) {
+    stop("the length of lim should be 2!")
+  }
+
+
+  if (side == "two.sided") {
+    if (!is.null(assign_n) && length(assign_n) == 2) {
+      nvec <- pos_int_split(n, 2, method = assign_n)
+    } else {
+      nvec <- pos_int_split(n, 2, method = "average")
+    }
+
+    if (lim[1] > left_threshold) {
+      stop(str_c("lim[1] should smaller than ", round(left_threshold, digits)))
+    }
+    if (lim[2] < right_threshold) {
+      stop(str_c("lim[2] should larger than ", round(right_threshold, digits)))
+    }
+
+    res <- c(
+      runif(nvec[1], min = lim[1], max = left_threshold),
+      runif(nvec[2], min = right_threshold, max = lim[2])
+    )
+  } else if (side == "left") {
+    res <- runif(n, min = lim[1], max = min(left_threshold, lim[2]))
+  } else if (side == "right") {
+    res <- runif(n, min = max(right_threshold, lim[1]), max = lim[2])
+  }
+
+  res <- round(res, digits)
+
   return(res)
 }
