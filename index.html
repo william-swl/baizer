@@ -54,7 +54,7 @@
     
     <a class="navbar-brand me-2" href="index.html">baizer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.9</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -133,7 +133,7 @@
 <span><span class="va">c1</span> <span class="op">|</span> <span class="va">c2</span></span>
 <span><span class="co">#&gt; &lt;quosure&gt;</span></span>
 <span><span class="co">#&gt; expr: ^cut == "Fair" | x &gt; 8</span></span>
-<span><span class="co">#&gt; env:  0x558f3e84b2a8</span></span>
+<span><span class="co">#&gt; env:  0x55ec371f1770</span></span>
 <span></span>
 <span><span class="va">mini_diamond</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/filterC.html">filterC</a></span><span class="op">(</span><span class="va">c1</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
@@ -551,28 +551,28 @@
 <span>  <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html" class="external-link">str_c</a></span><span class="op">(</span><span class="st">"B"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">9</span>, <span class="fl">10</span>, <span class="fl">21</span>, <span class="fl">32</span>, <span class="fl">99</span>, <span class="fl">101</span>, <span class="fl">102</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">v</span></span>
-<span><span class="co">#&gt;  [1] "A11"  "A101" "B1"   "A2"   "A99"  "A10"  "B9"   "A102" "B101" "B102"</span></span>
-<span><span class="co">#&gt; [11] "B32"  "A9"   "B99"  "A12"  "B10"  "A1"   "B21"  "B2"</span></span>
+<span><span class="co">#&gt;  [1] "A10"  "B9"   "B101" "A102" "A9"   "B32"  "B1"   "A11"  "A2"   "A1"  </span></span>
+<span><span class="co">#&gt; [11] "A99"  "B21"  "B10"  "A12"  "B99"  "A101" "B102" "B2"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/group_vector.html">group_vector</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $A</span></span>
-<span><span class="co">#&gt; [1] "A11"  "A101" "A2"   "A99"  "A10"  "A102" "A9"   "A12"  "A1"  </span></span>
+<span><span class="co">#&gt; [1] "A10"  "A102" "A9"   "A11"  "A2"   "A1"   "A99"  "A12"  "A101"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $B</span></span>
-<span><span class="co">#&gt; [1] "B1"   "B9"   "B101" "B102" "B32"  "B99"  "B10"  "B21"  "B2"</span></span>
+<span><span class="co">#&gt; [1] "B9"   "B101" "B32"  "B1"   "B21"  "B10"  "B99"  "B102" "B2"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/group_vector.html">group_vector</a></span><span class="op">(</span><span class="va">v</span>, pattern <span class="op">=</span> <span class="st">"\\w\\d"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $A1</span></span>
-<span><span class="co">#&gt; [1] "A11"  "A101" "A10"  "A102" "A12"  "A1"  </span></span>
+<span><span class="co">#&gt; [1] "A10"  "A102" "A11"  "A1"   "A12"  "A101"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $A2</span></span>
 <span><span class="co">#&gt; [1] "A2"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $A9</span></span>
-<span><span class="co">#&gt; [1] "A99" "A9" </span></span>
+<span><span class="co">#&gt; [1] "A9"  "A99"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $B1</span></span>
-<span><span class="co">#&gt; [1] "B1"   "B101" "B102" "B10" </span></span>
+<span><span class="co">#&gt; [1] "B101" "B1"   "B10"  "B102"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $B2</span></span>
 <span><span class="co">#&gt; [1] "B21" "B2" </span></span>
@@ -586,7 +586,7 @@
 <span><span class="co"># the pattern rules are just same as reg_match()</span></span>
 <span><span class="fu"><a href="reference/group_vector.html">group_vector</a></span><span class="op">(</span><span class="va">v</span>, pattern <span class="op">=</span> <span class="st">"\\w(\\d)"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $`1`</span></span>
-<span><span class="co">#&gt;  [1] "A11"  "A101" "B1"   "A10"  "A102" "B101" "B102" "A12"  "B10"  "A1"  </span></span>
+<span><span class="co">#&gt;  [1] "A10"  "B101" "A102" "B1"   "A11"  "A1"   "B10"  "A12"  "A101" "B102"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $`2`</span></span>
 <span><span class="co">#&gt; [1] "A2"  "B21" "B2" </span></span>
@@ -595,12 +595,12 @@
 <span><span class="co">#&gt; [1] "B32"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $`9`</span></span>
-<span><span class="co">#&gt; [1] "A99" "B9"  "A9"  "B99"</span></span>
+<span><span class="co">#&gt; [1] "B9"  "A9"  "A99" "B99"</span></span>
 <span></span>
 <span><span class="co"># unmatched part will alse be stored</span></span>
 <span><span class="fu"><a href="reference/group_vector.html">group_vector</a></span><span class="op">(</span><span class="va">v</span>, pattern <span class="op">=</span> <span class="st">"\\d{2}"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $`10`</span></span>
-<span><span class="co">#&gt; [1] "A101" "A10"  "A102" "B101" "B102" "B10" </span></span>
+<span><span class="co">#&gt; [1] "A10"  "B101" "A102" "B10"  "A101" "B102"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $`11`</span></span>
 <span><span class="co">#&gt; [1] "A11"</span></span>
@@ -618,7 +618,7 @@
 <span><span class="co">#&gt; [1] "A99" "B99"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $unmatch</span></span>
-<span><span class="co">#&gt; [1] "B1" "A2" "B9" "A9" "A1" "B2"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "B9" "A9" "B1" "A2" "A1" "B2"</span></span></code></pre></div>
 <ul>
 <li>sort by a function</li>
 </ul>
@@ -628,7 +628,7 @@
 <span></span>
 <span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html" class="external-link">str_c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">9</span>, <span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">12</span>, <span class="fl">99</span>, <span class="fl">101</span>, <span class="fl">102</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">v</span></span>
-<span><span class="co">#&gt; [1] "id1"   "id101" "id99"  "id102" "id11"  "id12"  "id2"   "id9"   "id10"</span></span>
+<span><span class="co">#&gt; [1] "id101" "id102" "id2"   "id10"  "id1"   "id99"  "id12"  "id11"  "id9"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/sortf.html">sortf</a></span><span class="op">(</span><span class="va">v</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="reference/reg_match.html">reg_match</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"\\d+"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">as.double</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "id1"   "id2"   "id9"   "id10"  "id11"  "id12"  "id99"  "id101" "id102"</span></span>
@@ -644,8 +644,8 @@
 <span>  <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html" class="external-link">str_c</a></span><span class="op">(</span><span class="st">"B"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">9</span>, <span class="fl">10</span>, <span class="fl">21</span>, <span class="fl">32</span>, <span class="fl">99</span>, <span class="fl">101</span>, <span class="fl">102</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">v</span></span>
-<span><span class="co">#&gt;  [1] "A11"  "B1"   "A99"  "A101" "A12"  "A9"   "B99"  "A2"   "B2"   "B32" </span></span>
-<span><span class="co">#&gt; [11] "A102" "B102" "A1"   "B101" "A10"  "B9"   "B10"  "B21"</span></span>
+<span><span class="co">#&gt;  [1] "A99"  "B9"   "A2"   "A11"  "B2"   "B32"  "B99"  "B21"  "B101" "B10" </span></span>
+<span><span class="co">#&gt; [11] "A10"  "B1"   "A12"  "A1"   "A102" "A101" "A9"   "B102"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/sortf.html">sortf</a></span><span class="op">(</span><span class="va">v</span>, <span class="op">~</span> <span class="fu"><a href="reference/reg_match.html">reg_match</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"\\d+"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">as.double</a></span><span class="op">(</span><span class="op">)</span>, group_pattern <span class="op">=</span> <span class="st">"\\w"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "A1"   "A2"   "A9"   "A10"  "A11"  "A12"  "A99"  "A101" "A102" "B1"  </span></span>
@@ -791,6 +791,39 @@
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/generate_ticks.html">generate_ticks</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">176</span>, <span class="fl">198</span>, <span class="fl">264</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] 175 185 195 205 215 225 235 245 255 265</span></span></code></pre></div>
+<ul>
+<li>split a positive integer number as a number vector</li>
+</ul>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/pos_int_split.html">pos_int_split</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">3</span>, method <span class="op">=</span> <span class="st">"average"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 4 4 4</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/pos_int_split.html">pos_int_split</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">3</span>, method <span class="op">=</span> <span class="st">"random"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 3 7 2</span></span>
+<span></span>
+<span><span class="co"># you can also assign the ratio of output</span></span>
+<span><span class="fu"><a href="reference/pos_int_split.html">pos_int_split</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">3</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 2 4 6</span></span></code></pre></div>
+<ul>
+<li>generate outliers from a series of number</li>
+</ul>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/gen_outlier.html">gen_outlier</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1]  -96  -67 -101 -144 -139  233  273  166  260  172</span></span>
+<span></span>
+<span><span class="co"># generation limits</span></span>
+<span><span class="fu"><a href="reference/gen_outlier.html">gen_outlier</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span>, lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">80</span>, <span class="fl">160</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] -68 -53 -51 -74 -79 154 150 155 155 159</span></span>
+<span></span>
+<span><span class="co"># assign the left and right outliers</span></span>
+<span><span class="fu"><a href="reference/gen_outlier.html">gen_outlier</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span>, lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">80</span>, <span class="fl">160</span><span class="op">)</span>, assign_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.9</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] -59 150 159 155 151 159 154 156 151 157</span></span>
+<span></span>
+<span><span class="co"># just generate left outliers</span></span>
+<span><span class="fu"><a href="reference/gen_outlier.html">gen_outlier</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span>, side <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] -167  -83 -103 -132 -109 -148  -62 -191  -70 -191</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="dataframe">dataframe<a class="anchor" aria-label="anchor" href="#dataframe"></a>
@@ -798,7 +831,7 @@
 <ul>
 <li>a minimal dataset</li>
 </ul>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mini_diamond</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 7</span></span>
 <span><span class="co">#&gt;   id    carat cut   clarity price     x     y</span></span>
@@ -813,7 +846,7 @@
 <li>shortcut of <code>dplyr::column_to_rownames</code> and <code>dplyr::rownames_to_column</code>
 </li>
 </ul>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mini_diamond</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/c2r.html">c2r</a></span><span class="op">(</span><span class="st">"id"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      carat   cut clarity price    x    y</span></span>
 <span><span class="co">#&gt; id-1  1.02  Fair     SI1  3027 6.25 6.18</span></span>
@@ -848,7 +881,7 @@
 <ul>
 <li>fancy count to show an extended column</li>
 </ul>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># count one column</span></span>
 <span><span class="fu"><a href="reference/fancy_count.html">fancy_count</a></span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="va">cut</span><span class="op">)</span></span>
@@ -905,11 +938,42 @@
 <span><span class="co">#&gt; 4 Fair  SI2         4  0.04 id-25(1),id-40(1),id-6(1),id-99(1)          </span></span>
 <span><span class="co">#&gt; 5 Fair  VS1         3  0.03 id-36(1),id-43(1),id-85(1)</span></span></code></pre></div>
 <ul>
+<li>count two columns as a cross-tabulation table</li>
+</ul>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/cross_count.html">cross_count</a></span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="va">cut</span>, <span class="va">clarity</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       I1 IF SI1 SI2 VS1 VS2 VVS1 VVS2</span></span>
+<span><span class="co">#&gt; Fair   5  4   5   4   3   5    5    4</span></span>
+<span><span class="co">#&gt; Good   5  5   4   4   2   4    4    3</span></span>
+<span><span class="co">#&gt; Ideal  4  4   5   4   5   2    5    5</span></span>
+<span></span>
+<span><span class="co"># show the ratio in the row</span></span>
+<span><span class="fu"><a href="reference/cross_count.html">cross_count</a></span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="va">cut</span>, <span class="va">clarity</span>, method <span class="op">=</span> <span class="st">"rowr"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;         I1   IF  SI1  SI2  VS1  VS2 VVS1 VVS2</span></span>
+<span><span class="co">#&gt; Fair  0.14 0.11 0.14 0.11 0.09 0.14 0.14 0.11</span></span>
+<span><span class="co">#&gt; Good  0.16 0.16 0.13 0.13 0.06 0.13 0.13 0.10</span></span>
+<span><span class="co">#&gt; Ideal 0.12 0.12 0.15 0.12 0.15 0.06 0.15 0.15</span></span>
+<span></span>
+<span><span class="co"># show the ratio in the col</span></span>
+<span><span class="fu"><a href="reference/cross_count.html">cross_count</a></span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="va">cut</span>, <span class="va">clarity</span>, method <span class="op">=</span> <span class="st">"colr"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;         I1   IF  SI1  SI2 VS1  VS2 VVS1 VVS2</span></span>
+<span><span class="co">#&gt; Fair  0.36 0.31 0.36 0.33 0.3 0.45 0.36 0.33</span></span>
+<span><span class="co">#&gt; Good  0.36 0.38 0.29 0.33 0.2 0.36 0.29 0.25</span></span>
+<span><span class="co">#&gt; Ideal 0.29 0.31 0.36 0.33 0.5 0.18 0.36 0.42</span></span></code></pre></div>
+<ul>
 <li>split a column and return a longer tibble</li>
 </ul>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/fancy_count.html">fancy_count</a></span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="va">cut</span>, ext <span class="op">=</span> <span class="va">clarity</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="reference/split_column.html">split_column</a></span><span class="op">(</span>name_col <span class="op">=</span> <span class="va">cut</span>, value_col <span class="op">=</span> <span class="va">clarity</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fancy_count.html">fancy_count</a></span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="va">cut</span>, ext <span class="op">=</span> <span class="va">clarity</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 4</span></span>
+<span><span class="co">#&gt;   cut       n     r clarity                                                </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;                                                  </span></span>
+<span><span class="co">#&gt; 1 Fair     35  0.35 I1(5),IF(4),SI1(5),SI2(4),VS1(3),VS2(5),VVS1(5),VVS2(4)</span></span>
+<span><span class="co">#&gt; 2 Good     31  0.31 I1(5),IF(5),SI1(4),SI2(4),VS1(2),VS2(4),VVS1(4),VVS2(3)</span></span>
+<span><span class="co">#&gt; 3 Ideal    34  0.34 I1(4),IF(4),SI1(5),SI2(4),VS1(5),VS2(2),VVS1(5),VVS2(5)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/split_column.html">split_column</a></span><span class="op">(</span><span class="va">df</span>, name_col <span class="op">=</span> <span class="va">cut</span>, value_col <span class="op">=</span> <span class="va">clarity</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 24 × 2</span></span>
 <span><span class="co">#&gt;    cut   clarity</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;  </span></span>
@@ -927,7 +991,7 @@
 <ul>
 <li>move selected rows to target location</li>
 </ul>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># move row 3-5 after row 8</span></span>
 <span><span class="fu"><a href="reference/move_row.html">move_row</a></span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">5</span>, .after <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 100 × 7</span></span>
@@ -981,7 +1045,7 @@
 <ul>
 <li>slice a tibble by an ordered vector</li>
 </ul>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/ordered_slice.html">ordered_slice</a></span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="va">id</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id-3"</span>, <span class="st">"id-2"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 2 × 7</span></span>
 <span><span class="co">#&gt;   id    carat cut   clarity price     x     y</span></span>
@@ -1036,7 +1100,7 @@
 <ul>
 <li>remove columns by the ratio of NA, default to remove the columns only have NA</li>
 </ul>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df_with_nacol</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>  <span class="va">mini_diamond</span>,</span>
 <span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>na1 <span class="op">=</span> <span class="cn">NA</span>, na2 <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
@@ -1078,12 +1142,12 @@
 <ul>
 <li>remove rows by the ratio of NA</li>
 </ul>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># remove_narow(df)</span></span></code></pre></div>
 <ul>
 <li>separate numeric vector into bins</li>
 </ul>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">vector</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">mini_diamond</span>, <span class="va">price</span>, <span class="va">id</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/hist_bins.html">hist_bins</a></span><span class="op">(</span><span class="va">vector</span><span class="op">)</span></span>
@@ -1138,7 +1202,7 @@
 <ul>
 <li>trans a table in markdown format into tibble</li>
 </ul>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
 <span><span class="st">  | col1 | col2 | col3 |</span></span>
 <span><span class="st">  | ---- | ---- | ---- |</span></span>
@@ -1155,7 +1219,7 @@
 <ul>
 <li>trans a tibble into markdown format table</li>
 </ul>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mini_diamond</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/as_md_table.html">as_md_table</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1169,7 +1233,7 @@
 <ul>
 <li>relevel a target column by another reference column</li>
 </ul>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cut_level</span> <span class="op">&lt;-</span> <span class="va">mini_diamond</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">pull</span><span class="op">(</span><span class="va">cut</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1198,7 +1262,7 @@
 <ul>
 <li>statistical test which returns a extensible tibble</li>
 </ul>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/stat_test.html">stat_test</a></span><span class="op">(</span><span class="va">mini_diamond</span>, y <span class="op">=</span> <span class="va">price</span>, x <span class="op">=</span> <span class="va">cut</span>, .by <span class="op">=</span> <span class="va">clarity</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 24 × 9</span></span>
 <span><span class="co">#&gt;    y     clarity group1 group2    n1    n2      p  plim symbol</span></span>
@@ -1217,7 +1281,7 @@
 <ul>
 <li>fold change calculation which returns a extensible tibble</li>
 </ul>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/stat_fc.html">stat_fc</a></span><span class="op">(</span><span class="va">mini_diamond</span>, y <span class="op">=</span> <span class="va">price</span>, x <span class="op">=</span> <span class="va">cut</span>, .by <span class="op">=</span> <span class="va">clarity</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 24 × 8</span></span>
 <span><span class="co">#&gt;    y     clarity group1 group2     y1    y2    fc fc_fmt</span></span>
@@ -1240,7 +1304,7 @@
 <ul>
 <li>get the command line arguments</li>
 </ul>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/cmdargs.html">cmdargs</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $wd</span></span>
 <span><span class="co">#&gt; [1] "/home/william/rpkg/baizer"</span></span>
@@ -1255,18 +1319,18 @@
 <span><span class="co">#&gt; character(0)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $env_configs</span></span>
-<span><span class="co">#&gt; [1] "--slave"                               </span></span>
-<span><span class="co">#&gt; [2] "--no-save"                             </span></span>
-<span><span class="co">#&gt; [3] "--no-restore"                          </span></span>
-<span><span class="co">#&gt; [4] "-f"                                    </span></span>
-<span><span class="co">#&gt; [5] "/tmp/Rtmp5GexAX/callr-scr-49657541b951"</span></span>
+<span><span class="co">#&gt; [1] "--slave"                             </span></span>
+<span><span class="co">#&gt; [2] "--no-save"                           </span></span>
+<span><span class="co">#&gt; [3] "--no-restore"                        </span></span>
+<span><span class="co">#&gt; [4] "-f"                                  </span></span>
+<span><span class="co">#&gt; [5] "/tmp/RtmpiPxr5n/callr-scr-ed6fc9b615"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/cmdargs.html">cmdargs</a></span><span class="op">(</span><span class="st">"R_env"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"</span></span></code></pre></div>
 <ul>
 <li>detect whether directory is empty recursively, and detect whether file is empty recursively</li>
 </ul>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create an empty directory</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="st">"some/deep/path/in/a/folder"</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/empty_dir.html">empty_dir</a></span><span class="op">(</span><span class="st">"some/deep/path/in/a/folder"</span><span class="op">)</span></span>
@@ -1292,7 +1356,7 @@
 <ul>
 <li>write a tibble, or a list of tibbles into an excel file</li>
 </ul>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># write_excel(mini_diamond, "mini_diamond.xlsx")</span></span>
 <span></span>
 <span><span class="co"># Ldf &lt;- list(mini_diamond[1:3, ], mini_diamond[4:6, ])</span></span>
@@ -1300,7 +1364,7 @@
 <ul>
 <li>fetch remote files via sftp</li>
 </ul>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># sftp_con &lt;- sftp_connect(server='remote_host', port=22,</span></span>
 <span><span class="co">#                         user='username', password = "password", wd='~')</span></span>
 <span><span class="co">#</span></span>
@@ -1315,7 +1379,7 @@
 <ul>
 <li>use aliases for function arguments</li>
 </ul>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># set y, z as aliases of x when create a function</span></span>
 <span><span class="va">func</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fl">1</span>, <span class="va">y</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">z</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/alias_arg.html">alias_arg</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, with_default <span class="op">=</span> <span class="va">x</span><span class="op">)</span></span>
@@ -1383,7 +1447,7 @@
 <li><a href="https://app.codecov.io/gh/william-swl/baizer?branch=master" class="external-link"><img src="https://codecov.io/gh/william-swl/baizer/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 <li><a href="https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml" class="external-link"><img src="https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://cran.r-project.org/package=baizer" class="external-link"><img src="https://www.r-pkg.org/badges/version/baizer?color=orange"></a></li>
-<li><a href="https://github.com/william-swl/baizer" class="external-link"><img src="https://img.shields.io/badge/devel%20version-0.4.8-blue.svg"></a></li>
+<li><a href="https://github.com/william-swl/baizer" class="external-link"><img src="https://img.shields.io/badge/devel%20version-0.4.9-blue.svg"></a></li>
 <li><a href="https://cran.r-project.org/package=baizer" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/grand-total/baizer?color=blue"></a></li>
 <li><a href="https://cran.r-project.org/package=baizer" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/last-month/baizer?color=green"></a></li>
 </ul>

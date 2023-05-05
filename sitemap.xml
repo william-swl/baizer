@@ -52,6 +52,9 @@
     <loc>https://william-swl.github.io/baizer/reference/correct_ratio.html</loc>
   </url>
   <url>
+    <loc>https://william-swl.github.io/baizer/reference/cross_count.html</loc>
+  </url>
+  <url>
     <loc>https://william-swl.github.io/baizer/reference/detect_dup.html</loc>
   </url>
   <url>
@@ -86,6 +89,9 @@
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/fps_vector.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/gen_outlier.html</loc>
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/generate_ticks.html</loc>
@@ -149,6 +155,9 @@
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/pkgver.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/pos_int_split.html</loc>
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/r2c.html</loc>
