@@ -531,20 +531,26 @@ cross_count <- function(df, row, col, method = "n", digits = 2) {
 
   if (method %in% c("n", "count")) {
     res <- df %>% fancy_count({{ row }}, {{ col }})
-    res <- res %>% pivot_wider(id_cols = -all_of("r"),
-                               names_from = {{ col }}, values_from = "n")
+    res <- res %>% pivot_wider(
+      id_cols = -all_of("r"),
+      names_from = {{ col }}, values_from = "n"
+    )
   } else if (method %in% c("rowr", "row_ratio")) {
     res <- df %>%
       dplyr::group_by({{ row }}) %>%
       fancy_count({{ row }}, {{ col }}, digits = digits)
-    res <- res %>% pivot_wider(id_cols = -all_of("n"),
-                               names_from = {{ col }}, values_from = "r")
+    res <- res %>% pivot_wider(
+      id_cols = -all_of("n"),
+      names_from = {{ col }}, values_from = "r"
+    )
   } else if (method %in% c("colr", "col_ratio")) {
     res <- df %>%
       dplyr::group_by({{ col }}) %>%
       fancy_count({{ row }}, {{ col }}, digits = digits)
-    res <- res %>% pivot_wider(id_cols = -all_of("n"),
-                               names_from = {{ col }}, values_from = "r")
+    res <- res %>% pivot_wider(
+      id_cols = -all_of("n"),
+      names_from = {{ col }}, values_from = "r"
+    )
   }
   res <- res %>% c2r(quo_name(row))
   return(res)

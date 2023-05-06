@@ -20,7 +20,11 @@ pkglib <- function(...) {
 #' @examples baizer::pkginfo(dplyr)
 pkginfo <- function(...) {
   x <- enexprs(...)
-  sessionInfo(as.character(x))[[7]]
+  allpkg <- c(
+    sessionInfo()[["otherPkgs"]],
+    sessionInfo()[["loadedOnly"]]
+  )
+  allpkg[as.character(x)]
 }
 
 

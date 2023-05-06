@@ -15,13 +15,15 @@ gen_outlier(x, n, digits = 0, side = "two.sided", lim = NULL, assign_n = NULL)
 
 \item{side}{should be one of \verb{two.sided, left, right}}
 
-\item{lim}{a two-length vector to assign the limitations of the generation.
-if method is \code{two.sided}, the generation will be limited in
-[lim\link{1}, left-outlier-threshold] and [right-outlier-threshold, lim\link{2}];
-if method is \code{left}, the generation will be limited in
-[lim\link{1}, min(left-outlier-threshold, lim\link{2})]
-if method is \code{right}, the generation will be limited in
-[max(right-outlier-threshold, lim\link{1}), lim\link{2}]}
+\item{lim}{a two-length vector to assign the limitations of the outliers
+if method is \code{two.sided}, the outliers will be limited in
+[lim[1], left_outlier_threshold] and [right_outlier_threshold, lim[2]]
+;
+if method is \code{left}, the outliers will be limited in
+[lim[1], min(left_outlier_threshold, lim[2])]
+;
+if method is \code{right}, the outliers will be limited in
+[max(right_outlier_threshold, lim[1]), lim[2]]}
 
 \item{assign_n}{manually assign the number of left outliers or
 right outliers when method is \code{two.sided}}

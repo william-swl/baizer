@@ -476,7 +476,7 @@ cross_count(mini_diamond, cut, clarity, method = "colr")
 
 - split a column and return a longer tibble
 ```{r dataframe-split_column}
-df <- fancy_count(mini_diamond, cut, ext = clarity) 
+df <- fancy_count(mini_diamond, cut, ext = clarity)
 head(df)
 
 split_column(df, name_col = cut, value_col = clarity)

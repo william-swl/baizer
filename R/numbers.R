@@ -467,13 +467,15 @@ pos_int_split <- function(x, n, method = "average") {
 #' @param n number of outliers to generate
 #' @param digits the digits of outliers
 #' @param side should be one of `two.sided, left, right`
-#' @param lim a two-length vector to assign the limitations of the generation.
-#' if method is `two.sided`, the generation will be limited in
-#' [lim[1], left-outlier-threshold] and [right-outlier-threshold, lim[2]];
-#' if method is `left`, the generation will be limited in
-#' [lim[1], min(left-outlier-threshold, lim[2])]
-#' if method is `right`, the generation will be limited in
-#' [max(right-outlier-threshold, lim[1]), lim[2]]
+#' @param lim a two-length vector to assign the limitations of the outliers
+#' if method is `two.sided`, the outliers will be limited in
+#' \[lim\[1\], left_outlier_threshold] and \[right_outlier_threshold, lim\[2\]\]
+#' ;
+#' if method is `left`, the outliers will be limited in
+#' \[lim\[1\], min(left_outlier_threshold, lim\[2\])]
+#' ;
+#' if method is `right`, the outliers will be limited in
+#' \[max(right_outlier_threshold, lim\[1\]), lim\[2\]]
 #' @param assign_n manually assign the number of left outliers or
 #' right outliers when method is `two.sided`
 #'
