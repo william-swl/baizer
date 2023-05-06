@@ -115,19 +115,19 @@ right outliers when method is <code>two.sided</code></p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span>, <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">gen_outlier</span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -184 -169 -125 -163  -58  162  156  152  230  241</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  -59 -183  -95  -68 -164  294  176  284  169  286</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># generation limits</span></span></span>
-<span class="r-in"><span><span class="fu">gen_outlier</span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span>, lim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">80</span>, <span class="fl">160</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -77 -61 -77 -58 -59 158 158 158 160 155</span>
+<span class="r-in"><span><span class="fu">gen_outlier</span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span>, lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">80</span>, <span class="fl">160</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -71 -78 -76 -50 -80 155 150 153 160 156</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># assign the left and right outliers</span></span></span>
-<span class="r-in"><span><span class="fu">gen_outlier</span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span>, lim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">80</span>, <span class="fl">160</span><span class="op">)</span>, assign_n<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.9</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -78 156 152 158 153 154 150 151 152 158</span>
+<span class="r-in"><span><span class="fu">gen_outlier</span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span>, lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">80</span>, <span class="fl">160</span><span class="op">)</span>, assign_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.9</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -56 152 152 153 154 158 152 159 151 154</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># just generate left outliers</span></span></span>
-<span class="r-in"><span><span class="fu">gen_outlier</span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span>, side<span class="op">=</span><span class="st">'left'</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -171 -155 -197 -121 -140 -129  -93 -170 -196 -191</span>
+<span class="r-in"><span><span class="fu">gen_outlier</span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span>, side <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -113  -99 -103 -111 -184  -90  -85 -194  -95  -89</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
