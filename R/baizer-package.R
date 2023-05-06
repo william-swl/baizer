@@ -40,6 +40,7 @@
 #' @importFrom rlang quo_set_env
 #' @importFrom stats IQR
 #' @importFrom stats median
+#' @importFrom stats runif
 #' @importFrom stringr str_c
 #' @importFrom stringr str_glue
 #' @importFrom tibble as_tibble

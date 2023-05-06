@@ -38,12 +38,12 @@ x <- seq(0, 100, 1)
 gen_outlier(x, 10)
 
 # generation limits
-gen_outlier(x, 10, lim=c(-80, 160))
+gen_outlier(x, 10, lim = c(-80, 160))
 
 # assign the left and right outliers
-gen_outlier(x, 10, lim=c(-80, 160), assign_n=c(0.1, 0.9))
+gen_outlier(x, 10, lim = c(-80, 160), assign_n = c(0.1, 0.9))
 
 # just generate left outliers
-gen_outlier(x, 10, side='left')
+gen_outlier(x, 10, side = "left")
 
 }

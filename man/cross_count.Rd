@@ -27,9 +27,9 @@ count two columns as a cross-tabulation table
 cross_count(mini_diamond, cut, clarity)
 
 # show the ratio in the row
-cross_count(mini_diamond, cut, clarity, method='rowr')
+cross_count(mini_diamond, cut, clarity, method = "rowr")
 
 # show the ratio in the col
-cross_count(mini_diamond, cut, clarity, method='colr')
+cross_count(mini_diamond, cut, clarity, method = "colr")
 
 }

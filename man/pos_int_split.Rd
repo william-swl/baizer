@@ -21,10 +21,10 @@ number vector
 split a positive integer number as a number vector
 }
 \examples{
-pos_int_split(12, 3, method='average')
+pos_int_split(12, 3, method = "average")
 
-pos_int_split(12, 3, method='random')
+pos_int_split(12, 3, method = "random")
 
-pos_int_split(12, 3, method=c(1,2,3))
+pos_int_split(12, 3, method = c(1, 2, 3))
 
 }
