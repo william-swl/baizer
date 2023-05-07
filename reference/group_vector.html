@@ -22,7 +22,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">baizer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.10</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,15 +96,15 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">group_vector</span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $A</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "A11"  "A12"  "A101" "A10"  "A2"   "A99"  "A102" "A9"   "A1"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "A99"  "A1"   "A2"   "A11"  "A101" "A9"   "A12"  "A10"  "A102"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "B10"  "B2"   "B1"   "B99"  "B21"  "B9"   "B101" "B102" "B32" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "B9"   "B32"  "B102" "B2"   "B1"   "B21"  "B99"  "B10"  "B101"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">group_vector</span><span class="op">(</span><span class="va">v</span>, pattern <span class="op">=</span> <span class="st">"\\w\\d"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $A1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "A11"  "A12"  "A101" "A10"  "A102" "A1"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "A1"   "A11"  "A101" "A12"  "A10"  "A102"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $A2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "A2"</span>
@@ -113,7 +113,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "A99" "A9" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $B1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "B10"  "B1"   "B101" "B102"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "B102" "B1"   "B10"  "B101"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $B2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "B2"  "B21"</span>
@@ -122,12 +122,12 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "B32"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $B9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "B99" "B9" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "B9"  "B99"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">group_vector</span><span class="op">(</span><span class="va">v</span>, pattern <span class="op">=</span> <span class="st">"\\w(\\d)"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "B10"  "A11"  "A12"  "A101" "A10"  "B1"   "A102" "B101" "B102" "A1"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "B102" "A1"   "A11"  "B1"   "A101" "A12"  "B10"  "A10"  "A102" "B101"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`2`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "B2"  "A2"  "B21"</span>
@@ -136,13 +136,13 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "B32"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`9`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "A99" "B99" "B9"  "A9" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "A99" "B9"  "B99" "A9" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># unmatched part will alse be stored</span></span></span>
 <span class="r-in"><span><span class="fu">group_vector</span><span class="op">(</span><span class="va">v</span>, pattern <span class="op">=</span> <span class="st">"\\d{2}"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`10`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "B10"  "A101" "A10"  "A102" "B101" "B102"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "B102" "A101" "B10"  "A10"  "A102" "B101"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`11`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "A11"</span>
@@ -160,7 +160,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "A99" "B99"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $unmatch</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "B2" "A2" "B1" "B9" "A9" "A1"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "B9" "A1" "B2" "A2" "B1" "A9"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
