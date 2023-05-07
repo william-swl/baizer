@@ -23,7 +23,7 @@ pkginfo <- function(...) {
     as.character() %>%
     stringr::str_to_lower()
   allpkg <- rownames(installed.packages())
-  x <- allpkg[allpkg %in% x]
+  x <- allpkg[stringr::str_to_lower(allpkg) %in% x]
 
   res <- sessionInfo(x)[["otherPkgs"]]
 

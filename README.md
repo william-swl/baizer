@@ -355,19 +355,19 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "B21"  "B10"  "B99"  "B9"   "B1"   "A9"   "A11"  "A99"  "B32"  "A10" 
-#> [11] "A2"   "A102" "B102" "B101" "B2"   "A1"   "A101" "A12"
+#>  [1] "B9"   "B10"  "A2"   "A9"   "A10"  "B102" "A1"   "A102" "B1"   "A101"
+#> [11] "A11"  "A12"  "A99"  "B21"  "B101" "B2"   "B99"  "B32"
 
 group_vector(v)
 #> $A
-#> [1] "A9"   "A11"  "A99"  "A10"  "A2"   "A102" "A1"   "A101" "A12" 
+#> [1] "A2"   "A9"   "A10"  "A1"   "A102" "A101" "A11"  "A12"  "A99" 
 #> 
 #> $B
-#> [1] "B21"  "B10"  "B99"  "B9"   "B1"   "B32"  "B102" "B101" "B2"
+#> [1] "B9"   "B10"  "B102" "B1"   "B21"  "B101" "B2"   "B99"  "B32"
 
 group_vector(v, pattern = "\\w\\d")
 #> $A1
-#> [1] "A11"  "A10"  "A102" "A1"   "A101" "A12" 
+#> [1] "A10"  "A1"   "A102" "A101" "A11"  "A12" 
 #> 
 #> $A2
 #> [1] "A2"
@@ -376,7 +376,7 @@ group_vector(v, pattern = "\\w\\d")
 #> [1] "A9"  "A99"
 #> 
 #> $B1
-#> [1] "B10"  "B1"   "B102" "B101"
+#> [1] "B10"  "B102" "B1"   "B101"
 #> 
 #> $B2
 #> [1] "B21" "B2" 
@@ -385,26 +385,26 @@ group_vector(v, pattern = "\\w\\d")
 #> [1] "B32"
 #> 
 #> $B9
-#> [1] "B99" "B9"
+#> [1] "B9"  "B99"
 
 # the pattern rules are just same as reg_match()
 group_vector(v, pattern = "\\w(\\d)")
 #> $`1`
-#>  [1] "B10"  "B1"   "A11"  "A10"  "A102" "B102" "B101" "A1"   "A101" "A12" 
+#>  [1] "B10"  "A10"  "B102" "A1"   "A102" "B1"   "A101" "A11"  "A12"  "B101"
 #> 
 #> $`2`
-#> [1] "B21" "A2"  "B2" 
+#> [1] "A2"  "B21" "B2" 
 #> 
 #> $`3`
 #> [1] "B32"
 #> 
 #> $`9`
-#> [1] "B99" "B9"  "A9"  "A99"
+#> [1] "B9"  "A9"  "A99" "B99"
 
 # unmatched part will alse be stored
 group_vector(v, pattern = "\\d{2}")
 #> $`10`
-#> [1] "B10"  "A10"  "A102" "B102" "B101" "A101"
+#> [1] "B10"  "A10"  "B102" "A102" "A101" "B101"
 #> 
 #> $`11`
 #> [1] "A11"
@@ -419,10 +419,10 @@ group_vector(v, pattern = "\\d{2}")
 #> [1] "B32"
 #> 
 #> $`99`
-#> [1] "B99" "A99"
+#> [1] "A99" "B99"
 #> 
 #> $unmatch
-#> [1] "B9" "B1" "A9" "A2" "B2" "A1"
+#> [1] "B9" "A2" "A9" "A1" "B1" "B2"
 ```
 
 - sort by a function
@@ -433,7 +433,7 @@ sortf(c(-2, 1, 3), abs)
 
 v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) %>% sample()
 v
-#> [1] "id9"   "id102" "id99"  "id10"  "id2"   "id101" "id11"  "id12"  "id1"
+#> [1] "id9"   "id102" "id12"  "id10"  "id11"  "id1"   "id99"  "id2"   "id101"
 
 sortf(v, function(x) reg_match(x, "\\d+") %>% as.double())
 #> [1] "id1"   "id2"   "id9"   "id10"  "id11"  "id12"  "id99"  "id101" "id102"
@@ -449,8 +449,8 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "B102" "A12"  "A11"  "B21"  "A10"  "A101" "B32"  "B101" "A102" "A2"  
-#> [11] "B99"  "B10"  "A1"   "A9"   "B9"   "B1"   "B2"   "A99"
+#>  [1] "B10"  "A11"  "A101" "A10"  "A2"   "B2"   "A9"   "B32"  "B1"   "B101"
+#> [11] "A1"   "B102" "A12"  "B9"   "B21"  "A102" "B99"  "A99"
 
 sortf(v, ~ reg_match(.x, "\\d+") %>% as.double(), group_pattern = "\\w")
 #>  [1] "A1"   "A2"   "A9"   "A10"  "A11"  "A12"  "A99"  "A101" "A102" "B1"  
@@ -617,7 +617,7 @@ pos_int_split(12, 3, method = "average")
 #> [1] 4 4 4
 
 pos_int_split(12, 3, method = "random")
-#> [1] 3 2 7
+#> [1] 4 2 6
 
 # you can also assign the ratio of output
 pos_int_split(12, 3, method = c(1, 2, 3))
@@ -630,23 +630,23 @@ pos_int_split(12, 3, method = c(1, 2, 3))
 x <- seq(0, 100, 1)
 
 gen_outlier(x, 10)
-#>  [1] -128  -92 -120 -166 -125  254  243  231  273  244
+#>  [1] -176 -151 -111 -119 -200  236  283  247  199  229
 
 # generation limits
 gen_outlier(x, 10, lim = c(-80, 160))
-#>  [1] -68 -65 -56 -73 -58 151 158 151 155 152
+#>  [1] -70 -78 -54 -65 -78 152 155 157 157 151
 
 # assign the low and high outliers
 gen_outlier(x, 10, lim = c(-80, 160), assign_n = c(0.1, 0.9))
-#>  [1] -77 157 157 157 159 158 151 152 155 151
+#>  [1] -77 151 155 154 155 150 159 159 153 156
 
 # just generate low outliers
 gen_outlier(x, 10, side = "low")
-#>  [1] -123  -59 -152  -56  -65  -61 -120 -105  -55 -104
+#>  [1] -162  -92 -191 -186  -84  -82 -176 -130 -178 -103
 
 # return with raw vector
 gen_outlier(x, 10, only_out = FALSE)
-#>   [1] -143 -126 -141 -142 -139  247  269  289  157  275    0    1    2    3    4
+#>   [1]  -77 -123  -95 -173  -67  170  202  264  288  267    0    1    2    3    4
 #>  [16]    5    6    7    8    9   10   11   12   13   14   15   16   17   18   19
 #>  [31]   20   21   22   23   24   25   26   27   28   29   30   31   32   33   34
 #>  [46]   35   36   37   38   39   40   41   42   43   44   45   46   47   48   49
@@ -1160,11 +1160,11 @@ cmdargs()
 #> character(0)
 #> 
 #> $env_configs
-#> [1] "--slave"                              
-#> [2] "--no-save"                            
-#> [3] "--no-restore"                         
-#> [4] "-f"                                   
-#> [5] "/tmp/RtmpJ4qLF0/callr-scr-1c0b924b50c"
+#> [1] "--slave"                               
+#> [2] "--no-save"                             
+#> [3] "--no-restore"                          
+#> [4] "-f"                                    
+#> [5] "/tmp/RtmpJ4qLF0/callr-scr-1c0b251583f8"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"
@@ -1233,7 +1233,7 @@ c2 <- tbflt(x > 8)
 c1 | c2
 #> <quosure>
 #> expr: ^cut == "Fair" | x > 8
-#> env:  0x5644d5f7acb0
+#> env:  0x5594f22b9810
 
 mini_diamond %>%
   filterC(c1) %>%

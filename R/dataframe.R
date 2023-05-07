@@ -305,7 +305,7 @@ remove_narow <- function(df, max_ratio = 1) {
 #'
 #' hist_bins(x, bins = 20)
 #'
-hist_bins <- function(x, bins = 10, lim = c(min(x), max(x)),
+hist_bins <- function(x, bins = 10, lim = c(min(x), max(x)), # nolint
                       breaks = NULL, sort = FALSE) {
   if (!is.numeric(x)) {
     stop("please use numerice vector!")
@@ -339,8 +339,9 @@ hist_bins <- function(x, bins = 10, lim = c(min(x), max(x)),
     dfvec <- as_tibble(x, rownames = "id")
   }
 
-  dfres <- dfvec %>% dplyr::left_join(dfbin, by = dplyr::join_by(
-    between(value, start, end, bounds = "(]") # nolint
+  dfres <- dfvec %>% dplyr::left_join(
+    dfbin, by = dplyr::join_by(
+    between(value, start, end, bounds = "(]")  # nolint
   ))
 
   fill_row <- which(!is.na(dfres[["value"]]) & is.na(dfres[["bin"]]))
