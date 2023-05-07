@@ -13,24 +13,27 @@ pkglib <- function(...) {
 
 #' information of packages
 #'
-#' @param ... pkgs
+#' @param ... case-insensitive package names
 #'
 #' @export
 #'
 #' @examples baizer::pkginfo(dplyr)
 pkginfo <- function(...) {
-  x <- enexprs(...)
-  allpkg <- c(
-    sessionInfo()[["otherPkgs"]],
-    sessionInfo()[["loadedOnly"]]
-  )
-  allpkg[as.character(x)]
+  x <- enexprs(...) %>%
+    as.character() %>%
+    stringr::str_to_lower()
+  allpkg <- rownames(installed.packages())
+  x <- allpkg[allpkg %in% x]
+
+  res <- sessionInfo(x)[["otherPkgs"]]
+
+  return(res)
 }
 
 
 #' versions of packages
 #'
-#' @param ... pkgs
+#' @param ... case-insensitive package names
 #'
 #' @export
 #'

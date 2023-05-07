@@ -7,7 +7,7 @@
 pkginfo(...)
 }
 \arguments{
-\item{...}{pkgs}
+\item{...}{case-insensitive package names}
 }
 \description{
 information of packages

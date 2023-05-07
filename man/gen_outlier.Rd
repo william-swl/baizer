@@ -59,6 +59,6 @@ gen_outlier(x, 10, lim = c(-80, 160), assign_n = c(0.1, 0.9))
 gen_outlier(x, 10, side = "low")
 
 # return with raw vector
-gen_outlier(x, 10, only_out=FALSE)
+gen_outlier(x, 10, only_out = FALSE)
 
 }

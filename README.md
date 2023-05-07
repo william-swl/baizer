@@ -9,7 +9,7 @@
 coverage](https://codecov.io/gh/william-swl/baizer/branch/master/graph/badge.svg)](https://app.codecov.io/gh/william-swl/baizer?branch=master)
 [![R-CMD-check](https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml)
 [![](https://www.r-pkg.org/badges/version/baizer?color=orange)](https://cran.r-project.org/package=baizer)
-[![](https://img.shields.io/badge/devel%20version-0.4.9-blue.svg)](https://github.com/william-swl/baizer)
+[![](https://img.shields.io/badge/devel%20version-0.4.10-blue.svg)](https://github.com/william-swl/baizer)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/baizer?color=blue)](https://cran.r-project.org/package=baizer)
 [![](http://cranlogs.r-pkg.org/badges/last-month/baizer?color=green)](https://cran.r-project.org/package=baizer)
 <!-- badges: end -->
@@ -34,146 +34,12 @@ Or install the development version of `baizer` like so:
 devtools::install_github("william-swl/baizer")
 ```
 
-## S3 classes in `baizer`
-
-### tbflt
-
-- save a series of filter conditions, and support logical operation
-  among conditions
-- use `filterC` to apply `tbflt` on `dplyr::filter`
-
-``` r
-c1 <- tbflt(cut == "Fair")
-c2 <- tbflt(x > 8)
-c1 | c2
-#> <quosure>
-#> expr: ^cut == "Fair" | x > 8
-#> env:  0x562a577c6d68
-
-mini_diamond %>%
-  filterC(c1) %>%
-  head(5)
-#> # A tibble: 5 × 7
-#>   id    carat cut   clarity price     x     y
-#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
-#> 1 id-1   1.02 Fair  SI1      3027  6.25  6.18
-#> 2 id-6   2.02 Fair  SI2     14080  8.33  8.37
-#> 3 id-10  0.7  Fair  VVS1     1691  5.56  5.41
-#> 4 id-12  0.71 Fair  IF       3205  5.87  5.81
-#> 5 id-18  0.34 Fair  VVS1     1012  4.8   4.76
-
-mini_diamond %>%
-  filterC(!c1) %>%
-  head(5)
-#> # A tibble: 5 × 7
-#>   id    carat cut   clarity price     x     y
-#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
-#> 1 id-2   1.51 Good  VS2     11746  7.27  7.18
-#> 2 id-3   0.52 Ideal VVS1     2029  5.15  5.18
-#> 3 id-4   1.54 Ideal SI2      9452  7.43  7.45
-#> 4 id-5   0.72 Ideal VS1      2498  5.73  5.77
-#> 5 id-7   0.27 Good  VVS1      752  4.1   4.07
-
-mini_diamond %>% filterC(c1 & c2)
-#> # A tibble: 3 × 7
-#>   id    carat cut   clarity price     x     y
-#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
-#> 1 id-6   2.02 Fair  SI2     14080  8.33  8.37
-#> 2 id-48  2.01 Fair  I1       7294  8.3   8.19
-#> 3 id-68  2.32 Fair  SI1     18026  8.47  8.31
-```
-
-- stricter limitation to avoid the unexpected default behavior
-
-``` r
-# default behavior of dplyr::filter, use column in data at first
-x <- 8
-mini_diamond %>% dplyr::filter(y > x)
-#> # A tibble: 53 × 7
-#>    id    carat cut   clarity price     x     y
-#>    <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
-#>  1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
-#>  2 id-4   1.54 Ideal SI2      9452  7.43  7.45
-#>  3 id-5   0.72 Ideal VS1      2498  5.73  5.77
-#>  4 id-6   2.02 Fair  SI2     14080  8.33  8.37
-#>  5 id-8   0.51 Good  SI2      1029  5.05  5.08
-#>  6 id-11  1.02 Good  VVS1     7861  6.37  6.4 
-#>  7 id-13  0.56 Ideal SI1      1633  5.31  5.32
-#>  8 id-14  0.3  Ideal VVS2      812  4.33  4.39
-#>  9 id-15  0.28 Good  IF        612  4.09  4.12
-#> 10 id-16  0.41 Good  I1        467  4.7   4.74
-#> # … with 43 more rows
-
-# so the default behavior of filterC is just like that
-# but if you want y > 8, and the defination of cond is far away from
-# its application, the results may be unexpected
-
-x <- 8
-cond <- tbflt(y > x)
-mini_diamond %>% filterC(cond)
-#> # A tibble: 53 × 7
-#>    id    carat cut   clarity price     x     y
-#>    <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
-#>  1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
-#>  2 id-4   1.54 Ideal SI2      9452  7.43  7.45
-#>  3 id-5   0.72 Ideal VS1      2498  5.73  5.77
-#>  4 id-6   2.02 Fair  SI2     14080  8.33  8.37
-#>  5 id-8   0.51 Good  SI2      1029  5.05  5.08
-#>  6 id-11  1.02 Good  VVS1     7861  6.37  6.4 
-#>  7 id-13  0.56 Ideal SI1      1633  5.31  5.32
-#>  8 id-14  0.3  Ideal VVS2      812  4.33  4.39
-#>  9 id-15  0.28 Good  IF        612  4.09  4.12
-#> 10 id-16  0.41 Good  I1        467  4.7   4.74
-#> # … with 43 more rows
-
-cond <- tbflt(y > 8)
-mini_diamond %>% filterC(cond)
-#> # A tibble: 5 × 7
-#>   id    carat cut   clarity price     x     y
-#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
-#> 1 id-6   2.02 Fair  SI2     14080  8.33  8.37
-#> 2 id-48  2.01 Fair  I1       7294  8.3   8.19
-#> 3 id-49  2.16 Ideal I1       8709  8.31  8.26
-#> 4 id-68  2.32 Fair  SI1     18026  8.47  8.31
-#> 5 id-97  2.61 Good  SI2     13784  8.66  8.57
-
-
-# to avoid this, set usecol=FALSE. An error will be raised for warning you
-# to change the variable name
-# mini_diamond %>% filterC(cond, usecol=FALSE)
-
-
-# you can always ignore this argument if you know how to use .env or !!
-x <- 8
-cond1 <- tbflt(y > !!x)
-mini_diamond %>% filterC(cond1)
-#> # A tibble: 5 × 7
-#>   id    carat cut   clarity price     x     y
-#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
-#> 1 id-6   2.02 Fair  SI2     14080  8.33  8.37
-#> 2 id-48  2.01 Fair  I1       7294  8.3   8.19
-#> 3 id-49  2.16 Ideal I1       8709  8.31  8.26
-#> 4 id-68  2.32 Fair  SI1     18026  8.47  8.31
-#> 5 id-97  2.61 Good  SI2     13784  8.66  8.57
-
-cond2 <- tbflt(y > .env$x)
-mini_diamond %>% filterC(cond1)
-#> # A tibble: 5 × 7
-#>   id    carat cut   clarity price     x     y
-#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
-#> 1 id-6   2.02 Fair  SI2     14080  8.33  8.37
-#> 2 id-48  2.01 Fair  I1       7294  8.3   8.19
-#> 3 id-49  2.16 Ideal I1       8709  8.31  8.26
-#> 4 id-68  2.32 Fair  SI1     18026  8.47  8.31
-#> 5 id-97  2.61 Good  SI2     13784  8.66  8.57
-```
-
 ## basic utils
 
 - load packages as a batch
 
 ``` r
-baizer::pkglib(dplyr, purrr)
+pkglib(dplyr, purrr)
 #> 
 #> Attaching package: 'dplyr'
 #> The following objects are masked from 'package:stats':
@@ -187,18 +53,23 @@ baizer::pkglib(dplyr, purrr)
 - versions of packages
 
 ``` r
-baizer::pkgver(dplyr, purrr)
+pkgver(dplyr, purrr)
 #> $dplyr
 #> [1] "1.1.1"
 #> 
 #> $purrr
 #> [1] "1.0.1"
+
+# case-insensitive input
+pkgver(DplyR)
+#> $dplyr
+#> [1] "1.1.1"
 ```
 
 - information of packages
 
 ``` r
-baizer::pkginfo(dplyr)
+pkginfo(dplyr)
 #> $dplyr
 #> Type: Package
 #> Package: dplyr
@@ -248,6 +119,9 @@ baizer::pkginfo(dplyr)
 #> Built: R 4.2.3; x86_64-conda-linux-gnu; 2023-03-23 01:46:10 UTC; unix
 #> 
 #> -- File: /home/william/software/mambaforge/envs/baizer/lib/R/library/dplyr/Meta/package.rds
+
+# case-insensitive input
+# pkginfo(DplyR)
 ```
 
 - use `%nin%` to get ‘not in’ logical value
@@ -481,19 +355,19 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "A12"  "A101" "A2"   "A9"   "B1"   "A1"   "B101" "A10"  "A99"  "B102"
-#> [11] "B32"  "A102" "B9"   "B2"   "B10"  "B99"  "B21"  "A11"
+#>  [1] "B21"  "B10"  "B99"  "B9"   "B1"   "A9"   "A11"  "A99"  "B32"  "A10" 
+#> [11] "A2"   "A102" "B102" "B101" "B2"   "A1"   "A101" "A12"
 
 group_vector(v)
 #> $A
-#> [1] "A12"  "A101" "A2"   "A9"   "A1"   "A10"  "A99"  "A102" "A11" 
+#> [1] "A9"   "A11"  "A99"  "A10"  "A2"   "A102" "A1"   "A101" "A12" 
 #> 
 #> $B
-#> [1] "B1"   "B101" "B102" "B32"  "B9"   "B2"   "B10"  "B99"  "B21"
+#> [1] "B21"  "B10"  "B99"  "B9"   "B1"   "B32"  "B102" "B101" "B2"
 
 group_vector(v, pattern = "\\w\\d")
 #> $A1
-#> [1] "A12"  "A101" "A1"   "A10"  "A102" "A11" 
+#> [1] "A11"  "A10"  "A102" "A1"   "A101" "A12" 
 #> 
 #> $A2
 #> [1] "A2"
@@ -502,35 +376,35 @@ group_vector(v, pattern = "\\w\\d")
 #> [1] "A9"  "A99"
 #> 
 #> $B1
-#> [1] "B1"   "B101" "B102" "B10" 
+#> [1] "B10"  "B1"   "B102" "B101"
 #> 
 #> $B2
-#> [1] "B2"  "B21"
+#> [1] "B21" "B2" 
 #> 
 #> $B3
 #> [1] "B32"
 #> 
 #> $B9
-#> [1] "B9"  "B99"
+#> [1] "B99" "B9"
 
 # the pattern rules are just same as reg_match()
 group_vector(v, pattern = "\\w(\\d)")
 #> $`1`
-#>  [1] "A12"  "A101" "B1"   "A1"   "B101" "A10"  "B102" "A102" "B10"  "A11" 
+#>  [1] "B10"  "B1"   "A11"  "A10"  "A102" "B102" "B101" "A1"   "A101" "A12" 
 #> 
 #> $`2`
-#> [1] "A2"  "B2"  "B21"
+#> [1] "B21" "A2"  "B2" 
 #> 
 #> $`3`
 #> [1] "B32"
 #> 
 #> $`9`
-#> [1] "A9"  "A99" "B9"  "B99"
+#> [1] "B99" "B9"  "A9"  "A99"
 
 # unmatched part will alse be stored
 group_vector(v, pattern = "\\d{2}")
 #> $`10`
-#> [1] "A101" "B101" "A10"  "B102" "A102" "B10" 
+#> [1] "B10"  "A10"  "A102" "B102" "B101" "A101"
 #> 
 #> $`11`
 #> [1] "A11"
@@ -545,10 +419,10 @@ group_vector(v, pattern = "\\d{2}")
 #> [1] "B32"
 #> 
 #> $`99`
-#> [1] "A99" "B99"
+#> [1] "B99" "A99"
 #> 
 #> $unmatch
-#> [1] "A2" "A9" "B1" "A1" "B9" "B2"
+#> [1] "B9" "B1" "A9" "A2" "B2" "A1"
 ```
 
 - sort by a function
@@ -559,7 +433,7 @@ sortf(c(-2, 1, 3), abs)
 
 v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) %>% sample()
 v
-#> [1] "id101" "id102" "id99"  "id9"   "id2"   "id12"  "id10"  "id11"  "id1"
+#> [1] "id9"   "id102" "id99"  "id10"  "id2"   "id101" "id11"  "id12"  "id1"
 
 sortf(v, function(x) reg_match(x, "\\d+") %>% as.double())
 #> [1] "id1"   "id2"   "id9"   "id10"  "id11"  "id12"  "id99"  "id101" "id102"
@@ -575,8 +449,8 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "A101" "B9"   "B21"  "A99"  "A2"   "B32"  "A102" "A10"  "A9"   "A12" 
-#> [11] "B1"   "A11"  "B99"  "A1"   "B10"  "B101" "B2"   "B102"
+#>  [1] "B102" "A12"  "A11"  "B21"  "A10"  "A101" "B32"  "B101" "A102" "A2"  
+#> [11] "B99"  "B10"  "A1"   "A9"   "B9"   "B1"   "B2"   "A99"
 
 sortf(v, ~ reg_match(.x, "\\d+") %>% as.double(), group_pattern = "\\w")
 #>  [1] "A1"   "A2"   "A9"   "A10"  "A11"  "A12"  "A99"  "A101" "A102" "B1"  
@@ -743,7 +617,7 @@ pos_int_split(12, 3, method = "average")
 #> [1] 4 4 4
 
 pos_int_split(12, 3, method = "random")
-#> [1] 7 1 4
+#> [1] 3 2 7
 
 # you can also assign the ratio of output
 pos_int_split(12, 3, method = c(1, 2, 3))
@@ -756,23 +630,23 @@ pos_int_split(12, 3, method = c(1, 2, 3))
 x <- seq(0, 100, 1)
 
 gen_outlier(x, 10)
-#>  [1] -166  -63 -148 -128 -127  261  234  235  249  288
+#>  [1] -128  -92 -120 -166 -125  254  243  231  273  244
 
 # generation limits
 gen_outlier(x, 10, lim = c(-80, 160))
-#>  [1] -53 -68 -51 -75 -67 158 155 151 157 151
+#>  [1] -68 -65 -56 -73 -58 151 158 151 155 152
 
 # assign the low and high outliers
 gen_outlier(x, 10, lim = c(-80, 160), assign_n = c(0.1, 0.9))
-#>  [1] -73 154 150 159 152 160 154 160 158 159
+#>  [1] -77 157 157 157 159 158 151 152 155 151
 
 # just generate low outliers
 gen_outlier(x, 10, side = "low")
-#>  [1] -146 -194 -159 -147 -107 -181  -57 -119  -83 -199
+#>  [1] -123  -59 -152  -56  -65  -61 -120 -105  -55 -104
 
 # return with raw vector
 gen_outlier(x, 10, only_out = FALSE)
-#>   [1] -194 -135 -199 -175 -194  228  239  182  211  248    0    1    2    3    4
+#>   [1] -143 -126 -141 -142 -139  247  269  289  157  275    0    1    2    3    4
 #>  [16]    5    6    7    8    9   10   11   12   13   14   15   16   17   18   19
 #>  [31]   20   21   22   23   24   25   26   27   28   29   30   31   32   33   34
 #>  [46]   35   36   37   38   39   40   41   42   43   44   45   46   47   48   49
@@ -1290,7 +1164,7 @@ cmdargs()
 #> [2] "--no-save"                            
 #> [3] "--no-restore"                         
 #> [4] "-f"                                   
-#> [5] "/tmp/RtmpHhfSWF/callr-scr-5317baf94c0"
+#> [5] "/tmp/RtmpJ4qLF0/callr-scr-1c0b924b50c"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"
@@ -1343,6 +1217,140 @@ unlink("some", recursive = TRUE)
 #    path=c('t1.txt', 't2.txt'),
 #    to=c('path1.txt', 'path2.txt')
 # )
+```
+
+## S3 classes in `baizer`
+
+### tbflt
+
+- save a series of filter conditions, and support logical operation
+  among conditions
+- use `filterC` to apply `tbflt` on `dplyr::filter`
+
+``` r
+c1 <- tbflt(cut == "Fair")
+c2 <- tbflt(x > 8)
+c1 | c2
+#> <quosure>
+#> expr: ^cut == "Fair" | x > 8
+#> env:  0x5644d5f7acb0
+
+mini_diamond %>%
+  filterC(c1) %>%
+  head(5)
+#> # A tibble: 5 × 7
+#>   id    carat cut   clarity price     x     y
+#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+#> 1 id-1   1.02 Fair  SI1      3027  6.25  6.18
+#> 2 id-6   2.02 Fair  SI2     14080  8.33  8.37
+#> 3 id-10  0.7  Fair  VVS1     1691  5.56  5.41
+#> 4 id-12  0.71 Fair  IF       3205  5.87  5.81
+#> 5 id-18  0.34 Fair  VVS1     1012  4.8   4.76
+
+mini_diamond %>%
+  filterC(!c1) %>%
+  head(5)
+#> # A tibble: 5 × 7
+#>   id    carat cut   clarity price     x     y
+#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+#> 1 id-2   1.51 Good  VS2     11746  7.27  7.18
+#> 2 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+#> 3 id-4   1.54 Ideal SI2      9452  7.43  7.45
+#> 4 id-5   0.72 Ideal VS1      2498  5.73  5.77
+#> 5 id-7   0.27 Good  VVS1      752  4.1   4.07
+
+mini_diamond %>% filterC(c1 & c2)
+#> # A tibble: 3 × 7
+#>   id    carat cut   clarity price     x     y
+#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+#> 1 id-6   2.02 Fair  SI2     14080  8.33  8.37
+#> 2 id-48  2.01 Fair  I1       7294  8.3   8.19
+#> 3 id-68  2.32 Fair  SI1     18026  8.47  8.31
+```
+
+- stricter limitation to avoid the unexpected default behavior
+
+``` r
+# default behavior of dplyr::filter, use column in data at first
+x <- 8
+mini_diamond %>% dplyr::filter(y > x)
+#> # A tibble: 53 × 7
+#>    id    carat cut   clarity price     x     y
+#>    <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+#>  1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+#>  2 id-4   1.54 Ideal SI2      9452  7.43  7.45
+#>  3 id-5   0.72 Ideal VS1      2498  5.73  5.77
+#>  4 id-6   2.02 Fair  SI2     14080  8.33  8.37
+#>  5 id-8   0.51 Good  SI2      1029  5.05  5.08
+#>  6 id-11  1.02 Good  VVS1     7861  6.37  6.4 
+#>  7 id-13  0.56 Ideal SI1      1633  5.31  5.32
+#>  8 id-14  0.3  Ideal VVS2      812  4.33  4.39
+#>  9 id-15  0.28 Good  IF        612  4.09  4.12
+#> 10 id-16  0.41 Good  I1        467  4.7   4.74
+#> # … with 43 more rows
+
+# so the default behavior of filterC is just like that
+# but if you want y > 8, and the defination of cond is far away from
+# its application, the results may be unexpected
+
+x <- 8
+cond <- tbflt(y > x)
+mini_diamond %>% filterC(cond)
+#> # A tibble: 53 × 7
+#>    id    carat cut   clarity price     x     y
+#>    <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+#>  1 id-3   0.52 Ideal VVS1     2029  5.15  5.18
+#>  2 id-4   1.54 Ideal SI2      9452  7.43  7.45
+#>  3 id-5   0.72 Ideal VS1      2498  5.73  5.77
+#>  4 id-6   2.02 Fair  SI2     14080  8.33  8.37
+#>  5 id-8   0.51 Good  SI2      1029  5.05  5.08
+#>  6 id-11  1.02 Good  VVS1     7861  6.37  6.4 
+#>  7 id-13  0.56 Ideal SI1      1633  5.31  5.32
+#>  8 id-14  0.3  Ideal VVS2      812  4.33  4.39
+#>  9 id-15  0.28 Good  IF        612  4.09  4.12
+#> 10 id-16  0.41 Good  I1        467  4.7   4.74
+#> # … with 43 more rows
+
+cond <- tbflt(y > 8)
+mini_diamond %>% filterC(cond)
+#> # A tibble: 5 × 7
+#>   id    carat cut   clarity price     x     y
+#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+#> 1 id-6   2.02 Fair  SI2     14080  8.33  8.37
+#> 2 id-48  2.01 Fair  I1       7294  8.3   8.19
+#> 3 id-49  2.16 Ideal I1       8709  8.31  8.26
+#> 4 id-68  2.32 Fair  SI1     18026  8.47  8.31
+#> 5 id-97  2.61 Good  SI2     13784  8.66  8.57
+
+
+# to avoid this, set usecol=FALSE. An error will be raised for warning you
+# to change the variable name
+# mini_diamond %>% filterC(cond, usecol=FALSE)
+
+
+# you can always ignore this argument if you know how to use .env or !!
+x <- 8
+cond1 <- tbflt(y > !!x)
+mini_diamond %>% filterC(cond1)
+#> # A tibble: 5 × 7
+#>   id    carat cut   clarity price     x     y
+#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+#> 1 id-6   2.02 Fair  SI2     14080  8.33  8.37
+#> 2 id-48  2.01 Fair  I1       7294  8.3   8.19
+#> 3 id-49  2.16 Ideal I1       8709  8.31  8.26
+#> 4 id-68  2.32 Fair  SI1     18026  8.47  8.31
+#> 5 id-97  2.61 Good  SI2     13784  8.66  8.57
+
+cond2 <- tbflt(y > .env$x)
+mini_diamond %>% filterC(cond1)
+#> # A tibble: 5 × 7
+#>   id    carat cut   clarity price     x     y
+#>   <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl>
+#> 1 id-6   2.02 Fair  SI2     14080  8.33  8.37
+#> 2 id-48  2.01 Fair  I1       7294  8.3   8.19
+#> 3 id-49  2.16 Ideal I1       8709  8.31  8.26
+#> 4 id-68  2.32 Fair  SI1     18026  8.47  8.31
+#> 5 id-97  2.61 Good  SI2     13784  8.66  8.57
 ```
 
 ## dev

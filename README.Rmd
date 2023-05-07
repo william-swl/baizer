@@ -44,76 +44,26 @@ Or install the development version of `baizer` like so:
 devtools::install_github("william-swl/baizer")
 ```
 
-## S3 classes in `baizer`
-### tbflt
-- save a series of filter conditions, and support 
-logical operation among conditions
-- use `filterC` to apply `tbflt` on `dplyr::filter`
-
-``` {r tbflt}
-c1 <- tbflt(cut == "Fair")
-c2 <- tbflt(x > 8)
-c1 | c2
-
-mini_diamond %>%
-  filterC(c1) %>%
-  head(5)
-
-mini_diamond %>%
-  filterC(!c1) %>%
-  head(5)
-
-mini_diamond %>% filterC(c1 & c2)
-```
-
-- stricter limitation to avoid the unexpected default behavior
-```{r tbflt-uscol}
-# default behavior of dplyr::filter, use column in data at first
-x <- 8
-mini_diamond %>% dplyr::filter(y > x)
-
-# so the default behavior of filterC is just like that
-# but if you want y > 8, and the defination of cond is far away from
-# its application, the results may be unexpected
-
-x <- 8
-cond <- tbflt(y > x)
-mini_diamond %>% filterC(cond)
-
-cond <- tbflt(y > 8)
-mini_diamond %>% filterC(cond)
-
-
-# to avoid this, set usecol=FALSE. An error will be raised for warning you
-# to change the variable name
-# mini_diamond %>% filterC(cond, usecol=FALSE)
-
-
-# you can always ignore this argument if you know how to use .env or !!
-x <- 8
-cond1 <- tbflt(y > !!x)
-mini_diamond %>% filterC(cond1)
-
-cond2 <- tbflt(y > .env$x)
-mini_diamond %>% filterC(cond1)
-```
-
-
-
 ## basic utils
 - load packages as a batch
 ```{r basic-utils-pkglib}
-baizer::pkglib(dplyr, purrr)
+pkglib(dplyr, purrr)
 ```
 
 - versions of packages
 ```{r basic-utils-pkgver}
-baizer::pkgver(dplyr, purrr)
+pkgver(dplyr, purrr)
+
+# case-insensitive input
+pkgver(DplyR)
 ```
 
 - information of packages
 ```{r basic-utils-pkginfo}
-baizer::pkginfo(dplyr)
+pkginfo(dplyr)
+
+# case-insensitive input
+# pkginfo(DplyR)
 ```
 
 
@@ -654,6 +604,63 @@ unlink("some", recursive = TRUE)
 #    to=c('path1.txt', 'path2.txt')
 # )
 ```
+
+
+## S3 classes in `baizer`
+### tbflt
+- save a series of filter conditions, and support 
+logical operation among conditions
+- use `filterC` to apply `tbflt` on `dplyr::filter`
+
+``` {r tbflt}
+c1 <- tbflt(cut == "Fair")
+c2 <- tbflt(x > 8)
+c1 | c2
+
+mini_diamond %>%
+  filterC(c1) %>%
+  head(5)
+
+mini_diamond %>%
+  filterC(!c1) %>%
+  head(5)
+
+mini_diamond %>% filterC(c1 & c2)
+```
+
+- stricter limitation to avoid the unexpected default behavior
+```{r tbflt-uscol}
+# default behavior of dplyr::filter, use column in data at first
+x <- 8
+mini_diamond %>% dplyr::filter(y > x)
+
+# so the default behavior of filterC is just like that
+# but if you want y > 8, and the defination of cond is far away from
+# its application, the results may be unexpected
+
+x <- 8
+cond <- tbflt(y > x)
+mini_diamond %>% filterC(cond)
+
+cond <- tbflt(y > 8)
+mini_diamond %>% filterC(cond)
+
+
+# to avoid this, set usecol=FALSE. An error will be raised for warning you
+# to change the variable name
+# mini_diamond %>% filterC(cond, usecol=FALSE)
+
+
+# you can always ignore this argument if you know how to use .env or !!
+x <- 8
+cond1 <- tbflt(y > !!x)
+mini_diamond %>% filterC(cond1)
+
+cond2 <- tbflt(y > .env$x)
+mini_diamond %>% filterC(cond1)
+```
+
+
 
 
 ## dev

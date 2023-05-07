@@ -7,7 +7,7 @@
 pkgver(...)
 }
 \arguments{
-\item{...}{pkgs}
+\item{...}{case-insensitive package names}
 }
 \description{
 versions of packages
