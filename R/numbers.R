@@ -460,24 +460,24 @@ pos_int_split <- function(x, n, method = "average") {
 }
 
 
-
 #' generate outliers from a series of number
 #'
 #' @param x number vector
 #' @param n number of outliers to generate
 #' @param digits the digits of outliers
-#' @param side should be one of `two.sided, left, right`
+#' @param side should be one of `both, low, high`
 #' @param lim a two-length vector to assign the limitations of the outliers
-#' if method is `two.sided`, the outliers will be limited in
-#' \[lim\[1\], left_outlier_threshold] and \[right_outlier_threshold, lim\[2\]\]
+#' if method is `both`, the outliers will be limited in
+#' \[lim\[1\], low_outlier_threshold] and \[high_outlier_threshold, lim\[2\]\]
 #' ;
-#' if method is `left`, the outliers will be limited in
-#' \[lim\[1\], min(left_outlier_threshold, lim\[2\])]
+#' if method is `low`, the outliers will be limited in
+#' \[lim\[1\], min(low_outlier_threshold, lim\[2\])]
 #' ;
-#' if method is `right`, the outliers will be limited in
-#' \[max(right_outlier_threshold, lim\[1\]), lim\[2\]]
-#' @param assign_n manually assign the number of left outliers or
-#' right outliers when method is `two.sided`
+#' if method is `high`, the outliers will be limited in
+#' \[max(high_outlier_threshold, lim\[1\]), lim\[2\]]
+#' @param assign_n manually assign the number of low outliers or
+#' high outliers when method is `both`
+#' @param only_out only return outliers
 #'
 #' @return number vector of outliers
 #' @export
@@ -490,50 +490,57 @@ pos_int_split <- function(x, n, method = "average") {
 #' # generation limits
 #' gen_outlier(x, 10, lim = c(-80, 160))
 #'
-#' # assign the left and right outliers
+#' # assign the low and high outliers
 #' gen_outlier(x, 10, lim = c(-80, 160), assign_n = c(0.1, 0.9))
 #'
-#' # just generate left outliers
-#' gen_outlier(x, 10, side = "left")
+#' # just generate low outliers
+#' gen_outlier(x, 10, side = "low")
 #'
-gen_outlier <- function(x, n, digits = 0, side = "two.sided",
-                        lim = NULL, assign_n = NULL) {
+#' # return with raw vector
+#' gen_outlier(x, 10, only_out = FALSE)
+#'
+gen_outlier <- function(x, n, digits = 0, side = "both",
+                        lim = NULL, assign_n = NULL, only_out = TRUE) {
   x <- as.double(x)
   iqr <- IQR(x)
-  right_threshold <- boxplot.stats(x)$stats[4] + 1.5 * iqr
-  left_threshold <- boxplot.stats(x)$stats[2] - 1.5 * iqr
+  high_threshold <- boxplot.stats(x)$stats[4] + 1.5 * iqr
+  low_threshold <- boxplot.stats(x)$stats[2] - 1.5 * iqr
   if (is.null(lim)) {
-    lim <- c(left_threshold - 3 * iqr, right_threshold + 3 * iqr)
+    lim <- c(low_threshold - 3 * iqr, high_threshold + 3 * iqr)
   } else if (length(lim) != 2) {
     stop("the length of lim should be 2!")
   }
 
 
-  if (side == "two.sided") {
+  if (side == "both") {
     if (!is.null(assign_n) && length(assign_n) == 2) {
       nvec <- pos_int_split(n, 2, method = assign_n)
     } else {
       nvec <- pos_int_split(n, 2, method = "average")
     }
 
-    if (lim[1] > left_threshold) {
-      stop(str_c("lim[1] should smaller than ", round(left_threshold, digits)))
+    if (lim[1] > low_threshold) {
+      stop(str_c("lim[1] should smaller than ", round(low_threshold, digits)))
     }
-    if (lim[2] < right_threshold) {
-      stop(str_c("lim[2] should larger than ", round(right_threshold, digits)))
+    if (lim[2] < high_threshold) {
+      stop(str_c("lim[2] should larger than ", round(high_threshold, digits)))
     }
 
     res <- c(
-      runif(nvec[1], min = lim[1], max = left_threshold),
-      runif(nvec[2], min = right_threshold, max = lim[2])
+      runif(nvec[1], min = lim[1], max = low_threshold),
+      runif(nvec[2], min = high_threshold, max = lim[2])
     )
-  } else if (side == "left") {
-    res <- runif(n, min = lim[1], max = min(left_threshold, lim[2]))
-  } else if (side == "right") {
-    res <- runif(n, min = max(right_threshold, lim[1]), max = lim[2])
+  } else if (side == "low") {
+    res <- runif(n, min = lim[1], max = min(low_threshold, lim[2]))
+  } else if (side == "high") {
+    res <- runif(n, min = max(high_threshold, lim[1]), max = lim[2])
   }
 
   res <- round(res, digits)
+
+  if (only_out == FALSE) {
+    res <- c(res, x)
+  }
 
   return(res)
 }

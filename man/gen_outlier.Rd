@@ -4,7 +4,15 @@
 \alias{gen_outlier}
 \title{generate outliers from a series of number}
 \usage{
-gen_outlier(x, n, digits = 0, side = "two.sided", lim = NULL, assign_n = NULL)
+gen_outlier(
+  x,
+  n,
+  digits = 0,
+  side = "both",
+  lim = NULL,
+  assign_n = NULL,
+  only_out = TRUE
+)
 }
 \arguments{
 \item{x}{number vector}
@@ -13,20 +21,22 @@ gen_outlier(x, n, digits = 0, side = "two.sided", lim = NULL, assign_n = NULL)
 
 \item{digits}{the digits of outliers}
 
-\item{side}{should be one of \verb{two.sided, left, right}}
+\item{side}{should be one of \verb{both, low, high}}
 
 \item{lim}{a two-length vector to assign the limitations of the outliers
-if method is \code{two.sided}, the outliers will be limited in
-[lim[1], left_outlier_threshold] and [right_outlier_threshold, lim[2]]
+if method is \code{both}, the outliers will be limited in
+[lim[1], low_outlier_threshold] and [high_outlier_threshold, lim[2]]
 ;
-if method is \code{left}, the outliers will be limited in
-[lim[1], min(left_outlier_threshold, lim[2])]
+if method is \code{low}, the outliers will be limited in
+[lim[1], min(low_outlier_threshold, lim[2])]
 ;
-if method is \code{right}, the outliers will be limited in
-[max(right_outlier_threshold, lim[1]), lim[2]]}
+if method is \code{high}, the outliers will be limited in
+[max(high_outlier_threshold, lim[1]), lim[2]]}
 
-\item{assign_n}{manually assign the number of left outliers or
-right outliers when method is \code{two.sided}}
+\item{assign_n}{manually assign the number of low outliers or
+high outliers when method is \code{both}}
+
+\item{only_out}{only return outliers}
 }
 \value{
 number vector of outliers
@@ -42,10 +52,13 @@ gen_outlier(x, 10)
 # generation limits
 gen_outlier(x, 10, lim = c(-80, 160))
 
-# assign the left and right outliers
+# assign the low and high outliers
 gen_outlier(x, 10, lim = c(-80, 160), assign_n = c(0.1, 0.9))
 
-# just generate left outliers
-gen_outlier(x, 10, side = "left")
+# just generate low outliers
+gen_outlier(x, 10, side = "low")
+
+# return with raw vector
+gen_outlier(x, 10, only_out=FALSE)
 
 }

@@ -271,20 +271,19 @@ test_that("pos_int_split", {
 })
 
 
-
 test_that("gen_outlier", {
   x <- seq(0, 100, 1)
   iqr <- IQR(x)
-  right_threshold <- boxplot.stats(x)$stats[4] + 1.5 * iqr
-  left_threshold <- boxplot.stats(x)$stats[2] - 1.5 * iqr
+  high_threshold <- boxplot.stats(x)$stats[4] + 1.5 * iqr
+  low_threshold <- boxplot.stats(x)$stats[2] - 1.5 * iqr
 
   o1 <- gen_outlier(x, 10, lim = c(-80, 160))
   o2 <- gen_outlier(x, 10, lim = c(-80, 160), assign_n = c(0.1, 0.9))
-  o3 <- gen_outlier(x, 10, lim = c(-80, 160), side = "left")
+  o3 <- gen_outlier(x, 10, lim = c(-80, 160), side = "low")
 
 
-  expect_true(all((o1 >= -80 & o1 <= left_threshold) |
-    (o1 >= right_threshold & o1 <= 160)))
-  expect_true(which((o2 >= -80 & o2 <= left_threshold)) == 1)
-  expect_true(all((o3 >= -80 & o3 <= left_threshold)))
+  expect_true(all((o1 >= -80 & o1 <= low_threshold) |
+    (o1 >= high_threshold & o1 <= 160)))
+  expect_true(which((o2 >= -80 & o2 <= low_threshold)) == 1)
+  expect_true(all((o3 >= -80 & o3 <= low_threshold)))
 })
