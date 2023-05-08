@@ -54,7 +54,7 @@
     
     <a class="navbar-brand me-2" href="index.html">baizer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.11</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -437,28 +437,28 @@
 <span>  <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html" class="external-link">str_c</a></span><span class="op">(</span><span class="st">"B"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">9</span>, <span class="fl">10</span>, <span class="fl">21</span>, <span class="fl">32</span>, <span class="fl">99</span>, <span class="fl">101</span>, <span class="fl">102</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">v</span></span>
-<span><span class="co">#&gt;  [1] "A1"   "B10"  "A11"  "A12"  "B101" "B99"  "A9"   "B21"  "A10"  "B102"</span></span>
-<span><span class="co">#&gt; [11] "A99"  "B32"  "B2"   "B1"   "A101" "B9"   "A102" "A2"</span></span>
+<span><span class="co">#&gt;  [1] "B21"  "A1"   "B101" "B32"  "A99"  "B99"  "A101" "A12"  "A2"   "A10" </span></span>
+<span><span class="co">#&gt; [11] "A11"  "B2"   "B1"   "B102" "B9"   "A9"   "A102" "B10"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/group_vector.html">group_vector</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $A</span></span>
-<span><span class="co">#&gt; [1] "A1"   "A11"  "A12"  "A9"   "A10"  "A99"  "A101" "A102" "A2"  </span></span>
+<span><span class="co">#&gt; [1] "A1"   "A99"  "A101" "A12"  "A2"   "A10"  "A11"  "A9"   "A102"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $B</span></span>
-<span><span class="co">#&gt; [1] "B10"  "B101" "B99"  "B21"  "B102" "B32"  "B2"   "B1"   "B9"</span></span>
+<span><span class="co">#&gt; [1] "B21"  "B101" "B32"  "B99"  "B2"   "B1"   "B102" "B9"   "B10"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/group_vector.html">group_vector</a></span><span class="op">(</span><span class="va">v</span>, pattern <span class="op">=</span> <span class="st">"\\w\\d"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $A1</span></span>
-<span><span class="co">#&gt; [1] "A1"   "A11"  "A12"  "A10"  "A101" "A102"</span></span>
+<span><span class="co">#&gt; [1] "A1"   "A101" "A12"  "A10"  "A11"  "A102"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $A2</span></span>
 <span><span class="co">#&gt; [1] "A2"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $A9</span></span>
-<span><span class="co">#&gt; [1] "A9"  "A99"</span></span>
+<span><span class="co">#&gt; [1] "A99" "A9" </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $B1</span></span>
-<span><span class="co">#&gt; [1] "B10"  "B101" "B102" "B1"  </span></span>
+<span><span class="co">#&gt; [1] "B101" "B1"   "B102" "B10" </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $B2</span></span>
 <span><span class="co">#&gt; [1] "B21" "B2" </span></span>
@@ -472,21 +472,21 @@
 <span><span class="co"># the pattern rules are just same as reg_match()</span></span>
 <span><span class="fu"><a href="reference/group_vector.html">group_vector</a></span><span class="op">(</span><span class="va">v</span>, pattern <span class="op">=</span> <span class="st">"\\w(\\d)"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $`1`</span></span>
-<span><span class="co">#&gt;  [1] "A1"   "B10"  "A11"  "A12"  "B101" "A10"  "B102" "B1"   "A101" "A102"</span></span>
+<span><span class="co">#&gt;  [1] "A1"   "B101" "A101" "A12"  "A10"  "A11"  "B1"   "B102" "A102" "B10" </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $`2`</span></span>
-<span><span class="co">#&gt; [1] "B21" "B2"  "A2" </span></span>
+<span><span class="co">#&gt; [1] "B21" "A2"  "B2" </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $`3`</span></span>
 <span><span class="co">#&gt; [1] "B32"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $`9`</span></span>
-<span><span class="co">#&gt; [1] "B99" "A9"  "A99" "B9"</span></span>
+<span><span class="co">#&gt; [1] "A99" "B99" "B9"  "A9"</span></span>
 <span></span>
 <span><span class="co"># unmatched part will alse be stored</span></span>
 <span><span class="fu"><a href="reference/group_vector.html">group_vector</a></span><span class="op">(</span><span class="va">v</span>, pattern <span class="op">=</span> <span class="st">"\\d{2}"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $`10`</span></span>
-<span><span class="co">#&gt; [1] "B10"  "B101" "A10"  "B102" "A101" "A102"</span></span>
+<span><span class="co">#&gt; [1] "B101" "A101" "A10"  "B102" "A102" "B10" </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $`11`</span></span>
 <span><span class="co">#&gt; [1] "A11"</span></span>
@@ -501,10 +501,10 @@
 <span><span class="co">#&gt; [1] "B32"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $`99`</span></span>
-<span><span class="co">#&gt; [1] "B99" "A99"</span></span>
+<span><span class="co">#&gt; [1] "A99" "B99"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $unmatch</span></span>
-<span><span class="co">#&gt; [1] "A1" "A9" "B2" "B1" "B9" "A2"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "A1" "A2" "B2" "B1" "B9" "A9"</span></span></code></pre></div>
 <ul>
 <li>sort by a function</li>
 </ul>
@@ -514,7 +514,7 @@
 <span></span>
 <span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html" class="external-link">str_c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">9</span>, <span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">12</span>, <span class="fl">99</span>, <span class="fl">101</span>, <span class="fl">102</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">v</span></span>
-<span><span class="co">#&gt; [1] "id11"  "id2"   "id12"  "id101" "id10"  "id9"   "id102" "id1"   "id99"</span></span>
+<span><span class="co">#&gt; [1] "id101" "id10"  "id102" "id12"  "id99"  "id1"   "id11"  "id9"   "id2"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/sortf.html">sortf</a></span><span class="op">(</span><span class="va">v</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="reference/reg_match.html">reg_match</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"\\d+"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">as.double</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "id1"   "id2"   "id9"   "id10"  "id11"  "id12"  "id99"  "id101" "id102"</span></span>
@@ -530,8 +530,8 @@
 <span>  <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html" class="external-link">str_c</a></span><span class="op">(</span><span class="st">"B"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">9</span>, <span class="fl">10</span>, <span class="fl">21</span>, <span class="fl">32</span>, <span class="fl">99</span>, <span class="fl">101</span>, <span class="fl">102</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">v</span></span>
-<span><span class="co">#&gt;  [1] "A102" "B21"  "A99"  "A11"  "B9"   "A101" "B101" "A1"   "B99"  "B10" </span></span>
-<span><span class="co">#&gt; [11] "A10"  "B32"  "A2"   "B1"   "B102" "A9"   "B2"   "A12"</span></span>
+<span><span class="co">#&gt;  [1] "B102" "A2"   "B101" "B1"   "B99"  "A11"  "A101" "A9"   "B10"  "A1"  </span></span>
+<span><span class="co">#&gt; [11] "B9"   "B21"  "A10"  "A99"  "A102" "A12"  "B32"  "B2"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/sortf.html">sortf</a></span><span class="op">(</span><span class="va">v</span>, <span class="op">~</span> <span class="fu"><a href="reference/reg_match.html">reg_match</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"\\d+"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">as.double</a></span><span class="op">(</span><span class="op">)</span>, group_pattern <span class="op">=</span> <span class="st">"\\w"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "A1"   "A2"   "A9"   "A10"  "A11"  "A12"  "A99"  "A101" "A102" "B1"  </span></span>
@@ -716,7 +716,7 @@
 <span><span class="co">#&gt; [1] 4 4 4</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/pos_int_split.html">pos_int_split</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">3</span>, method <span class="op">=</span> <span class="st">"random"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 2 3 7</span></span>
+<span><span class="co">#&gt; [1] 5 1 6</span></span>
 <span></span>
 <span><span class="co"># you can also assign the ratio of output</span></span>
 <span><span class="fu"><a href="reference/pos_int_split.html">pos_int_split</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">3</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
@@ -728,23 +728,23 @@
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/gen_outlier.html">gen_outlier</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] -166 -162 -165 -150 -157  283  199  171  295  268</span></span>
+<span><span class="co">#&gt;  [1]  -55 -142  -50 -196  -72  155  267  274  207  243</span></span>
 <span></span>
 <span><span class="co"># generation limits</span></span>
 <span><span class="fu"><a href="reference/gen_outlier.html">gen_outlier</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span>, lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">80</span>, <span class="fl">160</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] -61 -74 -71 -79 -74 152 159 156 154 158</span></span>
+<span><span class="co">#&gt;  [1] -62 -79 -73 -64 -63 159 154 159 157 151</span></span>
 <span></span>
 <span><span class="co"># assign the low and high outliers</span></span>
 <span><span class="fu"><a href="reference/gen_outlier.html">gen_outlier</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span>, lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">80</span>, <span class="fl">160</span><span class="op">)</span>, assign_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.9</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] -64 159 150 159 153 154 155 151 152 150</span></span>
+<span><span class="co">#&gt;  [1] -71 155 154 156 154 158 154 151 154 154</span></span>
 <span></span>
 <span><span class="co"># just generate low outliers</span></span>
 <span><span class="fu"><a href="reference/gen_outlier.html">gen_outlier</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span>, side <span class="op">=</span> <span class="st">"low"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1]  -95 -194 -116 -125  -61  -72 -183 -164 -155 -100</span></span>
+<span><span class="co">#&gt;  [1] -187 -175  -81  -51 -137  -61 -140  -98  -61  -67</span></span>
 <span></span>
 <span><span class="co"># return with raw vector</span></span>
 <span><span class="fu"><a href="reference/gen_outlier.html">gen_outlier</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span>, only_out <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   [1] -103 -100  -62 -105 -114  225  179  282  163  212    0    1    2    3    4</span></span>
+<span><span class="co">#&gt;   [1] -173 -147 -172  -91 -185  239  280  213  251  287    0    1    2    3    4</span></span>
 <span><span class="co">#&gt;  [16]    5    6    7    8    9   10   11   12   13   14   15   16   17   18   19</span></span>
 <span><span class="co">#&gt;  [31]   20   21   22   23   24   25   26   27   28   29   30   31   32   33   34</span></span>
 <span><span class="co">#&gt;  [46]   35   36   37   38   39   40   41   42   43   44   45   46   47   48   49</span></span>
@@ -1247,11 +1247,11 @@
 <span><span class="co">#&gt; character(0)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $env_configs</span></span>
-<span><span class="co">#&gt; [1] "--slave"                               </span></span>
-<span><span class="co">#&gt; [2] "--no-save"                             </span></span>
-<span><span class="co">#&gt; [3] "--no-restore"                          </span></span>
-<span><span class="co">#&gt; [4] "-f"                                    </span></span>
-<span><span class="co">#&gt; [5] "/tmp/RtmpetzyVT/callr-scr-45ee6746cff5"</span></span>
+<span><span class="co">#&gt; [1] "--slave"                              </span></span>
+<span><span class="co">#&gt; [2] "--no-save"                            </span></span>
+<span><span class="co">#&gt; [3] "--no-restore"                         </span></span>
+<span><span class="co">#&gt; [4] "-f"                                   </span></span>
+<span><span class="co">#&gt; [5] "/tmp/RtmpetzyVT/callr-scr-45ee787bd40"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/cmdargs.html">cmdargs</a></span><span class="op">(</span><span class="st">"R_env"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"</span></span></code></pre></div>
@@ -1319,7 +1319,7 @@
 <span><span class="va">c1</span> <span class="op">|</span> <span class="va">c2</span></span>
 <span><span class="co">#&gt; &lt;quosure&gt;</span></span>
 <span><span class="co">#&gt; expr: ^cut == "Fair" | x &gt; 8</span></span>
-<span><span class="co">#&gt; env:  0x56439d39a980</span></span>
+<span><span class="co">#&gt; env:  0x55ab85cf6c50</span></span>
 <span></span>
 <span><span class="va">mini_diamond</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/filterC.html">filterC</a></span><span class="op">(</span><span class="va">c1</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
@@ -1447,20 +1447,18 @@
 <div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># set y, z as aliases of x when create a function</span></span>
 <span><span class="va">func</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fl">1</span>, <span class="va">y</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">z</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/alias_arg.html">alias_arg</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, with_default <span class="op">=</span> <span class="va">x</span><span class="op">)</span></span>
+<span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/alias_arg.html">alias_arg</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span>, default <span class="op">=</span> <span class="va">x</span><span class="op">)</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu">func</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1</span></span>
 <span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">8</span></span>
-<span><span class="fu">func</span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="fu">func</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 8</span></span>
 <span></span>
-<span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
-<span><span class="fu">func</span><span class="op">(</span>z<span class="op">=</span><span class="va">z</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 1</span></span></code></pre></div>
+<span><span class="fu">func</span><span class="op">(</span>z <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 10</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
@@ -1512,7 +1510,7 @@
 <li><a href="https://app.codecov.io/gh/william-swl/baizer?branch=master" class="external-link"><img src="https://codecov.io/gh/william-swl/baizer/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 <li><a href="https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml" class="external-link"><img src="https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://cran.r-project.org/package=baizer" class="external-link"><img src="https://www.r-pkg.org/badges/version/baizer?color=orange"></a></li>
-<li><a href="https://github.com/william-swl/baizer" class="external-link"><img src="https://img.shields.io/badge/devel%20version-0.4.11-blue.svg"></a></li>
+<li><a href="https://github.com/william-swl/baizer" class="external-link"><img src="https://img.shields.io/badge/devel%20version-0.5.0-blue.svg"></a></li>
 <li><a href="https://cran.r-project.org/package=baizer" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/grand-total/baizer?color=blue"></a></li>
 <li><a href="https://cran.r-project.org/package=baizer" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/last-month/baizer?color=green"></a></li>
 </ul>
