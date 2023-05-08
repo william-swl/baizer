@@ -20,12 +20,12 @@ character
 join the matched parts into string
 }
 \examples{
-reg_join(c('A_12.B', 'C_3.23:2'), '[A-Za-z]+')
+reg_join(c("A_12.B", "C_3.23:2"), "[A-Za-z]+")
 
-reg_join(c('A_12.B', 'C_3.23:2'), '\\\\w+')
+reg_join(c("A_12.B", "C_3.23:2"), "\\\\w+")
 
-reg_join(c('A_12.B', 'C_3.23:2'), '\\\\d+', sep=',')
+reg_join(c("A_12.B", "C_3.23:2"), "\\\\d+", sep = ",")
 
-reg_join(c('A_12.B', 'C_3.23:2'), '\\\\d', sep=',')
+reg_join(c("A_12.B", "C_3.23:2"), "\\\\d", sep = ",")
 
 }

@@ -696,17 +696,15 @@ mini_diamond %>% filterC(cond1)
 ```{r dev-alias_arg}
 # set y, z as aliases of x when create a function
 func <- function(x = 1, y = NULL, z = NULL) {
-  x <- alias_arg(x, y, with_default = x)
+  x <- alias_arg(x, y, z, default = x)
   return(x)
 }
 
 func()
 
-x <- 8
-func(x=x)
+func(x = 8)
 
-z <- 10
-func(z=z)
+func(z = 10)
 ```
 
 

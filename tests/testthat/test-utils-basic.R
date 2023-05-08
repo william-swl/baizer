@@ -293,8 +293,10 @@ test_that("uniq", {
   x <- list(A = 1, B = 3)
   y <- list(A = 9, C = 10)
   expect_identical(replace_item(x, y), list(A = 9, B = 3))
-  expect_identical(replace_item(x, y, keep_extra = TRUE),
-                   list(A = 9, B = 3, C = 10))
+  expect_identical(
+    replace_item(x, y, keep_extra = TRUE),
+    list(A = 9, B = 3, C = 10)
+  )
   expect_error(replace_item(x, c(A = 9, C = 10)))
   expect_error(replace_item(c(A = 1, B = 3), c(A = 9, C = 10, A = 80)))
 })

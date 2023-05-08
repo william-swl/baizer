@@ -4,12 +4,12 @@
 \alias{alias_arg}
 \title{use aliases for function arguments}
 \usage{
-alias_arg(..., with_default = NULL)
+alias_arg(..., default = NULL)
 }
 \arguments{
 \item{...}{aliases of an argument}
 
-\item{with_default}{a alias with a default value}
+\item{default}{a alias with a default value}
 }
 \value{
 the finally value of this argument across all aliases
@@ -21,7 +21,7 @@ use aliases for function arguments
 
 # set y, z as aliases of x when create a function
 func <- function(x = 1, y = NULL, z = NULL) {
-  x <- alias_arg(x, y, with_default = x)
+  x <- alias_arg(x, y, z, default = x)
   return(x)
 }
 }

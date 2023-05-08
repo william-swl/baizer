@@ -9,7 +9,7 @@
 coverage](https://codecov.io/gh/william-swl/baizer/branch/master/graph/badge.svg)](https://app.codecov.io/gh/william-swl/baizer?branch=master)
 [![R-CMD-check](https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml)
 [![](https://www.r-pkg.org/badges/version/baizer?color=orange)](https://cran.r-project.org/package=baizer)
-[![](https://img.shields.io/badge/devel%20version-0.4.11-blue.svg)](https://github.com/william-swl/baizer)
+[![](https://img.shields.io/badge/devel%20version-0.5.0-blue.svg)](https://github.com/william-swl/baizer)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/baizer?color=blue)](https://cran.r-project.org/package=baizer)
 [![](http://cranlogs.r-pkg.org/badges/last-month/baizer?color=green)](https://cran.r-project.org/package=baizer)
 <!-- badges: end -->
@@ -371,28 +371,28 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "A1"   "B10"  "A11"  "A12"  "B101" "B99"  "A9"   "B21"  "A10"  "B102"
-#> [11] "A99"  "B32"  "B2"   "B1"   "A101" "B9"   "A102" "A2"
+#>  [1] "B21"  "A1"   "B101" "B32"  "A99"  "B99"  "A101" "A12"  "A2"   "A10" 
+#> [11] "A11"  "B2"   "B1"   "B102" "B9"   "A9"   "A102" "B10"
 
 group_vector(v)
 #> $A
-#> [1] "A1"   "A11"  "A12"  "A9"   "A10"  "A99"  "A101" "A102" "A2"  
+#> [1] "A1"   "A99"  "A101" "A12"  "A2"   "A10"  "A11"  "A9"   "A102"
 #> 
 #> $B
-#> [1] "B10"  "B101" "B99"  "B21"  "B102" "B32"  "B2"   "B1"   "B9"
+#> [1] "B21"  "B101" "B32"  "B99"  "B2"   "B1"   "B102" "B9"   "B10"
 
 group_vector(v, pattern = "\\w\\d")
 #> $A1
-#> [1] "A1"   "A11"  "A12"  "A10"  "A101" "A102"
+#> [1] "A1"   "A101" "A12"  "A10"  "A11"  "A102"
 #> 
 #> $A2
 #> [1] "A2"
 #> 
 #> $A9
-#> [1] "A9"  "A99"
+#> [1] "A99" "A9" 
 #> 
 #> $B1
-#> [1] "B10"  "B101" "B102" "B1"  
+#> [1] "B101" "B1"   "B102" "B10" 
 #> 
 #> $B2
 #> [1] "B21" "B2" 
@@ -406,21 +406,21 @@ group_vector(v, pattern = "\\w\\d")
 # the pattern rules are just same as reg_match()
 group_vector(v, pattern = "\\w(\\d)")
 #> $`1`
-#>  [1] "A1"   "B10"  "A11"  "A12"  "B101" "A10"  "B102" "B1"   "A101" "A102"
+#>  [1] "A1"   "B101" "A101" "A12"  "A10"  "A11"  "B1"   "B102" "A102" "B10" 
 #> 
 #> $`2`
-#> [1] "B21" "B2"  "A2" 
+#> [1] "B21" "A2"  "B2" 
 #> 
 #> $`3`
 #> [1] "B32"
 #> 
 #> $`9`
-#> [1] "B99" "A9"  "A99" "B9"
+#> [1] "A99" "B99" "B9"  "A9"
 
 # unmatched part will alse be stored
 group_vector(v, pattern = "\\d{2}")
 #> $`10`
-#> [1] "B10"  "B101" "A10"  "B102" "A101" "A102"
+#> [1] "B101" "A101" "A10"  "B102" "A102" "B10" 
 #> 
 #> $`11`
 #> [1] "A11"
@@ -435,10 +435,10 @@ group_vector(v, pattern = "\\d{2}")
 #> [1] "B32"
 #> 
 #> $`99`
-#> [1] "B99" "A99"
+#> [1] "A99" "B99"
 #> 
 #> $unmatch
-#> [1] "A1" "A9" "B2" "B1" "B9" "A2"
+#> [1] "A1" "A2" "B2" "B1" "B9" "A9"
 ```
 
 - sort by a function
@@ -449,7 +449,7 @@ sortf(c(-2, 1, 3), abs)
 
 v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) %>% sample()
 v
-#> [1] "id11"  "id2"   "id12"  "id101" "id10"  "id9"   "id102" "id1"   "id99"
+#> [1] "id101" "id10"  "id102" "id12"  "id99"  "id1"   "id11"  "id9"   "id2"
 
 sortf(v, function(x) reg_match(x, "\\d+") %>% as.double())
 #> [1] "id1"   "id2"   "id9"   "id10"  "id11"  "id12"  "id99"  "id101" "id102"
@@ -465,8 +465,8 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "A102" "B21"  "A99"  "A11"  "B9"   "A101" "B101" "A1"   "B99"  "B10" 
-#> [11] "A10"  "B32"  "A2"   "B1"   "B102" "A9"   "B2"   "A12"
+#>  [1] "B102" "A2"   "B101" "B1"   "B99"  "A11"  "A101" "A9"   "B10"  "A1"  
+#> [11] "B9"   "B21"  "A10"  "A99"  "A102" "A12"  "B32"  "B2"
 
 sortf(v, ~ reg_match(.x, "\\d+") %>% as.double(), group_pattern = "\\w")
 #>  [1] "A1"   "A2"   "A9"   "A10"  "A11"  "A12"  "A99"  "A101" "A102" "B1"  
@@ -665,7 +665,7 @@ pos_int_split(12, 3, method = "average")
 #> [1] 4 4 4
 
 pos_int_split(12, 3, method = "random")
-#> [1] 2 3 7
+#> [1] 5 1 6
 
 # you can also assign the ratio of output
 pos_int_split(12, 3, method = c(1, 2, 3))
@@ -678,23 +678,23 @@ pos_int_split(12, 3, method = c(1, 2, 3))
 x <- seq(0, 100, 1)
 
 gen_outlier(x, 10)
-#>  [1] -166 -162 -165 -150 -157  283  199  171  295  268
+#>  [1]  -55 -142  -50 -196  -72  155  267  274  207  243
 
 # generation limits
 gen_outlier(x, 10, lim = c(-80, 160))
-#>  [1] -61 -74 -71 -79 -74 152 159 156 154 158
+#>  [1] -62 -79 -73 -64 -63 159 154 159 157 151
 
 # assign the low and high outliers
 gen_outlier(x, 10, lim = c(-80, 160), assign_n = c(0.1, 0.9))
-#>  [1] -64 159 150 159 153 154 155 151 152 150
+#>  [1] -71 155 154 156 154 158 154 151 154 154
 
 # just generate low outliers
 gen_outlier(x, 10, side = "low")
-#>  [1]  -95 -194 -116 -125  -61  -72 -183 -164 -155 -100
+#>  [1] -187 -175  -81  -51 -137  -61 -140  -98  -61  -67
 
 # return with raw vector
 gen_outlier(x, 10, only_out = FALSE)
-#>   [1] -103 -100  -62 -105 -114  225  179  282  163  212    0    1    2    3    4
+#>   [1] -173 -147 -172  -91 -185  239  280  213  251  287    0    1    2    3    4
 #>  [16]    5    6    7    8    9   10   11   12   13   14   15   16   17   18   19
 #>  [31]   20   21   22   23   24   25   26   27   28   29   30   31   32   33   34
 #>  [46]   35   36   37   38   39   40   41   42   43   44   45   46   47   48   49
@@ -1208,11 +1208,11 @@ cmdargs()
 #> character(0)
 #> 
 #> $env_configs
-#> [1] "--slave"                               
-#> [2] "--no-save"                             
-#> [3] "--no-restore"                          
-#> [4] "-f"                                    
-#> [5] "/tmp/RtmpetzyVT/callr-scr-45ee6746cff5"
+#> [1] "--slave"                              
+#> [2] "--no-save"                            
+#> [3] "--no-restore"                         
+#> [4] "-f"                                   
+#> [5] "/tmp/RtmpetzyVT/callr-scr-45ee787bd40"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"
@@ -1281,7 +1281,7 @@ c2 <- tbflt(x > 8)
 c1 | c2
 #> <quosure>
 #> expr: ^cut == "Fair" | x > 8
-#> env:  0x56439d39a980
+#> env:  0x55ab85cf6c50
 
 mini_diamond %>%
   filterC(c1) %>%
@@ -1408,20 +1408,18 @@ mini_diamond %>% filterC(cond1)
 ``` r
 # set y, z as aliases of x when create a function
 func <- function(x = 1, y = NULL, z = NULL) {
-  x <- alias_arg(x, y, with_default = x)
+  x <- alias_arg(x, y, z, default = x)
   return(x)
 }
 
 func()
 #> [1] 1
 
-x <- 8
-func(x=x)
+func(x = 8)
 #> [1] 8
 
-z <- 10
-func(z=z)
-#> [1] 1
+func(z = 10)
+#> [1] 10
 ```
 
 ## Code of Conduct

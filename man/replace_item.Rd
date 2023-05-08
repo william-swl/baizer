@@ -21,11 +21,11 @@ replace the items of one object by another
 }
 \examples{
 
-x <- list(A=1, B=3)
-y <- list(A=9, C=10)
+x <- list(A = 1, B = 3)
+y <- list(A = 9, C = 10)
 
 replace_item(x, y)
 
-replace_item(x, y, keep_extra=TRUE)
+replace_item(x, y, keep_extra = TRUE)
 
 }
