@@ -49,6 +49,7 @@
 #' @importFrom tidyr pivot_longer
 #' @importFrom tidyr pivot_wider
 #' @importFrom utils combn
+#' @importFrom utils installed.packages
 #' @importFrom utils sessionInfo
 ## usethis namespace: end
 NULL
