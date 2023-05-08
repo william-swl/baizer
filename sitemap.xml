@@ -166,6 +166,9 @@
     <loc>https://william-swl.github.io/baizer/reference/ref_level.html</loc>
   </url>
   <url>
+    <loc>https://william-swl.github.io/baizer/reference/reg_join.html</loc>
+  </url>
+  <url>
     <loc>https://william-swl.github.io/baizer/reference/reg_match.html</loc>
   </url>
   <url>
@@ -173,6 +176,9 @@
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/remove_narow.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/replace_item.html</loc>
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/round_string.html</loc>
