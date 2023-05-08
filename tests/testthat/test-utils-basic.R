@@ -183,6 +183,23 @@ test_that("reg_match", {
   )
 })
 
+test_that("reg_join", {
+  expect_identical(
+    reg_join(c("A_12.B", "C_3.23:2"), "[A-Za-z]+"), c("AB", "C")
+  )
+  expect_identical(
+    reg_join(c("A_12.B", "C_3.23:2"), "\\w+"), c("A_12B", "C_3232")
+  )
+  expect_identical(
+    reg_join(c("A_12.B", "C_3.23:2"), "\\d+", sep = ","), c("12", "3,23,2")
+  )
+  expect_identical(
+    reg_join(c("A_12.B", "C_3.23:2"), "\\d", sep = ","),
+    c("1,2", "3,2,3,2")
+  )
+})
+
+
 test_that("group_vector", {
   v <- c(
     "A11", "A10", "A102", "A101", "A1", "B10", "A9", "B32", "B1", "A99",
@@ -269,4 +286,15 @@ test_that("uniq", {
   expect_identical(
     uniq(v), c(a = 1, b = 2, c = 3)
   )
+})
+
+
+test_that("uniq", {
+  x <- list(A = 1, B = 3)
+  y <- list(A = 9, C = 10)
+  expect_identical(replace_item(x, y), list(A = 9, B = 3))
+  expect_identical(replace_item(x, y, keep_extra = TRUE),
+                   list(A = 9, B = 3, C = 10))
+  expect_error(replace_item(x, c(A = 9, C = 10)))
+  expect_error(replace_item(c(A = 1, B = 3), c(A = 9, C = 10, A = 80)))
 })

@@ -420,6 +420,32 @@ reg_match <- function(x, pattern, group = 1) {
   }
 }
 
+#' join the matched parts into string
+#'
+#' @param x character
+#' @param pattern regex pattern
+#' @param sep separator
+#'
+#' @return character
+#' @export
+#'
+#' @examples
+#' reg_join(c("A_12.B", "C_3.23:2"), "[A-Za-z]+")
+#'
+#' reg_join(c("A_12.B", "C_3.23:2"), "\\w+")
+#'
+#' reg_join(c("A_12.B", "C_3.23:2"), "\\d+", sep = ",")
+#'
+#' reg_join(c("A_12.B", "C_3.23:2"), "\\d", sep = ",")
+#'
+reg_join <- function(x, pattern, sep = "") {
+  x <- as.character(x)
+  res <- stringr::str_extract_all(x, pattern) %>%
+    purrr::map_chr(~ stringr::str_c(.x, collapse = sep))
+
+  return(res)
+}
+
 
 
 #' split vector into list
@@ -627,4 +653,51 @@ pileup_logical <- function(x, v) {
 #'
 uniq <- function(x) {
   return(x[-which(duplicated(x))])
+}
+
+
+#' replace the items of one object by another
+#'
+#' @param x number, character or list
+#' @param y another object, the class of y should be same as x
+#' @param keep_extra whether keep extra items in y
+#'
+#' @return replaced object
+#' @export
+#'
+#' @examples
+#'
+#' x <- list(A = 1, B = 3)
+#' y <- list(A = 9, C = 10)
+#'
+#' replace_item(x, y)
+#'
+#' replace_item(x, y, keep_extra = TRUE)
+#'
+replace_item <- function(x, y, keep_extra = FALSE) {
+  if (class(x) != class(y)) {
+    stop("x, y should be two objects from same class,
+         such as number, character or list")
+  }
+
+  xname <- names(x)
+  yname <- names(y)
+
+  if (any(duplicated(xname))) {
+    stop("duplicated names in x")
+  }
+
+  if (any(duplicated(yname))) {
+    stop("duplicated names in y")
+  }
+
+  inter_name <- intersect(xname, yname)
+  extra_name <- setdiff(yname, xname)
+
+  x[inter_name] <- y[inter_name]
+  if (keep_extra == TRUE) {
+    x <- c(x, y[extra_name])
+  }
+
+  return(x)
 }

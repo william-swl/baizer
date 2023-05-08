@@ -340,9 +340,11 @@ hist_bins <- function(x, bins = 10, lim = c(min(x), max(x)), # nolint
   }
 
   dfres <- dfvec %>% dplyr::left_join(
-    dfbin, by = dplyr::join_by(
-    between(value, start, end, bounds = "(]")  # nolint
-  ))
+    dfbin,
+    by = dplyr::join_by(
+      between(value, start, end, bounds = "(]") # nolint
+    )
+  )
 
   fill_row <- which(!is.na(dfres[["value"]]) & is.na(dfres[["bin"]]))
 

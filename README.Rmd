@@ -178,6 +178,18 @@ reg_match(v, "id(\\d+)(\\w)", group = 2)
 reg_match(v, "id(\\d+)(\\w)", group = -1)
 ```
 
+- join the matched parts into string
+```{r basic-utils-reg_join}
+reg_join(c("A_12.B", "C_3.23:2"), "[A-Za-z]+")
+
+reg_join(c("A_12.B", "C_3.23:2"), "\\w+")
+
+reg_join(c("A_12.B", "C_3.23:2"), "\\d+", sep = ",")
+
+reg_join(c("A_12.B", "C_3.23:2"), "\\d", sep = ",")
+```
+
+
 
 - split vector into list
 ```{r basic-utils-split_vector}
@@ -256,6 +268,21 @@ unique(v)
 uniq(v)
 ```
 
+- replace the items of a list by another
+```{r basic-utils-replace_list}
+x <- list(A = 1, B = 3)
+y <- list(A = 9, C = 10)
+
+replace_item(x, y)
+
+replace_item(x, y, keep_extra = TRUE)
+
+
+x <- c(A = 1, B = 3)
+y <- c(A = 9, C = 10)
+
+replace_item(x, y)
+```
 
 ## numbers
 
