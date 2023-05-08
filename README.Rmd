@@ -703,10 +703,10 @@ func <- function(x = 1, y = NULL, z = NULL) {
 func()
 
 x <- 8
-func(x)
+func(x=x)
 
 z <- 10
-func(z)
+func(z=z)
 ```
 
 
