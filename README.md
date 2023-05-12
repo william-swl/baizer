@@ -9,7 +9,7 @@
 coverage](https://codecov.io/gh/william-swl/baizer/branch/master/graph/badge.svg)](https://app.codecov.io/gh/william-swl/baizer?branch=master)
 [![R-CMD-check](https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml)
 [![](https://www.r-pkg.org/badges/version/baizer?color=orange)](https://cran.r-project.org/package=baizer)
-[![](https://img.shields.io/badge/devel%20version-0.5.0-blue.svg)](https://github.com/william-swl/baizer)
+[![](https://img.shields.io/badge/devel%20version-0.5.1-blue.svg)](https://github.com/william-swl/baizer)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/baizer?color=blue)](https://cran.r-project.org/package=baizer)
 [![](http://cranlogs.r-pkg.org/badges/last-month/baizer?color=green)](https://cran.r-project.org/package=baizer)
 <!-- badges: end -->
@@ -150,6 +150,16 @@ NA %neq% NA
 #> [1] FALSE
 ```
 
+- not NA/NULL
+
+``` r
+not.na(NA)
+#> [1] FALSE
+
+not.null(NULL)
+#> [1] FALSE
+```
+
 - dump a vector into string
 
 ``` r
@@ -158,6 +168,25 @@ collapse_vector(c("A" = 2, "B" = 3, "C" = 4), front_name = TRUE, collapse = ";")
 
 collapse_vector(c("A" = 2, "B" = 3, "C" = 4), front_name = FALSE, collapse = ",")
 #> [1] "2(A),3(B),4(C)"
+```
+
+- slice character vector
+
+``` r
+x <- c("A", "B", "C", "D", "E")
+slice_char(x, "A", "D")
+#> [1] "A" "B" "C" "D"
+slice_char(x, "D", "A")
+#> [1] "D" "C" "B" "A"
+
+x <- c("A", "B", "C", "C", "A", "D", "D", "E", "A")
+slice_char(x, "B", "E")
+#> [1] "B" "C" "C" "A" "D" "D" "E"
+# duplicated element as boundary will throw an error
+# slice_char(x, 'A', 'E')
+# unique=TRUE to remove the duplicated boundary characters
+slice_char(x, "A", "E", unique = TRUE)
+#> [1] "A" "B" "C" "C" "D" "D" "E"
 ```
 
 - the index of different character
@@ -371,56 +400,56 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "B21"  "A1"   "B101" "B32"  "A99"  "B99"  "A101" "A12"  "A2"   "A10" 
-#> [11] "A11"  "B2"   "B1"   "B102" "B9"   "A9"   "A102" "B10"
+#>  [1] "B10"  "A11"  "A2"   "A10"  "A9"   "B9"   "A101" "B99"  "A102" "B32" 
+#> [11] "B102" "B2"   "B1"   "A12"  "B101" "A99"  "A1"   "B21"
 
 group_vector(v)
 #> $A
-#> [1] "A1"   "A99"  "A101" "A12"  "A2"   "A10"  "A11"  "A9"   "A102"
+#> [1] "A11"  "A2"   "A10"  "A9"   "A101" "A102" "A12"  "A99"  "A1"  
 #> 
 #> $B
-#> [1] "B21"  "B101" "B32"  "B99"  "B2"   "B1"   "B102" "B9"   "B10"
+#> [1] "B10"  "B9"   "B99"  "B32"  "B102" "B2"   "B1"   "B101" "B21"
 
 group_vector(v, pattern = "\\w\\d")
 #> $A1
-#> [1] "A1"   "A101" "A12"  "A10"  "A11"  "A102"
+#> [1] "A11"  "A10"  "A101" "A102" "A12"  "A1"  
 #> 
 #> $A2
 #> [1] "A2"
 #> 
 #> $A9
-#> [1] "A99" "A9" 
+#> [1] "A9"  "A99"
 #> 
 #> $B1
-#> [1] "B101" "B1"   "B102" "B10" 
+#> [1] "B10"  "B102" "B1"   "B101"
 #> 
 #> $B2
-#> [1] "B21" "B2" 
+#> [1] "B2"  "B21"
 #> 
 #> $B3
 #> [1] "B32"
 #> 
 #> $B9
-#> [1] "B99" "B9"
+#> [1] "B9"  "B99"
 
 # the pattern rules are just same as reg_match()
 group_vector(v, pattern = "\\w(\\d)")
 #> $`1`
-#>  [1] "A1"   "B101" "A101" "A12"  "A10"  "A11"  "B1"   "B102" "A102" "B10" 
+#>  [1] "B10"  "A11"  "A10"  "A101" "A102" "B102" "B1"   "A12"  "B101" "A1"  
 #> 
 #> $`2`
-#> [1] "B21" "A2"  "B2" 
+#> [1] "A2"  "B2"  "B21"
 #> 
 #> $`3`
 #> [1] "B32"
 #> 
 #> $`9`
-#> [1] "A99" "B99" "B9"  "A9"
+#> [1] "A9"  "B9"  "B99" "A99"
 
 # unmatched part will alse be stored
 group_vector(v, pattern = "\\d{2}")
 #> $`10`
-#> [1] "B101" "A101" "A10"  "B102" "A102" "B10" 
+#> [1] "B10"  "A10"  "A101" "A102" "B102" "B101"
 #> 
 #> $`11`
 #> [1] "A11"
@@ -435,10 +464,10 @@ group_vector(v, pattern = "\\d{2}")
 #> [1] "B32"
 #> 
 #> $`99`
-#> [1] "A99" "B99"
+#> [1] "B99" "A99"
 #> 
 #> $unmatch
-#> [1] "A1" "A2" "B2" "B1" "B9" "A9"
+#> [1] "A2" "A9" "B9" "B2" "B1" "A1"
 ```
 
 - sort by a function
@@ -449,7 +478,7 @@ sortf(c(-2, 1, 3), abs)
 
 v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) %>% sample()
 v
-#> [1] "id101" "id10"  "id102" "id12"  "id99"  "id1"   "id11"  "id9"   "id2"
+#> [1] "id11"  "id1"   "id12"  "id10"  "id101" "id9"   "id102" "id2"   "id99"
 
 sortf(v, function(x) reg_match(x, "\\d+") %>% as.double())
 #> [1] "id1"   "id2"   "id9"   "id10"  "id11"  "id12"  "id99"  "id101" "id102"
@@ -465,8 +494,8 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "B102" "A2"   "B101" "B1"   "B99"  "A11"  "A101" "A9"   "B10"  "A1"  
-#> [11] "B9"   "B21"  "A10"  "A99"  "A102" "A12"  "B32"  "B2"
+#>  [1] "B32"  "A9"   "A2"   "A12"  "B9"   "A1"   "B101" "A101" "B102" "A11" 
+#> [11] "B2"   "A102" "B10"  "B21"  "B99"  "A99"  "A10"  "B1"
 
 sortf(v, ~ reg_match(.x, "\\d+") %>% as.double(), group_pattern = "\\w")
 #>  [1] "A1"   "A2"   "A9"   "A10"  "A11"  "A12"  "A99"  "A101" "A102" "B1"  
@@ -531,6 +560,25 @@ y <- c(A = 9, C = 10)
 replace_item(x, y)
 #> A B 
 #> 9 3
+```
+
+- generate characters
+
+``` r
+gen_char(from = "g", n = 5)
+#> [1] "g" "h" "i" "j" "k"
+
+gen_char(to = "g", n = 5)
+#> [1] "c" "d" "e" "f" "g"
+
+gen_char(from = "g", to = "j")
+#> [1] "g" "h" "i" "j"
+
+gen_char(from = "t", n = 5, random = TRUE)
+#> [1] "t" "v" "y" "t" "w"
+
+gen_char(from = "x", n = 5, random = TRUE, allow_dup = FALSE, add = c("+", "-"))
+#> [1] "-" "+" "z" "x" "y"
 ```
 
 ## numbers
@@ -665,7 +713,7 @@ pos_int_split(12, 3, method = "average")
 #> [1] 4 4 4
 
 pos_int_split(12, 3, method = "random")
-#> [1] 5 1 6
+#> [1] 4 3 5
 
 # you can also assign the ratio of output
 pos_int_split(12, 3, method = c(1, 2, 3))
@@ -678,23 +726,23 @@ pos_int_split(12, 3, method = c(1, 2, 3))
 x <- seq(0, 100, 1)
 
 gen_outlier(x, 10)
-#>  [1]  -55 -142  -50 -196  -72  155  267  274  207  243
+#>  [1] -151 -170 -106 -188 -105  182  173  251  184  163
 
 # generation limits
 gen_outlier(x, 10, lim = c(-80, 160))
-#>  [1] -62 -79 -73 -64 -63 159 154 159 157 151
+#>  [1] -79 -70 -76 -57 -52 159 154 159 155 160
 
 # assign the low and high outliers
 gen_outlier(x, 10, lim = c(-80, 160), assign_n = c(0.1, 0.9))
-#>  [1] -71 155 154 156 154 158 154 151 154 154
+#>  [1] -66 158 154 154 158 159 159 159 150 158
 
 # just generate low outliers
 gen_outlier(x, 10, side = "low")
-#>  [1] -187 -175  -81  -51 -137  -61 -140  -98  -61  -67
+#>  [1]  -87 -117 -135 -177  -60 -106 -153  -80  -71  -94
 
 # return with raw vector
 gen_outlier(x, 10, only_out = FALSE)
-#>   [1] -173 -147 -172  -91 -185  239  280  213  251  287    0    1    2    3    4
+#>   [1]  -98  -95  -82 -134 -118  227  187  176  169  183    0    1    2    3    4
 #>  [16]    5    6    7    8    9   10   11   12   13   14   15   16   17   18   19
 #>  [31]   20   21   22   23   24   25   26   27   28   29   30   31   32   33   34
 #>  [46]   35   36   37   38   39   40   41   42   43   44   45   46   47   48   49
@@ -1208,11 +1256,11 @@ cmdargs()
 #> character(0)
 #> 
 #> $env_configs
-#> [1] "--slave"                              
-#> [2] "--no-save"                            
-#> [3] "--no-restore"                         
-#> [4] "-f"                                   
-#> [5] "/tmp/RtmpetzyVT/callr-scr-45ee787bd40"
+#> [1] "--slave"                             
+#> [2] "--no-save"                           
+#> [3] "--no-restore"                        
+#> [4] "-f"                                  
+#> [5] "/tmp/RtmpVjRBJ2/callr-scr-46fd717e4b"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"
@@ -1281,7 +1329,7 @@ c2 <- tbflt(x > 8)
 c1 | c2
 #> <quosure>
 #> expr: ^cut == "Fair" | x > 8
-#> env:  0x55ab85cf6c50
+#> env:  0x5635ae620480
 
 mini_diamond %>%
   filterC(c1) %>%
@@ -1403,6 +1451,21 @@ mini_diamond %>% filterC(cond1)
 
 ## dev
 
+- add `#'` into each line of codes for roxygen examples
+
+``` r
+roxygen_fmt(
+  "
+code line1
+code line2
+"
+)
+#> 
+#> #' code line1
+#> #' code line2
+#> #'
+```
+
 - use aliases for function arguments
 
 ``` r
@@ -1420,6 +1483,24 @@ func(x = 8)
 
 func(z = 10)
 #> [1] 10
+```
+
+- check arguments by custom function
+
+``` r
+x <- 1
+y <- 3
+z <- NULL
+
+func <- function(x = NULL, y = NULL, z = NULL) {
+  if (check_arg(x, y, z, n = 2)) {
+    print("As expected, two arguments is not NULL")
+  }
+
+  if (check_arg(x, y, z, n = 1, method = ~ .x < 2)) {
+    print("As expected, one argument less than 2")
+  }
+}
 ```
 
 ## Code of Conduct

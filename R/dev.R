@@ -1,3 +1,26 @@
+#' add #' into each line of codes for roxygen examples
+#'
+#' @param x codes
+#'
+#' @return NULL
+#' @export
+#'
+#' @examples
+#'
+#' roxygen_fmt(
+#'   "
+#' code line1
+#' code line2
+#' "
+#' )
+#'
+roxygen_fmt <- function(x) {
+  res <- str_split(x, "\\n")[[1]] %>%
+    str_c(collapse = "\n#' ")
+  cat(res)
+}
+
+
 #' use aliases for function arguments
 #'
 #' @param ... aliases of an argument
@@ -39,4 +62,35 @@ alias_arg <- function(..., default = NULL) {
   } else if (length(value_idx) == 0) {
     return(values[[quo_name(default)]])
   }
+}
+
+
+
+#' check arguments by custom function
+#'
+#' @param ... arguments
+#' @param n how many arguments should meet the custom conditions
+#' @param fun custom conditions defined by a function
+#'
+#' @return logical value
+#' @export
+#'
+#' @examples
+#' x <- 1
+#' y <- 3
+#' z <- NULL
+#'
+#' func <- function(x = NULL, y = NULL, z = NULL) {
+#'   if (check_arg(x, y, z, n = 2)) {
+#'     print("As expected, two arguments is not NULL")
+#'   }
+#'
+#'   if (check_arg(x, y, z, n = 1, method = ~ .x < 2)) {
+#'     print("As expected, one argument less than 2")
+#'   }
+#' }
+#'
+check_arg <- function(..., n = 2, fun = not.null) {
+  res <- map_lgl(c(...), fun) %>% sum()
+  res == n
 }

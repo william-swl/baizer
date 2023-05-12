@@ -71,6 +71,30 @@ pkgver <- function(...) {
     !(is.na(x) & is.na(y))
 }
 
+#' not NA
+#'
+#' @param x value
+#'
+#' @return logical value
+#' @export
+#'
+#' @examples not.na(NA)
+not.na <- function(x) {
+  !is.na(x)
+}
+
+
+#' not NULL
+#'
+#' @param x value
+#'
+#' @return logical value
+#' @export
+#'
+#' @examples not.null(NULL)
+not.null <- function(x) {
+  !is.null(x)
+}
 
 
 #' dump a named vector into character
@@ -97,6 +121,49 @@ collapse_vector <- function(named_vector, front_name = TRUE, collapse = ",") {
       stringr::str_c(collapse = collapse)
   }
 }
+
+
+#' slice character vector
+#'
+#' @param x character vector
+#' @param from from
+#' @param to to
+#' @param unique remove the duplicated boundary characters
+#'
+#' @return sliced vector
+#' @export
+#'
+#' @examples
+#' x <- c("A", "B", "C", "D", "E")
+#' slice_char(x, "A", "D")
+#' slice_char(x, "D", "A")
+#'
+#' x <- c("A", "B", "C", "C", "A", "D", "D", "E", "A")
+#' slice_char(x, "B", "E")
+#' # duplicated element as boundary will throw an error
+#' # slice_char(x, 'A', 'E')
+#' # unique=TRUE to remove the duplicated boundary characters
+#' slice_char(x, "A", "E", unique = TRUE)
+#'
+slice_char <- function(x, from = x[1], to = x[length(x)], unique = FALSE) {
+  if (!is(x, "character")) {
+    stop("x should be character vector")
+  }
+  if (unique == TRUE) {
+    x <- x[-c(which(x == from)[-1], which(x == to)[-1])]
+  }
+
+  dup_char <- x[duplicated(x)]
+  inter <- intersect(c(from, to), dup_char)
+
+  if (length(inter) != 0) {
+    stop("x have duplicated characters at slice boundaries")
+  }
+
+  res <- x[which(from == x):which(to == x)]
+  return(res)
+}
+
 
 
 #' the index of different character
@@ -652,9 +719,13 @@ pileup_logical <- function(x, v) {
 #' uniq(x)
 #'
 uniq <- function(x) {
-  return(x[-which(duplicated(x))])
+  dup_idx <- which(duplicated(x))
+  if (length(dup_idx) != 0) {
+    return(x[-dup_idx])
+  } else {
+    return(x)
+  }
 }
-
 
 #' replace the items of one object by another
 #'
@@ -700,4 +771,63 @@ replace_item <- function(x, y, keep_extra = FALSE) {
   }
 
   return(x)
+}
+
+
+
+#' generate characters
+#'
+#' @param from left bound, lower case letter
+#' @param to right bound, lower case letter
+#' @param n numbers of character to generate
+#' @param random random generation
+#' @param allow_dup allow duplication when random generation
+#' @param add add extra characters other than `base::letters`
+#'
+#' @return generated characters
+#' @export
+#'
+#' @examples
+#' gen_char(from = "g", n = 5)
+#' gen_char(to = "g", n = 5)
+#' gen_char(from = "g", to = "j")
+#' gen_char(from = "t", n = 5, random = TRUE)
+#' gen_char(
+#'   from = "x", n = 5, random = TRUE,
+#'   allow_dup = FALSE, add = c("+", "-")
+#' )
+#'
+gen_char <- function(from = NULL, to = NULL, n = NULL,
+                     random = FALSE, allow_dup = TRUE, add = NULL) {
+  # merge the added vector
+  v <- uniq(c(letters, add))
+
+  # letter slice
+  if (random == FALSE) {
+    if (check_arg(n, from, to, n = 2)) {
+      if (is.null(n)) {
+        res <- slice_char(v, from, to)
+      } else if (is.null(from)) {
+        to_index <- which(v == to)
+        res <- v[(to_index - n + 1):to_index]
+      } else if (is.null(to)) {
+        from_index <- which(v == from)
+        res <- v[from_index:(from_index + n - 1)]
+      }
+    } else {
+      stop("please only assign two of the three arguments: n, from, to")
+    }
+  } else {
+    # random generation
+    if (is.null(n)) {
+      stop("please input n")
+    }
+    # use from and to slice the vector
+    from <- if (is.null(from)) v[1] else from
+    to <- if (is.null(to)) v[length(v)] else to
+    v <- slice_char(v, from, to)
+    res <- sample(v, size = n, replace = allow_dup)
+  }
+
+  return(res)
 }
