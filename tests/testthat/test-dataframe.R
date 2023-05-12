@@ -214,3 +214,24 @@ test_that("cross_count, method='rowr'", {
 test_that("cross_count, method='colr'", {
   expect_snapshot(cross_count(mini_diamond, cut, clarity, method = "colr"))
 })
+
+
+test_that("list2tibble, method='row'", {
+  x <- list(
+    c("a", "1"),
+    c("b", "2"),
+    c("c", "3")
+  )
+  expect_snapshot(list2tibble(x, colnames = c("char", "num")))
+})
+
+
+
+test_that("list2tibble, method='col'", {
+  x <- list(
+    c("a", "b", "c"),
+    c("1", "2", "3")
+  )
+
+  expect_snapshot(list2tibble(x, method = "col"))
+})

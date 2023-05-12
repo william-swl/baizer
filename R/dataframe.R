@@ -558,3 +558,46 @@ cross_count <- function(df, row, col, method = "n", digits = 2) {
   res <- res %>% c2r(quo_name(row))
   return(res)
 }
+
+
+#' tran list into tibble
+#'
+#' @param x list
+#' @param colnames colnames of the output
+#' @param method
+#'
+#' @return tibble
+#' @export
+#'
+#' @examples
+#' x <- list(
+#'   c("a", "1"),
+#'   c("b", "2"),
+#'   c("c", "3")
+#' )
+#'
+#' list2tibble(x, colnames = c("char", "num"))
+#'
+#' x <- list(
+#'   c("a", "b", "c"),
+#'   c("1", "2", "3")
+#' )
+#'
+#' list2tibble(x, method = "col")
+list2tibble <- function(x, colnames = NULL, method = "row") {
+  suppressMessages({
+    if (method == "row") {
+      res <- map_dfr(x, ~ as_tibble_row(.x, .name_repair = "unique"))
+    } else if (method == "col") {
+      res <- map_dfc(x, ~ as_tibble_col(.x))
+    } else {
+      stop("method should be one of row, col")
+    }
+  })
+
+  if (is.null(colnames)) {
+    colnames <- str_c("V", seq_len(ncol(res)))
+  }
+  colnames(res) <- colnames
+  return(res)
+}

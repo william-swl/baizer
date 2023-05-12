@@ -1,3 +1,21 @@
+#' generate all combinations
+#'
+#' @param x vector
+#' @param n numbers of element to combine
+#'
+#' @return all combinations
+#' @export
+#'
+#' @examples gen_combn(1:4, n = 2)
+#'
+gen_combn <- function(x, n = 2) {
+  res <- combn(x, n) %>%
+    as.data.frame() %>%
+    as.list() %>%
+    unname()
+  return(res)
+}
+
 #' geometric mean
 #'
 #' @param x value

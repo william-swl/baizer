@@ -1379,3 +1379,27 @@
       Good  0.36 0.38 0.29 0.33 0.2 0.36 0.29 0.25
       Ideal 0.29 0.31 0.36 0.33 0.5 0.18 0.36 0.42
 
+# list2tibble, method='row'
+
+    Code
+      list2tibble(x, colnames = c("char", "num"))
+    Output
+      # A tibble: 3 x 2
+        char  num  
+        <chr> <chr>
+      1 a     1    
+      2 b     2    
+      3 c     3    
+
+# list2tibble, method='col'
+
+    Code
+      list2tibble(x, method = "col")
+    Output
+      # A tibble: 3 x 2
+        V1    V2   
+        <chr> <chr>
+      1 a     1    
+      2 b     2    
+      3 c     3    
+

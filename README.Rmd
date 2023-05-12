@@ -607,10 +607,31 @@ levels(df$cut)
 levels(df$cut0)
 ```
 
+- tran list into tibble
+```{r dataframe-list2tibble}
+x <- list(
+  c("a", "1"),
+  c("b", "2"),
+  c("c", "3")
+)
+
+list2tibble(x, colnames = c("char", "num"))
 
 
+x <- list(
+  c("a", "b", "c"),
+  c("1", "2", "3")
+)
+
+list2tibble(x, method = "col")
+```
 
 ## stat
+- generate all combinations
+```{r stat-gen_combn}
+gen_combn(1:4, n = 2)
+```
+
 - statistical test which returns a extensible tibble
 ```{r stat-stat_test}
 stat_test(mini_diamond, y = price, x = cut, .by = clarity)

@@ -1,4 +1,13 @@
 test_that("geom_mean", {
+  expect_equal(
+    gen_combn(1:4, n = 2),
+    list(c(1, 2), c(1, 3), c(1, 4), c(2, 3), c(2, 4), c(3, 4))
+  )
+})
+
+
+
+test_that("geom_mean", {
   expect_equal(geom_mean(c(1, 9)), 3)
   expect_equal(geom_mean(c(1, 10, 100)), 10)
 })
