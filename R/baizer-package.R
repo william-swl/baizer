@@ -15,6 +15,7 @@
 #' @importFrom dplyr rename
 #' @importFrom dplyr select
 #' @importFrom grDevices boxplot.stats
+#' @importFrom methods is
 #' @importFrom purrr map
 #' @importFrom purrr map_dbl
 #' @importFrom purrr map_dfr

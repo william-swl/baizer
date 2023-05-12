@@ -33,10 +33,13 @@ generated characters
 generate characters
 }
 \examples{
-gen_char(from='g', n=5)
-gen_char(to='g', n=5)
-gen_char(from='g', to='j')
-gen_char(from='t', n=5, random=TRUE)
-gen_char(from='x', n=5, random=TRUE, allow_dup=FALSE, add=c('+', '-'))
+gen_char(from = "g", n = 5)
+gen_char(to = "g", n = 5)
+gen_char(from = "g", to = "j")
+gen_char(from = "t", n = 5, random = TRUE)
+gen_char(
+  from = "x", n = 5, random = TRUE,
+  allow_dup = FALSE, add = c("+", "-")
+)
 
 }

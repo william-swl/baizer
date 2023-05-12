@@ -15,6 +15,7 @@ Imports:
     dplyr (>= 1.1.0),
     grDevices,
     magrittr,
+    methods,
     openxlsx,
     purrr,
     rlang (>= 0.4.11),

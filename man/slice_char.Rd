@@ -4,7 +4,7 @@
 \alias{slice_char}
 \title{slice character vector}
 \usage{
-slice_char(x, from = x[1], to = x[lenth(x)], unique = FALSE)
+slice_char(x, from = x[1], to = x[length(x)], unique = FALSE)
 }
 \arguments{
 \item{x}{character vector}
