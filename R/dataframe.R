@@ -564,7 +564,7 @@ cross_count <- function(df, row, col, method = "n", digits = 2) {
 #'
 #' @param x list
 #' @param colnames colnames of the output
-#' @param method
+#' @param method one of `row, col`, set each item as row or col, default as row
 #'
 #' @return tibble
 #' @export

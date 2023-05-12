@@ -18,6 +18,6 @@ all combinations
 generate all combinations
 }
 \examples{
-gen_combn(1:4, n=2)
+gen_combn(1:4, n = 2)
 
 }

@@ -11,7 +11,7 @@ list2tibble(x, colnames = NULL, method = "row")
 
 \item{colnames}{colnames of the output}
 
-\item{method}{}
+\item{method}{one of \verb{row, col}, set each item as row or col, default as row}
 }
 \value{
 tibble
@@ -21,17 +21,17 @@ tran list into tibble
 }
 \examples{
 x <- list(
-    c('a', '1'),
-    c('b', '2'),
-    c('c', '3')
+  c("a", "1"),
+  c("b", "2"),
+  c("c", "3")
 )
 
-list2tibble(x, colnames=c('char', 'num'))
+list2tibble(x, colnames = c("char", "num"))
 
 x <- list(
-    c('a', 'b', 'c'),
-    c('1', '2', '3')
+  c("a", "b", "c"),
+  c("1", "2", "3")
 )
 
-list2tibble(x, method='col')
+list2tibble(x, method = "col")
 }
