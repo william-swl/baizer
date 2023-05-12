@@ -97,6 +97,9 @@
     <loc>https://william-swl.github.io/baizer/reference/gen_char.html</loc>
   </url>
   <url>
+    <loc>https://william-swl.github.io/baizer/reference/gen_combn.html</loc>
+  </url>
+  <url>
     <loc>https://william-swl.github.io/baizer/reference/gen_outlier.html</loc>
   </url>
   <url>
@@ -125,6 +128,9 @@
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/is.zero.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/list2tibble.html</loc>
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/mini_diamond.html</loc>
