@@ -831,3 +831,36 @@ gen_char <- function(from = NULL, to = NULL, n = NULL,
 
   return(res)
 }
+
+
+#' trans range character into seq characters
+#'
+#' @param x range character
+#' @param sep range separator
+#'
+#' @return seq characters
+#' @export
+#'
+#' @examples rng2seq(c("1-5", "2"))
+rng2seq <- function(x, sep = "-") {
+  pattern <- str_glue("^[\\d{sep}]+$")
+  if (any(!str_detect(x, pattern))) {
+    stop("input should only have number and sep!")
+  }
+
+  func <- function(x) {
+    if ((length(x)) == 1) {
+      r <- x
+    } else if ((length(x)) == 2) {
+      r <- seq(as.integer(x[1]), as.integer(x[2])) %>% as.character()
+    } else {
+      stop("input should be like 1-10")
+    }
+    return(r)
+  }
+
+
+  res <- str_split(x, sep) %>%
+    map(func)
+  return(res)
+}

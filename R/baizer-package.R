@@ -45,6 +45,7 @@
 #' @importFrom stats median
 #' @importFrom stats runif
 #' @importFrom stringr str_c
+#' @importFrom stringr str_detect
 #' @importFrom stringr str_glue
 #' @importFrom stringr str_split
 #' @importFrom tibble as_tibble

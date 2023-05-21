@@ -321,6 +321,10 @@ gen_char(from = "t", n = 5, random = TRUE)
 gen_char(from = "x", n = 5, random = TRUE, allow_dup = FALSE, add = c("+", "-"))
 ```
 
+- trans range character into seq characters
+```{r basic-utils-rng2seq}
+rng2seq(c("1-5", "2"))
+```
 
 ## numbers
 
@@ -641,6 +645,14 @@ stat_test(mini_diamond, y = price, x = cut, .by = clarity)
 ```{r stat-stat_fc}
 stat_fc(mini_diamond, y = price, x = cut, .by = clarity)
 ```
+
+- calculate phi coefficient of two binary variables
+```{r stat-stat_phi}
+data <- matrix(c(10, 8, 14, 18), nrow = 2)
+stat_phi(data)
+```
+
+
 
 ## IO
 - get the command line arguments

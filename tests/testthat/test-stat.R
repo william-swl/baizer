@@ -63,3 +63,9 @@ test_that("stat_fc, method='geom_mean'", {
     ) %>% print(n = Inf)
   )
 })
+
+
+test_that("stat_phi", {
+  data <- matrix(c(10, 8, 14, 18), nrow = 2)
+  expect_equal(stat_phi(data), 0.11342410894527)
+})

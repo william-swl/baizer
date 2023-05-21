@@ -248,3 +248,24 @@ stat_fc <- function(df, y, x, method = "mean", .by = NULL,
   }
   return(res)
 }
+
+
+
+#' calculate phi coefficient of two binary variables
+#'
+#' @param x 2x2 matrix or dataframe
+#'
+#' @return phi coefficient
+#' @export
+#'
+#' @examples
+#' data <- matrix(c(10, 8, 14, 18), nrow = 2)
+#' stat_phi(data)
+stat_phi <- function(x) {
+  if (prod(dim(x)) != 4) {
+    stop("the dim of x should be 2x2")
+  }
+  numerator <- x[1, 1] * x[2, 2] - x[1, 2] * x[2, 1]
+  denominator <- sqrt(prod(colSums(x), rowSums(x)))
+  return(numerator / denominator)
+}

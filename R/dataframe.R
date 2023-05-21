@@ -555,6 +555,27 @@ cross_count <- function(df, row, col, method = "n", digits = 2) {
       names_from = {{ col }}, values_from = "r"
     )
   }
+
+  # sort
+  row_vec <- df[[quo_name(row)]]
+  col_vec <- df[[quo_name(col)]]
+  if (is.factor(row_vec)) {
+    row_ord <- levels(row_vec)
+  } else {
+    row_ord <- unique(row_vec) %>% sort()
+  }
+  if (is.factor(col_vec)) {
+    col_ord <- levels(col_vec)
+  } else {
+    col_ord <- unique(col_vec) %>% sort()
+  }
+
+  res <- res %>%
+    dplyr::mutate("{{row}}" := factor({{ row }}, row_ord)) %>% # nolint
+    # use any_of, to avoid extra factor levels error
+    select({{ row }}, any_of(col_ord))
+
+  # return
   res <- res %>% c2r(quo_name(row))
   return(res)
 }

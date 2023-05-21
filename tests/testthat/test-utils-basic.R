@@ -341,3 +341,11 @@ test_that("gen_char", {
   expect_error(gen_char(from = "a", to = "b", n = 3))
   expect_error(gen_char(from = "x", n = 10, random = TRUE, allow_dup = FALSE))
 })
+
+
+test_that("rng2seq", {
+  expect_identical(
+    rng2seq(c("1-5", "2")),
+    list(c("1", "2", "3", "4", "5"), "2")
+  )
+})
