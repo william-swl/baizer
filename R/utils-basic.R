@@ -783,6 +783,7 @@ replace_item <- function(x, y, keep_extra = FALSE) {
 #' @param random random generation
 #' @param allow_dup allow duplication when random generation
 #' @param add add extra characters other than `base::letters`
+#' @param seed random seed
 #'
 #' @return generated characters
 #' @export
@@ -798,7 +799,8 @@ replace_item <- function(x, y, keep_extra = FALSE) {
 #' )
 #'
 gen_char <- function(from = NULL, to = NULL, n = NULL,
-                     random = FALSE, allow_dup = TRUE, add = NULL) {
+                     random = FALSE, allow_dup = TRUE,
+                     add = NULL, seed = NULL) {
   # merge the added vector
   v <- uniq(c(letters, add))
 
@@ -826,7 +828,15 @@ gen_char <- function(from = NULL, to = NULL, n = NULL,
     from <- if (is.null(from)) v[1] else from
     to <- if (is.null(to)) v[length(v)] else to
     v <- slice_char(v, from, to)
-    res <- sample(v, size = n, replace = allow_dup)
+
+    if (!is.null(seed)) {
+      withr::with_seed(
+        seed = seed,
+        res <- sample(v, size = n, replace = allow_dup)
+      )
+    } else {
+      res <- sample(v, size = n, replace = allow_dup)
+    }
   }
 
   return(res)

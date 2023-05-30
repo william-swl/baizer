@@ -18,5 +18,5 @@ seq characters
 trans range character into seq characters
 }
 \examples{
-rng2seq(c('1-5', '2'))
+rng2seq(c("1-5", "2"))
 }

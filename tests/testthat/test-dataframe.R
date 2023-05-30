@@ -235,3 +235,19 @@ test_that("list2tibble, method='col'", {
 
   expect_snapshot(list2tibble(x, method = "col"))
 })
+
+
+test_that("exist_matrix", {
+  x <- 1:5 %>% map(~ gen_char(to = "k", n = 5, random = TRUE, seed = .x))
+  expect_snapshot(exist_matrix(x))
+})
+
+test_that("exist_matrix, sort_items", {
+  x <- 1:5 %>% map(
+    ~ str_c(
+      gen_char(to = "d", n = 3, random = TRUE, seed = .x),
+      gen_char(from = "o", n = 3, random = TRUE, seed = .x) %>% str_to_upper()
+    )
+  )
+  expect_snapshot(exist_matrix(x, sort_items = ~ str_sub(.x, start = 2)))
+})

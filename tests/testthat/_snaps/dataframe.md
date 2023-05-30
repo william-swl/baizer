@@ -1403,3 +1403,31 @@
       2 b     2    
       3 c     3    
 
+# exist_matrix
+
+    Code
+      exist_matrix(x)
+    Output
+      # A tibble: 5 x 11
+        g     i     k     a     b     c     d     e     f     h     j    
+      * <lgl> <lgl> <lgl> <lgl> <lgl> <lgl> <lgl> <lgl> <lgl> <lgl> <lgl>
+      1 TRUE  TRUE  FALSE TRUE  TRUE  FALSE TRUE  FALSE FALSE FALSE FALSE
+      2 FALSE FALSE FALSE TRUE  FALSE FALSE FALSE TRUE  TRUE  TRUE  FALSE
+      3 TRUE  FALSE FALSE FALSE FALSE FALSE TRUE  TRUE  FALSE FALSE TRUE 
+      4 TRUE  FALSE TRUE  FALSE FALSE TRUE  FALSE FALSE FALSE TRUE  FALSE
+      5 FALSE TRUE  TRUE  FALSE TRUE  FALSE FALSE FALSE FALSE FALSE FALSE
+
+# exist_matrix, sort_items
+
+    Code
+      exist_matrix(x, sort_items = ~ str_sub(.x, start = 2))
+    Output
+      # A tibble: 5 x 12
+        bP    cQ    dR    aS    bT    cT    cU    dV    aW    bX    cY    dZ   
+      * <lgl> <lgl> <lgl> <lgl> <lgl> <lgl> <lgl> <lgl> <lgl> <lgl> <lgl> <lgl>
+      1 FALSE FALSE TRUE  FALSE FALSE FALSE TRUE  FALSE TRUE  FALSE FALSE FALSE
+      2 FALSE FALSE FALSE TRUE  TRUE  TRUE  FALSE FALSE FALSE FALSE FALSE FALSE
+      3 FALSE FALSE FALSE TRUE  FALSE FALSE FALSE FALSE FALSE TRUE  FALSE TRUE 
+      4 FALSE TRUE  FALSE FALSE FALSE FALSE FALSE TRUE  FALSE FALSE TRUE  FALSE
+      5 TRUE  FALSE FALSE FALSE FALSE FALSE FALSE FALSE TRUE  FALSE TRUE  FALSE
+

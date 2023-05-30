@@ -10,7 +10,8 @@ gen_char(
   n = NULL,
   random = FALSE,
   allow_dup = TRUE,
-  add = NULL
+  add = NULL,
+  seed = NULL
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ gen_char(
 \item{allow_dup}{allow duplication when random generation}
 
 \item{add}{add extra characters other than \code{base::letters}}
+
+\item{seed}{random seed}
 }
 \value{
 generated characters

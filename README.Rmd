@@ -630,6 +630,16 @@ x <- list(
 list2tibble(x, method = "col")
 ```
 
+- generate a matrix to show whether the item in each element of a list
+```{r dataframe-exist_matrix}
+x <- 1:5 %>% map(~ gen_char(to = "k", n = 5, random = TRUE, seed = .x))
+
+x
+
+exist_matrix(x)
+```
+
+
 ## stat
 - generate all combinations
 ```{r stat-gen_combn}

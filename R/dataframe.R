@@ -622,3 +622,65 @@ list2tibble <- function(x, colnames = NULL, method = "row") {
   colnames(res) <- colnames
   return(res)
 }
+
+
+#' generate a matrix to show whether the item in each element of a list
+#'
+#' @param x list of character vectors
+#' @param n_lim n limit to keep items in result
+#' @param n_top only keep top n items in result
+#' @param sort_items function to sort the items, item frequency by default
+#'
+#' @return tibble
+#' @export
+#'
+#' @examples
+#' x <- 1:5 %>% map(~ gen_char(to = "k", n = 5, random = TRUE, seed = .x))
+#' exist_matrix(x)
+#'
+exist_matrix <- function(x, n_lim = 0, n_top = NULL, sort_items = NULL) {
+  # character elements
+  if (any(map_chr(x, class) != "character")) {
+    stop("all elements of x should be character vectors!")
+  }
+
+
+  if (is.null(names(x))) {
+    names(x) <- seq_along(x)
+  }
+
+  count_tb <- x %>%
+    unlist() %>%
+    as_tibble() %>%
+    dplyr::count(value) %>%
+    dplyr::arrange(dplyr::desc(.data[["n"]]))
+
+  # keep top n, or keep items whose n > n_lim
+  if (!is.null(n_top)) {
+    count_tb <- count_tb %>% dplyr::slice(seq_len(n_top))
+  } else {
+    count_tb <- count_tb %>% dplyr::filter(.data[["n"]] > n_lim)
+  }
+
+  items <- count_tb[["value"]]
+
+  # remove NA
+  items <- items[!is.na(items)]
+
+  if (!is.null(sort_items)) {
+    items <- sortf(items, sort_items)
+  }
+
+  res <- x %>%
+    purrr::map(~ items %in% .x) %>%
+    as.data.frame()
+
+  colnames(res) <- names(x)
+  rownames(res) <- items
+
+  res <- res %>%
+    t() %>%
+    as_tibble(rownames = NA)
+
+  return(res)
+}

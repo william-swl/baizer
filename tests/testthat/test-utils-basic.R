@@ -327,6 +327,7 @@ test_that("gen_char", {
   expect_identical(gen_char(from = "g", n = 5), c("g", "h", "i", "j", "k"))
   expect_identical(gen_char(to = "g", n = 5), c("c", "d", "e", "f", "g"))
   expect_identical(gen_char(from = "g", to = "j"), c("g", "h", "i", "j"))
+  expect_identical(gen_char(n = 3, random = TRUE, seed = 1), c("y", "d", "g"))
   expect_true(all(
     gen_char(from = "t", n = 5, random = TRUE) %in%
       slice_char(letters, from = "t")
