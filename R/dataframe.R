@@ -564,10 +564,13 @@ cross_count <- function(df, row, col, method = "n", digits = 2) {
   } else {
     row_ord <- unique(row_vec) %>% sort()
   }
+  # the col_ord should be character for column selection
   if (is.factor(col_vec)) {
-    col_ord <- levels(col_vec)
+    col_ord <- levels(col_vec) %>% as.character()
   } else {
-    col_ord <- unique(col_vec) %>% sort()
+    col_ord <- unique(col_vec) %>%
+      sort() %>%
+      as.character()
   }
 
   res <- res %>%
