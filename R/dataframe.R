@@ -638,7 +638,9 @@ list2tibble <- function(x, colnames = NULL, method = "row") {
 #' @export
 #'
 #' @examples
-#' x <- 1:5 %>% map(~ gen_char(to = "k", n = 5, random = TRUE, seed = .x))
+#' x <- 1:5 %>% purrr::map(
+#'   ~ gen_char(to = "k", n = 5, random = TRUE, seed = .x)
+#' )
 #' exist_matrix(x)
 #'
 exist_matrix <- function(x, n_lim = 0, n_top = NULL, sort_items = NULL) {
