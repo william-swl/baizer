@@ -251,3 +251,12 @@ test_that("exist_matrix, sort_items", {
   )
   expect_snapshot(exist_matrix(x, sort_items = ~ str_sub(.x, start = 2)))
 })
+
+test_that("seriate_df", {
+  x <- mini_diamond %>%
+    select(id, where(is.numeric)) %>%
+    mutate(across(where(is.numeric), ~ round(.x / max(.x), 4))) %>%
+    c2r("id")
+
+  expect_snapshot(seriate_df(x))
+})

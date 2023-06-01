@@ -687,3 +687,24 @@ exist_matrix <- function(x, n_lim = 0, n_top = NULL, sort_items = NULL) {
 
   return(res)
 }
+
+
+#' dataframe rows seriation, which will reorder the rows in a better pattern
+#'
+#' @param x dataframe
+#'
+#' @return seriated dataframe
+#' @export
+#'
+#' @examples
+#' x <- mini_diamond %>%
+#'   select(id, where(is.numeric)) %>%
+#'   mutate(across(where(is.numeric), ~ round(.x / max(.x), 4))) %>%
+#'   c2r("id")
+#'
+#' seriate_df(x)
+#'
+seriate_df <- function(x) {
+  row_ord <- seriation::seriate(x)[[1]][["order"]]
+  return(x[row_ord, ])
+}

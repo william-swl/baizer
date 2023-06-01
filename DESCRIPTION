@@ -1,6 +1,6 @@
 Package: baizer
 Title: Useful Functions for Data Processing
-Version: 0.5.4
+Version: 0.5.5
 Authors@R: 
     person("William", "Song", , "william_swl@163.com", role = c("aut", "cre"))
 Description: In ancient Chinese mythology, Bai Ze is a divine creature that knows the needs of everything.
@@ -19,6 +19,7 @@ Imports:
     openxlsx,
     purrr,
     rlang (>= 0.4.11),
+    seriation,
     stats,
     stringr,
     tibble (>= 3.1),

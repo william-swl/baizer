@@ -13,6 +13,8 @@ knitr::opts_chunk$set(
 )
 library(baizer)
 library(badger)
+library(patchwork)
+library(ComplexHeatmap)
 ```
 
 # baizer <img src="man/figures/logo.png" align="right" />
@@ -637,6 +639,50 @@ x <- 1:5 %>% map(~ gen_char(to = "k", n = 5, random = TRUE, seed = .x))
 x
 
 exist_matrix(x)
+```
+
+- dataframe rows seriation, which will reorder the rows in a better pattern.
+Sometimes clearer than `hclust`
+
+```{r dataframe-seriate_df1, include=FALSE, warning=FALSE}
+# create demo dataframe
+df <- mini_diamond %>%
+  select(id, where(is.numeric)) %>%
+  mutate(across(where(is.numeric), ~ round(.x / max(.x), 4))) %>%
+  c2r("id")
+
+# p1
+p1 <- Heatmap(df,
+  cluster_rows = FALSE, cluster_columns = FALSE,
+  column_title = "Raw dataframe",
+  show_row_names = FALSE, show_heatmap_legend = FALSE
+)
+
+# p2
+cls <- df %>%
+  dist() %>%
+  hclust()
+df_cls <- df[cls$order, ]
+p2 <- Heatmap(df_cls,
+  cluster_rows = FALSE, cluster_columns = FALSE,
+  column_title = "Hclusted dataframe",
+  show_row_names = FALSE, show_heatmap_legend = FALSE
+)
+
+# p3
+p3 <- Heatmap(seriate_df(df),
+  cluster_rows = FALSE, cluster_columns = FALSE,
+  column_title = "Seriated dataframe",
+  show_row_names = FALSE, show_heatmap_legend = FALSE
+)
+```
+
+```{r dataframe-seriate_df2}
+seriated_df <- seriate_df(df)
+```
+
+```{r dataframe-seriate_df3, echo=FALSE, warning=FALSE}
+p1 + p2 + p3
 ```
 
 

@@ -9,3 +9,4 @@ package-lock.json
 package.json
 docs/
 pkgdown/
+.ipynb_checkpoints/
