@@ -275,13 +275,21 @@ remove_nacol <- function(df, max_ratio = 1) {
 #' @param df tibble
 #' @param max_ratio max NA ratio, default as 1 which remove the rows only
 #' have NA
+#' @param ... only remove rows according to these columns,
+#' refer to `dplyr::select()`
 #'
 #' @return tibble
 #' @export
 #'
 #' @examples # remove_narow(df)
-remove_narow <- function(df, max_ratio = 1) {
-  keep <- which(rowSums(is.na(df)) < max_ratio * ncol(df))
+remove_narow <- function(df, ..., max_ratio = 1) {
+  if (length(enexprs(...)) == 0) {
+    df_sel <- df
+  } else {
+    df_sel <- dplyr::select(df, ...)
+  }
+
+  keep <- which(rowSums(is.na(df_sel)) < max_ratio * ncol(df_sel))
   res <- df[keep, ]
   return(res)
 }
@@ -700,10 +708,12 @@ exist_matrix <- function(x, n_lim = 0, n_top = NULL, sort_items = NULL) {
 #'
 #' @examples
 #' x <- mini_diamond %>%
-#'   dplyr::select(id, tidyselect::where(is.numeric)) %>%
+#'   dplyr::select(id, dplyr::where(is.numeric)) %>%
 #'   dplyr::mutate(
-#'     dplyr::across(tidyselect::where(is.numeric),
-#'       ~ round(.x / max(.x), 4))
+#'     dplyr::across(
+#'       dplyr::where(is.numeric),
+#'       ~ round(.x / max(.x), 4)
+#'     )
 #'   ) %>%
 #'   c2r("id")
 #'
@@ -712,4 +722,120 @@ exist_matrix <- function(x, n_lim = 0, n_top = NULL, sort_items = NULL) {
 seriate_df <- function(x) {
   row_ord <- seriation::seriate(x)[[1]][["order"]]
   return(x[row_ord, ])
+}
+
+
+#' diagnosis a tibble for character NA, NULL, all T/F column, blank in cell
+#'
+#' @param x tibble
+#'
+#' @return list
+#' @export
+#'
+#' @examples
+#' x <- tibble(
+#'   c1 = c("NA", NA, "a", "b"),
+#'   c2 = c("c", "d", "e", "NULL"),
+#'   c3 = c("T", "F", "F", "T"),
+#'   c4 = c("T", "F", "F", NA),
+#'   c5 = c("", " ", "\t", "\n")
+#' )
+#'
+#' dx_tb(x)
+#'
+dx_tb <- function(x) {
+  res <- list(
+    chr_na = as_tibble(which(x == "NA", arr.ind = TRUE)),
+    chr_null = as_tibble(which(x == "NULL", arr.ind = TRUE)),
+    only_tf = x %>%
+      map_lgl(~ all(.x %in% c("T", "F", NA))) %>%
+      which() %>%
+      unname(),
+    blank_in_cell = unlist(x) %>% str_subset("^\\s+$") %>% unique()
+  )
+
+  res[["stat"]] <- res %>% map_dbl(
+    ~ if (is_tibble(.x)) nrow(.x) else length(.x)
+  )
+
+  res[["pass"]] <- if (sum(res[["stat"]]) == 0) TRUE else FALSE
+
+  return(res)
+}
+
+
+
+#' generate tibbles
+#'
+#' @param nrow number of rows
+#' @param ncol number of columns
+#' @param fill fill by, one of `float, int, char, str`
+#' @param colnames names of columns
+#' @param seed random seed
+#' @param ... parameters of `rnorm, gen_char, gen_str`
+#'
+#' @return tibble
+#' @export
+#'
+#' @examples
+#' gen_tb()
+#'
+#' gen_tb(fill = "str", nrow = 3, ncol = 4, len = 3)
+gen_tb <- function(nrow = 3, ncol = 4, fill = "float",
+                   colnames = NULL, seed = NULL, ...) {
+  suppressWarnings({
+    withr::with_seed(seed, {
+      if (fill == "float") {
+        df <- matrix(rnorm(nrow * ncol, ...), nrow = nrow) %>% as_tibble()
+      } else if (fill == "int") {
+        df <- matrix(floor(rnorm(nrow * ncol, ...) * 10), nrow = nrow) %>%
+          as_tibble()
+      } else if (fill == "char") {
+        df <- matrix(gen_char(n = nrow * ncol, random = TRUE, ...),
+                     nrow = nrow) %>% as_tibble()
+      } else if (fill == "str") {
+        df <- matrix(gen_str(n = nrow * ncol, seed = seed, ...),
+                     nrow = nrow) %>% as_tibble()
+      }
+    })
+  })
+
+
+  return(df)
+}
+
+
+
+#' differences between two tibbles
+#'
+#' @param old old tibble
+#' @param new new tibble
+#'
+#' @return comparation tibble
+#' @export
+#'
+#' @examples
+#' tb1 <- gen_tb(fill = "int", seed = 1)
+#'
+#' tb2 <- gen_tb(fill = "int", seed = 3)
+#'
+#' diff_tb(tb1, tb2)
+#'
+diff_tb <- function(old, new) {
+  p <- waldo::compare(old, new)
+  compare_list <- p[[1]] %>%
+    str_split("\n") %>%
+    unlist() %>%
+    # clear format
+    str_replace_all("\033\\[\\d+?m", "") %>%
+    # clear extra space
+    str_replace_all("new|old", "") %>%
+    str_replace_all("^([+-]) \\[(\\d+), \\]", "\\1[\\2,]") %>%
+    # split
+    str_split(" +")
+
+  res <- compare_list[3:length(compare_list)] %>%
+    list2tibble(colnames = c("compare", compare_list[[2]][-1]))
+
+  return(res)
 }

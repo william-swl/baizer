@@ -685,6 +685,38 @@ seriated_df <- seriate_df(df)
 p1 + p2 + p3
 ```
 
+- diagnosis a tibble for character NA, NULL, all T/F column, blank in cell
+```{r dataframe-dx_tb}
+x <- tibble(
+  c1 = c("NA", NA, "a", "b"),
+  c2 = c("c", "d", "e", "NULL"),
+  c3 = c("T", "F", "F", "T"),
+  c4 = c("T", "F", "F", NA),
+  c5 = c("", " ", "\t", "\n")
+)
+x
+
+dx_tb(x)
+```
+
+- generate tibbles
+```{r dataframe-gen_tb}
+gen_tb()
+
+gen_tb(fill = "str", nrow = 3, ncol = 4, len = 3)
+```
+
+- differences between two tibbles
+```{r dataframe-diff_tb}
+tb1 <- gen_tb(fill = "int", seed = 1)
+tb1
+
+tb2 <- gen_tb(fill = "int", seed = 3)
+tb2
+
+diff_tb(tb1, tb2)
+```
+
 
 ## stat
 - generate all combinations

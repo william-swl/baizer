@@ -4,10 +4,13 @@
 \alias{remove_narow}
 \title{remove rows by the ratio of NA}
 \usage{
-remove_narow(df, max_ratio = 1)
+remove_narow(df, ..., max_ratio = 1)
 }
 \arguments{
 \item{df}{tibble}
+
+\item{...}{only remove rows according to these columns,
+refer to \code{dplyr::select()}}
 
 \item{max_ratio}{max NA ratio, default as 1 which remove the rows only
 have NA}

@@ -779,7 +779,7 @@ replace_item <- function(x, y, keep_extra = FALSE) {
 #'
 #' @param from left bound, lower case letter
 #' @param to right bound, lower case letter
-#' @param n numbers of character to generate
+#' @param n number of characters to generate
 #' @param random random generation
 #' @param allow_dup allow duplication when random generation
 #' @param add add extra characters other than `base::letters`
@@ -838,6 +838,31 @@ gen_char <- function(from = NULL, to = NULL, n = NULL,
       res <- sample(v, size = n, replace = allow_dup)
     }
   }
+
+  return(res)
+}
+
+
+
+#' generate strings
+#'
+#' @param n number of strings to generate
+#' @param len string length
+#' @param seed random seed
+#'
+#' @return string
+#' @export
+#'
+#' @examples gen_str(n = 2, len = 3)
+gen_str <- function(n = 1, len = 3, seed = NULL) {
+  suppressWarnings({
+    withr::with_seed(seed, {
+      res <- seq_len(n) %>% map_chr(
+        ~ gen_char(n = len, random = TRUE) %>%
+          str_c(collapse = "")
+      )
+    })
+  })
 
   return(res)
 }

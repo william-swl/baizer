@@ -17,9 +17,9 @@ dataframe rows seriation, which will reorder the rows in a better pattern
 }
 \examples{
 x <- mini_diamond \%>\%
-  dplyr::select(id, tidyselect::where(is.numeric)) \%>\%
+  dplyr::select(id, dplyr::where(is.numeric)) \%>\%
   dplyr::mutate(
-    dplyr::across(tidyselect::where(is.numeric),
+    dplyr::across(dplyr::where(is.numeric),
       ~ round(.x / max(.x), 4))
   ) \%>\%
   c2r("id")

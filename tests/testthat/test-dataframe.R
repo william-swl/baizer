@@ -253,13 +253,40 @@ test_that("exist_matrix, sort_items", {
 })
 
 test_that("seriate_df", {
-
   x <- mini_diamond %>%
-    dplyr::select(id, tidyselect::where(is.numeric)) %>%
+    dplyr::select(id, dplyr::where(is.numeric)) %>%
     dplyr::mutate(
-      dplyr::across(tidyselect::where(is.numeric),
-                    ~ round(.x / max(.x), 4))
+      dplyr::across(
+        dplyr::where(is.numeric),
+        ~ round(.x / max(.x), 4)
+      )
     ) %>%
     c2r("id")
   expect_snapshot(seriate_df(x))
+})
+
+
+test_that("dx_tb", {
+  x <- tibble(
+    c1 = c("NA", NA, "a", "b"),
+    c2 = c("c", "d", "e", "NULL"),
+    c3 = c("T", "F", "F", "T"),
+    c4 = c("T", "F", "F", NA),
+    c5 = c("", " ", "\t", "\n")
+  )
+
+
+  expect_snapshot(dx_tb(x))
+})
+
+
+test_that("gen_tb", {
+  expect_snapshot(gen_tb(fill = "str", nrow = 3, ncol = 4, len = 3, seed = 123))
+})
+
+test_that("diff_tb", {
+  tb1 <- gen_tb(fill = "int", seed = 1)
+  tb2 <- gen_tb(fill = "int", seed = 3)
+
+  expect_snapshot(diff_tb(tb1, tb2))
 })

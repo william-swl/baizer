@@ -19,7 +19,7 @@ gen_char(
 
 \item{to}{right bound, lower case letter}
 
-\item{n}{numbers of character to generate}
+\item{n}{number of characters to generate}
 
 \item{random}{random generation}
 

@@ -1538,3 +1538,61 @@
       id-92  0.5785 0.8129 0.8291 0.8448
       id-2   0.5785 0.6516 0.8395 0.8378
 
+# dx_tb
+
+    Code
+      dx_tb(x)
+    Output
+      $chr_na
+      # A tibble: 1 x 2
+          row   col
+        <int> <int>
+      1     1     1
+      
+      $chr_null
+      # A tibble: 1 x 2
+          row   col
+        <int> <int>
+      1     4     2
+      
+      $only_tf
+      [1] 3 4
+      
+      $blank_in_cell
+      [1] " "  "\t" "\n"
+      
+      $stat
+             chr_na      chr_null       only_tf blank_in_cell 
+                  1             1             2             3 
+      
+      $pass
+      [1] FALSE
+      
+
+# gen_tb
+
+    Code
+      gen_tb(fill = "str", nrow = 3, ncol = 4, len = 3, seed = 123)
+    Output
+      # A tibble: 3 x 4
+        V1    V2    V3    V4   
+        <chr> <chr> <chr> <chr>
+      1 osn   tnv   ich   nqk  
+      2 cjr   yze   zgj   gul  
+      3 vke   syy   isd   ojm  
+
+# diff_tb
+
+    Code
+      diff_tb(tb1, tb2)
+    Output
+      # A tibble: 6 x 5
+        compare V1    V2    V3    V4   
+        <chr>   <chr> <chr> <chr> <chr>
+      1 -[1,]   -7    15    4     -4   
+      2 +[1,]   -10   -12   0     12   
+      3 -[2,]   1     3     7     15   
+      4 +[2,]   -3    1     11    -8   
+      5 -[3,]   -9    -9    5     3    
+      6 +[3,]   2     0     -13   -12  
+
