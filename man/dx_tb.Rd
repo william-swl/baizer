@@ -16,7 +16,7 @@ list
 diagnosis a tibble for character NA, NULL, all T/F column, blank in cell
 }
 \examples{
-x <- tibble(
+x <- tibble::tibble(
   c1 = c("NA", NA, "a", "b"),
   c2 = c("c", "d", "e", "NULL"),
   c3 = c("T", "F", "F", "T"),

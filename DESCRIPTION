@@ -24,7 +24,6 @@ Imports:
     stringr,
     tibble (>= 3.1),
     tidyr,
-    tidyselect,
     utils,
     waldo
 Suggests: 

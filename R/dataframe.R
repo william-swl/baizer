@@ -733,7 +733,7 @@ seriate_df <- function(x) {
 #' @export
 #'
 #' @examples
-#' x <- tibble(
+#' x <- tibble::tibble(
 #'   c1 = c("NA", NA, "a", "b"),
 #'   c2 = c("c", "d", "e", "NULL"),
 #'   c3 = c("T", "F", "F", "T"),
