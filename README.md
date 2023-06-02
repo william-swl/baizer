@@ -59,9 +59,18 @@ pkgver(dplyr, purrr)
 #> 
 #> $purrr
 #> [1] "1.0.1"
+#> 
+#> $dplyr
+#> [1] "1.1.1"
+#> 
+#> $purrr
+#> [1] "1.0.1"
 
 # case-insensitive input
 pkgver(DplyR)
+#> $dplyr
+#> [1] "1.1.1"
+#> 
 #> $dplyr
 #> [1] "1.1.1"
 ```
@@ -70,6 +79,56 @@ pkgver(DplyR)
 
 ``` r
 pkginfo(dplyr)
+#> $dplyr
+#> Type: Package
+#> Package: dplyr
+#> Title: A Grammar of Data Manipulation
+#> Version: 1.1.1
+#> Authors@R: c( person("Hadley", "Wickham", , "hadley@posit.co", role =
+#>         c("aut", "cre"), comment = c(ORCID = "0000-0003-4757-117X")),
+#>         person("Romain", "François", role = "aut", comment = c(ORCID =
+#>         "0000-0002-2444-4226")), person("Lionel", "Henry", role =
+#>         "aut"), person("Kirill", "Müller", role = "aut", comment =
+#>         c(ORCID = "0000-0002-1416-3412")), person("Davis", "Vaughan", ,
+#>         "davis@posit.co", role = "aut", comment = c(ORCID =
+#>         "0000-0003-4777-038X")), person("Posit Software, PBC", role =
+#>         c("cph", "fnd")) )
+#> Description: A fast, consistent tool for working with data frame like
+#>         objects, both in memory and out of memory.
+#> License: MIT + file LICENSE
+#> URL: https://dplyr.tidyverse.org, https://github.com/tidyverse/dplyr
+#> BugReports: https://github.com/tidyverse/dplyr/issues
+#> Depends: R (>= 3.5.0)
+#> Imports: cli (>= 3.4.0), generics, glue (>= 1.3.2), lifecycle (>=
+#>         1.0.3), magrittr (>= 1.5), methods, pillar (>= 1.5.1), R6,
+#>         rlang (>= 1.1.0), tibble (>= 3.2.0), tidyselect (>= 1.2.0),
+#>         utils, vctrs (>= 0.6.0)
+#> Suggests: bench, broom, callr, covr, DBI, dbplyr (>= 2.2.1), ggplot2,
+#>         knitr, Lahman, lobstr, microbenchmark, nycflights13, purrr,
+#>         rmarkdown, RMySQL, RPostgreSQL, RSQLite, stringi (>= 1.7.6),
+#>         testthat (>= 3.1.5), tidyr (>= 1.3.0), withr
+#> VignetteBuilder: knitr
+#> Config/Needs/website: tidyverse, shiny, pkgdown, tidyverse/tidytemplate
+#> Config/testthat/edition: 3
+#> Encoding: UTF-8
+#> LazyData: true
+#> RoxygenNote: 7.2.3
+#> NeedsCompilation: yes
+#> Packaged: 2023-03-21 21:01:28 UTC; hadleywickham
+#> Author: Hadley Wickham [aut, cre]
+#>         (<https://orcid.org/0000-0003-4757-117X>), Romain François
+#>         [aut] (<https://orcid.org/0000-0002-2444-4226>), Lionel Henry
+#>         [aut], Kirill Müller [aut]
+#>         (<https://orcid.org/0000-0002-1416-3412>), Davis Vaughan [aut]
+#>         (<https://orcid.org/0000-0003-4777-038X>), Posit Software, PBC
+#>         [cph, fnd]
+#> Maintainer: Hadley Wickham <hadley@posit.co>
+#> Repository: CRAN
+#> Date/Publication: 2023-03-22 13:20:07 UTC
+#> Built: R 4.2.3; x86_64-conda-linux-gnu; 2023-03-23 01:46:10 UTC; unix
+#> 
+#> -- File: /home/william/software/mambaforge/envs/baizer/lib/R/library/dplyr/Meta/package.rds 
+#> 
 #> $dplyr
 #> Type: Package
 #> Package: dplyr
@@ -400,28 +459,28 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "A2"   "A9"   "B32"  "B9"   "B1"   "A101" "B99"  "B101" "A102" "A10" 
-#> [11] "B102" "A12"  "A1"   "B2"   "A11"  "A99"  "B10"  "B21"
+#>  [1] "A10"  "B2"   "B21"  "A2"   "B99"  "A102" "B32"  "A99"  "B10"  "A1"  
+#> [11] "A101" "B102" "A11"  "A12"  "A9"   "B1"   "B101" "B9"
 
 group_vector(v)
 #> $A
-#> [1] "A2"   "A9"   "A101" "A102" "A10"  "A12"  "A1"   "A11"  "A99" 
+#> [1] "A10"  "A2"   "A102" "A99"  "A1"   "A101" "A11"  "A12"  "A9"  
 #> 
 #> $B
-#> [1] "B32"  "B9"   "B1"   "B99"  "B101" "B102" "B2"   "B10"  "B21"
+#> [1] "B2"   "B21"  "B99"  "B32"  "B10"  "B102" "B1"   "B101" "B9"
 
 group_vector(v, pattern = "\\w\\d")
 #> $A1
-#> [1] "A101" "A102" "A10"  "A12"  "A1"   "A11" 
+#> [1] "A10"  "A102" "A1"   "A101" "A11"  "A12" 
 #> 
 #> $A2
 #> [1] "A2"
 #> 
 #> $A9
-#> [1] "A9"  "A99"
+#> [1] "A99" "A9" 
 #> 
 #> $B1
-#> [1] "B1"   "B101" "B102" "B10" 
+#> [1] "B10"  "B102" "B1"   "B101"
 #> 
 #> $B2
 #> [1] "B2"  "B21"
@@ -430,26 +489,26 @@ group_vector(v, pattern = "\\w\\d")
 #> [1] "B32"
 #> 
 #> $B9
-#> [1] "B9"  "B99"
+#> [1] "B99" "B9"
 
 # the pattern rules are just same as reg_match()
 group_vector(v, pattern = "\\w(\\d)")
 #> $`1`
-#>  [1] "B1"   "A101" "B101" "A102" "A10"  "B102" "A12"  "A1"   "A11"  "B10" 
+#>  [1] "A10"  "A102" "B10"  "A1"   "A101" "B102" "A11"  "A12"  "B1"   "B101"
 #> 
 #> $`2`
-#> [1] "A2"  "B2"  "B21"
+#> [1] "B2"  "B21" "A2" 
 #> 
 #> $`3`
 #> [1] "B32"
 #> 
 #> $`9`
-#> [1] "A9"  "B9"  "B99" "A99"
+#> [1] "B99" "A99" "A9"  "B9"
 
 # unmatched part will alse be stored
 group_vector(v, pattern = "\\d{2}")
 #> $`10`
-#> [1] "A101" "B101" "A102" "A10"  "B102" "B10" 
+#> [1] "A10"  "A102" "B10"  "A101" "B102" "B101"
 #> 
 #> $`11`
 #> [1] "A11"
@@ -467,7 +526,7 @@ group_vector(v, pattern = "\\d{2}")
 #> [1] "B99" "A99"
 #> 
 #> $unmatch
-#> [1] "A2" "A9" "B9" "B1" "A1" "B2"
+#> [1] "B2" "A2" "A1" "A9" "B1" "B9"
 ```
 
 - sort by a function
@@ -478,7 +537,7 @@ sortf(c(-2, 1, 3), abs)
 
 v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) %>% sample()
 v
-#> [1] "id12"  "id9"   "id11"  "id2"   "id99"  "id101" "id1"   "id102" "id10"
+#> [1] "id102" "id99"  "id1"   "id12"  "id2"   "id9"   "id101" "id10"  "id11"
 
 sortf(v, function(x) reg_match(x, "\\d+") %>% as.double())
 #> [1] "id1"   "id2"   "id9"   "id10"  "id11"  "id12"  "id99"  "id101" "id102"
@@ -494,8 +553,8 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "B21"  "B101" "A102" "B9"   "B2"   "A1"   "B32"  "A9"   "A12"  "B102"
-#> [11] "A2"   "A101" "B10"  "B99"  "B1"   "A10"  "A11"  "A99"
+#>  [1] "A10"  "B9"   "B2"   "B21"  "A99"  "B32"  "A101" "A102" "A1"   "B99" 
+#> [11] "B101" "A12"  "B102" "B1"   "A11"  "A2"   "B10"  "A9"
 
 sortf(v, ~ reg_match(.x, "\\d+") %>% as.double(), group_pattern = "\\w")
 #>  [1] "A1"   "A2"   "A9"   "A10"  "A11"  "A12"  "A99"  "A101" "A102" "B1"  
@@ -575,10 +634,10 @@ gen_char(from = "g", to = "j")
 #> [1] "g" "h" "i" "j"
 
 gen_char(from = "t", n = 5, random = TRUE)
-#> [1] "w" "x" "t" "v" "y"
+#> [1] "x" "u" "t" "t" "z"
 
 gen_char(from = "x", n = 5, random = TRUE, allow_dup = FALSE, add = c("+", "-"))
-#> [1] "+" "-" "y" "x" "z"
+#> [1] "-" "+" "z" "x" "y"
 ```
 
 - trans range character into seq characters
@@ -724,7 +783,7 @@ pos_int_split(12, 3, method = "average")
 #> [1] 4 4 4
 
 pos_int_split(12, 3, method = "random")
-#> [1] 10  1  1
+#> [1] 2 1 9
 
 # you can also assign the ratio of output
 pos_int_split(12, 3, method = c(1, 2, 3))
@@ -737,23 +796,23 @@ pos_int_split(12, 3, method = c(1, 2, 3))
 x <- seq(0, 100, 1)
 
 gen_outlier(x, 10)
-#>  [1] -115  -89 -178 -159 -184  290  241  249  244  270
+#>  [1] -149  -86 -174 -134  -95  208  274  266  244  202
 
 # generation limits
 gen_outlier(x, 10, lim = c(-80, 160))
-#>  [1] -75 -76 -51 -53 -71 155 160 155 159 159
+#>  [1] -74 -62 -71 -61 -56 156 151 150 151 150
 
 # assign the low and high outliers
 gen_outlier(x, 10, lim = c(-80, 160), assign_n = c(0.1, 0.9))
-#>  [1] -79 158 155 155 151 151 155 157 157 154
+#>  [1] -75 156 153 158 156 158 160 159 156 152
 
 # just generate low outliers
 gen_outlier(x, 10, side = "low")
-#>  [1] -145 -129 -114  -98 -114 -127 -184 -160  -62 -107
+#>  [1] -109 -141  -71 -185 -164 -105 -164 -140 -136  -63
 
 # return with raw vector
 gen_outlier(x, 10, only_out = FALSE)
-#>   [1] -187 -169 -193 -120 -113  191  234  203  157  177    0    1    2    3    4
+#>   [1] -197 -121 -157 -183 -127  249  162  187  218  250    0    1    2    3    4
 #>  [16]    5    6    7    8    9   10   11   12   13   14   15   16   17   18   19
 #>  [31]   20   21   22   23   24   25   26   27   28   29   30   31   32   33   34
 #>  [46]   35   36   37   38   39   40   41   42   43   44   45   46   47   48   49
@@ -1375,7 +1434,7 @@ cmdargs()
 #> [2] "--no-save"                             
 #> [3] "--no-restore"                          
 #> [4] "-f"                                    
-#> [5] "/tmp/RtmpdNYtj3/callr-scr-357626bb9058"
+#> [5] "/tmp/RtmpdbTN1H/callr-scr-41f272f72ac1"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"
@@ -1444,7 +1503,7 @@ c2 <- tbflt(x > 8)
 c1 | c2
 #> <quosure>
 #> expr: ^cut == "Fair" | x > 8
-#> env:  0x55f9942748f8
+#> env:  0x55daaa6d3098
 
 mini_diamond %>%
   filterC(c1) %>%

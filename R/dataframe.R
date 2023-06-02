@@ -700,8 +700,11 @@ exist_matrix <- function(x, n_lim = 0, n_top = NULL, sort_items = NULL) {
 #'
 #' @examples
 #' x <- mini_diamond %>%
-#'   select(id, where(is.numeric)) %>%
-#'   mutate(across(where(is.numeric), ~ round(.x / max(.x), 4))) %>%
+#'   dplyr::select(id, tidyselect::where(is.numeric)) %>%
+#'   dplyr::mutate(
+#'     dplyr::across(tidyselect::where(is.numeric),
+#'       ~ round(.x / max(.x), 4))
+#'   ) %>%
 #'   c2r("id")
 #'
 #' seriate_df(x)

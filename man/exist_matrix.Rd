@@ -22,7 +22,9 @@ tibble
 generate a matrix to show whether the item in each element of a list
 }
 \examples{
-x <- 1:5 \%>\% purrr::map(~gen_char(to = "k", n = 5, random = TRUE, seed = .x))
+x <- 1:5 \%>\% purrr::map(
+  ~ gen_char(to = "k", n = 5, random = TRUE, seed = .x)
+)
 exist_matrix(x)
 
 }
