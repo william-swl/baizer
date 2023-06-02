@@ -64,6 +64,12 @@
     <loc>https://william-swl.github.io/baizer/reference/diff_index.html</loc>
   </url>
   <url>
+    <loc>https://william-swl.github.io/baizer/reference/diff_tb.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/dx_tb.html</loc>
+  </url>
+  <url>
     <loc>https://william-swl.github.io/baizer/reference/empty_dir.html</loc>
   </url>
   <url>
@@ -104,6 +110,12 @@
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/gen_outlier.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/gen_str.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/gen_tb.html</loc>
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/generate_ticks.html</loc>
