@@ -20,5 +20,5 @@ string
 generate strings
 }
 \examples{
-gen_str(n=2, len=3)
+gen_str(n = 2, len = 3)
 }

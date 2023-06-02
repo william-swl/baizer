@@ -18,11 +18,10 @@ comparation tibble
 differences between two tibbles
 }
 \examples{
-tb1 <- gen_tb(fill='int', seed=1)
+tb1 <- gen_tb(fill = "int", seed = 1)
 
-tb2 <- gen_tb(fill='int', seed=3)
+tb2 <- gen_tb(fill = "int", seed = 3)
 
 diff_tb(tb1, tb2)
-
 
 }

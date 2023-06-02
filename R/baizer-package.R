@@ -44,6 +44,7 @@
 #' @importFrom rlang quo_set_env
 #' @importFrom stats IQR
 #' @importFrom stats median
+#' @importFrom stats rnorm
 #' @importFrom stats runif
 #' @importFrom stringr str_c
 #' @importFrom stringr str_detect

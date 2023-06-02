@@ -28,5 +28,5 @@ generate tibbles
 \examples{
 gen_tb()
 
-gen_tb(fill='str', nrow=3, ncol=4, len=3)
+gen_tb(fill = "str", nrow = 3, ncol = 4, len = 3)
 }

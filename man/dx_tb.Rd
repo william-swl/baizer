@@ -17,11 +17,11 @@ diagnosis a tibble for character NA, NULL, all T/F column, blank in cell
 }
 \examples{
 x <- tibble(
-    c1 = c('NA', NA, 'a', 'b'),
-    c2 = c('c', 'd', 'e', 'NULL'),
-    c3 = c('T', 'F', 'F', 'T'),
-    c4 = c('T', 'F', 'F', NA),
-    c5 = c('', ' ', '\t', '\n')
+  c1 = c("NA", NA, "a", "b"),
+  c2 = c("c", "d", "e", "NULL"),
+  c3 = c("T", "F", "F", "T"),
+  c4 = c("T", "F", "F", NA),
+  c5 = c("", " ", "\t", "\n")
 )
 
 dx_tb(x)

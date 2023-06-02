@@ -25,7 +25,8 @@ Imports:
     tibble (>= 3.1),
     tidyr,
     tidyselect,
-    utils
+    utils,
+    waldo
 Suggests: 
     covr,
     roxygen2,
