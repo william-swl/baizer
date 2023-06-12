@@ -350,3 +350,12 @@ test_that("rng2seq", {
     list(c("1", "2", "3", "4", "5"), "2")
   )
 })
+
+
+test_that("top_item", {
+  expect_identical(
+    gen_char(n = 10, to = "g", random = TRUE, seed = 10) %>%
+      top_item(n = 10),
+    c("g", "c", "a", "b", "d", "f")
+  )
+})

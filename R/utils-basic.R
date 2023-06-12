@@ -899,3 +899,24 @@ rng2seq <- function(x, sep = "-") {
     map(func)
   return(res)
 }
+
+
+#' return top n items with highest frequency
+#'
+#' @param x character
+#' @param n top n
+#'
+#' @return character
+#' @export
+#'
+#' @examples
+#'
+#' top_item(c("a", "b", "c", "b"))
+#'
+top_item <- function(x, n = 1) {
+  lev <- tibble(x) %>%
+    dplyr::count(x, sort = TRUE) %>%
+    dplyr::pull(x)
+  res <- lev[seq_len(min(n, length(lev)))]
+  return(res)
+}

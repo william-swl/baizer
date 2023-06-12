@@ -792,10 +792,12 @@ gen_tb <- function(nrow = 3, ncol = 4, fill = "float",
           as_tibble()
       } else if (fill == "char") {
         df <- matrix(gen_char(n = nrow * ncol, random = TRUE, ...),
-                     nrow = nrow) %>% as_tibble()
+          nrow = nrow
+        ) %>% as_tibble()
       } else if (fill == "str") {
         df <- matrix(gen_str(n = nrow * ncol, seed = seed, ...),
-                     nrow = nrow) %>% as_tibble()
+          nrow = nrow
+        ) %>% as_tibble()
       }
     })
   })
