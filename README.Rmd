@@ -726,6 +726,15 @@ tb2
 diff_tb(tb1, tb2)
 ```
 
+- transpose a dataframe
+```{r dataframe-tdf}
+tdf(c2r(mini_diamond, "id"))
+```
+
+- count unique values in each column
+```{r dataframe-uniq_in_cols}
+uniq_in_cols(mini_diamond)
+```
 
 ## stat
 - generate all combinations
@@ -790,7 +799,7 @@ unlink("some", recursive = TRUE)
 ```
 
 - fetch remote files via sftp
-```{r IO-sftp}
+```{r IO-sftp_download}
 # sftp_con <- sftp_connect(server='remote_host', port=22,
 #                         user='username', password = "password", wd='~')
 #
@@ -798,6 +807,11 @@ unlink("some", recursive = TRUE)
 #    path=c('t1.txt', 't2.txt'),
 #    to=c('path1.txt', 'path2.txt')
 # )
+```
+
+- list files from remote server via sftp
+```{r IO-sftp_ls}
+# sftp_ls(sftp_con, 'your/dir')
 ```
 
 

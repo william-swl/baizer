@@ -244,3 +244,61 @@ sftp_download <- function(sftp_con, path = NULL, to = basename(path)) {
     .progress = TRUE
   )
 }
+
+
+#' list files from remote server via sftp
+#'
+#' @param sftp_con sftp_connection created by sftp_connect()
+#' @param path remote directory path
+#' @param all list hidden files or not
+#'
+#' @return files in the dir
+#' @export
+#'
+#' @examples
+#'
+#' # sftp_ls(sftp_con, 'your/dir')
+#'
+sftp_ls <- function(sftp_con, path = NULL, all = FALSE) {
+  if (!inherits(sftp_con, "sftp_connection")) {
+    stop("sftp_con must be a sftp_connection object")
+  }
+
+  # absolute path of remote dir
+  absolute_path <- ifelse( # nolint
+    stringr::str_starts(path, "/|~"),
+    path,
+    stringr::str_c(sftp_con$workdir, path, sep = "/")
+  )
+
+  url <- stringr::str_glue(
+    "sftp://{sftp_con$server}:{sftp_con$port}/{absolute_path}"
+  )
+  handle <- curl::new_handle(userpwd = sftp_con$userpwd)
+
+  # add / if not at the end
+  url <- ifelse(
+    str_detect(url, "/$"), url,
+    str_c(url, "/")
+  )
+
+  # curl
+  content <- curl::curl(url, handle = handle)
+
+  res <- readLines(content) %>%
+    str_split(" +") %>%
+    map_chr(~ .x[9]) %>%
+    setdiff(c(".", ".."))
+  is_dir <- readLines(content) %>%
+    str_split(" +") %>%
+    map_chr(~ str_sub(.x[1], 1, 1)) == "d"
+  res <- ifelse(is_dir, str_c(res, "/"), res)
+
+
+  if (all != TRUE) {
+    res <- str_subset(res, "^[^\\.]")
+  }
+
+
+  return(res)
+}

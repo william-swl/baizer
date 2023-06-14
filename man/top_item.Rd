@@ -19,6 +19,6 @@ return top n items with highest frequency
 }
 \examples{
 
-top_item(c('a', 'b', 'c', 'b'))
+top_item(c("a", "b", "c", "b"))
 
 }

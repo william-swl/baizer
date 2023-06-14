@@ -841,3 +841,50 @@ diff_tb <- function(old, new) {
 
   return(res)
 }
+
+
+#' transpose a dataframe
+#'
+#' @param x dataframe
+#' @param colnames column names of the transposed dataframe
+#'
+#' @return dataframe
+#' @export
+#'
+#' @examples
+#'
+#' x <- c2r(mini_diamond, "id")
+#' tdf(x)
+#'
+tdf <- function(x, colnames = NULL) {
+  res <- as_tibble(
+    cbind(item = colnames(x), t(x))
+  )
+
+  if (!is.null(colnames)) {
+    colnames(res) <- colnames
+  }
+
+  return(res)
+}
+
+
+
+#' count unique values in each column
+#'
+#' @param x tibble
+#'
+#' @return tibble
+#' @export
+#'
+#' @examples
+#'
+#' uniq_in_cols(mini_diamond)
+#'
+uniq_in_cols <- function(x) {
+  res <- map(x, ~ length(unique(.x))) %>%
+    as_tibble() %>%
+    tdf(colnames = c("col", "uniqe_values"))
+
+  return(res)
+}
