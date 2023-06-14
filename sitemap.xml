@@ -235,6 +235,9 @@
     <loc>https://william-swl.github.io/baizer/reference/sftp_download.html</loc>
   </url>
   <url>
+    <loc>https://william-swl.github.io/baizer/reference/sftp_ls.html</loc>
+  </url>
+  <url>
     <loc>https://william-swl.github.io/baizer/reference/signif_ceiling.html</loc>
   </url>
   <url>
@@ -274,6 +277,9 @@
     <loc>https://william-swl.github.io/baizer/reference/tbflt.html</loc>
   </url>
   <url>
+    <loc>https://william-swl.github.io/baizer/reference/tdf.html</loc>
+  </url>
+  <url>
     <loc>https://william-swl.github.io/baizer/reference/tidyeval.html</loc>
   </url>
   <url>
@@ -281,6 +287,9 @@
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/uniq.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/uniq_in_cols.html</loc>
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/write_excel.html</loc>
