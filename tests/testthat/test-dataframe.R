@@ -293,11 +293,11 @@ test_that("diff_tb", {
 
 
 test_that("tdf", {
-  expect_snapshot(tdf(mini_diamond))
+  expect_snapshot(tdf(head(mini_diamond)))
 })
 
 test_that("tdf, with rownames", {
-  expect_snapshot(tdf(c2r(mini_diamond, "id")))
+  expect_snapshot(tdf(c2r(head(mini_diamond), "id")))
 })
 
 test_that("uniq_in_cols", {

@@ -456,6 +456,11 @@ gen_outlier(x, 10, side = "low")
 gen_outlier(x, 10, only_out = FALSE)
 ```
 
+- max-min normalization
+```{r numbers-mm_norm}
+mm_norm(c(1, 3, 4))
+```
+
 
 ## dataframe
 - a minimal dataset
@@ -728,7 +733,7 @@ diff_tb(tb1, tb2)
 
 - transpose a dataframe
 ```{r dataframe-tdf}
-tdf(c2r(mini_diamond, "id"))
+tdf(c2r(head(mini_diamond), "id"))
 ```
 
 - count unique values in each column

@@ -544,3 +544,32 @@ gen_outlier <- function(x, n, digits = 0, side = "both",
 
   return(res)
 }
+
+
+#' max-min normalization
+#'
+#' @param x numeric vector
+#' @param low low limit of result, 0 as default
+#' @param high high limit of result, 1 as default
+#'
+#' @return normed vector
+#' @export
+#'
+#' @examples
+#'
+#' mm_norm(c(1, 3, 4))
+#'
+mm_norm <- function(x, low = 0, high = 1) {
+  if (!is.numeric(x)) {
+    stop("x should be numeric vector!")
+  }
+
+  if (high < low) {
+    stop("high should larger than low!")
+  }
+
+  res <- ((x - min(x, na.rm = TRUE)) /
+            (max(x, na.rm = TRUE) - min(x, na.rm = TRUE)))
+  res <- low + res * (high - low)
+  return(res)
+}

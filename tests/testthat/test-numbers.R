@@ -287,3 +287,12 @@ test_that("gen_outlier", {
   expect_true(which((o2 >= -80 & o2 <= low_threshold)) == 1)
   expect_true(all((o3 >= -80 & o3 <= low_threshold)))
 })
+
+
+test_that("mm_norm", {
+  expect_identical(mm_norm(c(1, 3, 4)) %>% round(2), c(0, 0.67, 1))
+  expect_identical(mm_norm(c(1, 3, 4), low = 1, high = 10) %>% round(2),
+                   c(1, 7, 10))
+  expect_identical(mm_norm(c(1, 3, NA), low = 1, high = 4) %>% round(2),
+                   c(1, 4, NA))
+})

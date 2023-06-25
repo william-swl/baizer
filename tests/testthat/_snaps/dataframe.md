@@ -1599,51 +1599,37 @@
 # tdf
 
     Code
-      tdf(mini_diamond)
+      tdf(head(mini_diamond))
     Condition
       Warning:
       The `x` argument of `as_tibble.matrix()` must have unique column names if `.name_repair` is omitted as of tibble 2.0.0.
       i Using compatibility `.name_repair`.
     Output
-      # A tibble: 7 x 101
-        item   V2    V3    V4    V5    V6    V7    V8    V9    V10   V11   V12   V13  
-        <chr>  <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr>
-      1 id     "id-~ id-2  "id-~ "id-~ "id-~ id-6  "id-~ "id-~ "id-~ "id-~ "id-~ "id-~
-      2 carat  "1.0~ 1.51  "0.5~ "1.5~ "0.7~ 2.02  "0.2~ "0.5~ "1.0~ "0.7~ "1.0~ "0.7~
-      3 cut    "Fai~ Good  "Ide~ "Ide~ "Ide~ Fair  "Goo~ "Goo~ "Ide~ "Fai~ "Goo~ "Fai~
-      4 clari~ "SI1" VS2   "VVS~ "SI2" "VS1" SI2   "VVS~ "SI2" "SI1" "VVS~ "VVS~ "IF" 
-      5 price  " 30~ 11746 " 20~ " 94~ " 24~ 14080 "  7~ " 10~ " 55~ " 16~ " 78~ " 32~
-      6 x      "6.2~ 7.27  "5.1~ "7.4~ "5.7~ 8.33  "4.1~ "5.0~ "6.4~ "5.5~ "6.3~ "5.8~
-      7 y      "6.1~ 7.18  "5.1~ "7.4~ "5.7~ 8.37  "4.0~ "5.0~ "6.4~ "5.4~ "6.4~ "5.8~
-      # ... with 88 more variables: V14 <chr>, V15 <chr>, V16 <chr>, V17 <chr>,
-      #   V18 <chr>, V19 <chr>, V20 <chr>, V21 <chr>, V22 <chr>, V23 <chr>,
-      #   V24 <chr>, V25 <chr>, V26 <chr>, V27 <chr>, V28 <chr>, V29 <chr>,
-      #   V30 <chr>, V31 <chr>, V32 <chr>, V33 <chr>, V34 <chr>, V35 <chr>,
-      #   V36 <chr>, V37 <chr>, V38 <chr>, V39 <chr>, V40 <chr>, V41 <chr>,
-      #   V42 <chr>, V43 <chr>, V44 <chr>, V45 <chr>, V46 <chr>, V47 <chr>,
-      #   V48 <chr>, V49 <chr>, V50 <chr>, V51 <chr>, V52 <chr>, V53 <chr>, ...
+      # A tibble: 7 x 7
+        item    V2      V3    V4      V5      V6      V7   
+        <chr>   <chr>   <chr> <chr>   <chr>   <chr>   <chr>
+      1 id      "id-1"  id-2  "id-3"  "id-4"  "id-5"  id-6 
+      2 carat   "1.02"  1.51  "0.52"  "1.54"  "0.72"  2.02 
+      3 cut     "Fair"  Good  "Ideal" "Ideal" "Ideal" Fair 
+      4 clarity "SI1"   VS2   "VVS1"  "SI2"   "VS1"   SI2  
+      5 price   " 3027" 11746 " 2029" " 9452" " 2498" 14080
+      6 x       "6.25"  7.27  "5.15"  "7.43"  "5.73"  8.33 
+      7 y       "6.18"  7.18  "5.18"  "7.45"  "5.77"  8.37 
 
 # tdf, with rownames
 
     Code
-      tdf(c2r(mini_diamond, "id"))
+      tdf(c2r(head(mini_diamond), "id"))
     Output
-      # A tibble: 6 x 101
-        item    `id-1` `id-2` `id-3` `id-4` `id-5` `id-6` `id-7` `id-8` `id-9` `id-10`
-        <chr>   <chr>  <chr>  <chr>  <chr>  <chr>  <chr>  <chr>  <chr>  <chr>  <chr>  
-      1 carat   "1.02" 1.51   "0.52" "1.54" "0.72" 2.02   "0.27" "0.51" "1.01" "0.70" 
-      2 cut     "Fair" Good   "Idea~ "Idea~ "Idea~ Fair   "Good" "Good" "Idea~ "Fair" 
-      3 clarity "SI1"  VS2    "VVS1" "SI2"  "VS1"  SI2    "VVS1" "SI2"  "SI1"  "VVS1" 
-      4 price   " 302~ 11746  " 202~ " 945~ " 249~ 14080  "  75~ " 102~ " 559~ " 1691"
-      5 x       "6.25" 7.27   "5.15" "7.43" "5.73" 8.33   "4.10" "5.05" "6.43" "5.56" 
-      6 y       "6.18" 7.18   "5.18" "7.45" "5.77" 8.37   "4.07" "5.08" "6.40" "5.41" 
-      # ... with 90 more variables: `id-11` <chr>, `id-12` <chr>, `id-13` <chr>,
-      #   `id-14` <chr>, `id-15` <chr>, `id-16` <chr>, `id-17` <chr>, `id-18` <chr>,
-      #   `id-19` <chr>, `id-20` <chr>, `id-21` <chr>, `id-22` <chr>, `id-23` <chr>,
-      #   `id-24` <chr>, `id-25` <chr>, `id-26` <chr>, `id-27` <chr>, `id-28` <chr>,
-      #   `id-29` <chr>, `id-30` <chr>, `id-31` <chr>, `id-32` <chr>, `id-33` <chr>,
-      #   `id-34` <chr>, `id-35` <chr>, `id-36` <chr>, `id-37` <chr>, `id-38` <chr>,
-      #   `id-39` <chr>, `id-40` <chr>, `id-41` <chr>, `id-42` <chr>, ...
+      # A tibble: 6 x 7
+        item    `id-1`  `id-2` `id-3`  `id-4`  `id-5`  `id-6`
+        <chr>   <chr>   <chr>  <chr>   <chr>   <chr>   <chr> 
+      1 carat   "1.02"  1.51   "0.52"  "1.54"  "0.72"  2.02  
+      2 cut     "Fair"  Good   "Ideal" "Ideal" "Ideal" Fair  
+      3 clarity "SI1"   VS2    "VVS1"  "SI2"   "VS1"   SI2   
+      4 price   " 3027" 11746  " 2029" " 9452" " 2498" 14080 
+      5 x       "6.25"  7.27   "5.15"  "7.43"  "5.73"  8.33  
+      6 y       "6.18"  7.18   "5.18"  "7.45"  "5.77"  8.37  
 
 # uniq_in_cols
 
