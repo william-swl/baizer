@@ -52,6 +52,9 @@
     <loc>https://william-swl.github.io/baizer/reference/collapse_vector.html</loc>
   </url>
   <url>
+    <loc>https://william-swl.github.io/baizer/reference/combn_vector.html</loc>
+  </url>
+  <url>
     <loc>https://william-swl.github.io/baizer/reference/correct_ratio.html</loc>
   </url>
   <url>
@@ -146,6 +149,9 @@
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/list2tibble.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/melt_vector.html</loc>
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/mini_diamond.html</loc>
