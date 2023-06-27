@@ -228,7 +228,7 @@ vec
 split_vector(vec, breaks = c(3, 7), bounds = "[)")
 ```
 
-- group chracter vector by a regex pattern
+- group character vector by a regex pattern
 ```{r basic-utils-group_vector}
 v <- c(
   stringr::str_c("A", c(1, 2, 9, 10, 11, 12, 99, 101, 102)),
@@ -646,7 +646,7 @@ levels(df$cut)
 levels(df$cut0)
 ```
 
-- tran list into tibble
+- trans list into tibble
 ```{r dataframe-list2tibble}
 x <- list(
   c("a", "1"),
