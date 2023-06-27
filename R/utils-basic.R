@@ -920,3 +920,75 @@ top_item <- function(x, n = 1) {
   res <- lev[seq_len(min(n, length(lev)))]
   return(res)
 }
+
+
+
+#' melt a vector into single value
+#'
+#' @param x vector
+#' @param method how to melt, should be one of
+#' `first|last`, or one of `sum|mean|median` for numeric vector,
+#' or some characters (e.g. `,|.| |;`) for character vector
+#' @param invalid invalid value to ignore, `NA` as default
+#'
+#' @return meltd single value
+#' @export
+#'
+#' @examples
+#'
+#' melt_vector(c(NA, 2, 3), method = "first")
+#'
+#' melt_vector(c(NA, 2, 3), method = "sum")
+#'
+#' melt_vector(c(NA, 2, 3), method = ",")
+#'
+#' melt_vector(c(NA, 2, Inf), invalid = c(NA, Inf))
+#'
+melt_vector <- function(x, method = "first", invalid = NA) {
+  res <- x[x %nin% invalid]
+  if (method == "first") {
+    res <- res[1]
+  } else if (method == "last") {
+    res <- res[length(res)]
+  } else if (method == "sum") {
+    res <- sum(res, na.rm = TRUE)
+  } else if (method == "mean") {
+    res <- mean(res, na.rm = TRUE)
+  } else if (method == "median") {
+    res <- median(res, na.rm = TRUE)
+  } else {
+    res <- str_c(res, collapse = method)
+  }
+
+  return(res)
+}
+
+
+#' combine multiple vectors into one
+#'
+#' @param ... vectors
+#' @param method how to combine, should be one of
+#' `first|last`, or one of `sum|mean|median` for numeric vector,
+#' or some characters (e.g. `,|.| |;`) for character vector
+#' @param invalid invalid value to ignore, `NA` as default
+#'
+#' @return combined vector
+#' @export
+#'
+#' @examples
+#' x1 <- c(1, 2, NA, NA)
+#' x2 <- c(3, NA, 2, NA)
+#' x3 <- c(4, NA, NA, 3)
+#'
+#' combn_vector(x1, x2, x3, method = "sum")
+#'
+combn_vector <- function(..., method = "first", invalid = NA) {
+  res <- apply(
+    cbind(...), 1,
+    melt_vector,
+    method = method, invalid = invalid
+  ) %>%
+    unlist() %>%
+    unname()
+  return(res)
+}

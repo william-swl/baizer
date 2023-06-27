@@ -291,8 +291,12 @@ test_that("gen_outlier", {
 
 test_that("mm_norm", {
   expect_identical(mm_norm(c(1, 3, 4)) %>% round(2), c(0, 0.67, 1))
-  expect_identical(mm_norm(c(1, 3, 4), low = 1, high = 10) %>% round(2),
-                   c(1, 7, 10))
-  expect_identical(mm_norm(c(1, 3, NA), low = 1, high = 4) %>% round(2),
-                   c(1, 4, NA))
+  expect_identical(
+    mm_norm(c(1, 3, 4), low = 1, high = 10) %>% round(2),
+    c(1, 7, 10)
+  )
+  expect_identical(
+    mm_norm(c(1, 3, NA), low = 1, high = 4) %>% round(2),
+    c(1, 4, NA)
+  )
 })

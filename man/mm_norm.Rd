@@ -21,6 +21,6 @@ max-min normalization
 }
 \examples{
 
-mm_norm(c(1,3,4))
+mm_norm(c(1, 3, 4))
 
 }

@@ -569,7 +569,7 @@ mm_norm <- function(x, low = 0, high = 1) {
   }
 
   res <- ((x - min(x, na.rm = TRUE)) /
-            (max(x, na.rm = TRUE) - min(x, na.rm = TRUE)))
+    (max(x, na.rm = TRUE) - min(x, na.rm = TRUE)))
   res <- low + res * (high - low)
   return(res)
 }

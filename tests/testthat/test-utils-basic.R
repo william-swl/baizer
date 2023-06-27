@@ -359,3 +359,37 @@ test_that("top_item", {
     c("g", "c", "a", "b", "d", "f")
   )
 })
+
+test_that("melt_vector", {
+  expect_identical(
+    melt_vector(c(NA, 2, 3), method = "first"), 2
+  )
+  expect_identical(
+    melt_vector(c(NA, 2, 3), method = "sum"), 5
+  )
+  expect_identical(
+    melt_vector(c(NA, 2, 3), method = ","), "2,3"
+  )
+  expect_identical(
+    melt_vector(c(NA, 2, Inf), method = ",", invalid = Inf), NA_character_
+  )
+  expect_identical(
+    melt_vector(c(3, 2, Inf), method = ",", invalid = Inf), "3,2"
+  )
+  expect_identical(
+    melt_vector(c(NA, 2, Inf), invalid = c(Inf, NA)), 2
+  )
+  expect_identical(
+    melt_vector(c(NA, 2, Inf), method = ",", invalid = c(Inf, NA)), "2"
+  )
+})
+
+test_that("combn_vector", {
+  x1 <- c(1, 2, NA, NA)
+  x2 <- c(3, NA, 2, NA)
+  x3 <- c(4, NA, NA, 3)
+  expect_identical(
+    combn_vector(x1, x2, x3, method = "sum"),
+    c(8, 2, 2, 3)
+  )
+})

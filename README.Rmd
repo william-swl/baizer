@@ -335,6 +335,25 @@ top_item(c("a", "b", "c", "b"))
 top_item(c(1, 2, 3, 2, 2))
 ```
 
+- melt a vector into single value
+```{r basic-utils-melt_vector}
+melt_vector(c(NA, 2, 3), method = "first")
+
+melt_vector(c(NA, 2, 3), method = "sum")
+
+melt_vector(c(NA, 2, 3), method = ",")
+
+melt_vector(c(NA, 2, Inf), invalid = c(NA, Inf))
+```
+
+- combine multiple vectors into one
+```{r basic-utils-combn_vector}
+x1 <- c(1, 2, NA, NA)
+x2 <- c(3, NA, 2, NA)
+x3 <- c(4, NA, NA, 3)
+
+combn_vector(x1, x2, x3, method = "sum")
+```
 
 
 ## numbers
