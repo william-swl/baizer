@@ -40,7 +40,7 @@ geom_mean <- function(x, na.rm = TRUE) {
 #' @param paired paired samples or not
 #' @param method test method, 'wilcoxon' as default
 #' @param alternative one of "two.sided" (default), "greater" or "less"
-#' @param ns_symbol symbol of nonsiginficant, 'NS' as default
+#' @param ns_symbol symbol of nonsignificant, 'NS' as default
 #'
 #' @return test result tibble
 #' @export

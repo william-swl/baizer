@@ -11,7 +11,7 @@ sortf(x, func, group_pattern = NULL)
 
 \item{func}{a function used by the sort}
 
-\item{group_pattern}{a regex pattern to group by, only aviable if x is a
+\item{group_pattern}{a regex pattern to group by, only available if x is a
 character vector}
 }
 \value{

@@ -33,7 +33,7 @@ stat_test(
 
 \item{method}{test method, 'wilcoxon' as default}
 
-\item{ns_symbol}{symbol of nonsiginficant, 'NS' as default}
+\item{ns_symbol}{symbol of nonsignificant, 'NS' as default}
 }
 \value{
 test result tibble

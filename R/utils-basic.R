@@ -454,7 +454,7 @@ expr_pileup <- function(ex) {
 #'
 #' @param x vector
 #' @param pattern regex pattern
-#' @param group regex gruop, 1 as default. when group=-1,
+#' @param group regex group, 1 as default. when group=-1,
 #' return full matched tibble
 #'
 #' @return vector or tibble
@@ -552,7 +552,7 @@ split_vector <- function(vector, breaks, bounds = "(]") {
   purrr::map(split_index, ~ vector[.x])
 }
 
-#' group chracter vector by a regex pattern
+#' group character vector by a regex pattern
 #'
 #' @param x character vector
 #' @param pattern regex pattern, '\\w' as default
@@ -605,7 +605,7 @@ group_vector <- function(x, pattern = "\\w") {
 #'
 #' @param x vector
 #' @param func a function used by the sort
-#' @param group_pattern a regex pattern to group by, only aviable if x is a
+#' @param group_pattern a regex pattern to group by, only available if x is a
 #' character vector
 #'
 #' @return vector
@@ -931,7 +931,7 @@ top_item <- function(x, n = 1) {
 #' or some characters (e.g. `,|.| |;`) for character vector
 #' @param invalid invalid value to ignore, `NA` as default
 #'
-#' @return meltd single value
+#' @return melted single value
 #' @export
 #'
 #' @examples

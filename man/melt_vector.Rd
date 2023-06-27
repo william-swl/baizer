@@ -16,19 +16,19 @@ or some characters (e.g. \verb{,|.| |;}) for character vector}
 \item{invalid}{invalid value to ignore, \code{NA} as default}
 }
 \value{
-meltd single value
+melted single value
 }
 \description{
 melt a vector into single value
 }
 \examples{
 
-melt_vector(c(NA, 2, 3), method='first')
+melt_vector(c(NA, 2, 3), method = "first")
 
-melt_vector(c(NA, 2, 3), method='sum')
+melt_vector(c(NA, 2, 3), method = "sum")
 
-melt_vector(c(NA, 2, 3), method=',')
+melt_vector(c(NA, 2, 3), method = ",")
 
-melt_vector(c(NA, 2, Inf), invalid=c(NA, Inf))
+melt_vector(c(NA, 2, Inf), invalid = c(NA, Inf))
 
 }

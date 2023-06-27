@@ -11,7 +11,7 @@ reg_match(x, pattern, group = 1)
 
 \item{pattern}{regex pattern}
 
-\item{group}{regex gruop, 1 as default. when group=-1,
+\item{group}{regex group, 1 as default. when group=-1,
 return full matched tibble}
 }
 \value{

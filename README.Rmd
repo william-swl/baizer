@@ -62,7 +62,7 @@ pkgver(DplyR)
 
 - information of packages
 ```{r basic-utils-pkginfo}
-pkginfo(dplyr)
+# pkginfo(dplyr)
 
 # case-insensitive input
 # pkginfo(DplyR)

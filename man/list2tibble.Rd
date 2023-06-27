@@ -2,7 +2,7 @@
 % Please edit documentation in R/dataframe.R
 \name{list2tibble}
 \alias{list2tibble}
-\title{tran list into tibble}
+\title{trans list into tibble}
 \usage{
 list2tibble(x, colnames = NULL, method = "row")
 }
@@ -17,7 +17,7 @@ list2tibble(x, colnames = NULL, method = "row")
 tibble
 }
 \description{
-tran list into tibble
+trans list into tibble
 }
 \examples{
 x <- list(

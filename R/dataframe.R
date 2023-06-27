@@ -592,7 +592,7 @@ cross_count <- function(df, row, col, method = "n", digits = 2) {
 }
 
 
-#' tran list into tibble
+#' trans list into tibble
 #'
 #' @param x list
 #' @param colnames colnames of the output

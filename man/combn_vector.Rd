@@ -22,10 +22,10 @@ combined vector
 combine multiple vectors into one
 }
 \examples{
-x1=c(1, 2, NA, NA)
-x2=c(3, NA, 2, NA)
-x3=c(4, NA, NA, 3)
+x1 <- c(1, 2, NA, NA)
+x2 <- c(3, NA, 2, NA)
+x3 <- c(4, NA, NA, 3)
 
-combn_vector(x1, x2, x3, method='sum')
+combn_vector(x1, x2, x3, method = "sum")
 
 }

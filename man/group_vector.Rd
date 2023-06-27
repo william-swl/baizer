@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-basic.R
 \name{group_vector}
 \alias{group_vector}
-\title{group chracter vector by a regex pattern}
+\title{group character vector by a regex pattern}
 \usage{
 group_vector(x, pattern = "\\\\w")
 }
@@ -15,7 +15,7 @@ group_vector(x, pattern = "\\\\w")
 list
 }
 \description{
-group chracter vector by a regex pattern
+group character vector by a regex pattern
 }
 \examples{
 v <- c(
