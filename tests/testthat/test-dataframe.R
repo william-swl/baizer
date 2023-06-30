@@ -303,3 +303,54 @@ test_that("tdf, with rownames", {
 test_that("uniq_in_cols", {
   expect_snapshot(uniq_in_cols(mini_diamond))
 })
+
+
+test_that("left_expand", {
+  tb1 <- head(mini_diamond, 4)
+  tb2 <- tibble(
+    id = c("id-2", "id-4", "id-5"),
+    carat = 1:3,
+    price = c(1000, 2000, 3000),
+    newcol = c("new2", "new4", "new5")
+  )
+  expect_snapshot(left_expand(tb1, tb2, by = "id"))
+})
+
+test_that("full_expand", {
+  tb1 <- head(mini_diamond, 4)
+  tb2 <- tibble(
+    id = c("id-2", "id-4", "id-5"),
+    carat = 1:3,
+    price = c(1000, 2000, 3000),
+    newcol = c("new2", "new4", "new5")
+  )
+  expect_snapshot(full_expand(tb1, tb2, by = "id"))
+})
+
+test_that("inner_expand", {
+  tb1 <- head(mini_diamond, 4)
+  tb2 <- tibble(
+    id = c("id-2", "id-4", "id-5"),
+    carat = 1:3,
+    price = c(1000, 2000, 3000),
+    newcol = c("new2", "new4", "new5")
+  )
+  expect_snapshot(inner_expand(tb1, tb2, by = "id"))
+})
+
+
+test_that("replace_na", {
+  tb1 <- tibble(
+    id = c("id-1", "id-2", "id-3", "id-4"),
+    group = c("a", "b", "a", "b"),
+    price = c(0, -200, 3000, NA),
+    type = c("large", "none", "small", "none")
+  )
+  tb2 <- tibble(
+    id = c("id-1", "id-2", "id-3", "id-4"),
+    group = c("a", "b", "a", "b"),
+    price = c(1, 2, 3, 4),
+    type = c("l", "x", "x", "m")
+  )
+  expect_snapshot(replace_na(tb1, tb2, by = c("id", "group")))
+})

@@ -888,3 +888,168 @@ uniq_in_cols <- function(x) {
 
   return(res)
 }
+
+
+#' like `dplyr::left_join` while ignore the same columns in right tibble
+#'
+#' @param x left tibble
+#' @param y right tibble
+#' @param by columns to join by
+#'
+#' @return tibble
+#' @export
+#'
+#' @examples
+#'
+#' tb1 <- head(mini_diamond, 4)
+#' tb2 <- tibble(
+#'   id = c("id-2", "id-4", "id-5"),
+#'   carat = 1:3,
+#'   price = c(1000, 2000, 3000),
+#'   newcol = c("new2", "new4", "new5")
+#' )
+#'
+#' left_expand(tb1, tb2, by = "id")
+#'
+#' full_expand(tb1, tb2, by = "id")
+#'
+#' inner_expand(tb1, tb2, by = "id")
+left_expand <- function(x, y, by = NULL) {
+  by <- enquo(by)
+  if (quo_is_null(by)) {
+    stop("input a column as index!")
+  }
+
+  expand_cols <- setdiff(colnames(y), colnames(x))
+
+  y <- dplyr::select(y, {{ by }}, all_of(expand_cols))
+
+  res <- dplyr::left_join(x, y, by = quo_name(by))
+  return(res)
+}
+
+
+#' like `dplyr::full_join` while ignore the same columns in right tibble
+#'
+#' @param x left tibble
+#' @param y right tibble
+#' @param by columns to join by
+#'
+#' @return tibble
+#' @export
+#'
+#' @examples
+#'
+#' tb1 <- head(mini_diamond, 4)
+#' tb2 <- tibble(
+#'   id = c("id-2", "id-4", "id-5"),
+#'   carat = 1:3,
+#'   price = c(1000, 2000, 3000),
+#'   newcol = c("new2", "new4", "new5")
+#' )
+#'
+#' left_expand(tb1, tb2, by = "id")
+#'
+#' full_expand(tb1, tb2, by = "id")
+#'
+#' inner_expand(tb1, tb2, by = "id")
+full_expand <- function(x, y, by = NULL) {
+  by <- enquo(by)
+  if (quo_is_null(by)) {
+    stop("input a column as index!")
+  }
+
+  expand_cols <- setdiff(colnames(y), colnames(x))
+
+  y <- dplyr::select(y, {{ by }}, all_of(expand_cols))
+
+  res <- dplyr::full_join(x, y, by = quo_name(by))
+  return(res)
+}
+
+
+
+#' like `dplyr::inner_join` while ignore the same columns in right tibble
+#'
+#' @param x left tibble
+#' @param y right tibble
+#' @param by columns to join by
+#'
+#' @return tibble
+#' @export
+#'
+#' @examples
+#'
+#' tb1 <- head(mini_diamond, 4)
+#' tb2 <- tibble(
+#'   id = c("id-2", "id-4", "id-5"),
+#'   carat = 1:3,
+#'   price = c(1000, 2000, 3000),
+#'   newcol = c("new2", "new4", "new5")
+#' )
+#'
+#' left_expand(tb1, tb2, by = "id")
+#'
+#' full_expand(tb1, tb2, by = "id")
+#'
+#' inner_expand(tb1, tb2, by = "id")
+inner_expand <- function(x, y, by = NULL) {
+  by <- enquo(by)
+  if (quo_is_null(by)) {
+    stop("input a column as index!")
+  }
+
+  expand_cols <- setdiff(colnames(y), colnames(x))
+
+  y <- dplyr::select(y, {{ by }}, all_of(expand_cols))
+
+  res <- dplyr::inner_join(x, y, by = quo_name(by))
+  return(res)
+}
+
+
+#' replace the NA values in a tibble by another tibble
+#'
+#' @param x raw tibble
+#' @param y replace reference tibble
+#' @param by columns to align the tibbles
+#'
+#' @return tibble
+#' @export
+#'
+#' @examples
+#'
+#' tb1 <- tibble(
+#'   id = c("id-1", "id-2", "id-3", "id-4"),
+#'   group = c("a", "b", "a", "b"),
+#'   price = c(0, -200, 3000, NA),
+#'   type = c("large", "none", "small", "none")
+#' )
+#'
+#' tb2 <- tibble(
+#'   id = c("id-1", "id-2", "id-3", "id-4"),
+#'   group = c("a", "b", "a", "b"),
+#'   price = c(1, 2, 3, 4),
+#'   type = c("l", "x", "x", "m")
+#' )
+#'
+#' replace_na(tb1, tb2, by = c("id", "group"))
+replace_na <- function(x, y, by) {
+  x <- tidyr::unite(x, "replace_cell_temp_id", !!by, sep = "__.rcsep.__") %>%
+    c2r("replace_cell_temp_id")
+  y <- tidyr::unite(y, "replace_cell_temp_id", !!by, sep = "__.rcsep.__") %>%
+    c2r("replace_cell_temp_id")
+  y <- y[rownames(x), colnames(x)]
+
+  if (any(dim(x) != dim(y))) {
+    stop("x and y should be equally-sized tibbles with same rows and columns!")
+  }
+
+  mask <- is.na(x)
+  x[mask] <- y[mask]
+
+  x <- r2c(x, "replace_cell_temp_id") %>%
+    tidyr::separate("replace_cell_temp_id", into = by, sep = "__.rcsep.__")
+
+  return(x)
+}

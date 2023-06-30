@@ -1651,3 +1651,54 @@
       6 x       89          
       7 y       87          
 
+# left_expand
+
+    Code
+      left_expand(tb1, tb2, by = "id")
+    Output
+      # A tibble: 4 x 8
+        id    carat cut   clarity price     x     y newcol
+        <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl> <chr> 
+      1 id-1   1.02 Fair  SI1      3027  6.25  6.18 <NA>  
+      2 id-2   1.51 Good  VS2     11746  7.27  7.18 new2  
+      3 id-3   0.52 Ideal VVS1     2029  5.15  5.18 <NA>  
+      4 id-4   1.54 Ideal SI2      9452  7.43  7.45 new4  
+
+# full_expand
+
+    Code
+      full_expand(tb1, tb2, by = "id")
+    Output
+      # A tibble: 5 x 8
+        id    carat cut   clarity price     x     y newcol
+        <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl> <chr> 
+      1 id-1   1.02 Fair  SI1      3027  6.25  6.18 <NA>  
+      2 id-2   1.51 Good  VS2     11746  7.27  7.18 new2  
+      3 id-3   0.52 Ideal VVS1     2029  5.15  5.18 <NA>  
+      4 id-4   1.54 Ideal SI2      9452  7.43  7.45 new4  
+      5 id-5  NA    <NA>  <NA>       NA NA    NA    new5  
+
+# inner_expand
+
+    Code
+      inner_expand(tb1, tb2, by = "id")
+    Output
+      # A tibble: 2 x 8
+        id    carat cut   clarity price     x     y newcol
+        <chr> <dbl> <chr> <chr>   <int> <dbl> <dbl> <chr> 
+      1 id-2   1.51 Good  VS2     11746  7.27  7.18 new2  
+      2 id-4   1.54 Ideal SI2      9452  7.43  7.45 new4  
+
+# replace_na
+
+    Code
+      replace_na(tb1, tb2, by = c("id", "group"))
+    Output
+      # A tibble: 4 x 4
+        id    group price type 
+        <chr> <chr> <chr> <chr>
+      1 id-1  a     0     large
+      2 id-2  b     -200  none 
+      3 id-3  a     3000  small
+      4 id-4  b     4     none 
+

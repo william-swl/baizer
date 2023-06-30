@@ -760,6 +760,41 @@ tdf(c2r(head(mini_diamond), "id"))
 uniq_in_cols(mini_diamond)
 ```
 
+- like `left_join(), full_join(), inner_join()` while ignore the same columns in right tibble
+```{r dataframe-expand}
+tb1 <- head(mini_diamond, 4)
+tb2 <- tibble(
+  id = c("id-2", "id-4", "id-5"),
+  carat = 1:3,
+  price = c(1000, 2000, 3000),
+  newcol = c("new2", "new4", "new5")
+)
+
+left_expand(tb1, tb2, by = "id")
+
+inner_expand(tb1, tb2, by = "id")
+```
+
+- like `left_join(), full_join(), inner_join()` while ignore the same columns in right tibble
+```{r dataframe-replace_na}
+tb1 <- tibble(
+  id = c("id-1", "id-2", "id-3", "id-4"),
+  group = c("a", "b", "a", "b"),
+  price = c(0, -200, 3000, NA),
+  type = c("large", "none", "small", "none")
+)
+
+tb2 <- tibble(
+  id = c("id-1", "id-2", "id-3", "id-4"),
+  group = c("a", "b", "a", "b"),
+  price = c(1, 2, 3, 4),
+  type = c("l", "x", "x", "m")
+)
+
+replace_na(tb1, tb2, by = c("id", "group"))
+```
+
+
 ## stat
 - generate all combinations
 ```{r stat-gen_combn}
