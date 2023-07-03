@@ -21,15 +21,19 @@ replace the NA values in a tibble by another tibble
 }
 \examples{
 
-tb1 <- tibble(id=c('id-1', 'id-2', 'id-3', 'id-4'),
-       group=c('a', 'b', 'a', 'b'),
-       price=c(0, -200, 3000, NA),
-       type=c('large', 'none', 'small', 'none'))
+tb1 <- tibble::tibble(
+  id = c("id-1", "id-2", "id-3", "id-4"),
+  group = c("a", "b", "a", "b"),
+  price = c(0, -200, 3000, NA),
+  type = c("large", "none", "small", "none")
+)
 
-tb2 <- tibble(id=c('id-1', 'id-2', 'id-3', 'id-4'),
-       group=c('a', 'b', 'a', 'b'),
-       price=c(1, 2, 3, 4),
-       type=c('l', 'x', 'x', 'm'))
+tb2 <- tibble::tibble(
+  id = c("id-1", "id-2", "id-3", "id-4"),
+  group = c("a", "b", "a", "b"),
+  price = c(1, 2, 3, 4),
+  type = c("l", "x", "x", "m")
+)
 
-replace_na(tb1, tb2, by=c('id', 'group'))
+replace_na(tb1, tb2, by = c("id", "group"))
 }

@@ -902,7 +902,7 @@ uniq_in_cols <- function(x) {
 #' @examples
 #'
 #' tb1 <- head(mini_diamond, 4)
-#' tb2 <- tibble(
+#' tb2 <- tibble::tibble(
 #'   id = c("id-2", "id-4", "id-5"),
 #'   carat = 1:3,
 #'   price = c(1000, 2000, 3000),
@@ -941,7 +941,7 @@ left_expand <- function(x, y, by = NULL) {
 #' @examples
 #'
 #' tb1 <- head(mini_diamond, 4)
-#' tb2 <- tibble(
+#' tb2 <- tibble::tibble(
 #'   id = c("id-2", "id-4", "id-5"),
 #'   carat = 1:3,
 #'   price = c(1000, 2000, 3000),
@@ -981,7 +981,7 @@ full_expand <- function(x, y, by = NULL) {
 #' @examples
 #'
 #' tb1 <- head(mini_diamond, 4)
-#' tb2 <- tibble(
+#' tb2 <- tibble::tibble(
 #'   id = c("id-2", "id-4", "id-5"),
 #'   carat = 1:3,
 #'   price = c(1000, 2000, 3000),
@@ -1019,14 +1019,14 @@ inner_expand <- function(x, y, by = NULL) {
 #'
 #' @examples
 #'
-#' tb1 <- tibble(
+#' tb1 <- tibble::tibble(
 #'   id = c("id-1", "id-2", "id-3", "id-4"),
 #'   group = c("a", "b", "a", "b"),
 #'   price = c(0, -200, 3000, NA),
 #'   type = c("large", "none", "small", "none")
 #' )
 #'
-#' tb2 <- tibble(
+#' tb2 <- tibble::tibble(
 #'   id = c("id-1", "id-2", "id-3", "id-4"),
 #'   group = c("a", "b", "a", "b"),
 #'   price = c(1, 2, 3, 4),

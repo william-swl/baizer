@@ -22,14 +22,16 @@ like \code{dplyr::full_join} while ignore the same columns in right tibble
 \examples{
 
 tb1 <- head(mini_diamond, 4)
-tb2 <- tibble(id=c('id-2', 'id-4', 'id-5'),
-       carat=1:3,
-       price=c(1000, 2000, 3000),
-       newcol=c('new2', 'new4', 'new5'))
+tb2 <- tibble::tibble(
+  id = c("id-2", "id-4", "id-5"),
+  carat = 1:3,
+  price = c(1000, 2000, 3000),
+  newcol = c("new2", "new4", "new5")
+)
 
-left_expand(tb1, tb2, by='id')
+left_expand(tb1, tb2, by = "id")
 
-full_expand(tb1, tb2, by='id')
+full_expand(tb1, tb2, by = "id")
 
-inner_expand(tb1, tb2, by='id')
+inner_expand(tb1, tb2, by = "id")
 }
