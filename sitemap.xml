@@ -106,6 +106,9 @@
     <loc>https://william-swl.github.io/baizer/reference/fps_vector.html</loc>
   </url>
   <url>
+    <loc>https://william-swl.github.io/baizer/reference/full_expand.html</loc>
+  </url>
+  <url>
     <loc>https://william-swl.github.io/baizer/reference/gen_char.html</loc>
   </url>
   <url>
@@ -142,10 +145,16 @@
     <loc>https://william-swl.github.io/baizer/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://william-swl.github.io/baizer/reference/inner_expand.html</loc>
+  </url>
+  <url>
     <loc>https://william-swl.github.io/baizer/reference/int_digits.html</loc>
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/is.zero.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/left_expand.html</loc>
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/list2tibble.html</loc>
@@ -221,6 +230,9 @@
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/replace_item.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/replace_na.html</loc>
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/rng2seq.html</loc>
