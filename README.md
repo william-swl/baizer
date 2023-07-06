@@ -9,7 +9,7 @@
 coverage](https://codecov.io/gh/william-swl/baizer/branch/master/graph/badge.svg)](https://app.codecov.io/gh/william-swl/baizer?branch=master)
 [![R-CMD-check](https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/william-swl/baizer/actions/workflows/check-standard.yaml)
 [![](https://www.r-pkg.org/badges/version/baizer?color=orange)](https://cran.r-project.org/package=baizer)
-[![](https://img.shields.io/badge/devel%20version-0.6.1-blue.svg)](https://github.com/william-swl/baizer)
+[![](https://img.shields.io/badge/devel%20version-0.6.2-blue.svg)](https://github.com/william-swl/baizer)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/baizer?color=blue)](https://cran.r-project.org/package=baizer)
 [![](http://cranlogs.r-pkg.org/badges/last-month/baizer?color=green)](https://cran.r-project.org/package=baizer)
 <!-- badges: end -->
@@ -351,28 +351,28 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "B21"  "B10"  "A11"  "B2"   "A99"  "B1"   "B101" "A1"   "A102" "A101"
-#> [11] "A10"  "A2"   "A9"   "B99"  "B9"   "B32"  "A12"  "B102"
+#>  [1] "B101" "A9"   "B21"  "B10"  "A102" "B2"   "A12"  "A2"   "A101" "A1"  
+#> [11] "A11"  "A10"  "B32"  "A99"  "B9"   "B99"  "B102" "B1"
 
 group_vector(v)
 #> $A
-#> [1] "A11"  "A99"  "A1"   "A102" "A101" "A10"  "A2"   "A9"   "A12" 
+#> [1] "A9"   "A102" "A12"  "A2"   "A101" "A1"   "A11"  "A10"  "A99" 
 #> 
 #> $B
-#> [1] "B21"  "B10"  "B2"   "B1"   "B101" "B99"  "B9"   "B32"  "B102"
+#> [1] "B101" "B21"  "B10"  "B2"   "B32"  "B9"   "B99"  "B102" "B1"
 
 group_vector(v, pattern = "\\w\\d")
 #> $A1
-#> [1] "A11"  "A1"   "A102" "A101" "A10"  "A12" 
+#> [1] "A102" "A12"  "A101" "A1"   "A11"  "A10" 
 #> 
 #> $A2
 #> [1] "A2"
 #> 
 #> $A9
-#> [1] "A99" "A9" 
+#> [1] "A9"  "A99"
 #> 
 #> $B1
-#> [1] "B10"  "B1"   "B101" "B102"
+#> [1] "B101" "B10"  "B102" "B1"  
 #> 
 #> $B2
 #> [1] "B21" "B2" 
@@ -381,12 +381,12 @@ group_vector(v, pattern = "\\w\\d")
 #> [1] "B32"
 #> 
 #> $B9
-#> [1] "B99" "B9"
+#> [1] "B9"  "B99"
 
 # the pattern rules are just same as reg_match()
 group_vector(v, pattern = "\\w(\\d)")
 #> $`1`
-#>  [1] "B10"  "A11"  "B1"   "B101" "A1"   "A102" "A101" "A10"  "A12"  "B102"
+#>  [1] "B101" "B10"  "A102" "A12"  "A101" "A1"   "A11"  "A10"  "B102" "B1"  
 #> 
 #> $`2`
 #> [1] "B21" "B2"  "A2" 
@@ -395,12 +395,12 @@ group_vector(v, pattern = "\\w(\\d)")
 #> [1] "B32"
 #> 
 #> $`9`
-#> [1] "A99" "A9"  "B99" "B9"
+#> [1] "A9"  "A99" "B9"  "B99"
 
 # unmatched part will alse be stored
 group_vector(v, pattern = "\\d{2}")
 #> $`10`
-#> [1] "B10"  "B101" "A102" "A101" "A10"  "B102"
+#> [1] "B101" "B10"  "A102" "A101" "A10"  "B102"
 #> 
 #> $`11`
 #> [1] "A11"
@@ -418,7 +418,7 @@ group_vector(v, pattern = "\\d{2}")
 #> [1] "A99" "B99"
 #> 
 #> $unmatch
-#> [1] "B2" "B1" "A1" "A2" "A9" "B9"
+#> [1] "A9" "B2" "A2" "A1" "B9" "B1"
 ```
 
 - sort by a function
@@ -429,7 +429,7 @@ sortf(c(-2, 1, 3), abs)
 
 v <- stringr::str_c("id", c(1, 2, 9, 10, 11, 12, 99, 101, 102)) %>% sample()
 v
-#> [1] "id12"  "id2"   "id102" "id99"  "id11"  "id101" "id9"   "id1"   "id10"
+#> [1] "id99"  "id1"   "id10"  "id11"  "id101" "id12"  "id2"   "id9"   "id102"
 
 sortf(v, function(x) reg_match(x, "\\d+") %>% as.double())
 #> [1] "id1"   "id2"   "id9"   "id10"  "id11"  "id12"  "id99"  "id101" "id102"
@@ -445,8 +445,8 @@ v <- c(
   stringr::str_c("B", c(1, 2, 9, 10, 21, 32, 99, 101, 102))
 ) %>% sample()
 v
-#>  [1] "B1"   "A102" "B2"   "B99"  "A11"  "B21"  "A10"  "A12"  "A101" "B102"
-#> [11] "A99"  "A9"   "B32"  "B10"  "B9"   "A2"   "A1"   "B101"
+#>  [1] "A9"   "A10"  "B101" "B102" "A12"  "A11"  "A2"   "A102" "B10"  "B99" 
+#> [11] "B9"   "A101" "A99"  "B32"  "B1"   "B21"  "A1"   "B2"
 
 sortf(v, ~ reg_match(.x, "\\d+") %>% as.double(), group_pattern = "\\w")
 #>  [1] "A1"   "A2"   "A9"   "A10"  "A11"  "A12"  "A99"  "A101" "A102" "B1"  
@@ -481,7 +481,7 @@ uniq(v)
 #> 1 2 3
 ```
 
-- replace the items of a list by another
+- replace the items of one object by another
 
 ``` r
 x <- list(A = 1, B = 3)
@@ -504,13 +504,34 @@ replace_item(x, y, keep_extra = TRUE)
 #> $C
 #> [1] 10
 
+x <- list(a = 1, b = list(c = "a", d = FALSE, f = list(x = 0, z = 30)))
+y <- list(a = 3, e = 2, b = list(d = TRUE, f = list(x = 10, y = 20)))
 
-x <- c(A = 1, B = 3)
-y <- c(A = 9, C = 10)
-
-replace_item(x, y)
-#> A B 
-#> 9 3
+replace_item(x, y, keep_extra = TRUE)
+#> $a
+#> [1] 3
+#> 
+#> $b
+#> $b$c
+#> [1] "a"
+#> 
+#> $b$d
+#> [1] TRUE
+#> 
+#> $b$f
+#> $b$f$x
+#> [1] 10
+#> 
+#> $b$f$z
+#> [1] 30
+#> 
+#> $b$f$y
+#> [1] 20
+#> 
+#> 
+#> 
+#> $e
+#> [1] 2
 ```
 
 - generate characters
@@ -526,10 +547,10 @@ gen_char(from = "g", to = "j")
 #> [1] "g" "h" "i" "j"
 
 gen_char(from = "t", n = 5, random = TRUE)
-#> [1] "v" "t" "y" "z" "w"
+#> [1] "u" "z" "z" "t" "z"
 
 gen_char(from = "x", n = 5, random = TRUE, allow_dup = FALSE, add = c("+", "-"))
-#> [1] "+" "x" "y" "z" "-"
+#> [1] "z" "x" "y" "+" "-"
 ```
 
 - trans range character into seq characters
@@ -712,7 +733,7 @@ pos_int_split(12, 3, method = "average")
 #> [1] 4 4 4
 
 pos_int_split(12, 3, method = "random")
-#> [1] 4 3 5
+#> [1] 1 2 9
 
 # you can also assign the ratio of output
 pos_int_split(12, 3, method = c(1, 2, 3))
@@ -725,23 +746,23 @@ pos_int_split(12, 3, method = c(1, 2, 3))
 x <- seq(0, 100, 1)
 
 gen_outlier(x, 10)
-#>  [1]  -80 -184  -53 -189  -64  152  294  195  258  189
+#>  [1] -164  -91 -182 -139  -63  226  226  244  219  275
 
 # generation limits
 gen_outlier(x, 10, lim = c(-80, 160))
-#>  [1] -55 -75 -56 -61 -79 155 156 158 155 153
+#>  [1] -65 -59 -54 -57 -70 153 156 152 154 152
 
 # assign the low and high outliers
 gen_outlier(x, 10, lim = c(-80, 160), assign_n = c(0.1, 0.9))
-#>  [1] -65 156 151 158 152 156 153 154 155 154
+#>  [1] -78 159 154 153 158 158 151 155 151 153
 
 # just generate low outliers
 gen_outlier(x, 10, side = "low")
-#>  [1] -105 -148 -102 -143  -68 -130 -120  -95 -104 -185
+#>  [1] -131 -119  -70 -189 -156 -165  -67 -199  -71 -185
 
 # return with raw vector
 gen_outlier(x, 10, only_out = FALSE)
-#>   [1] -200 -102 -143  -67 -180  262  180  297  181  155    0    1    2    3    4
+#>   [1]  -85  -68 -139 -157 -121  192  177  292  263  223    0    1    2    3    4
 #>  [16]    5    6    7    8    9   10   11   12   13   14   15   16   17   18   19
 #>  [31]   20   21   22   23   24   25   26   27   28   29   30   31   32   33   34
 #>  [46]   35   36   37   38   39   40   41   42   43   44   45   46   47   48   49
@@ -1326,19 +1347,19 @@ dx_tb(x)
 ``` r
 gen_tb()
 #> # A tibble: 3 × 4
-#>        V1     V2     V3     V4
-#>     <dbl>  <dbl>  <dbl>  <dbl>
-#> 1 -0.0610  0.753 -1.22  -0.493
-#> 2 -0.755   0.974 -0.491 -0.981
-#> 3 -0.0695 -1.47   0.204 -1.72
+#>       V1    V2      V3     V4
+#>    <dbl> <dbl>   <dbl>  <dbl>
+#> 1 -1.19  0.923  0.591   0.627
+#> 2 -0.514 0.265 -0.686  -0.198
+#> 3  0.302 0.697  0.0188  2.55
 
 gen_tb(fill = "str", nrow = 3, ncol = 4, len = 3)
 #> # A tibble: 3 × 4
 #>   V1    V2    V3    V4   
 #>   <chr> <chr> <chr> <chr>
-#> 1 jcf   xux   zks   rbc  
-#> 2 cyg   ahs   xhc   tdk  
-#> 3 kqm   paf   fuj   pmp
+#> 1 ywq   eqd   hux   mfg  
+#> 2 jgu   qsr   yrr   myk  
+#> 3 skc   daq   qfm   zeb
 ```
 
 - differences between two tibbles
@@ -1554,11 +1575,11 @@ cmdargs()
 #> character(0)
 #> 
 #> $env_configs
-#> [1] "--slave"                              
-#> [2] "--no-save"                            
-#> [3] "--no-restore"                         
-#> [4] "-f"                                   
-#> [5] "/tmp/RtmpIAcOQl/callr-scr-6332db3cc18"
+#> [1] "--slave"                               
+#> [2] "--no-save"                             
+#> [3] "--no-restore"                          
+#> [4] "-f"                                    
+#> [5] "/tmp/RtmpIAcOQl/callr-scr-63323078da20"
 
 cmdargs("R_env")
 #> [1] "/home/william/software/mambaforge/envs/baizer/lib/R/bin/exec/R"
@@ -1633,7 +1654,7 @@ c2 <- tbflt(x > 8)
 c1 | c2
 #> <quosure>
 #> expr: ^cut == "Fair" | x > 8
-#> env:  0x55a293592c38
+#> env:  0x55c9c3d79468
 
 mini_diamond %>%
   filterC(c1) %>%

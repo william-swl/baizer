@@ -745,7 +745,7 @@ uniq <- function(x) {
 #'
 #' replace_item(x, y, keep_extra = TRUE)
 #'
-replace_item <- function(x, y, keep_extra = FALSE) {
+replace_item <- replace_item <- function(x, y, keep_extra = FALSE) {
   if (class(x) != class(y)) {
     stop("x, y should be two objects from same class,
          such as number, character or list")
@@ -765,7 +765,14 @@ replace_item <- function(x, y, keep_extra = FALSE) {
   inter_name <- intersect(xname, yname)
   extra_name <- setdiff(yname, xname)
 
-  x[inter_name] <- y[inter_name]
+  for (itn in inter_name) {
+    if (length(x[[itn]]) + length(y[[itn]]) < 3) {
+      x[[itn]] <- y[[itn]]
+    } else {
+      x[[itn]] <- replace_item(x[[itn]], y[[itn]], keep_extra = keep_extra)
+    }
+  }
+
   if (keep_extra == TRUE) {
     x <- c(x, y[extra_name])
   }

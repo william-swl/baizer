@@ -294,8 +294,8 @@ unique(v)
 uniq(v)
 ```
 
-- replace the items of a list by another
-```{r basic-utils-replace_list}
+- replace the items of one object by another
+```{r basic-utils-replace_item}
 x <- list(A = 1, B = 3)
 y <- list(A = 9, C = 10)
 
@@ -303,11 +303,10 @@ replace_item(x, y)
 
 replace_item(x, y, keep_extra = TRUE)
 
+x <- list(a = 1, b = list(c = "a", d = FALSE, f = list(x = 0, z = 30)))
+y <- list(a = 3, e = 2, b = list(d = TRUE, f = list(x = 10, y = 20)))
 
-x <- c(A = 1, B = 3)
-y <- c(A = 9, C = 10)
-
-replace_item(x, y)
+replace_item(x, y, keep_extra = TRUE)
 ```
 
 - generate characters
