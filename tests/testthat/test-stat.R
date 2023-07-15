@@ -26,6 +26,19 @@ test_that("stat_test", {
   )
 })
 
+test_that("stat_test, exclude_func", {
+  df <- pivot_longer(mini_diamond, c(x, y),
+                     names_to = "coord", values_to = "value")
+
+  expect_snapshot(
+    stat_test(df,
+      x = coord, y = value, paired = TRUE,
+      paired_by = id, exclude_func = ~ abs(.x - .y) < 0.1
+    )
+  )
+})
+
+
 test_that("stat_fc", {
   expect_snapshot(
     stat_fc(mini_diamond, y = price, x = cut, .by = clarity) %>%

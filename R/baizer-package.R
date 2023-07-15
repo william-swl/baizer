@@ -26,6 +26,7 @@
 #' @importFrom purrr map2_chr
 #' @importFrom purrr map2_dbl
 #' @importFrom purrr map2_dfr
+#' @importFrom purrr map2_lgl
 #' @importFrom rlang :=
 #' @importFrom rlang .data
 #' @importFrom rlang .env

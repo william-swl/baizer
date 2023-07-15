@@ -324,8 +324,10 @@ test_that("replace_item", {
   y <- list(a = 3, e = 2, b = list(d = TRUE, f = list(x = 10, y = 20)))
   expect_identical(
     replace_item(x, y, keep_extra = TRUE),
-    list(a = 3, b = list(c = "a", d = TRUE,
-                         f = list(x = 10, z = 30, y = 20)), e = 2)
+    list(a = 3, b = list(
+      c = "a", d = TRUE,
+      f = list(x = 10, z = 30, y = 20)
+    ), e = 2)
   )
 
   expect_error(replace_item(x, c(A = 9, C = 10)))

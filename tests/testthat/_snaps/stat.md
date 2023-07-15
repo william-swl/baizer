@@ -44,6 +44,18 @@
       2 price Fair   Ideal     35    34 0.0178  0.05 *     
       3 price Good   Ideal     31    34 0.932   1.01 NS    
 
+# stat_test, exclude_func
+
+    Code
+      stat_test(df, x = coord, y = value, paired = TRUE, paired_by = id,
+        exclude_func = ~ abs(.x - .y) < 0.1)
+    Output
+      exclude 92 data pair because of exclude_func
+      # A tibble: 1 x 8
+        y     group1 group2    n1    n2       p  plim symbol
+        <chr> <chr>  <chr>  <int> <int>   <dbl> <dbl> <chr> 
+      1 value x      y        100   100 0.00781  0.01 **    
+
 # stat_fc
 
     Code
