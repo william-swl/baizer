@@ -22,7 +22,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">baizer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,7 +78,8 @@
 <span>  alternative <span class="op">=</span> <span class="st">"two.sided"</span>,</span>
 <span>  exclude_func <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  method <span class="op">=</span> <span class="st">"wilcoxon"</span>,</span>
-<span>  ns_symbol <span class="op">=</span> <span class="st">"NS"</span></span>
+<span>  ns_symbol <span class="op">=</span> <span class="st">"NS"</span>,</span>
+<span>  digits <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -117,8 +118,7 @@
 
 
 <dt>exclude_func</dt>
-<dd><p>a function has two arguments and return bool value.
-If the data pair of a single test returns TRUE, then exclude this pair</p></dd>
+<dd><p>a function has two arguments and return bool value.</p></dd>
 
 
 <dt>method</dt>
@@ -127,6 +127,11 @@ If the data pair of a single test returns TRUE, then exclude this pair</p></dd>
 
 <dt>ns_symbol</dt>
 <dd><p>symbol of nonsignificant, 'NS' as default</p></dd>
+
+
+<dt>digits</dt>
+<dd><p>significant figure digits of p value
+If the data pair of a single test returns TRUE, then exclude this pair</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -140,18 +145,18 @@ If the data pair of a single test returns TRUE, then exclude this pair</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">stat_test</span><span class="op">(</span><span class="va">mini_diamond</span>, y <span class="op">=</span> <span class="va">price</span>, x <span class="op">=</span> <span class="va">cut</span>, .by <span class="op">=</span> <span class="va">clarity</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 24 × 9</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    y     clarity group1 group2    n1    n2      p  plim symbol</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> price I1      Fair   Good       5     5 0.310   1.01 NS    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> price I1      Fair   Ideal      5     4 0.905   1.01 NS    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> price I1      Good   Ideal      5     4 0.190   1.01 NS    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> price IF      Fair   Good       4     5 0.063<span style="text-decoration: underline;">5</span>  1.01 NS    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> price IF      Fair   Ideal      4     4 0.059<span style="text-decoration: underline;">1</span>  1.01 NS    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> price IF      Good   Ideal      5     4 1       1.01 NS    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> price SI1     Fair   Good       5     4 1       1.01 NS    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> price SI1     Fair   Ideal      5     5 1       1.01 NS    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> price SI1     Good   Ideal      4     5 0.413   1.01 NS    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> price SI2     Fair   Good       4     4 0.057<span style="text-decoration: underline;">1</span>  1.01 NS    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    y     clarity group1 group2    n1    n2 p      plim psymbol</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> price I1      Fair   Good       5     5 0.31   1.01 NS     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> price I1      Fair   Ideal      5     4 0.90   1.01 NS     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> price I1      Good   Ideal      5     4 0.19   1.01 NS     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> price IF      Fair   Good       4     5 0.063  1.01 NS     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> price IF      Fair   Ideal      4     4 0.059  1.01 NS     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> price IF      Good   Ideal      5     4 1.0    1.01 NS     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> price SI1     Fair   Good       5     4 1.0    1.01 NS     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> price SI1     Fair   Ideal      5     5 1.0    1.01 NS     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> price SI1     Good   Ideal      4     5 0.41   1.01 NS     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> price SI2     Fair   Good       4     4 0.057  1.01 NS     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 14 more rows</span></span>
 </code></pre></div>
     </div>
