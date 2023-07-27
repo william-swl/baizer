@@ -34,6 +34,8 @@ library(ComplexHeatmap)
 
 ## installation
 
+### universal installation
+
 You can install the stable version of `baizer` like so:
 
 ``` r
@@ -45,6 +47,16 @@ Or install the development version of `baizer` like so:
 ``` r
 devtools::install_github("william-swl/baizer")
 ```
+
+### specific installation
+
+If you prefer `Macports` on MacOS:
+
+```sh
+sudo port install R-baizer
+```
+
+
 
 ## basic utils
 - load packages as a batch

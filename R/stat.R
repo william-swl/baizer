@@ -43,6 +43,7 @@ geom_mean <- function(x, na.rm = TRUE) {
 #' @param alternative one of "two.sided" (default), "greater" or "less"
 #' @param ns_symbol symbol of nonsignificant, 'NS' as default
 #' @param exclude_func a function has two arguments and return bool value.
+#' @param digits significant figure digits of p value
 #' If the data pair of a single test returns TRUE, then exclude this pair
 #' @return test result tibble
 #' @export
@@ -51,7 +52,7 @@ geom_mean <- function(x, na.rm = TRUE) {
 stat_test <- function(df, y, x, .by = NULL, trans = "identity",
                       paired = FALSE, paired_by = NULL,
                       alternative = "two.sided", exclude_func = NULL,
-                      method = "wilcoxon", ns_symbol = "NS") {
+                      method = "wilcoxon", ns_symbol = "NS", digits = 2) {
   y <- rlang::enquo(y)
   x <- rlang::enquo(x)
   paired_by <- rlang::enquo(paired_by)
@@ -121,13 +122,16 @@ stat_test <- function(df, y, x, .by = NULL, trans = "identity",
       if (!is.null(exclude_func) && (paired == TRUE)) {
         exclude_mask <- map2_lgl(y1, y2, exclude_func)
         print(str_glue(
-          "exclude {sum(exclude_mask)} data pair because of exclude_func"))
+          "exclude {sum(exclude_mask)} data pair because of exclude_func"
+        ))
         y1 <- y1[!exclude_mask]
         y2 <- y2[!exclude_mask]
       }
 
-      single_test_pvalue <- test_func(y1, y2, paired = paired,
-                                      alternative = alternative)$p.value
+      single_test_pvalue <- test_func(y1, y2,
+        paired = paired,
+        alternative = alternative
+      )$p.value
       return(single_test_pvalue)
     }
 
@@ -139,12 +143,13 @@ stat_test <- function(df, y, x, .by = NULL, trans = "identity",
     # add symbol
     symbols <- tibble(
       plim = c(1.01, 0.05, 0.01, 0.001, 0.0001),
-      symbol = c(ns_symbol, "*", "**", "***", "****")
+      psymbol = c(ns_symbol, "*", "**", "***", "****")
     )
 
     res_in_super_group <- res_in_super_group %>%
       mutate(p = pvalue) %>%
-      left_join(symbols, by = join_by(closest(p < plim))) # nolint
+      left_join(symbols, by = join_by(closest(p < plim))) %>% # nolint
+      mutate(p = signif_string(p, digits = digits))
 
     res_in_super_group <- res_in_super_group %>%
       mutate(y = quo_name(y), .before = 1)

@@ -15,7 +15,8 @@ stat_test(
   alternative = "two.sided",
   exclude_func = NULL,
   method = "wilcoxon",
-  ns_symbol = "NS"
+  ns_symbol = "NS",
+  digits = 2
 )
 }
 \arguments{
@@ -35,12 +36,14 @@ stat_test(
 
 \item{alternative}{one of "two.sided" (default), "greater" or "less"}
 
-\item{exclude_func}{a function has two arguments and return bool value.
-If the data pair of a single test returns TRUE, then exclude this pair}
+\item{exclude_func}{a function has two arguments and return bool value.}
 
 \item{method}{test method, 'wilcoxon' as default, one of \code{t|wilcoxon}}
 
 \item{ns_symbol}{symbol of nonsignificant, 'NS' as default}
+
+\item{digits}{significant figure digits of p value
+If the data pair of a single test returns TRUE, then exclude this pair}
 }
 \value{
 test result tibble

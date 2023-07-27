@@ -28,7 +28,8 @@ test_that("stat_test", {
 
 test_that("stat_test, exclude_func", {
   df <- pivot_longer(mini_diamond, c(x, y),
-                     names_to = "coord", values_to = "value")
+    names_to = "coord", values_to = "value"
+  )
 
   expect_snapshot(
     stat_test(df,

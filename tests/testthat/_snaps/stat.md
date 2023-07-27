@@ -5,32 +5,32 @@
         n = Inf)
     Output
       # A tibble: 24 x 9
-         y     clarity group1 group2    n1    n2      p  plim symbol
-         <chr> <chr>   <chr>  <chr>  <int> <int>  <dbl> <dbl> <chr> 
-       1 price I1      Fair   Good       5     5 0.310   1.01 NS    
-       2 price I1      Fair   Ideal      5     4 0.905   1.01 NS    
-       3 price I1      Good   Ideal      5     4 0.190   1.01 NS    
-       4 price IF      Fair   Good       4     5 0.0635  1.01 NS    
-       5 price IF      Fair   Ideal      4     4 0.0591  1.01 NS    
-       6 price IF      Good   Ideal      5     4 1       1.01 NS    
-       7 price SI1     Fair   Good       5     4 1       1.01 NS    
-       8 price SI1     Fair   Ideal      5     5 1       1.01 NS    
-       9 price SI1     Good   Ideal      4     5 0.413   1.01 NS    
-      10 price SI2     Fair   Good       4     4 0.0571  1.01 NS    
-      11 price SI2     Fair   Ideal      4     4 0.0571  1.01 NS    
-      12 price SI2     Good   Ideal      4     4 0.686   1.01 NS    
-      13 price VS1     Fair   Good       3     2 0.2     1.01 NS    
-      14 price VS1     Fair   Ideal      3     5 0.0357  0.05 *     
-      15 price VS1     Good   Ideal      2     5 0.571   1.01 NS    
-      16 price VS2     Fair   Good       5     4 0.413   1.01 NS    
-      17 price VS2     Fair   Ideal      5     2 0.857   1.01 NS    
-      18 price VS2     Good   Ideal      4     2 0.8     1.01 NS    
-      19 price VVS1    Fair   Good       5     4 0.905   1.01 NS    
-      20 price VVS1    Fair   Ideal      5     5 0.151   1.01 NS    
-      21 price VVS1    Good   Ideal      4     5 0.190   1.01 NS    
-      22 price VVS2    Fair   Good       4     3 0.629   1.01 NS    
-      23 price VVS2    Fair   Ideal      4     5 0.0317  0.05 *     
-      24 price VVS2    Good   Ideal      3     5 0.0714  1.01 NS    
+         y     clarity group1 group2    n1    n2 p      plim psymbol
+         <chr> <chr>   <chr>  <chr>  <int> <int> <chr> <dbl> <chr>  
+       1 price I1      Fair   Good       5     5 0.31   1.01 NS     
+       2 price I1      Fair   Ideal      5     4 0.90   1.01 NS     
+       3 price I1      Good   Ideal      5     4 0.19   1.01 NS     
+       4 price IF      Fair   Good       4     5 0.063  1.01 NS     
+       5 price IF      Fair   Ideal      4     4 0.059  1.01 NS     
+       6 price IF      Good   Ideal      5     4 1.0    1.01 NS     
+       7 price SI1     Fair   Good       5     4 1.0    1.01 NS     
+       8 price SI1     Fair   Ideal      5     5 1.0    1.01 NS     
+       9 price SI1     Good   Ideal      4     5 0.41   1.01 NS     
+      10 price SI2     Fair   Good       4     4 0.057  1.01 NS     
+      11 price SI2     Fair   Ideal      4     4 0.057  1.01 NS     
+      12 price SI2     Good   Ideal      4     4 0.69   1.01 NS     
+      13 price VS1     Fair   Good       3     2 0.20   1.01 NS     
+      14 price VS1     Fair   Ideal      3     5 0.036  0.05 *      
+      15 price VS1     Good   Ideal      2     5 0.57   1.01 NS     
+      16 price VS2     Fair   Good       5     4 0.41   1.01 NS     
+      17 price VS2     Fair   Ideal      5     2 0.86   1.01 NS     
+      18 price VS2     Good   Ideal      4     2 0.80   1.01 NS     
+      19 price VVS1    Fair   Good       5     4 0.90   1.01 NS     
+      20 price VVS1    Fair   Ideal      5     5 0.15   1.01 NS     
+      21 price VVS1    Good   Ideal      4     5 0.19   1.01 NS     
+      22 price VVS2    Fair   Good       4     3 0.63   1.01 NS     
+      23 price VVS2    Fair   Ideal      4     5 0.032  0.05 *      
+      24 price VVS2    Good   Ideal      3     5 0.071  1.01 NS     
 
 # stat_test
 
@@ -38,11 +38,11 @@
       stat_test(mini_diamond, y = price, x = cut) %>% print(width = Inf, n = Inf)
     Output
       # A tibble: 3 x 8
-        y     group1 group2    n1    n2      p  plim symbol
-        <chr> <chr>  <chr>  <int> <int>  <dbl> <dbl> <chr> 
-      1 price Fair   Good      35    31 0.0405  0.05 *     
-      2 price Fair   Ideal     35    34 0.0178  0.05 *     
-      3 price Good   Ideal     31    34 0.932   1.01 NS    
+        y     group1 group2    n1    n2 p      plim psymbol
+        <chr> <chr>  <chr>  <int> <int> <chr> <dbl> <chr>  
+      1 price Fair   Good      35    31 0.041  0.05 *      
+      2 price Fair   Ideal     35    34 0.018  0.05 *      
+      3 price Good   Ideal     31    34 0.93   1.01 NS     
 
 # stat_test, exclude_func
 
@@ -52,9 +52,9 @@
     Output
       exclude 92 data pair because of exclude_func
       # A tibble: 1 x 8
-        y     group1 group2    n1    n2       p  plim symbol
-        <chr> <chr>  <chr>  <int> <int>   <dbl> <dbl> <chr> 
-      1 value x      y        100   100 0.00781  0.01 **    
+        y     group1 group2    n1    n2 p       plim psymbol
+        <chr> <chr>  <chr>  <int> <int> <chr>  <dbl> <chr>  
+      1 value x      y        100   100 0.0078  0.01 **     
 
 # stat_fc
 

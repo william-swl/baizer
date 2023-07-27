@@ -915,16 +915,12 @@ uniq_in_cols <- function(x) {
 #'
 #' inner_expand(tb1, tb2, by = "id")
 left_expand <- function(x, y, by = NULL) {
-  by <- enquo(by)
-  if (quo_is_null(by)) {
-    stop("input a column as index!")
+  if (is.null(by)) {
+    stop("input column(s) as index!")
   }
-
   expand_cols <- setdiff(colnames(y), colnames(x))
-
-  y <- dplyr::select(y, {{ by }}, all_of(expand_cols))
-
-  res <- dplyr::left_join(x, y, by = quo_name(by))
+  y <- dplyr::select(y, all_of(by), all_of(expand_cols))
+  res <- dplyr::left_join(x, y, by = by)
   return(res)
 }
 
@@ -954,16 +950,12 @@ left_expand <- function(x, y, by = NULL) {
 #'
 #' inner_expand(tb1, tb2, by = "id")
 full_expand <- function(x, y, by = NULL) {
-  by <- enquo(by)
-  if (quo_is_null(by)) {
-    stop("input a column as index!")
+  if (is.null(by)) {
+    stop("input column(s) as index!")
   }
-
   expand_cols <- setdiff(colnames(y), colnames(x))
-
-  y <- dplyr::select(y, {{ by }}, all_of(expand_cols))
-
-  res <- dplyr::full_join(x, y, by = quo_name(by))
+  y <- dplyr::select(y, all_of(by), all_of(expand_cols))
+  res <- dplyr::full_join(x, y, by = by)
   return(res)
 }
 
@@ -994,19 +986,14 @@ full_expand <- function(x, y, by = NULL) {
 #'
 #' inner_expand(tb1, tb2, by = "id")
 inner_expand <- function(x, y, by = NULL) {
-  by <- enquo(by)
-  if (quo_is_null(by)) {
-    stop("input a column as index!")
+  if (is.null(by)) {
+    stop("input column(s) as index!")
   }
-
   expand_cols <- setdiff(colnames(y), colnames(x))
-
-  y <- dplyr::select(y, {{ by }}, all_of(expand_cols))
-
-  res <- dplyr::inner_join(x, y, by = quo_name(by))
+  y <- dplyr::select(y, all_of(by), all_of(expand_cols))
+  res <- dplyr::inner_join(x, y, by = by)
   return(res)
 }
-
 
 #' replace the NA values in a tibble by another tibble
 #'
