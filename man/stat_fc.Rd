@@ -12,7 +12,8 @@ stat_fc(
   .by = NULL,
   rev_div = FALSE,
   digits = 2,
-  fc_fmt = "short"
+  fc_fmt = "short",
+  suffix = "x"
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ stat_fc(
 \item{digits}{fold change digits}
 
 \item{fc_fmt}{fold change format, one of short, signif, round}
+
+\item{suffix}{suffix of fold change, \code{x} as default}
 }
 \value{
 fold change result tibble

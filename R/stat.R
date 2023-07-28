@@ -187,20 +187,22 @@ stat_test <- function(df, y, x, .by = NULL, trans = "identity",
 #' @param rev_div reverse division
 #' @param digits fold change digits
 #' @param fc_fmt fold change format, one of short, signif, round
+#' @param suffix suffix of fold change, `x` as default
 #'
 #' @return fold change result tibble
 #' @export
 #'
 #' @examples stat_fc(mini_diamond, y = price, x = cut, .by = clarity)
 stat_fc <- function(df, y, x, method = "mean", .by = NULL,
-                    rev_div = FALSE, digits = 2, fc_fmt = "short") {
+                    rev_div = FALSE, digits = 2, fc_fmt = "short",
+                    suffix = "x") {
   y <- rlang::enquo(y)
   x <- rlang::enquo(x)
   .by <- rlang::enquo(.by)
 
-  stat_ingroup <- function(df_ingroup) {
+  stat_in_super_group <- function(df_in_super_group) {
     # only keep necessary columns
-    df_ingroup <- df_ingroup %>% dplyr::select({{ y }}, {{ x }})
+    df_in_super_group <- df_in_super_group %>% dplyr::select({{ y }}, {{ x }})
 
     # smmarise
     if (method == "mean") {
@@ -213,59 +215,61 @@ stat_fc <- function(df, y, x, method = "mean", .by = NULL,
       stop("choose a method from mean, median and geom_mean")
     }
 
-    df_ingroup <- df_ingroup %>%
+    df_in_super_group <- df_in_super_group %>%
       dplyr::summarise("{{y}}" := # nolint
         func({{ y }}), .by = {{ x }}) %>%
       rename(x = {{ x }}, y = {{ y }})
 
-    xs <- df_ingroup %>%
+    xs <- df_in_super_group %>%
       arrange(.data[["x"]]) %>%
       dplyr::pull(.data[["x"]]) %>%
       unique() %>%
       as.character()
-    res_ingroup <- combn(xs, 2) %>% t()
-    colnames(res_ingroup) <- c("group1", "group2")
-    res_ingroup <- res_ingroup %>%
+    res_in_super_group <- combn(xs, 2) %>% t()
+    colnames(res_in_super_group) <- c("group1", "group2")
+    res_in_super_group <- res_in_super_group %>%
       as_tibble() %>%
       filter(.data[["group1"]] != .data[["group2"]])
 
-    res_ingroup <- res_ingroup %>%
-      left_join(df_ingroup, by = c("group1" = "x")) %>%
-      left_join(df_ingroup, by = c("group2" = "x"), suffix = c("1", "2"))
+    res_in_super_group <- res_in_super_group %>%
+      left_join(df_in_super_group, by = c("group1" = "x")) %>%
+      left_join(df_in_super_group, by = c("group2" = "x"), suffix = c("1", "2"))
 
-    res_ingroup <- res_ingroup %>% dplyr::mutate(
+    res_in_super_group <- res_in_super_group %>% dplyr::mutate(
       fc = .data[["y1"]] / .data[["y2"]]
     )
 
     # reverse div
     if (rev_div) {
-      res_ingroup <- res_ingroup %>% dplyr::mutate(fc = 1 / .data[["fc"]])
+      res_in_super_group <- res_in_super_group %>%
+        dplyr::mutate(fc = 1 / .data[["fc"]])
     }
 
 
     # fc format
     if (fc_fmt == "short") {
-      res_ingroup <- res_ingroup %>% dplyr::mutate(
+      res_in_super_group <- res_in_super_group %>% dplyr::mutate(
         fc_fmt = signif_round_string(.data$fc, digits) %>%
-          stringr::str_c("x")
+          stringr::str_c(suffix)
       )
     } else if (fc_fmt == "signif") {
-      res_ingroup <- res_ingroup %>% dplyr::mutate(
+      res_in_super_group <- res_in_super_group %>% dplyr::mutate(
         fc_fmt = signif_string(.data$fc, digits) %>%
-          stringr::str_c("x")
+          stringr::str_c(suffix)
       )
     } else if (fc_fmt == "round") {
-      res_ingroup <- res_ingroup %>% dplyr::mutate(
+      res_in_super_group <- res_in_super_group %>% dplyr::mutate(
         fc_fmt = round_string(.data$fc, digits) %>%
-          stringr::str_c("x")
+          stringr::str_c(suffix)
       )
     } else {
       stop("fc_fmt should be one of short,signif,round")
     }
 
-    res_ingroup <- res_ingroup %>% mutate(y = quo_name(y), .before = 1)
+    res_in_super_group <- res_in_super_group %>%
+      mutate(y = quo_name(y), .before = 1)
 
-    return(res_ingroup)
+    return(res_in_super_group)
   }
 
 
@@ -277,16 +281,15 @@ stat_fc <- function(df, y, x, method = "mean", .by = NULL,
     df_list <- bys %>% map(~ df %>% filter(!!.by == .x))
     res <- map2_dfr(
       df_list, bys,
-      ~ stat_ingroup(.x) %>%
+      ~ stat_in_super_group(.x) %>%
         mutate(!!.by := .y) %>%
         relocate(!!.by, .after = y)
     )
   } else {
-    res <- stat_ingroup(df)
+    res <- stat_in_super_group(df)
   }
   return(res)
 }
-
 
 
 #' calculate phi coefficient of two binary variables
