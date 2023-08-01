@@ -35,5 +35,5 @@ Config/testthat/edition: 3
 Depends: 
     R (>= 3.5.0)
 LazyData: true
-URL: https://github.com/william-swl/baizer
+URL: https://william-swl.github.io/baizer/, https://github.com/william-swl/baizer
 BugReports: https://github.com/william-swl/baizer/issues
