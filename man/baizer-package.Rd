@@ -13,6 +13,7 @@ In ancient Chinese mythology, Bai Ze is a divine creature that knows the needs o
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://william-swl.github.io/baizer/}
   \item \url{https://github.com/william-swl/baizer}
   \item Report bugs at \url{https://github.com/william-swl/baizer/issues}
 }

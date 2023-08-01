@@ -112,9 +112,9 @@ stat_test <- function(df, y, x, .by = NULL, trans = "identity",
 
     # test
     if (method == "wilcoxon") {
-      test_func <- wilcox.test
+      test_func <- stats::wilcox.test
     } else if (method == "t") {
-      test_func <- t.test
+      test_func <- stats::t.test
     }
 
     single_test <- function(y1, y2) {

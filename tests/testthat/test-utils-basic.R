@@ -404,3 +404,8 @@ test_that("combn_vector", {
     c(8, 2, 2, 3)
   )
 })
+
+
+test_that("broadcast_vector", {
+  expect_identical(broadcast_vector(c(1, 2, 3), 5), c(1, 2, 3, 1, 2))
+})

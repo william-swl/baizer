@@ -367,6 +367,12 @@ combn_vector(x1, x2, x3, method = "sum")
 ```
 
 
+- broadcast the vector into length n
+
+```{r basic-utils-broadcast_vector}
+broadcast_vector(1:3, 5)
+```
+
 ## numbers
 
 - from float number to fixed digits character

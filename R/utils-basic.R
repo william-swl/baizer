@@ -999,3 +999,19 @@ combn_vector <- function(..., method = "first", invalid = NA) {
     unname()
   return(res)
 }
+
+
+#' broadcast the vector into length n
+#'
+#' @param x vector
+#' @param n target length
+#'
+#' @return vector
+#' @export
+#'
+#' @examples broadcast_vector(1:3, 5)
+#'
+broadcast_vector <- function(x, n) {
+  res <- c(rep(x, floor(n / length(x))), x[seq_len(n %% length(x))])
+  return(res)
+}
