@@ -1,4 +1,4 @@
-There are three NOTEs:
+There are four NOTEs:
 
 # First
 
@@ -42,3 +42,11 @@ Skipping checking HTML validation: no command 'tidy' found
 ```
 Also noted in R-hub issue #548.
 
+# Fourth
+
+```
+* checking for non-standard things in the check directory ... NOTE
+Found the following files/directories:
+  ''NULL''
+```
+Also noted in R-hub issue #560.
