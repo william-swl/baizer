@@ -160,7 +160,10 @@
     <loc>https://william-swl.github.io/baizer/reference/left_expand.html</loc>
   </url>
   <url>
-    <loc>https://william-swl.github.io/baizer/reference/list2tibble.html</loc>
+    <loc>https://william-swl.github.io/baizer/reference/list2df.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/max_depth.html</loc>
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/melt_vector.html</loc>
