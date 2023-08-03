@@ -409,3 +409,8 @@ test_that("combn_vector", {
 test_that("broadcast_vector", {
   expect_identical(broadcast_vector(c(1, 2, 3), 5), c(1, 2, 3, 1, 2))
 })
+
+
+test_that("max_depth", {
+  expect_identical(max_depth(list(a = list(b = list(c = 1), d = 2, e = 3))), 3)
+})

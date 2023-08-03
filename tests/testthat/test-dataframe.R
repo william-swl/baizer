@@ -216,24 +216,24 @@ test_that("cross_count, method='colr'", {
 })
 
 
-test_that("list2tibble, method='row'", {
+test_that("list2df, method='row'", {
   x <- list(
     c("a", "1"),
     c("b", "2"),
     c("c", "3")
   )
-  expect_snapshot(list2tibble(x, colnames = c("char", "num")))
+  expect_snapshot(list2df(x, colnames = c("char", "num")))
 })
 
 
 
-test_that("list2tibble, method='col'", {
+test_that("list2df, method='col'", {
   x <- list(
     c("a", "b", "c"),
     c("1", "2", "3")
   )
 
-  expect_snapshot(list2tibble(x, method = "col"))
+  expect_snapshot(list2df(x, method = "col"))
 })
 
 

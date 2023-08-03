@@ -664,14 +664,14 @@ levels(df$cut0)
 ```
 
 - trans list into tibble
-```{r dataframe-list2tibble}
+```{r dataframe-list2df}
 x <- list(
   c("a", "1"),
   c("b", "2"),
   c("c", "3")
 )
 
-list2tibble(x, colnames = c("char", "num"))
+list2df(x, colnames = c("char", "num"))
 
 
 x <- list(
@@ -679,7 +679,7 @@ x <- list(
   c("1", "2", "3")
 )
 
-list2tibble(x, method = "col")
+list2df(x, method = "col")
 ```
 
 - generate a matrix to show whether the item in each element of a list

@@ -592,7 +592,7 @@ cross_count <- function(df, row, col, method = "n", digits = 2) {
 }
 
 
-#' trans list into tibble
+#' trans list into data.frame
 #'
 #' @param x list
 #' @param colnames colnames of the output
@@ -608,33 +608,48 @@ cross_count <- function(df, row, col, method = "n", digits = 2) {
 #'   c("c", "3")
 #' )
 #'
-#' list2tibble(x, colnames = c("char", "num"))
+#' list2df(x, colnames = c("char", "num"))
 #'
 #' x <- list(
 #'   c("a", "b", "c"),
 #'   c("1", "2", "3")
 #' )
 #'
-#' list2tibble(x, method = "col")
-list2tibble <- function(x, colnames = NULL, method = "row") {
+#' list2df(x, method = "col")
+list2df <- function(x, rownames = TRUE, colnames = NULL, method = "row") {
   suppressMessages({
+    item_names <- str_c("It", seq_len(length(x)))
+    if (!is.null(names(x))) {
+      item_names <- ifelse(names(x) == "", item_names, names(x))
+    }
+
     if (method == "row") {
-      res <- map_dfr(x, ~ as_tibble_row(.x, .name_repair = "unique"))
+      res <- map_dfr(x, ~ as_tibble_row(.x, .name_repair = "unique")) %>%
+        as.data.frame()
+      if (rownames == TRUE) {
+        rownames(res) <- item_names
+      }
+
+      if (is.null(colnames)) {
+        colnames(res) <- str_c("V", seq_len(ncol(res)))
+      } else {
+        colnames(res) <- colnames
+      }
     } else if (method == "col") {
-      res <- map_dfc(x, ~ as_tibble_col(.x))
+      res <- map_dfc(x, ~ as_tibble_col(.x)) %>% as.data.frame()
+      if (is.null(colnames)) {
+        colnames(res) <- item_names
+      } else {
+        colnames(res) <- colnames
+      }
     } else {
       stop("method should be one of row, col")
     }
   })
 
-  if (is.null(colnames)) {
-    colnames <- str_c("V", seq_len(ncol(res)))
-  }
-  colnames(res) <- colnames
+
   return(res)
 }
-
-
 #' generate a matrix to show whether the item in each element of a list
 #'
 #' @param x list of character vectors
@@ -837,7 +852,7 @@ diff_tb <- function(old, new) {
     str_split(" +")
 
   res <- compare_list[3:length(compare_list)] %>%
-    list2tibble(colnames = c("compare", compare_list[[2]][-1]))
+    list2df(rownames = FALSE, colnames = c("compare", compare_list[[2]][-1]))
 
   return(res)
 }

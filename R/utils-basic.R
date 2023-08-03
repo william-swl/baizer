@@ -1015,3 +1015,28 @@ broadcast_vector <- function(x, n) {
   res <- c(rep(x, floor(n / length(x))), x[seq_len(n %% length(x))])
   return(res)
 }
+
+
+#' max depth of a list
+#'
+#' @param x list
+#'
+#' @return number
+#' @export
+#'
+#' @examples
+#'
+#' max_depth(list(a = list(b = list(c = 1), d = 2, e = 3)))
+#'
+max_depth <- function(x) {
+  if (!is.list(x)) {
+    return(0)
+  } else {
+    depths <- map_dbl(x, max_depth)
+    if (length(depths) == 0) {
+      return(1)
+    } else {
+      return(max(depths) + 1)
+    }
+  }
+}

@@ -1379,29 +1379,25 @@
       Good  0.36 0.38 0.29 0.33 0.2 0.36 0.29 0.25
       Ideal 0.29 0.31 0.36 0.33 0.5 0.18 0.36 0.42
 
-# list2tibble, method='row'
+# list2df, method='row'
 
     Code
-      list2tibble(x, colnames = c("char", "num"))
+      list2df(x, colnames = c("char", "num"))
     Output
-      # A tibble: 3 x 2
-        char  num  
-        <chr> <chr>
-      1 a     1    
-      2 b     2    
-      3 c     3    
+          char num
+      It1    a   1
+      It2    b   2
+      It3    c   3
 
-# list2tibble, method='col'
+# list2df, method='col'
 
     Code
-      list2tibble(x, method = "col")
+      list2df(x, method = "col")
     Output
-      # A tibble: 3 x 2
-        V1    V2   
-        <chr> <chr>
-      1 a     1    
-      2 b     2    
-      3 c     3    
+        It1 It2
+      1   a   1
+      2   b   2
+      3   c   3
 
 # exist_matrix
 
@@ -1586,15 +1582,13 @@
     Code
       diff_tb(tb1, tb2)
     Output
-      # A tibble: 6 x 5
-        compare V1    V2    V3    V4   
-        <chr>   <chr> <chr> <chr> <chr>
-      1 -[1,]   -7    15    4     -4   
-      2 +[1,]   -10   -12   0     12   
-      3 -[2,]   1     3     7     15   
-      4 +[2,]   -3    1     11    -8   
-      5 -[3,]   -9    -9    5     3    
-      6 +[3,]   2     0     -13   -12  
+        compare  V1  V2  V3  V4
+      1   -[1,]  -7  15   4  -4
+      2   +[1,] -10 -12   0  12
+      3   -[2,]   1   3   7  15
+      4   +[2,]  -3   1  11  -8
+      5   -[3,]  -9  -9   5   3
+      6   +[3,]   2   0 -13 -12
 
 # tdf
 
