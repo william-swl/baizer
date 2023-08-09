@@ -595,6 +595,7 @@ cross_count <- function(df, row, col, method = "n", digits = 2) {
 #' trans list into data.frame
 #'
 #' @param x list
+#' @param rownames use rownames or not
 #' @param colnames colnames of the output
 #' @param method one of `row, col`, set each item as row or col, default as row
 #'
@@ -828,7 +829,8 @@ gen_tb <- function(nrow = 3, ncol = 4, fill = "float",
 #' @param old old tibble
 #' @param new new tibble
 #'
-#' @return comparation tibble
+#' @return differences tibble, 'a, d, c' in `diff_type` stand for
+#' 'add, delete, change' compared to the old tibble
 #' @export
 #'
 #' @examples
@@ -839,22 +841,83 @@ gen_tb <- function(nrow = 3, ncol = 4, fill = "float",
 #' diff_tb(tb1, tb2)
 #'
 diff_tb <- function(old, new) {
-  p <- waldo::compare(old, new)
-  compare_list <- p[[1]] %>%
-    str_split("\n") %>%
-    unlist() %>%
-    # clear format
-    str_replace_all("\033\\[\\d+?m", "") %>%
-    # clear extra space
-    str_replace_all("new|old", "") %>%
-    str_replace_all("^([+-]) \\[(\\d+), \\]", "\\1[\\2,]") %>%
-    # split
-    str_split(" +")
+  if (!is.data.frame(old) || !is.data.frame(new)) {
+    stop("Please input tibble object!")
+  }
 
-  res <- compare_list[3:length(compare_list)] %>%
-    list2df(rownames = FALSE, colnames = c("compare", compare_list[[2]][-1]))
+  # fill missing colnames
+  all_colnames <- union(colnames(old), colnames(new))
+  old[, setdiff(all_colnames, colnames(old))] <- NA
+  old <- old[, all_colnames]
+  new[, setdiff(all_colnames, colnames(new))] <- NA
+  new <- new[, all_colnames]
 
-  return(res)
+  # detect diff rows
+  old_line <- tidyr::unite(old, "unite", dplyr::everything(), sep = "___") %>%
+    dplyr::pull(.data[["unite"]])
+  new_line <- tidyr::unite(new, "unite", dplyr::everything(), sep = "___") %>%
+    dplyr::pull(.data[["unite"]])
+
+  diffs <- waldo:::ses_shortest(old_line, new_line, size = 10)
+
+
+  if (length(diffs) == 0) {
+    return(tibble())
+  } else {
+    # diff rows
+    diffs <- diffs[[1]] %>% dplyr::filter(t != "x")
+    res_row <- apply(
+      diffs, 1,
+      function(row) {
+        old_rows <- row["x1"]:row["x2"]
+        old_part <- old[old_rows, ] %>%
+          dplyr::mutate(diff = str_glue("-old[{old_rows}, ]"), .before = 1)
+        new_rows <- row["y1"]:row["y2"]
+        new_part <- new[new_rows, ] %>%
+          dplyr::mutate(diff = str_glue("+new[{new_rows}, ]"), .before = 1)
+        if (row["t"] == "d") {
+          change_tb <- old_part %>% dplyr::mutate(diff_type = "d", .before = 1)
+        } else if (row["t"] == "a") {
+          change_tb <- new_part %>% dplyr::mutate(diff_type = "a", .before = 1)
+        } else if (row["t"] == "c") {
+          change_tb <- dplyr::bind_rows(old_part, new_part)
+          sel <- vctrs::vec_interleave(
+            seq_len(nrow(old_part)), nrow(old_part) + seq_len(nrow(new_part))
+          )
+          change_tb <- change_tb[sel, ] %>%
+            dplyr::mutate(diff_type = "c", .before = 1)
+        }
+        return(change_tb)
+      }
+    )
+
+    res_row <- purrr::reduce(res_row, dplyr::bind_rows)
+
+    # diff cols
+    res_change_old <- res_row %>%
+      dplyr::filter(
+        .data[["diff_type"]] == "c",
+        str_detect(.data[["diff"]], "^-old")
+      )
+    res_change_new <- res_row %>%
+      dplyr::filter(
+        .data[["diff_type"]] == "c",
+        str_detect(.data[["diff"]], "^\\+new")
+      )
+    if (nrow(res_change_old) == nrow(res_change_new)) {
+      diff_cols <- which(colSums(res_change_old %neq% res_change_new) > 0)
+    } else {
+      diff_cols <- all_colnames
+    }
+
+    res <- res_row %>%
+      dplyr::select(
+        dplyr::all_of(c("diff_type", "diff")),
+        dplyr::all_of(diff_cols)
+      )
+
+    return(res)
+  }
 }
 
 
@@ -1010,7 +1073,7 @@ inner_expand <- function(x, y, by = NULL) {
   return(res)
 }
 
-#' replace the NA values in a tibble by another tibble
+#' rewrite the NA values in a tibble by another tibble
 #'
 #' @param x raw tibble
 #' @param y replace reference tibble
@@ -1035,8 +1098,8 @@ inner_expand <- function(x, y, by = NULL) {
 #'   type = c("l", "x", "x", "m")
 #' )
 #'
-#' replace_na(tb1, tb2, by = c("id", "group"))
-replace_na <- function(x, y, by) {
+#' rewrite_na(tb1, tb2, by = c("id", "group"))
+rewrite_na <- function(x, y, by) {
   x <- tidyr::unite(x, "replace_cell_temp_id", !!by, sep = "__.rcsep.__") %>%
     c2r("replace_cell_temp_id")
   y <- tidyr::unite(y, "replace_cell_temp_id", !!by, sep = "__.rcsep.__") %>%

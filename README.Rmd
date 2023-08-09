@@ -792,7 +792,8 @@ left_expand(tb1, tb2, by = "id")
 inner_expand(tb1, tb2, by = "id")
 ```
 
-- replace the NA values in a tibble by another
+- rewrite the NA values in a tibble by another tibble
+
 ```{r dataframe-replace_na}
 tb1 <- tibble(
   id = c("id-1", "id-2", "id-3", "id-4"),
@@ -808,7 +809,7 @@ tb2 <- tibble(
   type = c("l", "x", "x", "m")
 )
 
-replace_na(tb1, tb2, by = c("id", "group"))
+rewrite_na(tb1, tb2, by = c("id", "group"))
 ```
 
 

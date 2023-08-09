@@ -12,7 +12,8 @@ diff_tb(old, new)
 \item{new}{new tibble}
 }
 \value{
-comparation tibble
+differences tibble, 'a, d, c' in \code{diff_type} stand for
+'add, delete, change' compared to the old tibble
 }
 \description{
 differences between two tibbles

@@ -291,6 +291,18 @@ test_that("diff_tb", {
   expect_snapshot(diff_tb(tb1, tb2))
 })
 
+test_that("diff_tb, delete", {
+  expect_snapshot(diff_tb(mini_diamond, mini_diamond[1:10, ]))
+})
+
+test_that("diff_tb, add", {
+  expect_snapshot(diff_tb(mini_diamond[1:10, ], mini_diamond))
+})
+
+test_that("diff_tb, add columns", {
+  expect_snapshot(diff_tb(mini_diamond[1:5, -3], mini_diamond[1:5, ]))
+})
+
 
 test_that("tdf", {
   expect_snapshot(tdf(head(mini_diamond)))
@@ -339,7 +351,7 @@ test_that("inner_expand", {
 })
 
 
-test_that("replace_na", {
+test_that("rewrite_na", {
   tb1 <- tibble(
     id = c("id-1", "id-2", "id-3", "id-4"),
     group = c("a", "b", "a", "b"),
@@ -352,5 +364,5 @@ test_that("replace_na", {
     price = c(1, 2, 3, 4),
     type = c("l", "x", "x", "m")
   )
-  expect_snapshot(replace_na(tb1, tb2, by = c("id", "group")))
+  expect_snapshot(rewrite_na(tb1, tb2, by = c("id", "group")))
 })

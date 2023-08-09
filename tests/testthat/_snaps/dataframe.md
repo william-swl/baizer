@@ -1582,13 +1582,74 @@
     Code
       diff_tb(tb1, tb2)
     Output
-        compare  V1  V2  V3  V4
-      1   -[1,]  -7  15   4  -4
-      2   +[1,] -10 -12   0  12
-      3   -[2,]   1   3   7  15
-      4   +[2,]  -3   1  11  -8
-      5   -[3,]  -9  -9   5   3
-      6   +[3,]   2   0 -13 -12
+      # A tibble: 6 x 6
+        diff_type diff         V1    V2    V3    V4
+        <chr>     <glue>    <dbl> <dbl> <dbl> <dbl>
+      1 c         -old[1, ]    -7    15     4    -4
+      2 c         +new[1, ]   -10   -12     0    12
+      3 c         -old[2, ]     1     3     7    15
+      4 c         +new[2, ]    -3     1    11    -8
+      5 c         -old[3, ]    -9    -9     5     3
+      6 c         +new[3, ]     2     0   -13   -12
+
+# diff_tb, delete
+
+    Code
+      diff_tb(mini_diamond, mini_diamond[1:10, ])
+    Output
+      # A tibble: 90 x 2
+         diff_type diff      
+         <chr>     <glue>    
+       1 d         -old[11, ]
+       2 d         -old[12, ]
+       3 d         -old[13, ]
+       4 d         -old[14, ]
+       5 d         -old[15, ]
+       6 d         -old[16, ]
+       7 d         -old[17, ]
+       8 d         -old[18, ]
+       9 d         -old[19, ]
+      10 d         -old[20, ]
+      # ... with 80 more rows
+
+# diff_tb, add
+
+    Code
+      diff_tb(mini_diamond[1:10, ], mini_diamond)
+    Output
+      # A tibble: 90 x 2
+         diff_type diff      
+         <chr>     <glue>    
+       1 a         +new[11, ]
+       2 a         +new[12, ]
+       3 a         +new[13, ]
+       4 a         +new[14, ]
+       5 a         +new[15, ]
+       6 a         +new[16, ]
+       7 a         +new[17, ]
+       8 a         +new[18, ]
+       9 a         +new[19, ]
+      10 a         +new[20, ]
+      # ... with 80 more rows
+
+# diff_tb, add columns
+
+    Code
+      diff_tb(mini_diamond[1:5, -3], mini_diamond[1:5, ])
+    Output
+      # A tibble: 10 x 3
+         diff_type diff      cut  
+         <chr>     <glue>    <chr>
+       1 c         -old[1, ] <NA> 
+       2 c         +new[1, ] Fair 
+       3 c         -old[2, ] <NA> 
+       4 c         +new[2, ] Good 
+       5 c         -old[3, ] <NA> 
+       6 c         +new[3, ] Ideal
+       7 c         -old[4, ] <NA> 
+       8 c         +new[4, ] Ideal
+       9 c         -old[5, ] <NA> 
+      10 c         +new[5, ] Ideal
 
 # tdf
 
@@ -1683,10 +1744,10 @@
       1 id-2   1.51 Good  VS2     11746  7.27  7.18 new2  
       2 id-4   1.54 Ideal SI2      9452  7.43  7.45 new4  
 
-# replace_na
+# rewrite_na
 
     Code
-      replace_na(tb1, tb2, by = c("id", "group"))
+      rewrite_na(tb1, tb2, by = c("id", "group"))
     Output
       # A tibble: 4 x 4
         id    group price type 

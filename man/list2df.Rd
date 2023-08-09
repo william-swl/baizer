@@ -9,6 +9,8 @@ list2df(x, rownames = TRUE, colnames = NULL, method = "row")
 \arguments{
 \item{x}{list}
 
+\item{rownames}{use rownames or not}
+
 \item{colnames}{colnames of the output}
 
 \item{method}{one of \verb{row, col}, set each item as row or col, default as row}

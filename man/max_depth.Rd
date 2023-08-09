@@ -17,6 +17,6 @@ max depth of a list
 }
 \examples{
 
-max_depth(list(a=list(b=list(c=1), d=2, e=3)))
+max_depth(list(a = list(b = list(c = 1), d = 2, e = 3)))
 
 }
