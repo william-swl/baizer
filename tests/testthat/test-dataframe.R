@@ -292,11 +292,11 @@ test_that("diff_tb", {
 })
 
 test_that("diff_tb, delete", {
-  expect_snapshot(diff_tb(mini_diamond, mini_diamond[1:10, ]))
+  expect_snapshot(diff_tb(mini_diamond, mini_diamond[1:90, ]))
 })
 
 test_that("diff_tb, add", {
-  expect_snapshot(diff_tb(mini_diamond[1:10, ], mini_diamond))
+  expect_snapshot(diff_tb(mini_diamond[1:90, ], mini_diamond))
 })
 
 test_that("diff_tb, add columns", {

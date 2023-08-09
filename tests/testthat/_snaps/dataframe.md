@@ -1595,42 +1595,40 @@
 # diff_tb, delete
 
     Code
-      diff_tb(mini_diamond, mini_diamond[1:10, ])
+      diff_tb(mini_diamond, mini_diamond[1:90, ])
     Output
-      # A tibble: 90 x 2
-         diff_type diff      
-         <chr>     <glue>    
-       1 d         -old[11, ]
-       2 d         -old[12, ]
-       3 d         -old[13, ]
-       4 d         -old[14, ]
-       5 d         -old[15, ]
-       6 d         -old[16, ]
-       7 d         -old[17, ]
-       8 d         -old[18, ]
-       9 d         -old[19, ]
-      10 d         -old[20, ]
-      # ... with 80 more rows
+      # A tibble: 10 x 2
+         diff_type diff       
+         <chr>     <glue>     
+       1 d         -old[91, ] 
+       2 d         -old[92, ] 
+       3 d         -old[93, ] 
+       4 d         -old[94, ] 
+       5 d         -old[95, ] 
+       6 d         -old[96, ] 
+       7 d         -old[97, ] 
+       8 d         -old[98, ] 
+       9 d         -old[99, ] 
+      10 d         -old[100, ]
 
 # diff_tb, add
 
     Code
-      diff_tb(mini_diamond[1:10, ], mini_diamond)
+      diff_tb(mini_diamond[1:90, ], mini_diamond)
     Output
-      # A tibble: 90 x 2
-         diff_type diff      
-         <chr>     <glue>    
-       1 a         +new[11, ]
-       2 a         +new[12, ]
-       3 a         +new[13, ]
-       4 a         +new[14, ]
-       5 a         +new[15, ]
-       6 a         +new[16, ]
-       7 a         +new[17, ]
-       8 a         +new[18, ]
-       9 a         +new[19, ]
-      10 a         +new[20, ]
-      # ... with 80 more rows
+      # A tibble: 10 x 2
+         diff_type diff       
+         <chr>     <glue>     
+       1 a         +new[91, ] 
+       2 a         +new[92, ] 
+       3 a         +new[93, ] 
+       4 a         +new[94, ] 
+       5 a         +new[95, ] 
+       6 a         +new[96, ] 
+       7 a         +new[97, ] 
+       8 a         +new[98, ] 
+       9 a         +new[99, ] 
+      10 a         +new[100, ]
 
 # diff_tb, add columns
 
