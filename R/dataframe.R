@@ -824,6 +824,35 @@ gen_tb <- function(nrow = 3, ncol = 4, fill = "float",
 
 
 
+ses <- function(x, y) {
+  attributes(x) <- NULL
+  attributes(y) <- NULL
+
+  if (is.character(x)) {
+    x <- enc2utf8(x)
+    y <- enc2utf8(y)
+  }
+
+  out <- diffobj::ses(x, y, warn = FALSE, max.diffs = 100)
+  out <- rematch2::re_match(out, paste0(
+    "(?:(?<x1>\\d+),)?(?<x2>\\d+)",
+    "(?<t>[acd])",
+    "(?:(?<y1>\\d+),)?(?<y2>\\d+)"
+  ))[1:5]
+
+  out$x1 <- ifelse(out$x1 == "", out$x2, out$x1)
+  out$y1 <- ifelse(out$y1 == "", out$y2, out$y1)
+
+  out$x1 <- as.integer(out$x1)
+  out$x2 <- as.integer(out$x2)
+  out$y1 <- as.integer(out$y1)
+  out$y2 <- as.integer(out$y2)
+
+  out
+}
+
+
+
 #' differences between two tibbles
 #'
 #' @param old old tibble
@@ -858,34 +887,35 @@ diff_tb <- function(old, new) {
   new_line <- tidyr::unite(new, "unite", dplyr::everything(), sep = "___") %>%
     dplyr::pull(.data[["unite"]])
 
-  diffs <- waldo:::ses_shortest(old_line, new_line, size = 10)
+  diffs <- ses(old_line, new_line)
 
 
   if (length(diffs) == 0) {
     return(tibble())
   } else {
     # diff rows
-    diffs <- diffs[[1]] %>% dplyr::filter(t != "x")
     res_row <- apply(
       diffs, 1,
       function(row) {
         old_rows <- row["x1"]:row["x2"]
         old_part <- old[old_rows, ] %>%
-          dplyr::mutate(diff = str_glue("-old[{old_rows}, ]"), .before = 1)
+          dplyr::mutate(`.diff` = str_glue("-old[{old_rows}, ]"), .before = 1)
         new_rows <- row["y1"]:row["y2"]
         new_part <- new[new_rows, ] %>%
-          dplyr::mutate(diff = str_glue("+new[{new_rows}, ]"), .before = 1)
+          dplyr::mutate(`.diff` = str_glue("+new[{new_rows}, ]"), .before = 1)
         if (row["t"] == "d") {
-          change_tb <- old_part %>% dplyr::mutate(diff_type = "d", .before = 1)
+          change_tb <- old_part %>%
+            dplyr::mutate(`.diff_type` = "d", .before = 1)
         } else if (row["t"] == "a") {
-          change_tb <- new_part %>% dplyr::mutate(diff_type = "a", .before = 1)
+          change_tb <- new_part %>%
+            dplyr::mutate(`.diff_type` = "a", .before = 1)
         } else if (row["t"] == "c") {
           change_tb <- dplyr::bind_rows(old_part, new_part)
           sel <- vctrs::vec_interleave(
             seq_len(nrow(old_part)), nrow(old_part) + seq_len(nrow(new_part))
           )
           change_tb <- change_tb[sel, ] %>%
-            dplyr::mutate(diff_type = "c", .before = 1)
+            dplyr::mutate(`.diff_type` = "c", .before = 1)
         }
         return(change_tb)
       }
@@ -896,13 +926,13 @@ diff_tb <- function(old, new) {
     # diff cols
     res_change_old <- res_row %>%
       dplyr::filter(
-        .data[["diff_type"]] == "c",
-        str_detect(.data[["diff"]], "^-old")
+        .data[[".diff_type"]] == "c",
+        str_detect(.data[[".diff"]], "^-old")
       )
     res_change_new <- res_row %>%
       dplyr::filter(
-        .data[["diff_type"]] == "c",
-        str_detect(.data[["diff"]], "^\\+new")
+        .data[[".diff_type"]] == "c",
+        str_detect(.data[[".diff"]], "^\\+new")
       )
     if (nrow(res_change_old) == nrow(res_change_new)) {
       diff_cols <- which(colSums(res_change_old %neq% res_change_new) > 0)
@@ -912,7 +942,7 @@ diff_tb <- function(old, new) {
 
     res <- res_row %>%
       dplyr::select(
-        dplyr::all_of(c("diff_type", "diff")),
+        dplyr::all_of(c(".diff_type", ".diff")),
         dplyr::all_of(diff_cols)
       )
 

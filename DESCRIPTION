@@ -12,12 +12,14 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Imports: 
     curl,
+    diffobj,
     dplyr (>= 1.1.0),
     grDevices,
     magrittr,
     methods,
     openxlsx,
     purrr,
+    rematch2,
     rlang (>= 0.4.11),
     seriation,
     stats,
