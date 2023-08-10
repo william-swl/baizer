@@ -17,3 +17,4 @@ package\.json
 ^CODE_OF_CONDUCT\.md$
 ^cran-comments\.md$
 \.lintr
+\.chat
