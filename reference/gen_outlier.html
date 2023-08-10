@@ -129,23 +129,23 @@ high outliers when method is <code>both</code></p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span>, <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">gen_outlier</span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -167 -175 -141 -178  -51  183  223  167  263  153</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -146 -119  -92  -87 -138  198  256  239  160  229</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># generation limits</span></span></span>
 <span class="r-in"><span><span class="fu">gen_outlier</span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span>, lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">80</span>, <span class="fl">160</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -80 -61 -64 -80 -67 155 154 151 159 154</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -53 -56 -72 -61 -78 152 156 157 157 153</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># assign the low and high outliers</span></span></span>
 <span class="r-in"><span><span class="fu">gen_outlier</span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span>, lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">80</span>, <span class="fl">160</span><span class="op">)</span>, assign_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.9</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -51 158 159 158 151 156 155 153 157 157</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -67 159 157 160 158 157 153 153 155 156</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># just generate low outliers</span></span></span>
 <span class="r-in"><span><span class="fu">gen_outlier</span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span>, side <span class="op">=</span> <span class="st">"low"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -100 -102  -61 -180  -87  -90  -63 -168  -51  -83</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -196 -165  -77 -136 -196 -116 -114 -199  -97  -98</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># return with raw vector</span></span></span>
 <span class="r-in"><span><span class="fu">gen_outlier</span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span>, only_out <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] -170  -62 -175  -64 -134  218  215  170  278  172    0    1    2    3    4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  -83 -193 -181 -115  -54  259  282  264  187  185    0    1    2    3    4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [16]    5    6    7    8    9   10   11   12   13   14   15   16   17   18   19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [31]   20   21   22   23   24   25   26   27   28   29   30   31   32   33   34</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [46]   35   36   37   38   39   40   41   42   43   44   45   46   47   48   49</span>
