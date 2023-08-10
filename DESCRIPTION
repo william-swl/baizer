@@ -27,8 +27,7 @@ Imports:
     tibble (>= 3.1),
     tidyr,
     utils,
-    vctrs,
-    waldo
+    vctrs
 Suggests: 
     covr,
     roxygen2,
