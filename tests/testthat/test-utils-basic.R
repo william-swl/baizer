@@ -414,3 +414,20 @@ test_that("broadcast_vector", {
 test_that("max_depth", {
   expect_identical(max_depth(list(a = list(b = list(c = 1), d = 2, e = 3))), 3)
 })
+
+test_that("str_replace_loc", {
+  expect_identical(str_replace_loc("abcde", 1, 3, "A"), "Ade")
+  expect_identical(str_replace_loc("abcde", 1, 10, "A"), "A")
+  expect_identical(
+    str_replace_loc(c("abcde", "ABCDE"), 1, 3, "A"), c("Ade", "ADE")
+  )
+  expect_error(str_replace_loc("abcde", 4, 3, "A"))
+})
+
+test_that("swap_vecname", {
+  v <- c("a" = "A", "b" = "B", "c" = "C")
+  expect_identical(
+    swap_vecname(v),
+    c("A" = "a", "B" = "b", "C" = "c")
+  )
+})
