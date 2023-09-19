@@ -22,5 +22,5 @@ replaced string
 replace specific characters in a string by their locations
 }
 \examples{
-str_replace_loc('abcde', 1, 3, 'A')
+str_replace_loc("abcde", 1, 3, "A")
 }

@@ -826,6 +826,23 @@ tb2 <- tibble(
 rewrite_na(tb1, tb2, by = c("id", "group"))
 ```
 
+- remove outliers and NA
+
+```{r dataframe-remove_outliers}
+out <- tibble(
+  id = stringr::str_c("out-", 1:20),
+  price = gen_outlier(mini_diamond %>% dplyr::pull(price), n = 20)
+)
+
+dim(bind_rows(mini_diamond, out))
+
+res <- bind_rows(mini_diamond, out) %>%
+  remove_outliers(price)
+
+dim(res)
+```
+
+
 
 ## stat
 - generate all combinations

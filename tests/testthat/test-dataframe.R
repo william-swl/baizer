@@ -366,3 +366,16 @@ test_that("rewrite_na", {
   )
   expect_snapshot(rewrite_na(tb1, tb2, by = c("id", "group")))
 })
+
+
+
+test_that("remove_outliers", {
+  out <- tibble(
+    id = str_c("out-", 1:20),
+    price = gen_outlier(mini_diamond %>% dplyr::pull(price), n = 20)
+  )
+  test <- bind_rows(mini_diamond, out)
+
+  expect_equal(nrow(remove_outliers(test, price)), 93)
+  expect_equal(nrow(remove_outliers(test, price, .by = "cut")), 110)
+})

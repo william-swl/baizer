@@ -16,7 +16,7 @@ swapped vector
 swap the names and values of a vector
 }
 \examples{
-v <- c('a'='A', 'b'='B', 'c'='C')
+v <- c("a" = "A", "b" = "B", "c" = "C")
 swap_vecname(v)
 
 }

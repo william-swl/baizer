@@ -1148,3 +1148,34 @@ rewrite_na <- function(x, y, by) {
 
   return(x)
 }
+
+
+
+#' remove outliers and NA
+#'
+#' @param df tibble
+#' @param col columns to remove outliers
+#' @param .by group by
+#'
+#' @return tibble
+#' @export
+#'
+#' @examples remove_outliers(mini_diamond, price)
+remove_outliers <- function(df, col, .by = NULL) {
+  col <- enquo(col)
+  .by <- enquo(.by)
+
+  res <- df %>%
+    dplyr::mutate(
+      iqr_ = IQR({{ col }}),
+      out_high_ = boxplot.stats({{ col }})$stats[4] + .data[["iqr_"]],
+      out_low_ = boxplot.stats({{ col }})$stats[2] - .data[["iqr_"]],
+      .by = {{ .by }}
+    ) %>%
+    dplyr::filter(
+      {{ col }} >= .data[["out_low_"]],
+      {{ col }} <= .data[["out_high_"]]
+    ) %>%
+    dplyr::select(-dplyr::all_of(c("iqr_", "out_high_", "out_low_")))
+  return(res)
+}
