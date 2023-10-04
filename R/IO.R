@@ -192,7 +192,7 @@ read_fmmd <- function(x, rm_blank_line = TRUE) {
 
   if (rm_blank_line == TRUE) {
     content_md <- str_remove(content_md, "^\\n+") %>%
-      str_replace("\\n*$", "\\n")
+      str_replace("\\n*$", "\n")
   }
 
   res[["content_md"]] <- content_md
