@@ -187,7 +187,7 @@ write_excel <- function(df, filename, sheetname = NULL, creator = "") {
 #' @examples read_fmmd("markdown_file.md")
 read_fmmd <- function(x, rm_blank_line = TRUE) {
   res <- rmarkdown::yaml_front_matter(x)
-  content_md <- readr::read_file(str_glue("{Pmmt}/230801-1.md")) %>%
+  content_md <- readr::read_file(x) %>%
     str_remove(stringr::regex("^---.+---", dotall = TRUE))
 
   if (rm_blank_line == TRUE) {
