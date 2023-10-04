@@ -115,6 +115,16 @@ split_path <- function(path) {
 }
 
 
+#' read excel file
+#'
+#' @param ... arguments of `readxl::read_excel`
+#'
+#' @return tibble
+#' @export
+read_excel <- function(...) {
+  readxl::read_excel(...)
+}
+
 
 #' write a tibble into an excel file
 #'
@@ -166,7 +176,29 @@ write_excel <- function(df, filename, sheetname = NULL, creator = "") {
   openxlsx::saveWorkbook(wb, filename, overwrite = TRUE)
 }
 
+#' read front matter markdown
+#'
+#' @param x path
+#' @param rm_blank_line remove leading and trailing blank lines
+#'
+#' @return list
+#' @export
+#'
+#' @examples read_fmmd("markdown_file.md")
+read_fmmd <- function(x, rm_blank_line = TRUE) {
+  res <- rmarkdown::yaml_front_matter(x)
+  content_md <- readr::read_file(str_glue("{Pmmt}/230801-1.md")) %>%
+    str_remove(stringr::regex("^---.+---", dotall = TRUE))
 
+  if (rm_blank_line == TRUE) {
+    content_md <- str_remove(content_md, "^\\n+") %>%
+      str_replace("\\n*$", "\\n")
+  }
+
+  res[["content_md"]] <- content_md
+
+  return(res)
+}
 
 
 #' connection parameters to remote server via sftp
