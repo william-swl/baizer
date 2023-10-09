@@ -201,7 +201,6 @@ read_excel_list <- function(x, ...) {
 #' @return list
 #' @export
 #'
-#' @examples read_fmmd("markdown_file.md")
 read_fmmd <- function(x, rm_blank_line = TRUE) {
   res <- rmarkdown::yaml_front_matter(x)
   content_md <- readr::read_file(x) %>%
