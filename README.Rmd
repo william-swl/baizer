@@ -910,6 +910,12 @@ unlink("some", recursive = TRUE)
 # write_excel(Ldf, '2sheets.xlsx')
 ```
 
+- read multi-sheet excel file as a list of tibbles
+```{r IO-read_excel_list}
+# read_excel_list("mini_diamond.xlsx")
+```
+
+
 - read front matter markdown
 ```{r IO-read_fmmd}
 # read_fmmd("markdown_file.md")
