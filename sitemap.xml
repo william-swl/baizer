@@ -133,6 +133,9 @@
     <loc>https://william-swl.github.io/baizer/reference/geom_mean.html</loc>
   </url>
   <url>
+    <loc>https://william-swl.github.io/baizer/reference/grapes-eq-grapes.html</loc>
+  </url>
+  <url>
     <loc>https://william-swl.github.io/baizer/reference/grapes-neq-grapes.html</loc>
   </url>
   <url>
@@ -236,6 +239,9 @@
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/reg_match.html</loc>
+  </url>
+  <url>
+    <loc>https://william-swl.github.io/baizer/reference/remove_monocol.html</loc>
   </url>
   <url>
     <loc>https://william-swl.github.io/baizer/reference/remove_nacol.html</loc>
