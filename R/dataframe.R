@@ -257,7 +257,7 @@ ordered_slice <- function(df, by, ordered_vector,
 #' remove columns by the ratio of NA
 #'
 #' @param df tibble
-#' @param max_ratio max NA ratio, default as 1 which remove the columns only
+#' @param max_ratio the max NA ratio to keep this column, default is 1
 #' have NA
 #'
 #' @return tibble
@@ -273,7 +273,7 @@ remove_nacol <- function(df, max_ratio = 1) {
 #' remove rows by the ratio of NA
 #'
 #' @param df tibble
-#' @param max_ratio max NA ratio, default as 1 which remove the rows only
+#' @param max_ratio the max NA ratio to keep this row, default is 1
 #' have NA
 #' @param ... only remove rows according to these columns,
 #' refer to `dplyr::select()`
@@ -294,6 +294,22 @@ remove_narow <- function(df, ..., max_ratio = 1) {
   return(res)
 }
 
+
+#' remove columns by the ratio of an identical single value (NA supported)
+#'
+#' @param df tibble
+#' @param max_ratio the max single value ratio to keep this column, default is 1
+#'
+#' @return tibble
+#' @export
+#'
+#' @examples # remove_monocol(df)
+remove_monocol <- function(df, max_ratio = 1) {
+  keep <- which(colSums(df %eq% df[rep(1, nrow(df)), ]) < max_ratio * nrow(df))
+  res <- df[, keep]
+
+  return(res)
+}
 
 
 #' separate numeric x into bins

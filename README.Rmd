@@ -601,7 +601,7 @@ ordered_slice(mini_diamond, id, c("id-3", "id-2", "unknown_id", "id-3", NA),
 )
 ```
 
-- remove columns by the ratio of NA, default to remove the columns only have NA
+- remove columns by the ratio of `NA`, default to remove the columns only have `NA`
 ```{r dataframe-remove_nacol}
 df_with_nacol <- dplyr::bind_cols(
   mini_diamond,
@@ -611,7 +611,7 @@ df_with_nacol
 
 remove_nacol(df_with_nacol)
 
-# remove the columns that have more than 20% NA values
+# only keep the columns that have less than 20% NA values
 # remove_nacol(df_with_nacol, max_ratio=0.2)
 ```
 
@@ -619,6 +619,29 @@ remove_nacol(df_with_nacol)
 ```{r dataframe-remove_narow}
 # remove_narow(df)
 ```
+
+- remove columns by the ratio of an identical single value (NA supported)
+
+```{r dataframe-remove_monocol}
+df_with_monocol <- tibble::tibble(
+  x = c(1, 1, 1, 2),
+  y = c(1, 1, 2, 2),
+  z = c(1, 1, 1, 1),
+  x1 = c(1, 1, 1, NA),
+  y1 = c(1, 1, NA, NA),
+  z1 = c(NA, NA, NA, NA),
+  x2 = c(NA, NA, NA, 1),
+  y2 = c(NA, NA, 1, 1)
+)
+
+df_with_monocol
+
+remove_monocol(df_with_monocol)
+
+# only keep the columns that have less than 60% identical values
+remove_monocol(df_with_monocol, max_ratio = 0.6)
+```
+
 
 - separate numeric vector into bins
 ```{r dataframe-hist_bins}

@@ -12,7 +12,7 @@ remove_narow(df, ..., max_ratio = 1)
 \item{...}{only remove rows according to these columns,
 refer to \code{dplyr::select()}}
 
-\item{max_ratio}{max NA ratio, default as 1 which remove the rows only
+\item{max_ratio}{the max NA ratio to keep this row, default is 1
 have NA}
 }
 \value{

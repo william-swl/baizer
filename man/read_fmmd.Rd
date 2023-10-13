@@ -17,6 +17,3 @@ list
 \description{
 read front matter markdown
 }
-\examples{
-read_fmmd("markdown_file.md")
-}

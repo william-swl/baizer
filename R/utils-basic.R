@@ -71,6 +71,21 @@ pkgver <- function(...) {
     !(is.na(x) & is.na(y))
 }
 
+
+#' equal calculation operator, support NA
+#'
+#' @param x value x
+#' @param y value y
+#'
+#' @return logical value, TRUE if x and y are not equal
+#' @export
+#'
+#' @examples NA %eq% NA
+`%eq%` <- function(x, y) {
+  !(x %neq% y)
+}
+
+
 #' not NA
 #'
 #' @param x value

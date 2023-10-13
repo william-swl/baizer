@@ -22,6 +22,16 @@ test_that("%neq%", {
   expect_identical("" %neq% " ", TRUE)
 })
 
+test_that("%eq%", {
+  expect_identical(0 %eq% 0, TRUE)
+  expect_identical(0 %eq% 1, FALSE)
+  expect_identical(0 %eq% NA, FALSE)
+  expect_identical(NA %eq% NA, TRUE)
+  expect_identical(NULL %eq% NA, logical(0))
+  expect_identical(NA %eq% NULL, logical(0))
+  expect_identical("" %eq% " ", FALSE)
+})
+
 
 test_that("collapse_vector", {
   expect_identical(

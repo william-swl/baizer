@@ -9,7 +9,7 @@ remove_nacol(df, max_ratio = 1)
 \arguments{
 \item{df}{tibble}
 
-\item{max_ratio}{max NA ratio, default as 1 which remove the columns only
+\item{max_ratio}{the max NA ratio to keep this column, default is 1
 have NA}
 }
 \value{
