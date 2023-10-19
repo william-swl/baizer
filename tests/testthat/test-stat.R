@@ -39,6 +39,17 @@ test_that("stat_test, exclude_func", {
   )
 })
 
+test_that("stat_test, one side NA", {
+  df <- mini_diamond %>%
+    dplyr::mutate(y = ifelse(cut == "Fair", NA, y)) %>%
+    dplyr::select(id, cut, x, y) %>%
+    pivot_longer(-c(id, cut), names_to = "type", values_to = "value")
+
+  expect_snapshot(
+    stat_test(df, x = type, y = value, .by = cut, paired = TRUE, paired_by = id)
+  )
+})
+
 
 test_that("stat_fc", {
   expect_snapshot(
@@ -77,6 +88,19 @@ test_that("stat_fc, method='geom_mean'", {
     ) %>% print(n = Inf)
   )
 })
+
+test_that("stat_fc, one side NA", {
+  df <- mini_diamond %>%
+    dplyr::mutate(y = ifelse(cut == "Fair", NA, y)) %>%
+    dplyr::select(id, cut, x, y) %>%
+    pivot_longer(-c(id, cut), names_to = "type", values_to = "value")
+
+  expect_snapshot(
+    stat_fc(df, x = type, y = value, .by = cut)
+  )
+})
+
+
 
 
 test_that("stat_phi", {

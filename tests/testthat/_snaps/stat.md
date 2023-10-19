@@ -56,6 +56,17 @@
         <chr> <chr>  <chr>  <int> <int> <chr>  <dbl> <chr>  
       1 value x      y        100   100 0.0078  0.01 **     
 
+# stat_test, one side NA
+
+    Code
+      stat_test(df, x = type, y = value, .by = cut, paired = TRUE, paired_by = id)
+    Output
+      # A tibble: 2 x 9
+        y     cut   group1 group2    n1    n2 p      plim psymbol
+        <chr> <chr> <chr>  <chr>  <int> <int> <chr> <dbl> <chr>  
+      1 value Good  x      y         31    31 0.65   1.01 NS     
+      2 value Ideal x      y         34    34 0.047  0.05 *      
+
 # stat_fc
 
     Code
@@ -190,4 +201,15 @@
       22 price VVS2    Fair   Good    3184. 4688. 0.679 0.68x 
       23 price VVS2    Fair   Ideal   3184.  967. 3.29  3.3x  
       24 price VVS2    Good   Ideal   4688.  967. 4.85  4.8x  
+
+# stat_fc, one side NA
+
+    Code
+      stat_fc(df, x = type, y = value, .by = cut)
+    Output
+      # A tibble: 2 x 8
+        y     cut   group1 group2    y1    y2    fc fc_fmt
+        <chr> <chr> <chr>  <chr>  <dbl> <dbl> <dbl> <chr> 
+      1 value Good  x      y       5.65  5.65 0.999 1.00x 
+      2 value Ideal x      y       5.57  5.59 0.997 1.00x 
 

@@ -36,7 +36,9 @@ stat_test(
 
 \item{alternative}{one of "two.sided" (default), "greater" or "less"}
 
-\item{exclude_func}{a function has two arguments and return bool value.}
+\item{exclude_func}{a function has two arguments and return bool value, used
+if paired=TRUE and will keep the comparation pairs which return TRUE by this
+function.}
 
 \item{method}{test method, 'wilcoxon' as default, one of \code{t|wilcoxon}}
 

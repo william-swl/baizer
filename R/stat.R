@@ -42,7 +42,9 @@ geom_mean <- function(x, na.rm = TRUE) {
 #' @param method test method, 'wilcoxon' as default, one of `t|wilcoxon`
 #' @param alternative one of "two.sided" (default), "greater" or "less"
 #' @param ns_symbol symbol of nonsignificant, 'NS' as default
-#' @param exclude_func a function has two arguments and return bool value.
+#' @param exclude_func a function has two arguments and return bool value, used
+#' if paired=TRUE and will keep the comparation pairs which return TRUE by this
+#' function.
 #' @param digits significant figure digits of p value
 #' If the data pair of a single test returns TRUE, then exclude this pair
 #' @return test result tibble
@@ -108,8 +110,6 @@ stat_test <- function(df, y, x, .by = NULL, trans = "identity",
     ydata1 <- ydata_list[res_in_super_group[["group1"]]]
     ydata2 <- ydata_list[res_in_super_group[["group2"]]]
 
-
-
     # test
     if (method == "wilcoxon") {
       test_func <- stats::wilcox.test
@@ -128,10 +128,16 @@ stat_test <- function(df, y, x, .by = NULL, trans = "identity",
         y2 <- y2[!exclude_mask]
       }
 
-      single_test_pvalue <- test_func(y1, y2,
-        paired = paired,
-        alternative = alternative
-      )$p.value
+      # if one side of test is NA set
+      if (all(is.na(y1)) || all(is.na(y2))) {
+        single_test_pvalue <- NA
+      } else {
+        single_test_pvalue <- test_func(y1, y2,
+          paired = paired,
+          alternative = alternative
+        )$p.value
+      }
+
       return(single_test_pvalue)
     }
 
@@ -149,7 +155,8 @@ stat_test <- function(df, y, x, .by = NULL, trans = "identity",
     res_in_super_group <- res_in_super_group %>%
       mutate(p = pvalue) %>%
       left_join(symbols, by = join_by(closest(p < plim))) %>% # nolint
-      mutate(p = signif_string(p, digits = digits))
+      mutate(p = signif_string(p, digits = digits)) %>%
+      filter(!is.na(.data[["p"]]))
 
     res_in_super_group <- res_in_super_group %>%
       mutate(y = quo_name(y), .before = 1)
@@ -267,7 +274,8 @@ stat_fc <- function(df, y, x, method = "mean", .by = NULL,
     }
 
     res_in_super_group <- res_in_super_group %>%
-      mutate(y = quo_name(y), .before = 1)
+      mutate(y = quo_name(y), .before = 1) %>%
+      filter(!is.na(.data[["fc"]]))
 
     return(res_in_super_group)
   }
@@ -290,6 +298,7 @@ stat_fc <- function(df, y, x, method = "mean", .by = NULL,
   }
   return(res)
 }
+
 
 
 #' calculate phi coefficient of two binary variables
