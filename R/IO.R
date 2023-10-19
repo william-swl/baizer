@@ -180,14 +180,13 @@ write_excel <- function(df, filename, sheetname = NULL, creator = "") {
 #' read multi-sheet excel file as a list of tibbles
 #'
 #' @param x path
-#' @param ... arguments of `readxl::read_excel`
 #'
 #' @return list
 #' @export
 #'
-read_excel_list <- function(x, ...) {
+read_excel_list <- function(x) {
   sheets <- readxl::excel_sheets(x)
-  res <- purrr::map(sheets, ~ readxl::read_excel(path = x, sheet = .x, ...))
+  res <- purrr::map(sheets, ~ readxl::read_excel(path = x, sheet = .x))
   names(res) <- sheets
   return(res)
 }

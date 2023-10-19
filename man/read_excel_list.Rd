@@ -4,12 +4,10 @@
 \alias{read_excel_list}
 \title{read multi-sheet excel file as a list of tibbles}
 \usage{
-read_excel_list(x, ...)
+read_excel_list(x)
 }
 \arguments{
 \item{x}{path}
-
-\item{...}{arguments of \code{readxl::read_excel}}
 }
 \value{
 list
