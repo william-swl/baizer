@@ -131,6 +131,9 @@ stat_test <- function(df, y, x, .by = NULL, trans = "identity",
       # if one side of test is NA set
       if (all(is.na(y1)) || all(is.na(y2))) {
         single_test_pvalue <- NA
+        # if identical
+      } else if (identical(y1, y2) == TRUE) {
+        single_test_pvalue <- 1
       } else {
         single_test_pvalue <- test_func(y1, y2,
           paired = paired,
